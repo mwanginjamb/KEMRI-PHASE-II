@@ -433,29 +433,16 @@ class ChangeRequestController extends Controller
         $value = Yii::$app->request->post('value');
         $filterKey = Yii::$app->request->post('filterKey');
 
-
-
         $service = Yii::$app->params['ServiceName'][$commitService];
 
-        if(!empty($filterKey))
-        {
-            $filter = [
-                $filterKey => Yii::$app->request->post('no')
-            ];
-        }
-        else{
-            $filter = [
-                'Line_No' => Yii::$app->request->post('no')
-            ];
-        }
 
-        $request = Yii::$app->navhelper->getData($service, $filter);
+        $request = Yii::$app->navhelper->readByKey($service, $key);
 
 
         $data = [];
-        if(is_array($request)){
+        if(is_object($request)){
             $data = [
-                'Key' => $request[0]->Key,
+                'Key' => $request->Key,
                 $name => $value
             ];
         }else{

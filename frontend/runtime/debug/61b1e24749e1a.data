@@ -1,0 +1,266 @@
+a:14:{s:6:"config";s:3120:"a:5:{s:10:"phpVersion";s:6:"7.4.13";s:10:"yiiVersion";s:6:"2.0.40";s:11:"application";a:8:{s:3:"yii";s:6:"2.0.40";s:4:"name";s:26:"KEMRI WELLCOME TRUST - ESS";s:7:"version";s:3:"1.0";s:8:"language";s:5:"en-US";s:14:"sourceLanguage";s:5:"en-US";s:7:"charset";s:5:"UTF-8";s:3:"env";s:4:"prod";s:5:"debug";b:1;}s:3:"php";a:5:{s:7:"version";s:6:"7.4.13";s:6:"xdebug";b:0;s:3:"apc";b:0;s:8:"memcache";b:0;s:9:"memcached";b:0;}s:10:"extensions";a:12:{s:16:"yiisoft/yii2-jui";a:3:{s:4:"name";s:16:"yiisoft/yii2-jui";s:7:"version";s:7:"2.0.7.0";s:5:"alias";a:1:{s:8:"@yii/jui";s:61:"C:\Apache24\htdocs\Kemri_welcometrust\vendor/yiisoft/yii2-jui";}}s:23:"janisto/yii2-timepicker";a:3:{s:4:"name";s:23:"janisto/yii2-timepicker";s:7:"version";s:7:"1.1.0.0";s:5:"alias";a:1:{s:19:"@janisto/timepicker";s:72:"C:\Apache24\htdocs\Kemri_welcometrust\vendor/janisto/yii2-timepicker/src";}}s:18:"kartik-v/yii2-mpdf";a:3:{s:4:"name";s:18:"kartik-v/yii2-mpdf";s:7:"version";s:10:"dev-master";s:5:"alias";a:1:{s:12:"@kartik/mpdf";s:67:"C:\Apache24\htdocs\Kemri_welcometrust\vendor/kartik-v/yii2-mpdf/src";}}s:25:"kartik-v/yii2-krajee-base";a:3:{s:4:"name";s:25:"kartik-v/yii2-krajee-base";s:7:"version";s:7:"2.0.6.0";s:5:"alias";a:1:{s:12:"@kartik/base";s:74:"C:\Apache24\htdocs\Kemri_welcometrust\vendor/kartik-v/yii2-krajee-base/src";}}s:31:"kartik-v/yii2-widget-timepicker";a:3:{s:4:"name";s:31:"kartik-v/yii2-widget-timepicker";s:7:"version";s:10:"dev-master";s:5:"alias";a:1:{s:12:"@kartik/time";s:80:"C:\Apache24\htdocs\Kemri_welcometrust\vendor/kartik-v/yii2-widget-timepicker/src";}}s:29:"lesha724/yii2-document-viewer";a:3:{s:4:"name";s:29:"lesha724/yii2-document-viewer";s:7:"version";s:7:"0.1.0.0";s:5:"alias";a:1:{s:24:"@lesha724/documentviewer";s:74:"C:\Apache24\htdocs\Kemri_welcometrust\vendor/lesha724/yii2-document-viewer";}}s:22:"yiisoft/yii2-bootstrap";a:3:{s:4:"name";s:22:"yiisoft/yii2-bootstrap";s:7:"version";s:8:"2.0.10.0";s:5:"alias";a:1:{s:14:"@yii/bootstrap";s:71:"C:\Apache24\htdocs\Kemri_welcometrust\vendor/yiisoft/yii2-bootstrap/src";}}s:18:"yiisoft/yii2-debug";a:3:{s:4:"name";s:18:"yiisoft/yii2-debug";s:7:"version";s:8:"2.1.16.0";s:5:"alias";a:1:{s:10:"@yii/debug";s:67:"C:\Apache24\htdocs\Kemri_welcometrust\vendor/yiisoft/yii2-debug/src";}}s:18:"yiisoft/yii2-faker";a:3:{s:4:"name";s:18:"yiisoft/yii2-faker";s:7:"version";s:7:"2.0.5.0";s:5:"alias";a:1:{s:10:"@yii/faker";s:67:"C:\Apache24\htdocs\Kemri_welcometrust\vendor/yiisoft/yii2-faker/src";}}s:16:"yiisoft/yii2-gii";a:3:{s:4:"name";s:16:"yiisoft/yii2-gii";s:7:"version";s:7:"2.1.4.0";s:5:"alias";a:1:{s:8:"@yii/gii";s:65:"C:\Apache24\htdocs\Kemri_welcometrust\vendor/yiisoft/yii2-gii/src";}}s:24:"yiisoft/yii2-swiftmailer";a:3:{s:4:"name";s:24:"yiisoft/yii2-swiftmailer";s:7:"version";s:7:"2.1.2.0";s:5:"alias";a:1:{s:16:"@yii/swiftmailer";s:73:"C:\Apache24\htdocs\Kemri_welcometrust\vendor/yiisoft/yii2-swiftmailer/src";}}s:21:"yiithings/yii2-dotenv";a:3:{s:4:"name";s:21:"yiithings/yii2-dotenv";s:7:"version";s:7:"1.0.2.0";s:5:"alias";a:1:{s:17:"@yiithings/dotenv";s:70:"C:\Apache24\htdocs\Kemri_welcometrust\vendor/yiithings/yii2-dotenv/src";}}}}";s:7:"request";s:8358:"a:15:{s:7:"flashes";a:0:{}s:10:"statusCode";i:200;s:14:"requestHeaders";a:15:{s:12:"content-type";s:0:"";s:14:"content-length";s:1:"0";s:14:"x-original-url";s:22:"/change-request/action";s:14:"sec-fetch-dest";s:5:"empty";s:14:"sec-fetch-mode";s:4:"cors";s:14:"sec-fetch-site";s:11:"same-origin";s:7:"sec-gpc";s:1:"1";s:10:"user-agent";s:114:"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.93 Safari/537.36";s:7:"referer";s:49:"http://localhost/change-request/view?No=CRN-00845";s:4:"host";s:9:"localhost";s:6:"cookie";s:237:"advanced-frontend=s4nd5qhn1jp8pqsmbf4ft0oft6; _csrf-frontend=fee674c5cc0db5f542a374dbb3b24c28f5423770c5f30507d54d6f433bb4f791a%3A2%3A%7Bi%3A0%3Bs%3A14%3A%22_csrf-frontend%22%3Bi%3A1%3Bs%3A32%3A%22Jy8m0KEYAx3brc9DARQyszXetuXYvsc6%22%3B%7D";s:15:"accept-language";s:14:"en-US,en;q=0.9";s:15:"accept-encoding";s:17:"gzip, deflate, br";s:6:"accept";s:3:"*/*";s:10:"connection";s:10:"keep-alive";}s:15:"responseHeaders";a:8:{s:12:"X-Powered-By";s:10:"PHP/7.4.13";s:7:"Expires";s:29:"Thu, 19 Nov 1981 08:52:00 GMT";s:13:"Cache-Control";s:35:"no-store, no-cache, must-revalidate";s:6:"Pragma";s:8:"no-cache";s:12:"Content-Type";s:31:"application/json; charset=UTF-8";s:11:"X-Debug-Tag";s:13:"61b1e24749e1a";s:16:"X-Debug-Duration";s:3:"184";s:12:"X-Debug-Link";s:37:"/debug/default/view?tag=61b1e24749e1a";}s:5:"route";s:21:"change-request/action";s:6:"action";s:60:"frontend\controllers\ChangeRequestController::actionAction()";s:12:"actionParams";a:0:{}s:7:"general";a:5:{s:6:"method";s:3:"GET";s:6:"isAjax";b:0;s:6:"isPjax";b:0;s:7:"isFlash";b:0;s:18:"isSecureConnection";b:0;}s:11:"requestBody";a:0:{}s:6:"SERVER";a:117:{s:13:"_FCGI_X_PIPE_";s:53:"\\.\pipe\IISFCGI-66c8faa3-f83f-4e76-a263-77108b7c7a99";s:15:"ALLUSERSPROFILE";s:14:"C:\ProgramData";s:7:"APPDATA";s:56:"C:\Windows\system32\config\systemprofile\AppData\Roaming";s:15:"APP_POOL_CONFIG";s:51:"C:\inetpub\temp\apppools\KEMRI ESS\KEMRI ESS.config";s:11:"APP_POOL_ID";s:9:"KEMRI ESS";s:18:"CommonProgramFiles";s:29:"C:\Program Files\Common Files";s:23:"CommonProgramFiles(x86)";s:35:"C:\Program Files (x86)\Common Files";s:18:"CommonProgramW6432";s:29:"C:\Program Files\Common Files";s:12:"COMPUTERNAME";s:11:"KEKLF-HRM52";s:7:"ComSpec";s:27:"C:\Windows\system32\cmd.exe";s:10:"DriverData";s:38:"C:\Windows\System32\Drivers\DriverData";s:12:"LOCALAPPDATA";s:54:"C:\Windows\system32\config\systemprofile\AppData\Local";s:20:"NUMBER_OF_PROCESSORS";s:1:"4";s:2:"OS";s:10:"Windows_NT";s:4:"Path";s:657:"C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\130\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\Microsoft SQL Server\130\DTS\Binn\;C:\Program Files\dotnet\;C:\Program Files (x86)\dotnet\;C:\php-7.4;C:\composer;C:\Program Files\Git\cmd;C:\Program Files\Microsoft\Web Platform Installer\;C:\Program Files (x86)\GnuWin32\bin;C:\Program Files\nodejs\;C:\Windows\system32\config\systemprofile\AppData\Local\Microsoft\WindowsApps";s:7:"PATHEXT";s:53:".COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC";s:22:"PROCESSOR_ARCHITECTURE";s:5:"AMD64";s:20:"PROCESSOR_IDENTIFIER";s:50:"Intel64 Family 6 Model 62 Stepping 4, GenuineIntel";s:15:"PROCESSOR_LEVEL";s:1:"6";s:18:"PROCESSOR_REVISION";s:4:"3e04";s:11:"ProgramData";s:14:"C:\ProgramData";s:12:"ProgramFiles";s:16:"C:\Program Files";s:17:"ProgramFiles(x86)";s:22:"C:\Program Files (x86)";s:12:"ProgramW6432";s:16:"C:\Program Files";s:12:"PSModulePath";s:247:"C:\Program Files\WindowsPowerShell\Modules;C:\Windows\system32\WindowsPowerShell\v1.0\Modules;C:\Program Files (x86)\Microsoft SQL Server\130\Tools\PowerShell\Modules\;C:\Program Files\Microsoft Dynamics 365 Business Central\140\Web Client\Modules";s:6:"PUBLIC";s:15:"C:\Users\Public";s:11:"SystemDrive";s:2:"C:";s:10:"SystemRoot";s:10:"C:\Windows";s:4:"TEMP";s:15:"C:\Windows\TEMP";s:3:"TMP";s:15:"C:\Windows\TEMP";s:7:"UATDATA";s:59:"C:\Windows\CCM\UATData\D9F8C395-CAB8-491d-B8AC-179A1FE1BE77";s:10:"USERDOMAIN";s:5:"KWTRP";s:8:"USERNAME";s:12:"KEKLF-HRM52$";s:11:"USERPROFILE";s:40:"C:\Windows\system32\config\systemprofile";s:6:"windir";s:10:"C:\Windows";s:14:"ORIG_PATH_INFO";s:10:"/index.php";s:3:"URL";s:10:"/index.php";s:15:"SERVER_SOFTWARE";s:18:"Microsoft-IIS/10.0";s:15:"SERVER_PROTOCOL";s:8:"HTTP/1.1";s:18:"SERVER_PORT_SECURE";s:1:"0";s:11:"SERVER_PORT";s:2:"80";s:11:"SERVER_NAME";s:9:"localhost";s:11:"SCRIPT_NAME";s:10:"/index.php";s:15:"SCRIPT_FILENAME";s:60:"C:\Apache24\htdocs\Kemri_welcometrust\frontend\web\index.php";s:11:"REQUEST_URI";s:22:"/change-request/action";s:14:"REQUEST_METHOD";s:3:"GET";s:11:"REMOTE_USER";s:0:"";s:11:"REMOTE_PORT";s:5:"59204";s:11:"REMOTE_HOST";s:3:"::1";s:11:"REMOTE_ADDR";s:3:"::1";s:12:"QUERY_STRING";s:0:"";s:15:"PATH_TRANSLATED";s:60:"C:\Apache24\htdocs\Kemri_welcometrust\frontend\web\index.php";s:10:"LOGON_USER";s:0:"";s:10:"LOCAL_ADDR";s:3:"::1";s:18:"INSTANCE_META_PATH";s:11:"/LM/W3SVC/4";s:13:"INSTANCE_NAME";s:9:"KEMRI ESS";s:11:"INSTANCE_ID";s:1:"4";s:20:"HTTPS_SERVER_SUBJECT";s:0:"";s:19:"HTTPS_SERVER_ISSUER";s:0:"";s:19:"HTTPS_SECRETKEYSIZE";s:0:"";s:13:"HTTPS_KEYSIZE";s:0:"";s:5:"HTTPS";s:3:"off";s:17:"GATEWAY_INTERFACE";s:7:"CGI/1.1";s:13:"DOCUMENT_ROOT";s:50:"C:\Apache24\htdocs\Kemri_welcometrust\frontend\web";s:12:"CONTENT_TYPE";s:0:"";s:14:"CONTENT_LENGTH";s:1:"0";s:12:"CERT_SUBJECT";s:0:"";s:17:"CERT_SERIALNUMBER";s:0:"";s:11:"CERT_ISSUER";s:0:"";s:10:"CERT_FLAGS";s:0:"";s:11:"CERT_COOKIE";s:0:"";s:9:"AUTH_USER";s:0:"";s:13:"AUTH_PASSWORD";s:0:"";s:9:"AUTH_TYPE";s:0:"";s:18:"APPL_PHYSICAL_PATH";s:51:"C:\Apache24\htdocs\Kemri_welcometrust\frontend\web\";s:12:"APPL_MD_PATH";s:16:"/LM/W3SVC/4/ROOT";s:20:"IIS_UrlRewriteModule";s:10:"7.1.1952.0";s:17:"WEBSOCKET_VERSION";s:2:"13";s:13:"UNENCODED_URL";s:22:"/change-request/action";s:19:"IIS_WasUrlRewritten";s:1:"1";s:19:"HTTP_X_ORIGINAL_URL";s:22:"/change-request/action";s:19:"HTTP_SEC_FETCH_DEST";s:5:"empty";s:19:"HTTP_SEC_FETCH_MODE";s:4:"cors";s:19:"HTTP_SEC_FETCH_SITE";s:11:"same-origin";s:12:"HTTP_SEC_GPC";s:1:"1";s:15:"HTTP_USER_AGENT";s:114:"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.93 Safari/537.36";s:12:"HTTP_REFERER";s:49:"http://localhost/change-request/view?No=CRN-00845";s:9:"HTTP_HOST";s:9:"localhost";s:11:"HTTP_COOKIE";s:237:"advanced-frontend=s4nd5qhn1jp8pqsmbf4ft0oft6; _csrf-frontend=fee674c5cc0db5f542a374dbb3b24c28f5423770c5f30507d54d6f433bb4f791a%3A2%3A%7Bi%3A0%3Bs%3A14%3A%22_csrf-frontend%22%3Bi%3A1%3Bs%3A32%3A%22Jy8m0KEYAx3brc9DARQyszXetuXYvsc6%22%3B%7D";s:20:"HTTP_ACCEPT_LANGUAGE";s:14:"en-US,en;q=0.9";s:20:"HTTP_ACCEPT_ENCODING";s:17:"gzip, deflate, br";s:11:"HTTP_ACCEPT";s:3:"*/*";s:19:"HTTP_CONTENT_LENGTH";s:1:"0";s:15:"HTTP_CONNECTION";s:10:"keep-alive";s:9:"FCGI_ROLE";s:9:"RESPONDER";s:8:"PHP_SELF";s:10:"/index.php";s:18:"REQUEST_TIME_FLOAT";d:1639047751.129957;s:12:"REQUEST_TIME";i:1639047751;s:12:"NAV_USERNAME";s:14:"SVC-HRMISADMIN";s:12:"NAV_PASSWORD";s:16:"j$8f!M9X(Wv2ZJ/=";s:10:"NAV_SERVER";s:11:"keklf-hrm52";s:7:"WS_PORT";s:4:"7047";s:12:"NAV_INSTANCE";s:5:"BC140";s:11:"NAV_COMPANY";s:12:"KWTRP%20LIVE";s:13:"NAV_DB_PREFIX";s:11:"KWTRP LIVE$";s:10:"FMS_SERVER";s:21:"keklf-fin05.kwtrp.org";s:11:"FMS_WS_PORT";s:4:"7047";s:12:"FMS_INSTANCE";s:7:"FmsLIVE";s:11:"FMS_COMPANY";s:24:"KEMRI%20Wellcome%20Trust";s:9:"AD_PREFIX";s:5:"KWTRP";s:9:"AD_SERVER";s:11:"KEKLF-ADS03";s:12:"GENRAL_TITLE";s:23:"Employee - Self Service";s:12:"WELCOME_TEXT";s:24:"KEMRI WELLCOME TRUST ESS";s:14:"CLIENT_COMPANY";s:20:"KEMRI WELLCOME TRUST";s:12:"DEMO_COMPANY";s:11:"IANSOFT LTD";s:14:"VENDOR_COMPANY";s:24:"IANSOFT TECHNOLOGIES LTD";s:7:"POWERED";s:11:"Iansoft Ltd";}s:3:"GET";a:0:{}s:4:"POST";a:0:{}s:6:"COOKIE";a:2:{s:17:"advanced-frontend";s:26:"s4nd5qhn1jp8pqsmbf4ft0oft6";s:14:"_csrf-frontend";s:140:"fee674c5cc0db5f542a374dbb3b24c28f5423770c5f30507d54d6f433bb4f791a:2:{i:0;s:14:"_csrf-frontend";i:1;s:32:"Jy8m0KEYAx3brc9DARQyszXetuXYvsc6";}";}s:5:"FILES";a:0:{}s:7:"SESSION";a:5:{s:7:"__flash";a:0:{}s:11:"__returnUrl";s:17:"http://localhost/";s:16:"IdentityPassword";s:12:"Kipngetich1#";s:4:"__id";s:17:"KWTRP\SVC-HRMCN01";s:8:"__expire";i:1639065751;}}";s:6:"router";s:1284:"a:3:{s:8:"messages";a:6:{i:21;a:6:{i:0;a:3:{s:4:"rule";s:3:"gii";s:5:"match";b:0;s:6:"parent";N;}i:1;i:8;i:2;s:32:"yii\web\UrlManager::parseRequest";i:3;d:1639047751.316313;i:4;a:0:{}i:5;i:6331392;}i:22;a:6:{i:0;a:3:{s:4:"rule";s:12:"gii/<id:\w+>";s:5:"match";b:0;s:6:"parent";N;}i:1;i:8;i:2;s:32:"yii\web\UrlManager::parseRequest";i:3;d:1639047751.316344;i:4;a:0:{}i:5;i:6332144;}i:23;a:6:{i:0;a:3:{s:4:"rule";s:41:"gii/<controller:[\w\-]+>/<action:[\w\-]+>";s:5:"match";b:0;s:6:"parent";N;}i:1;i:8;i:2;s:32:"yii\web\UrlManager::parseRequest";i:3;d:1639047751.316366;i:4;a:0:{}i:5;i:6332896;}i:24;a:6:{i:0;a:3:{s:4:"rule";s:5:"debug";s:5:"match";b:0;s:6:"parent";N;}i:1;i:8;i:2;s:32:"yii\web\UrlManager::parseRequest";i:3;d:1639047751.316381;i:4;a:0:{}i:5;i:6333648;}i:25;a:6:{i:0;a:3:{s:4:"rule";s:43:"debug/<controller:[\w\-]+>/<action:[\w\-]+>";s:5:"match";b:0;s:6:"parent";N;}i:1;i:8;i:2;s:32:"yii\web\UrlManager::parseRequest";i:3;d:1639047751.316397;i:4;a:0:{}i:5;i:6334400;}i:26;a:6:{i:0;s:55:"No matching URL rules. Using default URL parsing logic.";i:1;i:8;i:2;s:32:"yii\web\UrlManager::parseRequest";i:3;d:1639047751.316407;i:4;a:0:{}i:5;i:6334776;}}s:5:"route";s:21:"change-request/action";s:6:"action";s:60:"frontend\controllers\ChangeRequestController::actionAction()";}";s:3:"log";s:5540:"a:1:{s:8:"messages";a:14:{i:0;a:6:{i:0;s:33:"Bootstrap with yii\log\Dispatcher";i:1;i:8;i:2;s:31:"yii\base\Application::bootstrap";i:3;d:1639047751.18887;i:4;a:0:{}i:5;i:2596120;}i:1;a:6:{i:0;s:21:"Loading module: debug";i:1;i:8;i:2;s:26:"yii\base\Module::getModule";i:3;d:1639047751.188908;i:4;a:0:{}i:5;i:2597296;}i:2;a:6:{i:0;s:15:"Session started";i:1;i:4;i:2;s:21:"yii\web\Session::open";i:3;d:1639047751.219436;i:4;a:0:{}i:5;i:3639992;}i:3;a:6:{i:0;s:84:"Opening DB connection: sqlsrv:server=KEKLF-SQL55\POWERPIVOT;database=KEMRI_HRMIS_UAT";i:1;i:4;i:2;s:23:"yii\db\Connection::open";i:3;d:1639047751.254659;i:4;a:1:{i:0;a:5:{s:4:"file";s:60:"C:\Apache24\htdocs\Kemri_welcometrust\common\models\User.php";s:4:"line";i:78;s:8:"function";s:7:"findOne";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"::";}}i:5;i:5134792;}i:6;a:6:{i:0;s:498:"SELECT
+    [kcu].[constraint_name] AS [index_name],
+    [kcu].[column_name] AS [field_name]
+FROM [INFORMATION_SCHEMA].[KEY_COLUMN_USAGE] AS [kcu]
+LEFT JOIN [INFORMATION_SCHEMA].[TABLE_CONSTRAINTS] AS [tc] ON
+    [kcu].[table_schema] = [tc].[table_schema] AND
+    [kcu].[table_name] = [tc].[table_name] AND
+    [kcu].[constraint_name] = [tc].[constraint_name]
+WHERE
+    [tc].[constraint_type] = 'PRIMARY KEY' AND
+    [kcu].[table_name] = 'KWTRP LIVE$User Setup ' AND
+    [kcu].[table_schema] = 'dbo'";i:1;i:4;i:2;s:21:"yii\db\Command::query";i:3;d:1639047751.255881;i:4;a:1:{i:0;a:5:{s:4:"file";s:60:"C:\Apache24\htdocs\Kemri_welcometrust\common\models\User.php";s:4:"line";i:78;s:8:"function";s:7:"findOne";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"::";}}i:5;i:5151552;}i:9;a:6:{i:0;s:1255:"SELECT
+ [t1].[column_name],
+ [t1].[is_nullable],
+ CASE WHEN [t1].[data_type] IN ('char','varchar','nchar','nvarchar','binary','varbinary') THEN
+    CASE WHEN [t1].[character_maximum_length] = NULL OR [t1].[character_maximum_length] = -1 THEN
+        [t1].[data_type]
+    ELSE
+        [t1].[data_type] + '(' + LTRIM(RTRIM(CONVERT(CHAR,[t1].[character_maximum_length]))) + ')'
+    END
+ ELSE
+    [t1].[data_type]
+ END AS 'data_type',
+ [t1].[column_default],
+ COLUMNPROPERTY(OBJECT_ID([t1].[table_schema] + '.' + [t1].[table_name]), [t1].[column_name], 'IsIdentity') AS is_identity,
+ COLUMNPROPERTY(OBJECT_ID([t1].[table_schema] + '.' + [t1].[table_name]), [t1].[column_name], 'IsComputed') AS is_computed,
+ (
+    SELECT CONVERT(VARCHAR, [t2].[value])
+		FROM [sys].[extended_properties] AS [t2]
+		WHERE
+			[t2].[class] = 1 AND
+			[t2].[class_desc] = 'OBJECT_OR_COLUMN' AND
+			[t2].[name] = 'MS_Description' AND
+			[t2].[major_id] = OBJECT_ID([t1].[TABLE_SCHEMA] + '.' + [t1].[table_name]) AND
+			[t2].[minor_id] = COLUMNPROPERTY(OBJECT_ID([t1].[TABLE_SCHEMA] + '.' + [t1].[TABLE_NAME]), [t1].[COLUMN_NAME], 'ColumnID')
+ ) as comment
+FROM [INFORMATION_SCHEMA].[COLUMNS] AS [t1]
+WHERE [t1].[table_name] = 'KWTRP LIVE$User Setup ' AND [t1].[table_schema] = 'dbo'";i:1;i:4;i:2;s:21:"yii\db\Command::query";i:3;d:1639047751.262254;i:4;a:1:{i:0;a:5:{s:4:"file";s:60:"C:\Apache24\htdocs\Kemri_welcometrust\common\models\User.php";s:4:"line";i:78;s:8:"function";s:7:"findOne";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"::";}}i:5;i:5154280;}i:12;a:6:{i:0;s:648:"SELECT
+	[fk].[name] AS [fk_name],
+	[cp].[name] AS [fk_column_name],
+	OBJECT_NAME([fk].[referenced_object_id]) AS [uq_table_name],
+	[cr].[name] AS [uq_column_name]
+FROM
+	[sys].[foreign_keys] AS [fk]
+	INNER JOIN [sys].[foreign_key_columns] AS [fkc] ON
+		[fk].[object_id] = [fkc].[constraint_object_id]
+	INNER JOIN [sys].[columns] AS [cp] ON
+		[fk].[parent_object_id] = [cp].[object_id] AND
+		[fkc].[parent_column_id] = [cp].[column_id]
+	INNER JOIN [sys].[columns] AS [cr] ON
+		[fk].[referenced_object_id] = [cr].[object_id] AND
+		[fkc].[referenced_column_id] = [cr].[column_id]
+WHERE
+	[fk].[parent_object_id] = OBJECT_ID('dbo.KWTRP LIVE$User Setup ')";i:1;i:4;i:2;s:21:"yii\db\Command::query";i:3;d:1639047751.274808;i:4;a:1:{i:0;a:5:{s:4:"file";s:60:"C:\Apache24\htdocs\Kemri_welcometrust\common\models\User.php";s:4:"line";i:78;s:8:"function";s:7:"findOne";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"::";}}i:5;i:5202496;}i:15;a:6:{i:0;s:74:"SELECT * FROM [KWTRP LIVE$User Setup ] WHERE [User ID]='KWTRP\SVC-HRMCN01'";i:1;i:4;i:2;s:21:"yii\db\Command::query";i:3;d:1639047751.28824;i:4;a:1:{i:0;a:5:{s:4:"file";s:60:"C:\Apache24\htdocs\Kemri_welcometrust\common\models\User.php";s:4:"line";i:78;s:8:"function";s:7:"findOne";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"::";}}i:5;i:5579512;}i:18;a:6:{i:0;s:44:"Bootstrap with yii\debug\Module::bootstrap()";i:1;i:8;i:2;s:31:"yii\base\Application::bootstrap";i:3;d:1639047751.300989;i:4;a:0:{}i:5;i:5798672;}i:19;a:6:{i:0;s:19:"Loading module: gii";i:1;i:8;i:2;s:26:"yii\base\Module::getModule";i:3;d:1639047751.310529;i:4;a:0:{}i:5;i:6145504;}i:20;a:6:{i:0;s:42:"Bootstrap with yii\gii\Module::bootstrap()";i:1;i:8;i:2;s:31:"yii\base\Application::bootstrap";i:3;d:1639047751.311645;i:4;a:0:{}i:5;i:6172232;}i:27;a:6:{i:0;s:40:"Route requested: 'change-request/action'";i:1;i:8;i:2;s:34:"yii\web\Application::handleRequest";i:3;d:1639047751.316429;i:4;a:0:{}i:5;i:6334536;}i:28;a:6:{i:0;s:35:"Route to run: change-request/action";i:1;i:8;i:2;s:30:"yii\base\Controller::runAction";i:3;d:1639047751.321033;i:4;a:0:{}i:5;i:6479912;}i:29;a:6:{i:0;s:76:"Running action: frontend\controllers\ChangeRequestController::actionAction()";i:1;i:8;i:2;s:36:"yii\base\InlineAction::runWithParams";i:3;d:1639047751.323165;i:4;a:0:{}i:5;i:6525848;}}}";s:9:"profiling";s:8310:"a:3:{s:6:"memory";i:6948120;s:4:"time";d:0.19198298454284668;s:8:"messages";a:10:{i:4;a:6:{i:0;s:84:"Opening DB connection: sqlsrv:server=KEKLF-SQL55\POWERPIVOT;database=KEMRI_HRMIS_UAT";i:1;i:80;i:2;s:23:"yii\db\Connection::open";i:3;d:1639047751.254742;i:4;a:1:{i:0;a:5:{s:4:"file";s:60:"C:\Apache24\htdocs\Kemri_welcometrust\common\models\User.php";s:4:"line";i:78;s:8:"function";s:7:"findOne";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"::";}}i:5;i:5135920;}i:5;a:6:{i:0;s:84:"Opening DB connection: sqlsrv:server=KEKLF-SQL55\POWERPIVOT;database=KEMRI_HRMIS_UAT";i:1;i:96;i:2;s:23:"yii\db\Connection::open";i:3;d:1639047751.255788;i:4;a:1:{i:0;a:5:{s:4:"file";s:60:"C:\Apache24\htdocs\Kemri_welcometrust\common\models\User.php";s:4:"line";i:78;s:8:"function";s:7:"findOne";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"::";}}i:5;i:5148584;}i:7;a:6:{i:0;s:498:"SELECT
+    [kcu].[constraint_name] AS [index_name],
+    [kcu].[column_name] AS [field_name]
+FROM [INFORMATION_SCHEMA].[KEY_COLUMN_USAGE] AS [kcu]
+LEFT JOIN [INFORMATION_SCHEMA].[TABLE_CONSTRAINTS] AS [tc] ON
+    [kcu].[table_schema] = [tc].[table_schema] AND
+    [kcu].[table_name] = [tc].[table_name] AND
+    [kcu].[constraint_name] = [tc].[constraint_name]
+WHERE
+    [tc].[constraint_type] = 'PRIMARY KEY' AND
+    [kcu].[table_name] = 'KWTRP LIVE$User Setup ' AND
+    [kcu].[table_schema] = 'dbo'";i:1;i:80;i:2;s:21:"yii\db\Command::query";i:3;d:1639047751.256105;i:4;a:1:{i:0;a:5:{s:4:"file";s:60:"C:\Apache24\htdocs\Kemri_welcometrust\common\models\User.php";s:4:"line";i:78;s:8:"function";s:7:"findOne";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"::";}}i:5;i:5154864;}i:8;a:6:{i:0;s:498:"SELECT
+    [kcu].[constraint_name] AS [index_name],
+    [kcu].[column_name] AS [field_name]
+FROM [INFORMATION_SCHEMA].[KEY_COLUMN_USAGE] AS [kcu]
+LEFT JOIN [INFORMATION_SCHEMA].[TABLE_CONSTRAINTS] AS [tc] ON
+    [kcu].[table_schema] = [tc].[table_schema] AND
+    [kcu].[table_name] = [tc].[table_name] AND
+    [kcu].[constraint_name] = [tc].[constraint_name]
+WHERE
+    [tc].[constraint_type] = 'PRIMARY KEY' AND
+    [kcu].[table_name] = 'KWTRP LIVE$User Setup ' AND
+    [kcu].[table_schema] = 'dbo'";i:1;i:96;i:2;s:21:"yii\db\Command::query";i:3;d:1639047751.260621;i:4;a:1:{i:0;a:5:{s:4:"file";s:60:"C:\Apache24\htdocs\Kemri_welcometrust\common\models\User.php";s:4:"line";i:78;s:8:"function";s:7:"findOne";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"::";}}i:5;i:5158088;}i:10;a:6:{i:0;s:1255:"SELECT
+ [t1].[column_name],
+ [t1].[is_nullable],
+ CASE WHEN [t1].[data_type] IN ('char','varchar','nchar','nvarchar','binary','varbinary') THEN
+    CASE WHEN [t1].[character_maximum_length] = NULL OR [t1].[character_maximum_length] = -1 THEN
+        [t1].[data_type]
+    ELSE
+        [t1].[data_type] + '(' + LTRIM(RTRIM(CONVERT(CHAR,[t1].[character_maximum_length]))) + ')'
+    END
+ ELSE
+    [t1].[data_type]
+ END AS 'data_type',
+ [t1].[column_default],
+ COLUMNPROPERTY(OBJECT_ID([t1].[table_schema] + '.' + [t1].[table_name]), [t1].[column_name], 'IsIdentity') AS is_identity,
+ COLUMNPROPERTY(OBJECT_ID([t1].[table_schema] + '.' + [t1].[table_name]), [t1].[column_name], 'IsComputed') AS is_computed,
+ (
+    SELECT CONVERT(VARCHAR, [t2].[value])
+		FROM [sys].[extended_properties] AS [t2]
+		WHERE
+			[t2].[class] = 1 AND
+			[t2].[class_desc] = 'OBJECT_OR_COLUMN' AND
+			[t2].[name] = 'MS_Description' AND
+			[t2].[major_id] = OBJECT_ID([t1].[TABLE_SCHEMA] + '.' + [t1].[table_name]) AND
+			[t2].[minor_id] = COLUMNPROPERTY(OBJECT_ID([t1].[TABLE_SCHEMA] + '.' + [t1].[TABLE_NAME]), [t1].[COLUMN_NAME], 'ColumnID')
+ ) as comment
+FROM [INFORMATION_SCHEMA].[COLUMNS] AS [t1]
+WHERE [t1].[table_name] = 'KWTRP LIVE$User Setup ' AND [t1].[table_schema] = 'dbo'";i:1;i:80;i:2;s:21:"yii\db\Command::query";i:3;d:1639047751.262432;i:4;a:1:{i:0;a:5:{s:4:"file";s:60:"C:\Apache24\htdocs\Kemri_welcometrust\common\models\User.php";s:4:"line";i:78;s:8:"function";s:7:"findOne";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"::";}}i:5;i:5158760;}i:11;a:6:{i:0;s:1255:"SELECT
+ [t1].[column_name],
+ [t1].[is_nullable],
+ CASE WHEN [t1].[data_type] IN ('char','varchar','nchar','nvarchar','binary','varbinary') THEN
+    CASE WHEN [t1].[character_maximum_length] = NULL OR [t1].[character_maximum_length] = -1 THEN
+        [t1].[data_type]
+    ELSE
+        [t1].[data_type] + '(' + LTRIM(RTRIM(CONVERT(CHAR,[t1].[character_maximum_length]))) + ')'
+    END
+ ELSE
+    [t1].[data_type]
+ END AS 'data_type',
+ [t1].[column_default],
+ COLUMNPROPERTY(OBJECT_ID([t1].[table_schema] + '.' + [t1].[table_name]), [t1].[column_name], 'IsIdentity') AS is_identity,
+ COLUMNPROPERTY(OBJECT_ID([t1].[table_schema] + '.' + [t1].[table_name]), [t1].[column_name], 'IsComputed') AS is_computed,
+ (
+    SELECT CONVERT(VARCHAR, [t2].[value])
+		FROM [sys].[extended_properties] AS [t2]
+		WHERE
+			[t2].[class] = 1 AND
+			[t2].[class_desc] = 'OBJECT_OR_COLUMN' AND
+			[t2].[name] = 'MS_Description' AND
+			[t2].[major_id] = OBJECT_ID([t1].[TABLE_SCHEMA] + '.' + [t1].[table_name]) AND
+			[t2].[minor_id] = COLUMNPROPERTY(OBJECT_ID([t1].[TABLE_SCHEMA] + '.' + [t1].[TABLE_NAME]), [t1].[COLUMN_NAME], 'ColumnID')
+ ) as comment
+FROM [INFORMATION_SCHEMA].[COLUMNS] AS [t1]
+WHERE [t1].[table_name] = 'KWTRP LIVE$User Setup ' AND [t1].[table_schema] = 'dbo'";i:1;i:96;i:2;s:21:"yii\db\Command::query";i:3;d:1639047751.271582;i:4;a:1:{i:0;a:5:{s:4:"file";s:60:"C:\Apache24\htdocs\Kemri_welcometrust\common\models\User.php";s:4:"line";i:78;s:8:"function";s:7:"findOne";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"::";}}i:5;i:5190248;}i:13;a:6:{i:0;s:648:"SELECT
+	[fk].[name] AS [fk_name],
+	[cp].[name] AS [fk_column_name],
+	OBJECT_NAME([fk].[referenced_object_id]) AS [uq_table_name],
+	[cr].[name] AS [uq_column_name]
+FROM
+	[sys].[foreign_keys] AS [fk]
+	INNER JOIN [sys].[foreign_key_columns] AS [fkc] ON
+		[fk].[object_id] = [fkc].[constraint_object_id]
+	INNER JOIN [sys].[columns] AS [cp] ON
+		[fk].[parent_object_id] = [cp].[object_id] AND
+		[fkc].[parent_column_id] = [cp].[column_id]
+	INNER JOIN [sys].[columns] AS [cr] ON
+		[fk].[referenced_object_id] = [cr].[object_id] AND
+		[fkc].[referenced_column_id] = [cr].[column_id]
+WHERE
+	[fk].[parent_object_id] = OBJECT_ID('dbo.KWTRP LIVE$User Setup ')";i:1;i:80;i:2;s:21:"yii\db\Command::query";i:3;d:1639047751.274945;i:4;a:1:{i:0;a:5:{s:4:"file";s:60:"C:\Apache24\htdocs\Kemri_welcometrust\common\models\User.php";s:4:"line";i:78;s:8:"function";s:7:"findOne";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"::";}}i:5;i:5206584;}i:14;a:6:{i:0;s:648:"SELECT
+	[fk].[name] AS [fk_name],
+	[cp].[name] AS [fk_column_name],
+	OBJECT_NAME([fk].[referenced_object_id]) AS [uq_table_name],
+	[cr].[name] AS [uq_column_name]
+FROM
+	[sys].[foreign_keys] AS [fk]
+	INNER JOIN [sys].[foreign_key_columns] AS [fkc] ON
+		[fk].[object_id] = [fkc].[constraint_object_id]
+	INNER JOIN [sys].[columns] AS [cp] ON
+		[fk].[parent_object_id] = [cp].[object_id] AND
+		[fkc].[parent_column_id] = [cp].[column_id]
+	INNER JOIN [sys].[columns] AS [cr] ON
+		[fk].[referenced_object_id] = [cr].[object_id] AND
+		[fkc].[referenced_column_id] = [cr].[column_id]
+WHERE
+	[fk].[parent_object_id] = OBJECT_ID('dbo.KWTRP LIVE$User Setup ')";i:1;i:96;i:2;s:21:"yii\db\Command::query";i:3;d:1639047751.276515;i:4;a:1:{i:0;a:5:{s:4:"file";s:60:"C:\Apache24\htdocs\Kemri_welcometrust\common\models\User.php";s:4:"line";i:78;s:8:"function";s:7:"findOne";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"::";}}i:5;i:5208664;}i:16;a:6:{i:0;s:74:"SELECT * FROM [KWTRP LIVE$User Setup ] WHERE [User ID]='KWTRP\SVC-HRMCN01'";i:1;i:80;i:2;s:21:"yii\db\Command::query";i:3;d:1639047751.288415;i:4;a:1:{i:0;a:5:{s:4:"file";s:60:"C:\Apache24\htdocs\Kemri_welcometrust\common\models\User.php";s:4:"line";i:78;s:8:"function";s:7:"findOne";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"::";}}i:5;i:5581072;}i:17;a:6:{i:0;s:74:"SELECT * FROM [KWTRP LIVE$User Setup ] WHERE [User ID]='KWTRP\SVC-HRMCN01'";i:1;i:96;i:2;s:21:"yii\db\Command::query";i:3;d:1639047751.290406;i:4;a:1:{i:0;a:5:{s:4:"file";s:60:"C:\Apache24\htdocs\Kemri_welcometrust\common\models\User.php";s:4:"line";i:78;s:8:"function";s:7:"findOne";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"::";}}i:5;i:5601784;}}}";s:2:"db";s:7463:"a:1:{s:8:"messages";a:8:{i:7;a:6:{i:0;s:498:"SELECT
+    [kcu].[constraint_name] AS [index_name],
+    [kcu].[column_name] AS [field_name]
+FROM [INFORMATION_SCHEMA].[KEY_COLUMN_USAGE] AS [kcu]
+LEFT JOIN [INFORMATION_SCHEMA].[TABLE_CONSTRAINTS] AS [tc] ON
+    [kcu].[table_schema] = [tc].[table_schema] AND
+    [kcu].[table_name] = [tc].[table_name] AND
+    [kcu].[constraint_name] = [tc].[constraint_name]
+WHERE
+    [tc].[constraint_type] = 'PRIMARY KEY' AND
+    [kcu].[table_name] = 'KWTRP LIVE$User Setup ' AND
+    [kcu].[table_schema] = 'dbo'";i:1;i:80;i:2;s:21:"yii\db\Command::query";i:3;d:1639047751.256105;i:4;a:1:{i:0;a:5:{s:4:"file";s:60:"C:\Apache24\htdocs\Kemri_welcometrust\common\models\User.php";s:4:"line";i:78;s:8:"function";s:7:"findOne";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"::";}}i:5;i:5154864;}i:8;a:6:{i:0;s:498:"SELECT
+    [kcu].[constraint_name] AS [index_name],
+    [kcu].[column_name] AS [field_name]
+FROM [INFORMATION_SCHEMA].[KEY_COLUMN_USAGE] AS [kcu]
+LEFT JOIN [INFORMATION_SCHEMA].[TABLE_CONSTRAINTS] AS [tc] ON
+    [kcu].[table_schema] = [tc].[table_schema] AND
+    [kcu].[table_name] = [tc].[table_name] AND
+    [kcu].[constraint_name] = [tc].[constraint_name]
+WHERE
+    [tc].[constraint_type] = 'PRIMARY KEY' AND
+    [kcu].[table_name] = 'KWTRP LIVE$User Setup ' AND
+    [kcu].[table_schema] = 'dbo'";i:1;i:96;i:2;s:21:"yii\db\Command::query";i:3;d:1639047751.260621;i:4;a:1:{i:0;a:5:{s:4:"file";s:60:"C:\Apache24\htdocs\Kemri_welcometrust\common\models\User.php";s:4:"line";i:78;s:8:"function";s:7:"findOne";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"::";}}i:5;i:5158088;}i:10;a:6:{i:0;s:1255:"SELECT
+ [t1].[column_name],
+ [t1].[is_nullable],
+ CASE WHEN [t1].[data_type] IN ('char','varchar','nchar','nvarchar','binary','varbinary') THEN
+    CASE WHEN [t1].[character_maximum_length] = NULL OR [t1].[character_maximum_length] = -1 THEN
+        [t1].[data_type]
+    ELSE
+        [t1].[data_type] + '(' + LTRIM(RTRIM(CONVERT(CHAR,[t1].[character_maximum_length]))) + ')'
+    END
+ ELSE
+    [t1].[data_type]
+ END AS 'data_type',
+ [t1].[column_default],
+ COLUMNPROPERTY(OBJECT_ID([t1].[table_schema] + '.' + [t1].[table_name]), [t1].[column_name], 'IsIdentity') AS is_identity,
+ COLUMNPROPERTY(OBJECT_ID([t1].[table_schema] + '.' + [t1].[table_name]), [t1].[column_name], 'IsComputed') AS is_computed,
+ (
+    SELECT CONVERT(VARCHAR, [t2].[value])
+		FROM [sys].[extended_properties] AS [t2]
+		WHERE
+			[t2].[class] = 1 AND
+			[t2].[class_desc] = 'OBJECT_OR_COLUMN' AND
+			[t2].[name] = 'MS_Description' AND
+			[t2].[major_id] = OBJECT_ID([t1].[TABLE_SCHEMA] + '.' + [t1].[table_name]) AND
+			[t2].[minor_id] = COLUMNPROPERTY(OBJECT_ID([t1].[TABLE_SCHEMA] + '.' + [t1].[TABLE_NAME]), [t1].[COLUMN_NAME], 'ColumnID')
+ ) as comment
+FROM [INFORMATION_SCHEMA].[COLUMNS] AS [t1]
+WHERE [t1].[table_name] = 'KWTRP LIVE$User Setup ' AND [t1].[table_schema] = 'dbo'";i:1;i:80;i:2;s:21:"yii\db\Command::query";i:3;d:1639047751.262432;i:4;a:1:{i:0;a:5:{s:4:"file";s:60:"C:\Apache24\htdocs\Kemri_welcometrust\common\models\User.php";s:4:"line";i:78;s:8:"function";s:7:"findOne";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"::";}}i:5;i:5158760;}i:11;a:6:{i:0;s:1255:"SELECT
+ [t1].[column_name],
+ [t1].[is_nullable],
+ CASE WHEN [t1].[data_type] IN ('char','varchar','nchar','nvarchar','binary','varbinary') THEN
+    CASE WHEN [t1].[character_maximum_length] = NULL OR [t1].[character_maximum_length] = -1 THEN
+        [t1].[data_type]
+    ELSE
+        [t1].[data_type] + '(' + LTRIM(RTRIM(CONVERT(CHAR,[t1].[character_maximum_length]))) + ')'
+    END
+ ELSE
+    [t1].[data_type]
+ END AS 'data_type',
+ [t1].[column_default],
+ COLUMNPROPERTY(OBJECT_ID([t1].[table_schema] + '.' + [t1].[table_name]), [t1].[column_name], 'IsIdentity') AS is_identity,
+ COLUMNPROPERTY(OBJECT_ID([t1].[table_schema] + '.' + [t1].[table_name]), [t1].[column_name], 'IsComputed') AS is_computed,
+ (
+    SELECT CONVERT(VARCHAR, [t2].[value])
+		FROM [sys].[extended_properties] AS [t2]
+		WHERE
+			[t2].[class] = 1 AND
+			[t2].[class_desc] = 'OBJECT_OR_COLUMN' AND
+			[t2].[name] = 'MS_Description' AND
+			[t2].[major_id] = OBJECT_ID([t1].[TABLE_SCHEMA] + '.' + [t1].[table_name]) AND
+			[t2].[minor_id] = COLUMNPROPERTY(OBJECT_ID([t1].[TABLE_SCHEMA] + '.' + [t1].[TABLE_NAME]), [t1].[COLUMN_NAME], 'ColumnID')
+ ) as comment
+FROM [INFORMATION_SCHEMA].[COLUMNS] AS [t1]
+WHERE [t1].[table_name] = 'KWTRP LIVE$User Setup ' AND [t1].[table_schema] = 'dbo'";i:1;i:96;i:2;s:21:"yii\db\Command::query";i:3;d:1639047751.271582;i:4;a:1:{i:0;a:5:{s:4:"file";s:60:"C:\Apache24\htdocs\Kemri_welcometrust\common\models\User.php";s:4:"line";i:78;s:8:"function";s:7:"findOne";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"::";}}i:5;i:5190248;}i:13;a:6:{i:0;s:648:"SELECT
+	[fk].[name] AS [fk_name],
+	[cp].[name] AS [fk_column_name],
+	OBJECT_NAME([fk].[referenced_object_id]) AS [uq_table_name],
+	[cr].[name] AS [uq_column_name]
+FROM
+	[sys].[foreign_keys] AS [fk]
+	INNER JOIN [sys].[foreign_key_columns] AS [fkc] ON
+		[fk].[object_id] = [fkc].[constraint_object_id]
+	INNER JOIN [sys].[columns] AS [cp] ON
+		[fk].[parent_object_id] = [cp].[object_id] AND
+		[fkc].[parent_column_id] = [cp].[column_id]
+	INNER JOIN [sys].[columns] AS [cr] ON
+		[fk].[referenced_object_id] = [cr].[object_id] AND
+		[fkc].[referenced_column_id] = [cr].[column_id]
+WHERE
+	[fk].[parent_object_id] = OBJECT_ID('dbo.KWTRP LIVE$User Setup ')";i:1;i:80;i:2;s:21:"yii\db\Command::query";i:3;d:1639047751.274945;i:4;a:1:{i:0;a:5:{s:4:"file";s:60:"C:\Apache24\htdocs\Kemri_welcometrust\common\models\User.php";s:4:"line";i:78;s:8:"function";s:7:"findOne";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"::";}}i:5;i:5206584;}i:14;a:6:{i:0;s:648:"SELECT
+	[fk].[name] AS [fk_name],
+	[cp].[name] AS [fk_column_name],
+	OBJECT_NAME([fk].[referenced_object_id]) AS [uq_table_name],
+	[cr].[name] AS [uq_column_name]
+FROM
+	[sys].[foreign_keys] AS [fk]
+	INNER JOIN [sys].[foreign_key_columns] AS [fkc] ON
+		[fk].[object_id] = [fkc].[constraint_object_id]
+	INNER JOIN [sys].[columns] AS [cp] ON
+		[fk].[parent_object_id] = [cp].[object_id] AND
+		[fkc].[parent_column_id] = [cp].[column_id]
+	INNER JOIN [sys].[columns] AS [cr] ON
+		[fk].[referenced_object_id] = [cr].[object_id] AND
+		[fkc].[referenced_column_id] = [cr].[column_id]
+WHERE
+	[fk].[parent_object_id] = OBJECT_ID('dbo.KWTRP LIVE$User Setup ')";i:1;i:96;i:2;s:21:"yii\db\Command::query";i:3;d:1639047751.276515;i:4;a:1:{i:0;a:5:{s:4:"file";s:60:"C:\Apache24\htdocs\Kemri_welcometrust\common\models\User.php";s:4:"line";i:78;s:8:"function";s:7:"findOne";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"::";}}i:5;i:5208664;}i:16;a:6:{i:0;s:74:"SELECT * FROM [KWTRP LIVE$User Setup ] WHERE [User ID]='KWTRP\SVC-HRMCN01'";i:1;i:80;i:2;s:21:"yii\db\Command::query";i:3;d:1639047751.288415;i:4;a:1:{i:0;a:5:{s:4:"file";s:60:"C:\Apache24\htdocs\Kemri_welcometrust\common\models\User.php";s:4:"line";i:78;s:8:"function";s:7:"findOne";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"::";}}i:5;i:5581072;}i:17;a:6:{i:0;s:74:"SELECT * FROM [KWTRP LIVE$User Setup ] WHERE [User ID]='KWTRP\SVC-HRMCN01'";i:1;i:96;i:2;s:21:"yii\db\Command::query";i:3;d:1639047751.290406;i:4;a:1:{i:0;a:5:{s:4:"file";s:60:"C:\Apache24\htdocs\Kemri_welcometrust\common\models\User.php";s:4:"line";i:78;s:8:"function";s:7:"findOne";s:5:"class";s:23:"yii\db\BaseActiveRecord";s:4:"type";s:2:"::";}}i:5;i:5601784;}}}";s:5:"event";s:2478:"a:14:{i:0;a:5:{s:4:"time";d:1639047751.244475;s:4:"name";s:4:"init";s:5:"class";s:14:"yii\base\Event";s:8:"isStatic";s:1:"0";s:11:"senderClass";s:18:"yii\db\ActiveQuery";}i:1;a:5:{s:4:"time";d:1639047751.255773;s:4:"name";s:9:"afterOpen";s:5:"class";s:14:"yii\base\Event";s:8:"isStatic";s:1:"0";s:11:"senderClass";s:17:"yii\db\Connection";}i:2;a:5:{s:4:"time";d:1639047751.293486;s:4:"name";s:4:"init";s:5:"class";s:14:"yii\base\Event";s:8:"isStatic";s:1:"0";s:11:"senderClass";s:18:"common\models\User";}i:3;a:5:{s:4:"time";d:1639047751.293667;s:4:"name";s:9:"afterFind";s:5:"class";s:14:"yii\base\Event";s:8:"isStatic";s:1:"0";s:11:"senderClass";s:18:"common\models\User";}i:4;a:5:{s:4:"time";d:1639047751.300077;s:4:"name";s:4:"init";s:5:"class";s:14:"yii\base\Event";s:8:"isStatic";s:1:"0";s:11:"senderClass";s:18:"common\models\User";}i:5;a:5:{s:4:"time";d:1639047751.315468;s:4:"name";s:13:"beforeRequest";s:5:"class";s:14:"yii\base\Event";s:8:"isStatic";s:1:"0";s:11:"senderClass";s:19:"yii\web\Application";}i:6;a:5:{s:4:"time";d:1639047751.321497;s:4:"name";s:12:"beforeAction";s:5:"class";s:20:"yii\base\ActionEvent";s:8:"isStatic";s:1:"0";s:11:"senderClass";s:19:"yii\web\Application";}i:7;a:5:{s:4:"time";d:1639047751.323102;s:4:"name";s:12:"beforeAction";s:5:"class";s:20:"yii\base\ActionEvent";s:8:"isStatic";s:1:"0";s:11:"senderClass";s:44:"frontend\controllers\ChangeRequestController";}i:8;a:5:{s:4:"time";d:1639047751.323241;s:4:"name";s:11:"afterAction";s:5:"class";s:20:"yii\base\ActionEvent";s:8:"isStatic";s:1:"0";s:11:"senderClass";s:44:"frontend\controllers\ChangeRequestController";}i:9;a:5:{s:4:"time";d:1639047751.323266;s:4:"name";s:11:"afterAction";s:5:"class";s:20:"yii\base\ActionEvent";s:8:"isStatic";s:1:"0";s:11:"senderClass";s:19:"yii\web\Application";}i:10;a:5:{s:4:"time";d:1639047751.323292;s:4:"name";s:12:"afterRequest";s:5:"class";s:14:"yii\base\Event";s:8:"isStatic";s:1:"0";s:11:"senderClass";s:19:"yii\web\Application";}i:11;a:5:{s:4:"time";d:1639047751.323313;s:4:"name";s:10:"beforeSend";s:5:"class";s:14:"yii\base\Event";s:8:"isStatic";s:1:"0";s:11:"senderClass";s:16:"yii\web\Response";}i:12;a:5:{s:4:"time";d:1639047751.333467;s:4:"name";s:12:"afterPrepare";s:5:"class";s:14:"yii\base\Event";s:8:"isStatic";s:1:"0";s:11:"senderClass";s:16:"yii\web\Response";}i:13;a:5:{s:4:"time";d:1639047751.333563;s:4:"name";s:9:"afterSend";s:5:"class";s:14:"yii\base\Event";s:8:"isStatic";s:1:"0";s:11:"senderClass";s:16:"yii\web\Response";}}";s:6:"assets";s:6:"a:0:{}";s:4:"mail";s:6:"a:0:{}";s:8:"timeline";s:91:"a:3:{s:5:"start";d:1639047751.150791;s:3:"end";d:1639047751.343367;s:6:"memory";i:6948120;}";s:4:"user";s:6362:"a:5:{s:2:"id";s:17:"KWTRP\SVC-HRMCN01";s:8:"identity";a:47:{s:9:"timestamp";s:15:"'\0\0\0\0\0è8÷'";s:7:"User ID";s:20:"'KWTRP\\SVC-HRMCN01'";s:18:"Allow Posting From";s:25:"'1753-01-01 00:00:00.000'";s:16:"Allow Posting To";s:25:"'1753-01-01 00:00:00.000'";s:13:"Register Time";s:1:"0";s:22:"Salespers__Purch_ Code";s:2:"''";s:11:"Approver ID";s:16:"'KWTRP\\JCHENGO'";s:27:"Sales Amount Approval Limit";s:1:"0";s:30:"Purchase Amount Approval Limit";s:1:"0";s:24:"Unlimited Sales Approval";s:1:"0";s:27:"Unlimited Purchase Approval";s:1:"0";s:10:"Substitute";s:16:"'KWTRP\\JCHENGO'";s:6:"E-Mail";s:29:"'DKIMANZI@kemri-wellcome.org'";s:29:"Request Amount Approval Limit";s:1:"0";s:26:"Unlimited Request Approval";s:1:"0";s:22:"Approval Administrator";s:1:"0";s:17:"Time Sheet Admin_";s:1:"0";s:21:"Allow FA Posting From";s:25:"'1753-01-01 00:00:00.000'";s:19:"Allow FA Posting To";s:25:"'1753-01-01 00:00:00.000'";s:23:"Sales Resp_ Ctr_ Filter";s:2:"''";s:26:"Purchase Resp_ Ctr_ Filter";s:2:"''";s:25:"Service Resp_ Ctr_ Filter";s:2:"''";s:12:"Employee No_";s:7:"'51779'";s:11:"Is HR Admin";s:1:"1";s:23:"Global Dimension 1 Code";s:5:"'OPS'";s:23:"Global Dimension 2 Code";s:5:"'HRM'";s:18:"Head of Department";s:2:"''";s:13:"Supervisor Id";s:16:"'KWTRP\\JCHENGO'";s:14:"User Signature";s:4:"null";s:20:"Does Payment Voucher";s:1:"1";s:23:"Global Dimension 3 Code";s:2:"''";s:23:"Apply Leave Later Dater";s:1:"0";s:13:"Finance Admin";s:1:"0";s:24:"Multiple LogIns Allowed?";s:1:"1";s:18:"Number Of Sessions";s:1:"0";s:16:"Allow LogIn From";s:25:"'1753-01-01 00:00:00.000'";s:14:"Allow LogIn To";s:25:"'1753-01-01 00:00:00.000'";s:22:"Allow Time Restriction";s:1:"0";s:18:"Petty Cash Manager";s:1:"0";s:15:"Petty Cash Book";s:2:"''";s:15:"Is System Admin";s:1:"0";s:19:"Contract Management";s:1:"0";s:21:"Perfomance Management";s:1:"1";s:16:"Is Payroll Admin";s:1:"0";s:13:"View Power PI";s:1:"0";s:16:"Head of Division";s:5:"'OPS'";s:26:"Notify on Contract Renewal";s:1:"0";}s:10:"attributes";a:47:{i:0;a:2:{s:9:"attribute";s:9:"timestamp";s:5:"label";s:9:"Timestamp";}i:1;a:2:{s:9:"attribute";s:7:"User ID";s:5:"label";s:7:"User Id";}i:2;a:2:{s:9:"attribute";s:18:"Allow Posting From";s:5:"label";s:18:"Allow Posting From";}i:3;a:2:{s:9:"attribute";s:16:"Allow Posting To";s:5:"label";s:16:"Allow Posting To";}i:4;a:2:{s:9:"attribute";s:13:"Register Time";s:5:"label";s:13:"Register Time";}i:5;a:2:{s:9:"attribute";s:22:"Salespers__Purch_ Code";s:5:"label";s:20:"Salespers Purch Code";}i:6;a:2:{s:9:"attribute";s:11:"Approver ID";s:5:"label";s:11:"Approver Id";}i:7;a:2:{s:9:"attribute";s:27:"Sales Amount Approval Limit";s:5:"label";s:27:"Sales Amount Approval Limit";}i:8;a:2:{s:9:"attribute";s:30:"Purchase Amount Approval Limit";s:5:"label";s:30:"Purchase Amount Approval Limit";}i:9;a:2:{s:9:"attribute";s:24:"Unlimited Sales Approval";s:5:"label";s:24:"Unlimited Sales Approval";}i:10;a:2:{s:9:"attribute";s:27:"Unlimited Purchase Approval";s:5:"label";s:27:"Unlimited Purchase Approval";}i:11;a:2:{s:9:"attribute";s:10:"Substitute";s:5:"label";s:10:"Substitute";}i:12;a:2:{s:9:"attribute";s:6:"E-Mail";s:5:"label";s:6:"E Mail";}i:13;a:2:{s:9:"attribute";s:29:"Request Amount Approval Limit";s:5:"label";s:29:"Request Amount Approval Limit";}i:14;a:2:{s:9:"attribute";s:26:"Unlimited Request Approval";s:5:"label";s:26:"Unlimited Request Approval";}i:15;a:2:{s:9:"attribute";s:22:"Approval Administrator";s:5:"label";s:22:"Approval Administrator";}i:16;a:2:{s:9:"attribute";s:17:"Time Sheet Admin_";s:5:"label";s:16:"Time Sheet Admin";}i:17;a:2:{s:9:"attribute";s:21:"Allow FA Posting From";s:5:"label";s:21:"Allow Fa Posting From";}i:18;a:2:{s:9:"attribute";s:19:"Allow FA Posting To";s:5:"label";s:19:"Allow Fa Posting To";}i:19;a:2:{s:9:"attribute";s:23:"Sales Resp_ Ctr_ Filter";s:5:"label";s:21:"Sales Resp Ctr Filter";}i:20;a:2:{s:9:"attribute";s:26:"Purchase Resp_ Ctr_ Filter";s:5:"label";s:24:"Purchase Resp Ctr Filter";}i:21;a:2:{s:9:"attribute";s:25:"Service Resp_ Ctr_ Filter";s:5:"label";s:23:"Service Resp Ctr Filter";}i:22;a:2:{s:9:"attribute";s:12:"Employee No_";s:5:"label";s:11:"Employee No";}i:23;a:2:{s:9:"attribute";s:11:"Is HR Admin";s:5:"label";s:11:"Is Hr Admin";}i:24;a:2:{s:9:"attribute";s:23:"Global Dimension 1 Code";s:5:"label";s:23:"Global Dimension 1 Code";}i:25;a:2:{s:9:"attribute";s:23:"Global Dimension 2 Code";s:5:"label";s:23:"Global Dimension 2 Code";}i:26;a:2:{s:9:"attribute";s:18:"Head of Department";s:5:"label";s:18:"Head Of Department";}i:27;a:2:{s:9:"attribute";s:13:"Supervisor Id";s:5:"label";s:13:"Supervisor Id";}i:28;a:2:{s:9:"attribute";s:14:"User Signature";s:5:"label";s:14:"User Signature";}i:29;a:2:{s:9:"attribute";s:20:"Does Payment Voucher";s:5:"label";s:20:"Does Payment Voucher";}i:30;a:2:{s:9:"attribute";s:23:"Global Dimension 3 Code";s:5:"label";s:23:"Global Dimension 3 Code";}i:31;a:2:{s:9:"attribute";s:23:"Apply Leave Later Dater";s:5:"label";s:23:"Apply Leave Later Dater";}i:32;a:2:{s:9:"attribute";s:13:"Finance Admin";s:5:"label";s:13:"Finance Admin";}i:33;a:2:{s:9:"attribute";s:24:"Multiple LogIns Allowed?";s:5:"label";s:25:"Multiple Log Ins Allowed?";}i:34;a:2:{s:9:"attribute";s:18:"Number Of Sessions";s:5:"label";s:18:"Number Of Sessions";}i:35;a:2:{s:9:"attribute";s:16:"Allow LogIn From";s:5:"label";s:17:"Allow Log In From";}i:36;a:2:{s:9:"attribute";s:14:"Allow LogIn To";s:5:"label";s:15:"Allow Log In To";}i:37;a:2:{s:9:"attribute";s:22:"Allow Time Restriction";s:5:"label";s:22:"Allow Time Restriction";}i:38;a:2:{s:9:"attribute";s:18:"Petty Cash Manager";s:5:"label";s:18:"Petty Cash Manager";}i:39;a:2:{s:9:"attribute";s:15:"Petty Cash Book";s:5:"label";s:15:"Petty Cash Book";}i:40;a:2:{s:9:"attribute";s:15:"Is System Admin";s:5:"label";s:15:"Is System Admin";}i:41;a:2:{s:9:"attribute";s:19:"Contract Management";s:5:"label";s:19:"Contract Management";}i:42;a:2:{s:9:"attribute";s:21:"Perfomance Management";s:5:"label";s:21:"Perfomance Management";}i:43;a:2:{s:9:"attribute";s:16:"Is Payroll Admin";s:5:"label";s:16:"Is Payroll Admin";}i:44;a:2:{s:9:"attribute";s:13:"View Power PI";s:5:"label";s:13:"View Power Pi";}i:45;a:2:{s:9:"attribute";s:16:"Head of Division";s:5:"label";s:16:"Head Of Division";}i:46;a:2:{s:9:"attribute";s:26:"Notify on Contract Renewal";s:5:"label";s:26:"Notify On Contract Renewal";}}s:13:"rolesProvider";N;s:19:"permissionsProvider";N;}";s:4:"dump";s:6:"a:0:{}";s:7:"summary";a:12:{s:3:"tag";s:13:"61b1e24749e1a";s:3:"url";s:38:"http://localhost/change-request/action";s:4:"ajax";i:0;s:6:"method";s:3:"GET";s:2:"ip";s:3:"::1";s:4:"time";d:1639047751.129957;s:10:"statusCode";i:200;s:8:"sqlCount";i:4;s:9:"mailCount";i:0;s:9:"mailFiles";a:0:{}s:10:"peakMemory";i:6948120;s:14:"processingTime";d:0.19198298454284668;}s:10:"exceptions";a:0:{}}
