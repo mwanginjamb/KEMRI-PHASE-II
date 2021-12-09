@@ -963,4 +963,4 @@ $style = <<<CSS
     }
 CSS;
 
-$this->registerCss($style);
+// $this->registerCss($style);
