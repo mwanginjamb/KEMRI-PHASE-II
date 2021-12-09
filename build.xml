@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="ISMS" basedir="." default="dist">
+   <target name="dist"> 
+        <!-- <autoloader autoloaderpath="./vendor/autoload.php"/> -->
+        <tstamp>
+            <format property="builddate" pattern="%m/%d/%Y" />
+            <format property="buildtime" pattern="%I:%M %p" />
+        </tstamp>
+        <property name="lastbuilddate" value="01/01/1976 12:00 AM" />
+        <property file="lastbuild.properties" override="true"/>
+        <delete dir="./build/dist/" quiet='true'/>
+        <mkdir dir="./build/dist/"/>
+        <property name="distdir" value="./build/dist" override="true" />		
+        <copy todir="${distdir}" includeemptydirs="true" >
+            <fileset dir=".">
+                <date datetime="${lastbuilddate}" when="after"/>
+                <patternset>
+                    <include name="**/*.*"/>
+                    <exclude name="./build/dist/**"/>
+                    <exclude name="lastbuild.properties" /> 
+                    <exclude name="config/web.php" />
+                    <exclude name="web/.htaccess" />
+                </patternset>
+            </fileset>
+        </copy>
+        <echo msg="lastbuilddate=${builddate} ${buildtime}" file="lastbuild.properties" append="false" />
+        <delete dir="./build/dist/runtime" quiet='true'/> 
+        <delete dir="./build/dist/web/assets" quiet='true'/>  
+        <delete dir="./build/dist/web/barcodes" quiet='true'/>
+        <mkdir dir="./build/dist/runtime/logs"/>
+        <mkdir dir="./build/dist/web/assets"/>
+        <mkdir dir="./build/dist/web/barcodes"/>
+        <touch file="./build/dist/runtime/logs/app.log" />		
+    </target>
+</project>
