@@ -426,18 +426,12 @@ class ChangeRequestController extends Controller
     }
 
     public function actionCommit(){
-        $commitModel = trim(Yii::$app->request->post('model'));
         $commitService = Yii::$app->request->post('service');
         $key = Yii::$app->request->post('key');
         $name = Yii::$app->request->post('name');
         $value = Yii::$app->request->post('value');
-        $filterKey = Yii::$app->request->post('filterKey');
-
         $service = Yii::$app->params['ServiceName'][$commitService];
-
-
         $request = Yii::$app->navhelper->readByKey($service, $key);
-
 
         $data = [];
         if(is_object($request)){
@@ -450,14 +444,9 @@ class ChangeRequestController extends Controller
             return ['error' => $request];
         }
 
-
-
         $result = Yii::$app->navhelper->updateData($service,$data);
-
         Yii::$app->response->format = \yii\web\response::FORMAT_JSON;
-
         return $result;
-
     }
 
     /* Set Imprest Type */

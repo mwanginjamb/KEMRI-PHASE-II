@@ -421,7 +421,10 @@ class LeaveController extends Controller
         $result = [];
         foreach($results as $item){
 
-
+            if(empty($item->Employee_Name) || empty($item->Leave_Type))
+            {
+                continue;
+            }
           
             $result['data'][] = [
 
