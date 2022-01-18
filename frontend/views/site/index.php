@@ -14,16 +14,7 @@ exit;*/
 
 <section class="content">
     <div class="container-fluid">
-
-
-
-
-
-
         <div class="row">
-
-
-
             <div class="col-md-3">
 
                 <!-- Profile Image -->
@@ -363,6 +354,24 @@ exit;*/
                                 <!-- /.col -->
 
                     <?php endif; ?>
+
+                                <!-- HoDs Leave Balances -->
+
+                                 <!-- /.col -->
+                                 <div class="col-12 col-sm-6 col-md-3">
+                                    <a href="<?= Yii::$app->recruitment->absoluteUrl().'leave/balances-division' ?>" target="_blank">
+                                        <div class="info-box mb-3">
+                                            <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-paper-plane"></i></span>
+                                            <div class="info-box-content">
+                                                <span class="info-box-text">HoD Leave Balances</span>
+                                                <span class="info-box-number"><?= number_format(Yii::$app->dashboard->getHoDBalancesRecords())?></span>
+                                            </div>
+                                            <!-- /.info-box-content -->
+                                        </div>
+                                    </a>
+                                    <!-- /.info-box -->
+                                </div>
+                                <!-- /.col -->
 
 
                 </div>

@@ -39,7 +39,7 @@ class LeaveController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout','signup','index','advance-list','create','update','delete','view','listactive','listbalances'],
+                'only' => ['logout','signup','index','advance-list','create','update','delete','view','listactive','listbalances','activeleaveshod'],
                 'rules' => [
                     [
                         'actions' => ['signup'],
@@ -61,7 +61,7 @@ class LeaveController extends Controller
             ],
             'contentNegotiator' =>[
                 'class' => ContentNegotiator::class,
-                'only' => ['list','listactive','listbalances','listactivehod'],
+                'only' => ['list','listactive','listbalances','listactivehod','listbalancesdivision'],
                 'formatParam' => '_format',
                 'formats' => [
                     'application/json' => Response::FORMAT_JSON,
@@ -96,6 +96,16 @@ class LeaveController extends Controller
             throw new ForbiddenHttpException('You do not have permission to view this information, Pole!');
         }
         return $this->render('balances');
+    }
+
+    public function actionBalancesDivision()
+    {
+        if(!Yii::$app->user->identity->{'Head of Division'})
+        {
+            throw new ForbiddenHttpException('You do not have permission to view this information, Pole!');
+        }
+
+        return $this->render('balancesdivision');
     }
 
 
@@ -472,6 +482,41 @@ class LeaveController extends Controller
 
         return $result;
     }
+
+    // Head Of Departments Leave Balance List
+
+    
+    public function actionListbalancesdivision(){
+        $service = Yii::$app->params['ServiceName']['HODLeaveBalances'];
+        $filter = [
+            'Global_Dimension_1_Code' => Yii::$app->user->identity->Employee[0]->Global_Dimension_1_Code,
+            'Is_HOD' => 1
+        ];
+
+        $results = \Yii::$app->navhelper->getData($service,$filter);
+        $result = [];
+        foreach($results as $item){
+
+            if(empty($item->Full_Name))
+            {
+                continue;
+            }
+          
+            $result['data'][] = [
+
+                'Key' => $item->Key,
+                'No' => !empty($item->No)?$item->No:'',
+                'Full_Name' => !empty($item->Full_Name)?$item->Full_Name:'',
+                'Annual_Leave_Balance' => !empty($item->Annual_Leave_Balance)?$item->Annual_Leave_Balance:'',
+                'Global_Dimension_1_Code' => !empty($item->Global_Dimension_1_Code)?$item->Global_Dimension_1_Code:'',
+                'Global_Dimension_2_Code' => !empty($item->Global_Dimension_2_Code)?$item->Global_Dimension_2_Code:'',
+                                
+            ];
+        }
+
+        return $result;
+    }
+    
 
     public function getCovertypes(){
         $service = Yii::$app->params['ServiceName']['MedicalCoverTypes'];
