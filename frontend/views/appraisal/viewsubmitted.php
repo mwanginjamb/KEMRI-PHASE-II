@@ -397,6 +397,19 @@ $absoluteUrl = \yii\helpers\Url::home(true);
 
                     <div class="row">
                         <div class="col-md-6">
+                        <div class="card">
+                                                                <div class="card-header">
+                                                                    <div class="card-title">
+                                                                        Mid Year Line Manager Comments
+                                                                    </div>
+                                                                </div>
+                                                                <div class="card-body">
+                                                                    <?= ($model->MY_Appraisal_Status == 'Supervisor_Level') ?$form->field($model, 'Line_Manager_Mid_Year_Comments')->textArea(['rows' => 2, 'maxlength'=> '140']): '' ?>
+                                                                        <span class="text-success" id="ln-confirmation-my">Comment Saved Successfully.</span>
+
+                                                                        <?= ($model->MY_Appraisal_Status !== 'Supervisor_Level') ?$form->field($model, 'Line_Manager_Mid_Year_Comments')->textArea(['rows' => 2, 'readonly' => true, 'disabled' =>  true]): '' ?>
+                                                                </div>
+                                    </div>
                         </div>
 
                          <div class="col-md-6">
@@ -528,7 +541,8 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                                                     <td><b>Mid Year Appraisee Assesment</b></td>
                                                     <td><b>Mid Year Agreement</b></td>
                                                     <td><b>Mid Year Supervisor Assesment</b></td>
-                                                   <!--  <td>Mid_Year_Supervisor_Comments</td> -->
+                                                    <td class="text-bold">Mid Year Appraisee Comments</td>
+                                                    <td class="text-bold">Mid Year Supervisor Comments</td> 
                                                     <td><b>Appraisee Self Rating</b></td>
                                                     <td><b>Employee Comments</b></td>
                                                     <td><b>Appraiser Rating</b></td>
@@ -562,7 +576,8 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                                                             <td><?= !empty($kpi->Mid_Year_Appraisee_Assesment)?$appmyassessment:'Not Set' ?></td>
                                                             <td><?= ($kpi->Mid_Year_Agreement)?'Yes': 'No' ?></td>
                                                             <td><?= !empty($kpi->Mid_Year_Supervisor_Assesment)?$supermyassessment:'Not Set' ?></td>
-                                                            <!-- <td><?php !empty($kpi->Mid_Year_Supervisor_Comments)?$kpi->Mid_Year_Supervisor_Comments:'Not Set' ?></td> -->
+                                                            <td><?= !empty($kpi->Mid_Year_Appraisee_Comments)?$kpi->Mid_Year_Appraisee_Comments:'Not Set' ?></td>
+                                                            <td><?= !empty($kpi->Mid_Year_Supervisor_Comments)?$kpi->Mid_Year_Supervisor_Comments:'Not Set' ?></td>
                                                             <td><?= !empty($kpi->Appraisee_Self_Rating)?$kpi->Appraisee_Self_Rating:'Not Set' ?></td>
                                                             <td><?= !empty($kpi->Employee_Comments)?$kpi->Employee_Comments:'Not Set' ?></td>
                                                             <td><?= !empty($kpi->Appraiser_Rating)?$kpi->Appraiser_Rating:'Not Set' ?></td>
@@ -1493,6 +1508,45 @@ $script = <<<JS
                         const helpbBlock = parent.children[2];
                         helpbBlock.innerText = ''; 
                         $('#confirmation-my').show();
+                        
+                        
+                    }
+                    
+                },'json');
+            
+        }     
+     });
+
+     // Commit Line Manager Mid Year Comments 
+
+     $('#ln-confirmation-my').hide();
+     $('#appraisalcard-line_manager_mid_year_comments').change(function(e){
+        const Comments = e.target.value;
+        const Appraisal_No = $('#appraisalcard-appraisal_no').val();
+
+       
+        if(Appraisal_No.length){
+
+      
+            const url = $('input[name=url]').val()+'appraisal/setfield?field=Line_Manager_Mid_Year_Comments';
+            $.post(url,{'Line_Manager_Mid_Year_Comments': Comments,'Appraisal_No': Appraisal_No}).done(function(msg){
+                   //populate empty form fields with new data
+                   
+                  
+                   $('#appraisalcard-key').val(msg.Key);
+                  
+                    console.table(msg);
+                    if((typeof msg) === 'string') { // A string is an error
+                        const parent = document.querySelector('.field-appraisalcard-line_manager_mid_year_comments');
+                        const helpbBlock = parent.children[2];
+                        helpbBlock.innerText = msg;
+                      
+                        
+                    }else{ // An object represents correct details
+                        const parent = document.querySelector('.field-appraisalcard-line_manager_mid_year_comments');
+                        const helpbBlock = parent.children[2];
+                        helpbBlock.innerText = ''; 
+                        $('#ln-confirmation-my').show();
                         
                         
                     }

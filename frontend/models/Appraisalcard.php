@@ -51,6 +51,8 @@ public $Overview_Mid_Year_Comments;
 
 public $Mid_Year_Overrall_rating;
 
+public $Line_Manager_Mid_Year_Comments;
+
 
 
     public function rules()
