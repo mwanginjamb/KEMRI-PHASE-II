@@ -9,58 +9,44 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-$this->title = 'Imprest - '.$model->No;
-$this->params['breadcrumbs'][] = ['label' => 'imprests', 'url' => ['/imprest']];
-$this->params['breadcrumbs'][] = ['label' => 'Imprest Card', 'url' => ['view','No'=> $model->No]];
+$this->title = 'Induction - '.$model->No;
+$this->params['breadcrumbs'][] = ['label' => 'Induction List', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Induction Card', 'url' => ['view','No'=> $model->No]];
 /** Status Sessions */
 
+?>
 
-/* Yii::$app->session->set('MY_Appraisal_Status',$model->MY_Appraisal_Status);
-Yii::$app->session->set('EY_Appraisal_Status',$model->EY_Appraisal_Status);
-Yii::$app->session->set('isSupervisor',false);*/
+
+<?php
+                    if(Yii::$app->session->hasFlash('success')){
+                        print ' <div class="alert alert-success alert-dismissable">
+                                 ';
+                        echo Yii::$app->session->getFlash('success');
+                        print '</div>';
+                    }else if(Yii::$app->session->hasFlash('error')){
+                        print ' <div class="alert alert-danger alert-dismissable">
+                                 ';
+                        echo Yii::$app->session->getFlash('error');
+                        print '</div>';
+                    }
 ?>
 
 <div class="row">
     <div class="col-md-4">
 
-        <?= ($model->Status == 'New')?Html::a('<i class="fas fa-paper-plane"></i> Send Approval Req',['send-for-approval','employeeNo' => Yii::$app->user->identity->{'Employee_No'}],['class' => 'btn btn-app submitforapproval',
+        <?= ($model->Status == 'Inductee')?Html::a('<i class="fas fa-paper-plane"></i> Send Approval Req',['send-for-approval'],['class' => 'btn btn-app submitforapproval',
             'data' => [
                 'confirm' => 'Are you sure you want to send imprest request for approval?',
                 'params'=>[
-                    'No'=> $_GET['No'],
-                    'employeeNo' => Yii::$app->user->identity->{'Employee_No'},
+                    'No'=> $model->No
                 ],
                 'method' => 'get',
         ],
-            'title' => 'Submit Imprest Approval'
+            'title' => 'Submit for Approval'
 
         ]):'' ?>
 
 
-        <?= ($model->Status == 'Pending_Approval')?Html::a('<i class="fas fa-times"></i> Cancel Approval Req.',['cancel-request'],['class' => 'btn btn-app submitforapproval',
-            'data' => [
-            'confirm' => 'Are you sure you want to cancel imprest approval request?',
-            'params'=>[
-                'No'=> $_GET['No'],
-            ],
-            'method' => 'get',
-        ],
-            'title' => 'Cancel Imprest Approval Request'
-
-        ]):'' ?>
-
-
-        <?= Html::a('<i class="fas fa-file-pdf"></i> Print Imprest',['print-imprest'],['class' => 'btn btn-app ',
-            'data' => [
-                'confirm' => 'Print Imprest?',
-                'params'=>[
-                    'No'=> $model->No,
-                ],
-                'method' => 'get',
-            ],
-            'title' => 'Print Imprest.'
-
-        ]) ?>
     </div>
 </div>
 
@@ -68,7 +54,7 @@ Yii::$app->session->set('isSupervisor',false);*/
         <div class="col-md-12">
             <div class="card-info">
                 <div class="card-header">
-                    <h3>Imprest Card </h3>
+                    <h3>Induction Card </h3>
                 </div>
 
 
@@ -85,23 +71,10 @@ Yii::$app->session->set('isSupervisor',false);*/
 
 
 
-                    <h3 class="card-title">Imprest No : <?= $model->No?></h3>
+                    <h3 class="card-title">Induction No : <?= $model->No?></h3>
 
 
 
-                    <?php
-                    if(Yii::$app->session->hasFlash('success')){
-                        print ' <div class="alert alert-success alert-dismissable">
-                                 ';
-                        echo Yii::$app->session->getFlash('success');
-                        print '</div>';
-                    }else if(Yii::$app->session->hasFlash('error')){
-                        print ' <div class="alert alert-danger alert-dismissable">
-                                 ';
-                        echo Yii::$app->session->getFlash('error');
-                        print '</div>';
-                    }
-                    ?>
                 </div>
                 <div class="card-body">
 
@@ -113,13 +86,13 @@ Yii::$app->session->set('isSupervisor',false);*/
                         <div class=" row col-md-12">
                             <div class="col-md-6">
 
-                                <?= $form->field($model, 'No')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
-                                <?= $form->field($model, 'Employee_No')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
-                                <?= $form->field($model, 'Employee_Name')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
-                                <?= $form->field($model, 'Purpose')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
-                                <?= '<p><span>Employee Balance</span> '.Html::a($model->Employee_Balance,'#'); '</p>' ?>
-                                <?= '<p><span>Imprest Amount</span> '.Html::a($model->Imprest_Amount,'#'); '</p>'?>
-
+                            <?= $form->field($model, 'No')->textInput(['readonly'=> true]) ?>
+                            <?= $form->field($model, 'Key')->hiddenInput()->label(false) ?>
+                            <?= $form->field($model, 'Employee_No')->textInput(['readonly'=> true]) ?>
+                            <?= $form->field($model, 'Employee_Name')->textInput(['readonly' =>  true]) ?>
+                            <?= $form->field($model, 'Global_Dimension_1_Code')->textInput(['readonly' =>  true, 'disabled'=>true]) ?>
+                            <?= $form->field($model, 'Global_Dimension_2_Code')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
+                            <?= $form->field($model, 'Global_Dimension_3_Code')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
 
 
                                 <p class="parent"><span>+</span>
@@ -132,14 +105,14 @@ Yii::$app->session->set('isSupervisor',false);*/
 
                             </div>
                             <div class="col-md-6">
-                                <?= '<p><span> Amount LCY</span> '.Html::a($model->Amount_LCY,'#'); '</p>'?>
-                                <?= $form->field($model, 'Status')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
-                                <?= $form->field($model, 'Global_Dimension_1_Code')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
-                                <?= $form->field($model, 'Global_Dimension_2_Code')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
-                                <?= $form->field($model, 'Expected_Date_of_Surrender')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
-                                <?= $form->field($model, 'Imprest_Type')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
-
-                                <p class="parent"><span>+</span>
+                            <?= $form->field($model, 'Status')->textInput(['readonly'=> true, 'disabled'=>true]) ?>        
+                            <?= $form->field($model, 'CEO_Comments')->textarea(['rows' => 2,'readonly'=> true, 'disabled'=>true]) ?>
+                            <?= $form->field($model, 'HOO_Comments')->textarea(['rows' => 2,'readonly'=> true, 'disabled'=>true]) ?>        
+                            <?= $form->field($model, 'HOF_Comments')->textarea(['rows'=> 2,'readonly'=> true, 'disabled'=>true]) ?>        
+                            <?= $form->field($model, 'Action_Section')->textInput(['readonly'=> true]) ?>
+                            <?= $form->field($model, 'Action_ID')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
+                               
+                            <p class="parent"><span>+</span>
 
 
 
@@ -162,90 +135,83 @@ Yii::$app->session->set('isSupervisor',false);*/
             </div><!--end details card-->
 
 
-            <!--Objectives card -->
+           
 
-
-            <?php
-
-            Html::a('<i class="fas fa-paper-plane"></i> Send Approval Req',['send-for-approval','employeeNo' => Yii::$app->user->identity->{'Employee_No'}],['class' => 'btn btn-app submitforapproval',
-                'data' => [
-                    'confirm' => 'Are you sure you want to send imprest request for approval?',
-                    'params'=>[
-                        'No'=> $_GET['No'],
-                        'employeeNo' => Yii::$app->user->identity->{'Employee_No'},
-                    ],
-                    'method' => 'get',
-                ],
-                'title' => 'Submit Imprest Approval'
-
-            ])
-            ?>
+          
 
 
 
             <div class="card">
-                <div class="card-header">
-                    <div class="card-title">   <?= Html::a('<i class="fa fa-plus-square"></i> New Imprest Line',['imprestline/create','Request_No'=>$model->No],['class' => 'add-objective btn btn-outline-info']) ?></div>
+            <div class="card-header">
+                <div class="card-title">
+                                    <h3>Employee Induction Lines</h3>
                 </div>
+                
+            </div>
 
+            <div class="card-body">
+                <?php if(property_exists($document->Employee_Induction_Line,'Employee_Induction_Line')){ //show Lines ?>
 
-
-                <div class="card-body">
-
-
-
-
-
-                    <?php
-                    if(is_array($model->getLines($model->No))){ //show Lines ?>
+                    <div class="table-responsive">
                         <table class="table table-bordered">
                             <thead>
                             <tr>
-                                <td><b>Transaction Type</b></td>
-                                <td><b>Account No</b></td>
-                                <td><b>Account Name</b></td>
-                                <td><b>Description</b></td>
-                                <td><b>Amount</b></td>
-                                <td><b>Amount LCY</b></td>
-                                <td><b>Budgeted Amount</b></td>
-                                <td><b>Balance Before Entry</b></td>
-                                <td><b>Total Expenditure</b></td>
-                                <td><b>Balance Less Entry</b></td>
-                                <td><b>Unbudgeted?</b></td>
-                                <td><b>Actions</b></td>
-
-
+                                <!-- <td class="text-bold">Induction_No</td> -->
+                                <td class="text-bold">Induction Item</td>
+                                <td class="text-bold">Expected Start Date</td>
+                                <td class="text-bold">Expected End Date</td>
+                                <td class="text-bold">Expected Start Time</td>
+                                <td class="text-bold">Expected End Time</td>
+                                <td class="text-bold">Attended</td>
+                                
+                                <td class="text-bold">Reason for Failure</td>
+                               
+                                <td class="text-bold">Employee comments</td>
+                                <td class="text-bold">Inductor Comments</td>
+                                <td class="text-bold">Section</td>
+                                <!-- <td class="text-bold">Action</td> -->
+                                
                             </tr>
                             </thead>
                             <tbody>
                             <?php
-                            // print '<pre>'; print_r($model->getObjectives()); exit;
+                           
 
-                            foreach($model->getLines($model->No) as $obj):
-                                $updateLink = Html::a('<i class="fa fa-edit"></i>',['imprestline/update','Line_No'=> $obj->Line_No],['class' => 'update-objective btn btn-outline-info btn-xs']);
-                                $deleteLink = Html::a('<i class="fa fa-trash"></i>',['imprestline/delete','Key'=> $obj->Key ],['class'=>'delete btn btn-outline-danger btn-xs']);
+                            foreach($document->Employee_Induction_Line->Employee_Induction_Line as $obj):
+                                
+                                $deleteLink = Html::a('<i class="fa fa-trash"></i>',['delete-line' ],[
+                                    'class'=>'del btn btn-outline-danger btn-xs',
+                                    'data-key' => $obj->Key,
+                                    'data-service' => 'InductionLine'
+                                ]);
                                 ?>
                                 <tr>
 
-                                    <td><?= !empty($obj->Transaction_Type)?$obj->Transaction_Type:'Not Set' ?></td>
-                                    <td><?= !empty($obj->Account_No)?$obj->Account_No:'Not Set' ?></td>
-                                    <td><?= !empty($obj->Account_Name)?$obj->Account_Name:'Not Set' ?></td>
-                                    <td><?= !empty($obj->Description)?$obj->Description:'Not Set' ?></td>
-                                    <td><?= !empty($obj->Amount)?$obj->Amount:'Not Set' ?></td>
-                                    <td><?= !empty($obj->Amount_LCY)?$obj->Amount_LCY:'Not Set' ?></td>
-                                    <td><?= !empty($obj->Budgeted_Amount)?$obj->Budgeted_Amount:'Not Set' ?></td>
-                                    <td><?= !empty($obj->Balance_Before_Entry)?$obj->Balance_Before_Entry:'Not Set' ?></td>
-                                    <td><?= !empty($obj->Total_Expenditure)?$obj->Total_Expenditure:'Not Set' ?></td>
-                                    <td><?= !empty($obj->Balance_Less_Entry)?$obj->Balance_Less_Entry:'Not Set' ?></td>
-                                    <td><?= Html::checkbox('Unbudgeted',$obj->Unbudgeted) ?></td>
-                                    <td><?= $updateLink.'|'.$deleteLink ?></td>
+                                    <!-- <td data-key="<?= $obj->Key ?>" data-name="Induction_No" data-service="InductionLine"><?= !empty($obj->Induction_No)?$obj->Induction_No:'Not Set' ?></td> -->
+                                    <td ><?= !empty($obj->Induction_Item)?$obj->Induction_Item:'Not Set' ?></td>
+                                    <td ><?= !empty($obj->Expected_Start_Date)?$obj->Expected_Start_Date:'Not Set' ?></td>
+                                    <td ><?= !empty($obj->Expected_End_Date)?$obj->Expected_End_Date:'Not Set' ?></td>
+                                    <td ><?= !empty($obj->Expected_Start_Time)?$obj->Expected_Start_Time:'Not Set' ?></td>
+                                    <td ><?= !empty($obj->Expected_End_Time)?$obj->Expected_End_Time:'Not Set' ?></td>
+                                    <td ><?= !empty($obj->Attended)?$obj->Attended:'Not Set' ?></td>
+
+                                
+                                    <td ><?= !empty($obj->Reason_for_Failure)?$obj->Reason_for_Failure:'Not Set' ?></td>
+                                  
+                                    <td ><?= !empty($obj->Employee_comments)?$obj->Employee_comments:'Not Set' ?></td>
+                                    <td ><?= !empty($obj->Inductor_Comments)?$obj->Inductor_Comments:'Not Set' ?></td>
+                                    <td ><?= !empty($obj->Section)?$obj->Section:'Not Set' ?></td>
+                                    
+                                    <!-- <td><?= $deleteLink ?></td> -->
                                 </tr>
                             <?php endforeach; ?>
                             </tbody>
                         </table>
-                    <?php } ?>
-                </div>
+                    </div>
+                   
+                <?php } ?>
             </div>
+        </div>
 
             <!--objectives card -->
 

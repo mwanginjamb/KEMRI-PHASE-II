@@ -1072,6 +1072,31 @@ $employee = (!Yii::$app->user->isGuest && is_array(Yii::$app->user->identity->em
 
                         <?php endif;  ?>
 
+                        <!-- Employee Induction -->
+
+                        <li class="nav-item has-treeview <?= Yii::$app->recruitment->currentCtrl('induction')?'menu-open':'' ?>">
+                                <a href="#" class="nav-link <?= Yii::$app->recruitment->currentCtrl('induction')?'active':'' ?>" title="Employee Induction">
+                                    <i class="nav-icon fa fa-chart-bar" ></i>
+                                    <p>
+                                        Employee Induction
+                                        <i class="fas fa-angle-left right"></i>
+                                        <!--<span class="badge badge-info right">6</span>-->
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+
+                                    <li class="nav-item">
+                                        <a href="<?= $absoluteUrl ?>induction" class="nav-link <?= Yii::$app->recruitment->currentaction('induction','index')?'active':'' ?>">
+                                            <i class="fa fa-chart-line nav-icon"></i>
+                                            <p>Individual </p>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </li>
+
+
+
 
 
 

@@ -13,8 +13,8 @@ use yii\helpers\Html;
 /* @var $model frontend\models\AgendaDocument */
 
 $this->title = 'Employee Induction Document.';
-$this->params['breadcrumbs'][] = ['label' => 'imprest', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => 'Update Imprest Request', 'url' => ['update','No' => $model->No]];
+$this->params['breadcrumbs'][] = ['label' => 'induction', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'induction card', 'url' => ['update','No' => $model->No]];
 
 ?>
 <div class="agenda-document-update">

@@ -98,7 +98,7 @@ class InductionController extends Controller
         // Get Document
         if(!empty($No))
         {
-            $document = Yii::$app->navhelper->findOne($service, '','No',$No);    
+            $document = Yii::$app->navhelper->findOne($service,'No',$No);    
         }elseif(!empty($Key)){
             $document = Yii::$app->navhelper->readByKey($service,$Key);    
         }else{
@@ -123,14 +123,17 @@ class InductionController extends Controller
     }
 
     public function actionDelete(){
-        $service = Yii::$app->params['ServiceName']['ImprestRequestCardPortal'];
+        $service = Yii::$app->params['ServiceName']['InductionList'];
         $result = Yii::$app->navhelper->deleteData($service,Yii::$app->request->get('Key'));
-        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        // Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         if(!is_string($result)){
 
-            return ['note' => '<div class="alert alert-success">Record Purged Successfully</div>'];
+            Yii::$app->session->setFlash('success','Record Purged Successfully.');
+            return $this->redirect(['index']);
         }else{
-            return ['note' => '<div class="alert alert-danger">Error Purging Record: '.$result.'</div>' ];
+            
+            Yii::$app->session->setFlash('error','Error Purging Record: '.$result);
+            return $this->redirect(['index']);
         }
     }
 
@@ -141,14 +144,12 @@ class InductionController extends Controller
        // Get Document
        if(!empty($No))
        {
-           $document = Yii::$app->navhelper->findOne($service, '','No',$No);
-           $pageRecord = Yii::$app->navhelper->findOne($service, '','No',$No);
+           $document = Yii::$app->navhelper->findOne($service,'No',$No);
        }elseif(!empty($Key)){
            $document = Yii::$app->navhelper->readByKey($service,$Key);
-           $pageRecord = Yii::$app->navhelper->readByKey($service,$Key);
        }else{
            Yii::$app->session->setFlash('error', 'We are unable to fetch the document', true);
-           return Yii::$app->redirect(['index']);
+           return $this->redirect(['index']);
        }
 
         //load nav result to model
@@ -190,7 +191,7 @@ class InductionController extends Controller
 
                
                 $result['data'][] = [
-                    'index' => $count,
+                    'index' => !empty($quali->No)?$quali->No:'',
                     'Employee_No' => !empty($quali->Employee_No)?$quali->Employee_No:'',
                     'Employee_Name' => !empty($quali->Employee_Name)?$quali->Employee_Name:'',
                     'Global_Dimension_1_Code' => !empty($quali->Global_Dimension_1_Code)?$quali->Global_Dimension_1_Code:'',
@@ -227,23 +228,23 @@ class InductionController extends Controller
 
     public function actionSendForApproval($No)
     {
-        $service = Yii::$app->params['ServiceName']['PortalFactory'];
+        $service = Yii::$app->params['ServiceName']['HRAPPRAISALMGT'];
 
         $data = [
-            'applicationNo' => $No,
-            'sendMail' => 1,
-            'approvalUrl' => '',
+            'inductionNo' => $No,
+            'urLToSend' => Yii::$app->urlManager->createAbsoluteUrl(['induction/view', 'No' => $No]),
+            
         ];
 
 
-        $result = Yii::$app->navhelper->PortalWorkFlows($service,$data,'IanSendImprestForApproval');
+        $result = Yii::$app->navhelper->PortalWorkFlows($service,$data,'IanSendInductionForApproval');
 
         if(!is_string($result)){
-            Yii::$app->session->setFlash('success', 'Imprest Request Sent to Supervisor Successfully.', true);
+            Yii::$app->session->setFlash('success', 'Document sent for approval Successfully.', true);
             return $this->redirect(['view']);
         }else{
 
-            Yii::$app->session->setFlash('error', 'Error Sending Imprest Request for Approval  : '. $result);
+            Yii::$app->session->setFlash('error', 'Error  : '. $result);
             return $this->redirect(['view']);
 
         }
@@ -253,7 +254,7 @@ class InductionController extends Controller
 
     public function actionCancelRequest($No)
     {
-        $service = Yii::$app->params['ServiceName']['PortalFactory'];
+        $service = Yii::$app->params['ServiceName']['HRAPPRAISALMGT'];
 
         $data = [
             'applicationNo' => $No,
@@ -272,6 +273,36 @@ class InductionController extends Controller
 
         }
     }
+
+    // Send Induction To Next Section
+
+    public function actionNextSection()
+    {
+        $service = Yii::$app->params['ServiceName']['HRAPPRAISALMGT'];
+        $No = Yii::$app->request->post('No');
+        $Key = Yii::$app->request->post('Key');
+
+        $data = [
+            'inductionNo' => $No,
+            'approvalURL' => Yii::$app->urlManager->createAbsoluteUrl(['induction/view', 'Key' => $Key]),
+        ];
+
+
+        $result = Yii::$app->navhelper->Codeunit($service,$data,'IanSendInductionToNextSection');
+
+        if(!is_string($result)){
+            Yii::$app->session->setFlash('success', 'Document Sent to Next Section Successfully.', true);
+            return $this->redirect(['update','Key' => $Key]);
+        }else{
+            Yii::$app->session->setFlash('error', 'Error : '. $result);
+            return $this->redirect(['index']);
+
+        }
+    }
+
+   
+
+
 
     /** Updates a single field */
     public function actionSetfield($field){

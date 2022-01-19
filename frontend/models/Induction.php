@@ -51,6 +51,17 @@ public $isNewRecord;
         ];
     }
 
+    public function getnextSection()
+    {
+        $service = Yii::$app->params['ServiceName']['HRAPPRAISALMGT'];
+        $data = [
+            'inductionNo' => $this->No
+        ];
+
+        $result = Yii::$app->navhelper->Codeunit($service,$data,'IanFindNextSection');
+        return ucwords($result['return_value']);
+    }
+
 
 
 }
