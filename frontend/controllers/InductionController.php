@@ -88,8 +88,6 @@ class InductionController extends Controller
 
     
 
-  
-
     public function actionUpdate($No = '', $Key = ''){
         $model = new Induction();
         $service = Yii::$app->params['ServiceName']['InductionCard'];

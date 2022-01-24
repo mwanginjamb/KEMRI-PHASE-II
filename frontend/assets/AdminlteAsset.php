@@ -38,7 +38,8 @@ class AdminlteAsset extends AssetBundle
         'css/validation.css',
         //https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/css/bootstrap-timepicker.min.css',
 
-        'css/bstimepicker.css'
+        //'css/bstimepicker.css',
+        'plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css'
 
     ];
     public $js = [
@@ -74,6 +75,7 @@ class AdminlteAsset extends AssetBundle
         'https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js',
         'https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js ',
         'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/js/bootstrap-timepicker.min.js',
+        'https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js',
 
 
         'Js/custom.js',

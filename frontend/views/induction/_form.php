@@ -46,7 +46,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                                 ],
                                 'method' => 'get',
                             ],
-                                'title' => 'Cancel Imprest Approval Request'
+                                'title' => 'Cancel Approval Request'
     
                             ]):'' ?>
     
@@ -127,20 +127,21 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                         <?php Html::a('<i class="fa fa-plus-square"></i> New Induction Line',['add-line'],[
                             'class' => 'add btn btn-outline-info',
                             'data-no' => $model->No,
-                            'data-service' => 'InductionLine'
+                            'data-service' => 'Employee_Induction_Overall_In'
                             ]) ?>
                 </div>
             </div>
 
             <div class="card-body">
-                <?php if(property_exists($document->Employee_Induction_Line,'Employee_Induction_Line')){ //show Lines ?>
+                <?php if(property_exists($document->Employee_Induction_Overall_In,'Employee_Induction_Overall_In')){ //show Lines ?>
 
                     <div class="table-responsive">
                         <table class="table table-bordered">
                             <thead>
                             <tr>
+                                <td></td>
                                 <!-- <td class="text-bold">Induction_No</td> -->
-                                <td class="text-bold">Induction Item</td>
+                                <td class="text-bold">Section</td>
                                 <td class="text-bold">Expected Start Date</td>
                                 <td class="text-bold">Expected End Date</td>
                                 <td class="text-bold">Expected Start Time</td>
@@ -151,7 +152,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                                
                                 <td class="text-bold">Employee comments</td>
                                 <td class="text-bold">Inductor Comments</td>
-                                <td class="text-bold">Section</td>
+                               
                                 <!-- <td class="text-bold">Action</td> -->
                                 
                             </tr>
@@ -160,32 +161,61 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                             <?php
                            
 
-                            foreach($document->Employee_Induction_Line->Employee_Induction_Line as $obj):
+                            foreach($document->Employee_Induction_Overall_In->Employee_Induction_Overall_In as $obj):
                                 
                                 $deleteLink = Html::a('<i class="fa fa-trash"></i>',['delete-line' ],[
                                     'class'=>'del btn btn-outline-danger btn-xs',
                                     'data-key' => $obj->Key,
-                                    'data-service' => 'InductionLine'
+                                    'data-service' => 'InductionOverallIN'
                                 ]);
                                 ?>
-                                <tr>
-
-                                    <!-- <td data-key="<?= $obj->Key ?>" data-name="Induction_No" data-service="InductionLine"><?= !empty($obj->Induction_No)?$obj->Induction_No:'Not Set' ?></td> -->
-                                    <td data-key="<?= $obj->Key ?>" data-name="Induction_Item" data-service="InductionLine"><?= !empty($obj->Induction_Item)?$obj->Induction_Item:'Not Set' ?></td>
-                                    <td data-key="<?= $obj->Key ?>" data-name="Expected_Start_Date" data-service="InductionLine" ondblclick="addInput(this,'date')"><?= !empty($obj->Expected_Start_Date)?$obj->Expected_Start_Date:'Not Set' ?></td>
-                                    <td data-key="<?= $obj->Key ?>" data-name="Expected_End_Date" data-service="InductionLine" ondblclick="addInput(this,'date')"><?= !empty($obj->Expected_End_Date)?$obj->Expected_End_Date:'Not Set' ?></td>
-                                    <td data-key="<?= $obj->Key ?>" data-name="Expected_Start_Time" data-service="InductionLine" ondblclick="addInput(this,'time')"><?= !empty($obj->Expected_Start_Time)?$obj->Expected_Start_Time:'Not Set' ?></td>
-                                    <td data-key="<?= $obj->Key ?>" data-name="Expected_End_Time" data-service="InductionLine" ondblclick="addInput(this,'time')"><?= !empty($obj->Expected_End_Time)?$obj->Expected_End_Time:'Not Set' ?></td>
-                                    <td data-key="<?= $obj->Key ?>" data-name="Attended" data-service="InductionLine" ondblclick="addDropDown(this,'attended')"><?= !empty($obj->Attended)?$obj->Attended:'Not Set' ?></td>
-
-                                
-                                    <td data-key="<?= $obj->Key ?>" data-name="Reason_for_Failure" data-service="InductionLine" ondblclick="addInput(this)"><?= !empty($obj->Reason_for_Failure)?$obj->Reason_for_Failure:'Not Set' ?></td>
-                                  
-                                    <td data-key="<?= $obj->Key ?>" data-name="Employee_comments" data-service="InductionLine" ondblclick="addInput(this)"><?= !empty($obj->Employee_comments)?$obj->Employee_comments:'Not Set' ?></td>
-                                    <td data-key="<?= $obj->Key ?>" data-name="Inductor_Comments" data-service="InductionLine" ondblclick="addInput(this)"><?= !empty($obj->Inductor_Comments)?$obj->Inductor_Comments:'Not Set' ?></td>
-                                    <td data-key="<?= $obj->Key ?>" data-name="Section" data-service="InductionLine"><?= !empty($obj->Section)?$obj->Section:'Not Set' ?></td>
+                                <tr class="parent">
+                                    <td><span>+</span></td>
+                                    
+                                    <td data-key="<?= $obj->Key ?>" data-name="Section" data-service="InductionOverallIN"><?= !empty($obj->Section)?$obj->Section:'' ?></td>
+                                    <td data-key="<?= $obj->Key ?>" data-name="Expected_Start_Date" data-service="InductionOverallIN" ondblclick="addInput(this,'date')"><?= !empty($obj->Expected_Start_Date)?$obj->Expected_Start_Date:'' ?></td>
+                                    <td data-key="<?= $obj->Key ?>" data-name="Expected_End_Date" data-service="InductionOverallIN" ondblclick="addInput(this,'date')"><?= !empty($obj->Expected_End_Date)?$obj->Expected_End_Date:'' ?></td>
+                                    <td data-key="<?= $obj->Key ?>" data-name="Expected_Start_Time" data-service="InductionOverallIN" ondblclick="addInput(this,'time')"><?= !empty($obj->Expected_Start_Time)?$obj->Expected_Start_Time:'' ?></td>
+                                    <td data-key="<?= $obj->Key ?>" data-name="Expected_End_Time" data-service="InductionOverallIN" ondblclick="addInput(this,'time')"><?= !empty($obj->Expected_End_Time)?$obj->Expected_End_Time:'' ?></td>
+                                    <td data-key="<?= $obj->Key ?>" data-name="Attended" data-service="InductionOverallIN" ondblclick="addDropDown(this,'attended')"><?= !empty($obj->Attended)?$obj->Attended:'' ?></td>
+                                    <td data-key="<?= $obj->Key ?>" data-name="Reason_for_Failure" data-service="InductionOverallIN" ondblclick="addInput(this)"><?= !empty($obj->Reason_for_Failure)?$obj->Reason_for_Failure:'' ?></td>
+                                    <td data-key="<?= $obj->Key ?>" data-name="Employee_comments" data-service="InductionOverallIN" ondblclick="addInput(this)"><?= !empty($obj->Employee_comments)?$obj->Employee_comments:'' ?></td>
+                                    <td data-key="<?= $obj->Key ?>" data-name="Inductor_Comments" data-service="InductionOverallIN" ondblclick="addInput(this)"><?= !empty($obj->Inductor_Comments)?$obj->Inductor_Comments:'' ?></td>
+                                    
                                     
                                     <!-- <td><?= $deleteLink ?></td> -->
+                                </tr>
+                                <tr class="child">
+                                    <td colspan="11" >
+                                        <div class="table-responsive">
+                                            <table class="table table-hover ">
+                                                <thead>
+                                                    <tr>
+                                                        <td>#</td>
+                                                        <td class="text-bold">Induction Item</td>   
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php 
+                                                    
+                                                    //print_r($model->getLines($obj->Line_No)); 
+                                                    $counter = 0;                                               
+                                                    if(is_array($model->getLines($obj->Line_No))): 
+                                                        foreach($model->getLines($obj->Line_No) as $ln):
+                                                            $counter++;
+                                                        ?>
+
+                                                        <tr>
+                                                            <td><?= $counter ?></td>
+                                                            <td><?= $ln->Induction_Item ?></td>
+                                                        </tr>
+                                                        
+                                                    <?php endforeach;
+                                                 endif; ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </td>
                                 </tr>
                             <?php endforeach; ?>
                             </tbody>
@@ -265,6 +295,28 @@ $script = <<<JS
         var reld = location.reload(true);
         setTimeout(reld,1000);
     }); 
+
+
+     /*Parent-Children accordion*/ 
+    
+     $('tr.parent').find('span').text('+');
+    $('tr.parent').find('span').css({"color":"red", "font-weight":"bolder"});    
+    $('tr.parent').nextUntil('tr.parent').slideUp(1, function(){});    
+    $('tr.parent').click(function(){
+            $(this).find('span').text(function(_, value){return value=='-'?'+':'-'}); //to disregard an argument -event- on a function use an underscore in the parameter               
+            $(this).nextUntil('tr.parent').slideToggle(100, function(){});
+     });
+
+    /*Divs parenting*/
+    
+    $('p.parent').find('span').text('+');
+    $('p.parent').find('span').css({"color":"red", "font-weight":"bolder"});    
+    $('p.parent').nextUntil('p.parent').slideUp(1, function(){});    
+    $('p.parent').click(function(){
+            $(this).find('span').text(function(_, value){return value=='-'?'+':'-'}); //to disregard an argument -event- on a function use an underscore in the parameter               
+            $(this).nextUntil('p.parent').slideToggle(100, function(){});
+     });
+    
      
 JS;
 
