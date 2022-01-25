@@ -146,7 +146,7 @@ class InductionController extends Controller
        }elseif(!empty($Key)){
            $document = Yii::$app->navhelper->readByKey($service,$Key);
        }else{
-           Yii::$app->session->setFlash('error', 'We are unable to fetch the document', true);
+          // Yii::$app->session->setFlash('error', 'We are unable to fetch the document', true);
            return $this->redirect(['index']);
        }
 
@@ -179,10 +179,13 @@ class InductionController extends Controller
                 }
 
                 ++$count;
-                $link = $updateLink =  '';
-                $updateLink = Html::a('<i class="fa fa-edit"></i>',['update','Key'=> $quali->Key ],['class'=>'update btn btn-outline-info btn-xs']);
+                $Deletelink = $updateLink = $viewLink =  '';
+                $updateLink = Html::a('<i class="fa fa-edit"></i>',['update','Key'=> $quali->Key ],['class'=>'update btn btn-outline-info btn-xs', 'title' => 'Update Record']);
+                $viewLink = Html::a('<i class="fa fa-eye"></i>',['view','Key'=> $quali->Key ],['class'=>'btn btn-outline-info btn-xs mx-2', 'title' => 'View Document']);
 
-                $link = Html::a('<i class="fa fa-trash"></i>',['delete','Key'=> $quali->Key ],['class'=>'btn btn-outline-warning btn-xs','data' => [
+                $Deletelink = Html::a('<i class="fa fa-trash"></i>',['delete','Key'=> $quali->Key ],['class'=>'btn btn-outline-danger btn-xs text-danger',
+                    'title' => 'Delete Record.',
+                    'data' => [
                     'confirm' => 'Are you sure you want to delete this record?',
                     'method' => 'post',
                 ]]);
@@ -195,7 +198,7 @@ class InductionController extends Controller
                     'Global_Dimension_1_Code' => !empty($quali->Global_Dimension_1_Code)?$quali->Global_Dimension_1_Code:'',
                     'Global_Dimension_2_Code' => !empty($quali->Global_Dimension_2_Code)?$quali->Global_Dimension_2_Code:'',
                     'Status' => !empty($quali->Status)?$quali->Status:'',                     
-                    'Action' => $updateLink.' | '.$link                    
+                    'Action' => $updateLink.$viewLink.$Deletelink                    
                 ];
             
         }
@@ -234,8 +237,7 @@ class InductionController extends Controller
             
         ];
 
-
-        $result = Yii::$app->navhelper->PortalWorkFlows($service,$data,'IanSendInductionForApproval');
+        $result = Yii::$app->navhelper->Codeunit($service,$data,'IanSendInductionForApproval');
 
         if(!is_string($result)){
             Yii::$app->session->setFlash('success', 'Document sent for approval Successfully.', true);
@@ -250,24 +252,25 @@ class InductionController extends Controller
 
     /*Cancel Approval Request */
 
-    public function actionCancelRequest($No)
+    public function actionApproveInduction($No)
     {
         $service = Yii::$app->params['ServiceName']['HRAPPRAISALMGT'];
 
         $data = [
-            'applicationNo' => $No,
+            'inductionNo' => $No,
+            'urLToSend' => Yii::$app->urlManager->createAbsoluteUrl(['induction/view', 'No' => $No]),
         ];
 
 
-        $result = Yii::$app->navhelper->PortalWorkFlows($service,$data,'IanCancelImprestForApproval');
+        $result = Yii::$app->navhelper->Codeunit($service,$data,'IanApproveInduction');
 
         if(!is_string($result)){
-            Yii::$app->session->setFlash('success', 'Imprest Request Cancelled Successfully.', true);
-            return $this->redirect(['view']);
+            Yii::$app->session->setFlash('success', 'Document Approved Successfully.', true);
+            return $this->redirect(['index']);
         }else{
 
-            Yii::$app->session->setFlash('error', 'Error Cancelling Imprest Approval Request.  : '. $result);
-            return $this->redirect(['view']);
+            Yii::$app->session->setFlash('error', 'Error.  : '. $result);
+            return $this->redirect(['index']);
 
         }
     }

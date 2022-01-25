@@ -1074,8 +1074,8 @@ $employee = (!Yii::$app->user->isGuest && is_array(Yii::$app->user->identity->em
 
                         <!-- Employee Induction -->
 
-                        <li class="nav-item has-treeview <?= Yii::$app->recruitment->currentCtrl('induction')?'menu-open':'' ?>">
-                                <a href="#" class="nav-link <?= Yii::$app->recruitment->currentCtrl('induction')?'active':'' ?>" title="Employee Induction">
+                        <li class="nav-item has-treeview <?= Yii::$app->recruitment->currentCtrl(['induction','periodic-induction'])?'menu-open':'' ?>">
+                                <a href="#" class="nav-link <?= Yii::$app->recruitment->currentCtrl(['induction','periodic-induction'])?'active':'' ?>" title="Employee Induction">
                                     <i class="nav-icon fa fa-chart-bar" ></i>
                                     <p>
                                         Employee Induction
@@ -1089,6 +1089,12 @@ $employee = (!Yii::$app->user->isGuest && is_array(Yii::$app->user->identity->em
                                         <a href="<?= $absoluteUrl ?>induction" class="nav-link <?= Yii::$app->recruitment->currentaction('induction','index')?'active':'' ?>">
                                             <i class="fa fa-chart-line nav-icon"></i>
                                             <p>Individual </p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="<?= $absoluteUrl ?>periodic-induction" class="nav-link <?= Yii::$app->recruitment->currentaction('periodic-induction','index')?'active':'' ?>">
+                                            <i class="fa fa-chart-line nav-icon"></i>
+                                            <p>Periodic </p>
                                         </a>
                                     </li>
 

@@ -8,7 +8,7 @@
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 $absoluteUrl = \yii\helpers\Url::home(true);
-// Yii::$app->recruitment->printrr($employees);
+ //Yii::$app->recruitment->printrr(Yii::$app->user->identity->{'Employee No_'});
 
 ?>
 
@@ -24,7 +24,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
 
 <div class="card">
     <div class="actions card-body">
-            <?= Html::a('<i class="fas fa-forward"></i>Next Section',['next-section','employeeNo' => Yii::$app->user->identity->employee[0]->No],['class' => 'btn btn-app bg-success btn-success submitforapproval',
+                         <?= ($model->Status == 'Inductee' && $model->Employee_No == Yii::$app->user->identity->{'Employee No_'}  )?Html::a('<i class="fas fa-forward"></i>Next Section',['next-section','employeeNo' => Yii::$app->user->identity->employee[0]->No],['class' => 'btn btn-app bg-success btn-success submitforapproval',
                                 'data' => [
                                     'confirm' => 'Are you sure you want to send induction to next section?',
                                     'params'=>[
@@ -35,19 +35,31 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                             ],
                                 'title' => 'Send Induction To Next Section.'
     
-                            ]) ?>
+                            ]):'' ?>
     
     
-                            <?= ($model->Status == 'Pending_Approval')?Html::a('<i class="fas fa-times"></i> Cancel Approval Req.',['cancel-request'],['class' => 'btn btn-app submitforapproval',
+                            <?= ($model->Status == 'Inductor' && $model->Action_ID == Yii::$app->user->identity->{'Employee No_'})?Html::a('<i class="fas fa-check"></i> Approve.',['approve-induction'],['class' => 'btn btn-app bg-success mx-1',
                                 'data' => [
-                                'confirm' => 'Are you sure you want to cancel this approval request?',
+                                'confirm' => 'Are you sure you want to approve this document?',
                                 'params'=>[
                                     'No'=> $model->No,
                                 ],
                                 'method' => 'get',
                             ],
-                                'title' => 'Cancel Approval Request'
+                                'title' => 'Approve Document.'
     
+                            ]):'' ?>
+
+                            <?= ($model->Status == 'Inductee' && $model->Employee_No == Yii::$app->user->identity->{'Employee No_'})?Html::a('<i class="fas fa-paper-plane"></i> Send Approval Req',['send-for-approval'],['class' => 'btn btn-app submitforapproval',
+                                'data' => [
+                                    'confirm' => 'Are you sure you want to send imprest request for approval?',
+                                    'params'=>[
+                                        'No'=> $model->No
+                                    ],
+                                    'method' => 'get',
+                            ],
+                                'title' => 'Submit for Approval'
+
                             ]):'' ?>
     
     
@@ -175,8 +187,8 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                                     <td data-key="<?= $obj->Key ?>" data-name="Section" data-service="InductionOverallIN"><?= !empty($obj->Section)?$obj->Section:'' ?></td>
                                     <td data-key="<?= $obj->Key ?>" data-name="Expected_Start_Date" data-service="InductionOverallIN" ondblclick="addInput(this,'date')"><?= !empty($obj->Expected_Start_Date)?$obj->Expected_Start_Date:'' ?></td>
                                     <td data-key="<?= $obj->Key ?>" data-name="Expected_End_Date" data-service="InductionOverallIN" ondblclick="addInput(this,'date')"><?= !empty($obj->Expected_End_Date)?$obj->Expected_End_Date:'' ?></td>
-                                    <td data-key="<?= $obj->Key ?>" data-name="Expected_Start_Time" data-service="InductionOverallIN" ondblclick="addInput(this,'time')"><?= !empty($obj->Expected_Start_Time)?$obj->Expected_Start_Time:'' ?></td>
-                                    <td data-key="<?= $obj->Key ?>" data-name="Expected_End_Time" data-service="InductionOverallIN" ondblclick="addInput(this,'time')"><?= !empty($obj->Expected_End_Time)?$obj->Expected_End_Time:'' ?></td>
+                                    <td data-key="<?= $obj->Key ?>" data-name="Expected_Start_Time" data-service="InductionOverallIN" ondblclick="addInput(this,'time')"><?= !empty($obj->Expected_Start_Time)?Yii::$app->formatter->asTime($obj->Expected_Start_Time):'' ?></td>
+                                    <td data-key="<?= $obj->Key ?>" data-name="Expected_End_Time" data-service="InductionOverallIN" ondblclick="addInput(this,'time')"><?= !empty($obj->Expected_End_Time)?Yii::$app->formatter->asTime($obj->Expected_End_Time):'' ?></td>
                                     <td data-key="<?= $obj->Key ?>" data-name="Attended" data-service="InductionOverallIN" ondblclick="addDropDown(this,'attended')"><?= !empty($obj->Attended)?$obj->Attended:'' ?></td>
                                     <td data-key="<?= $obj->Key ?>" data-name="Reason_for_Failure" data-service="InductionOverallIN" ondblclick="addInput(this)"><?= !empty($obj->Reason_for_Failure)?$obj->Reason_for_Failure:'' ?></td>
                                     <td data-key="<?= $obj->Key ?>" data-name="Employee_comments" data-service="InductionOverallIN" ondblclick="addInput(this)"><?= !empty($obj->Employee_comments)?$obj->Employee_comments:'' ?></td>

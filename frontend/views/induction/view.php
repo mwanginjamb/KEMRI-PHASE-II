@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Induction Card', 'url' => ['view',
                     }
 ?>
 
-<div class="row">
+<div class="row actions">
     <div class="col-md-4">
 
         <?= ($model->Status == 'Inductee')?Html::a('<i class="fas fa-paper-plane"></i> Send Approval Req',['send-for-approval'],['class' => 'btn btn-app submitforapproval',
@@ -48,6 +48,18 @@ $this->params['breadcrumbs'][] = ['label' => 'Induction Card', 'url' => ['view',
 
 
     </div>
+
+    <?= ($model->Status == 'Inductor' && $model->Action_ID == Yii::$app->user->identity->{'Employee No_'})?Html::a('<i class="fas fa-check"></i> Approve.',['approve-induction'],['class' => 'btn btn-app bg-success mx-1',
+                                'data' => [
+                                'confirm' => 'Are you sure you want to approve this document?',
+                                'params'=>[
+                                    'No'=> $model->No,
+                                ],
+                                'method' => 'get',
+                            ],
+                                'title' => 'Approve Document.'
+    
+                            ]):'' ?>
 </div>
 
     <div class="row">
@@ -132,32 +144,36 @@ $this->params['breadcrumbs'][] = ['label' => 'Induction Card', 'url' => ['view',
 
 
                 </div>
-            </div><!--end details card-->
+            </div><!--end header card-->
 
 
            
-
-          
-
-
+            <!-- Card Lines -->
 
             <div class="card">
             <div class="card-header">
                 <div class="card-title">
                                     <h3>Employee Induction Lines</h3>
                 </div>
-                
+                <div class="card-tools">
+                        <?php Html::a('<i class="fa fa-plus-square"></i> New Induction Line',['add-line'],[
+                            'class' => 'add btn btn-outline-info',
+                            'data-no' => $model->No,
+                            'data-service' => 'Employee_Induction_Overall_In'
+                            ]) ?>
+                </div>
             </div>
 
             <div class="card-body">
-                <?php if(property_exists($document->Employee_Induction_Line,'Employee_Induction_Line')){ //show Lines ?>
+                <?php if(property_exists($document->Employee_Induction_Overall_In,'Employee_Induction_Overall_In')){ //show Lines ?>
 
                     <div class="table-responsive">
                         <table class="table table-bordered">
                             <thead>
                             <tr>
+                                <td></td>
                                 <!-- <td class="text-bold">Induction_No</td> -->
-                                <td class="text-bold">Induction Item</td>
+                                <td class="text-bold">Section</td>
                                 <td class="text-bold">Expected Start Date</td>
                                 <td class="text-bold">Expected End Date</td>
                                 <td class="text-bold">Expected Start Time</td>
@@ -168,7 +184,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Induction Card', 'url' => ['view',
                                
                                 <td class="text-bold">Employee comments</td>
                                 <td class="text-bold">Inductor Comments</td>
-                                <td class="text-bold">Section</td>
+                               
                                 <!-- <td class="text-bold">Action</td> -->
                                 
                             </tr>
@@ -177,32 +193,61 @@ $this->params['breadcrumbs'][] = ['label' => 'Induction Card', 'url' => ['view',
                             <?php
                            
 
-                            foreach($document->Employee_Induction_Line->Employee_Induction_Line as $obj):
+                            foreach($document->Employee_Induction_Overall_In->Employee_Induction_Overall_In as $obj):
                                 
                                 $deleteLink = Html::a('<i class="fa fa-trash"></i>',['delete-line' ],[
                                     'class'=>'del btn btn-outline-danger btn-xs',
                                     'data-key' => $obj->Key,
-                                    'data-service' => 'InductionLine'
+                                    'data-service' => 'InductionOverallIN'
                                 ]);
                                 ?>
-                                <tr>
-
-                                    <!-- <td data-key="<?= $obj->Key ?>" data-name="Induction_No" data-service="InductionLine"><?= !empty($obj->Induction_No)?$obj->Induction_No:'Not Set' ?></td> -->
-                                    <td ><?= !empty($obj->Induction_Item)?$obj->Induction_Item:'Not Set' ?></td>
-                                    <td ><?= !empty($obj->Expected_Start_Date)?$obj->Expected_Start_Date:'Not Set' ?></td>
-                                    <td ><?= !empty($obj->Expected_End_Date)?$obj->Expected_End_Date:'Not Set' ?></td>
-                                    <td ><?= !empty($obj->Expected_Start_Time)?$obj->Expected_Start_Time:'Not Set' ?></td>
-                                    <td ><?= !empty($obj->Expected_End_Time)?$obj->Expected_End_Time:'Not Set' ?></td>
-                                    <td ><?= !empty($obj->Attended)?$obj->Attended:'Not Set' ?></td>
-
-                                
-                                    <td ><?= !empty($obj->Reason_for_Failure)?$obj->Reason_for_Failure:'Not Set' ?></td>
-                                  
-                                    <td ><?= !empty($obj->Employee_comments)?$obj->Employee_comments:'Not Set' ?></td>
-                                    <td ><?= !empty($obj->Inductor_Comments)?$obj->Inductor_Comments:'Not Set' ?></td>
-                                    <td ><?= !empty($obj->Section)?$obj->Section:'Not Set' ?></td>
+                                <tr class="parent">
+                                    <td><span>+</span></td>
+                                    
+                                    <td data-key="<?= $obj->Key ?>" ><?= !empty($obj->Section)?$obj->Section:'' ?></td>
+                                    <td data-key="<?= $obj->Key ?>" ><?= !empty($obj->Expected_Start_Date)?$obj->Expected_Start_Date:'' ?></td>
+                                    <td data-key="<?= $obj->Key ?>" ><?= !empty($obj->Expected_End_Date)?$obj->Expected_End_Date:'' ?></td>
+                                    <td data-key="<?= $obj->Key ?>" ><?= !empty($obj->Expected_Start_Time)?Yii::$app->formatter->asTime($obj->Expected_Start_Time):'' ?></td>
+                                    <td data-key="<?= $obj->Key ?>" ><?= !empty($obj->Expected_End_Time)?Yii::$app->formatter->asTime($obj->Expected_End_Time):'' ?></td>
+                                    <td data-key="<?= $obj->Key ?>" ><?= !empty($obj->Attended)?$obj->Attended:'' ?></td>
+                                    <td data-key="<?= $obj->Key ?>" ><?= !empty($obj->Reason_for_Failure)?$obj->Reason_for_Failure:'' ?></td>
+                                    <td data-key="<?= $obj->Key ?>" ><?= !empty($obj->Employee_comments)?$obj->Employee_comments:'' ?></td>
+                                    <td data-key="<?= $obj->Key ?>" ><?= !empty($obj->Inductor_Comments)?$obj->Inductor_Comments:'' ?></td>
+                                    
                                     
                                     <!-- <td><?= $deleteLink ?></td> -->
+                                </tr>
+                                <tr class="child">
+                                    <td colspan="11" >
+                                        <div class="table-responsive">
+                                            <table class="table table-hover ">
+                                                <thead>
+                                                    <tr>
+                                                        <td>#</td>
+                                                        <td class="text-bold">Induction Item</td>   
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php 
+                                                    
+                                                    //print_r($model->getLines($obj->Line_No)); 
+                                                    $counter = 0;                                               
+                                                    if(is_array($model->getLines($obj->Line_No))): 
+                                                        foreach($model->getLines($obj->Line_No) as $ln):
+                                                            $counter++;
+                                                        ?>
+
+                                                        <tr>
+                                                            <td><?= $counter ?></td>
+                                                            <td><?= $ln->Induction_Item ?></td>
+                                                        </tr>
+                                                        
+                                                    <?php endforeach;
+                                                 endif; ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </td>
                                 </tr>
                             <?php endforeach; ?>
                             </tbody>
@@ -213,7 +258,12 @@ $this->params['breadcrumbs'][] = ['label' => 'Induction Card', 'url' => ['view',
             </div>
         </div>
 
-            <!--objectives card -->
+            <!-- End Lines Card -->
+          
+
+
+
+            
 
 
 
