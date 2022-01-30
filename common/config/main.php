@@ -28,16 +28,16 @@ return [
         ],
         'db' => [
             'class' => 'yii\db\Connection',
-            'dsn' => 'sqlsrv:server=KEKLF-SQL07;database=KEMRI_HRMIS_UAT', //KEKLF-SQL55\POWERPIVOT - KEMRI_HRMIS_UAT  --live: 172.16.12.73
-            'username' => 'ess', //'ess',
-            'password' => 'ess123', //'ess123',
+            'dsn' => 'sqlsrv:server='.env("DB_INSTANCE").';database='.env("DB_NAME"), 
+            'username' =>  env('DB_USER'),
+            'password' => env('DB_PWD'),
             'charset' => 'utf8',
         ],
         'nav' => [
             'class' => 'yii\db\Connection',
-            'dsn' => 'sqlsrv:server=KEKLF-SQL07;database=KEMRI_HRMIS_UAT', //172.16.12.185
-            'username' => 'ess',
-            'password' => 'ess123',
+            'dsn' => 'sqlsrv:server='.env("DB_INSTANCE").';database='.env("DB_NAME"), 
+            'username' => env('DB_USER'),
+            'password' => env('DB_PWD'),
             'charset' => 'utf8',
         ],
         'assetManager' => [
