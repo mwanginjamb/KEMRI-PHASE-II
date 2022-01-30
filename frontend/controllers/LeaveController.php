@@ -424,7 +424,7 @@ class LeaveController extends Controller
         $service = Yii::$app->params['ServiceName']['StaffOnLeave'];
         $filter = [
             'Division' => Yii::$app->user->identity->Employee[0]->Global_Dimension_1_Code,
-            'Is_HOD' => TRUE
+            'Is_HOD' => 1
         ];
 
         $results = \Yii::$app->navhelper->getData($service,$filter);
