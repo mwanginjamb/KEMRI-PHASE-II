@@ -387,7 +387,7 @@ class Dashboard extends Component
             'Is_HOD' => 1
         ];
 
-        $results = \Yii::$app->navhelper->getData($service,$filter);
+        $result = \Yii::$app->navhelper->getData($service,$filter);
 		if(is_object($result) || is_string($result)){//RETURNS AN EMPTY object if the filter result to false
             return 0;
         }
@@ -402,7 +402,7 @@ class Dashboard extends Component
             'Is_HOD' => 1
         ];
 
-        $results = \Yii::$app->navhelper->getData($service,$filter);
+        $result = \Yii::$app->navhelper->getData($service,$filter);
 		if(is_object($result) || is_string($result)){//RETURNS AN EMPTY object if the filter result to false
             return 0;
         }
@@ -415,7 +415,7 @@ class Dashboard extends Component
         $filter = [
             'Supervisor_No' => Yii::$app->user->identity->{'Employee No_'},
         ];
-        $results = \Yii::$app->navhelper->getData($service,$filter);
+        $result = \Yii::$app->navhelper->getData($service,$filter);
 		if(is_object($result) || is_string($result)){//RETURNS AN EMPTY object if the filter result to false
             return 0;
         }
@@ -429,10 +429,10 @@ class Dashboard extends Component
             'Supervisor_No' => Yii::$app->user->identity->{'Employee No_'},
         ];
         $results = \Yii::$app->navhelper->getData($service,$filter);
-		if(is_object($result) || is_string($result)){//RETURNS AN EMPTY object if the filter result to false
+		if(is_object($results) || is_string($results)){//RETURNS AN EMPTY object if the filter result to false
             return 0;
         }
-        return count($result);
+        return count($results);
 	}
 	
 	public function getLongtermsSuper()
@@ -442,10 +442,10 @@ class Dashboard extends Component
             'Supervisor_No' => Yii::$app->user->identity->{'Employee No_'},
         ];
         $results = \Yii::$app->navhelper->getData($service,$filter);
-		if(is_object($result) || is_string($result)){//RETURNS AN EMPTY object if the filter result to false
+		if(is_object($results) || is_string($results)){//RETURNS AN EMPTY object if the filter result to false
             return 0;
         }
-        return count($result);
+        return count($results);
 
 	}
 
