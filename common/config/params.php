@@ -169,6 +169,9 @@ return [
         'leaveRecallList' => 'leaveRecallList',//71077
         'activeLeaveList' => 'activeLeaveList',//69005
 
+        // Dashboard
+        'HODLeaveBalances' => 'HODLeaveBalances', // 50108
+        
         
         'ApprovalComments' => 'ApprovalComments', //660
         'RejectedApprovalEntries' => 'RejectedApprovalEntries', //50003
