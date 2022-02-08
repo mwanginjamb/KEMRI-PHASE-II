@@ -39,7 +39,7 @@ class LeaveController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout','signup','index','advance-list','create','update','delete','view','listactive','listbalances','activeleaveshod'],
+                'only' => ['logout','signup','index','advance-list','create','update','delete','view','listactive','listbalances','listactivehod','activeleaves','activeleaveshod'],
                 'rules' => [
                     [
                         'actions' => ['signup'],
