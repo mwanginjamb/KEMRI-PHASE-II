@@ -460,6 +460,12 @@ return [
         'JobApplication' => 'JobApplication', //50002 Job Aplication Management Code Unit
         'PortalReports' => 'PortalReports',//50064
 
+        /********************Induction SERVICES***************************************/
+
+        'InductionList' => 'InductionList', //55093
+        'InductionCard' => 'InductionCard', //55094
+        'InductionLine' => 'InductionLine', // 55095
+
 
 
     ],
