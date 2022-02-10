@@ -68,6 +68,7 @@ return [
         'PortalFactory', // 50062
         'ImprestManagement', // 50017
         'EmployeeExitManagement',
+        'HRAPPRAISALMGT'
     ],
     'ServiceName'=>[
 
@@ -465,6 +466,8 @@ return [
         'InductionList' => 'InductionList', //55093
         'InductionCard' => 'InductionCard', //55094
         'InductionLine' => 'InductionLine', // 55095
+        'InductionOverallIN' => 'InductionOverallIN', //55108
+        'HRAPPRAISALMGT' => 'HRAPPRAISALMGT', // 50209 -- Codeunit  
 
 
 

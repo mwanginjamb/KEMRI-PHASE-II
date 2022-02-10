@@ -82,6 +82,8 @@ class ContractrenewallineController extends Controller
                 $model->Employee_No = Yii::$app->request->get('Employee_No');
                 $result = Yii::$app->navhelper->postData($service, $model);
 
+               
+
                 if(is_string($result))
                 {
                     Yii::$app->recruitment->printrr($result);
@@ -89,6 +91,8 @@ class ContractrenewallineController extends Controller
                 
 
                 $model = Yii::$app->navhelper->loadmodel($result,$model);
+
+               // Yii::$app->recruitment->printrr($model);
         }
         
 
