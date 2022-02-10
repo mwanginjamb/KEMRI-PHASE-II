@@ -57,7 +57,7 @@ return [
         'language',
         'referee',
         'recruitment',
-        'employeerequisition'
+        'employeerequisition',
     ],
     'codeUnits' => [
         //'Portal_Workflows', //50019
@@ -68,7 +68,8 @@ return [
         'PortalFactory', // 50062
         'ImprestManagement', // 50017
         'EmployeeExitManagement',
-        'HRAPPRAISALMGT'
+        'HRAPPRAISALMGT',
+        'TRAININGMGT',
     ],
     'ServiceName'=>[
 
@@ -468,6 +469,22 @@ return [
         'InductionLine' => 'InductionLine', // 55095
         'InductionOverallIN' => 'InductionOverallIN', //55108
         'HRAPPRAISALMGT' => 'HRAPPRAISALMGT', // 50209 -- Codeunit  
+
+
+
+        /********************Training SERVICES***************************************/
+
+        'AcademicTraining' => 'AcademicTraining', //56031
+        'GroupTraining' => 'GroupTraining', //56025
+        'GroupTrainingLine' => 'GroupTrainingLine', //56027 
+        'GroupTrainingCard' => 'GroupTrainingCard', //56026
+        'ProgramTraining' => 'ProgramTraining', //56028
+        'ProgramTrainingLine' => 'ProgramTrainingLine', //56030
+        'TrainingApplicationsList' => 'TrainingApplicationsList', //56003
+        'TrainingApplicationCard' => 'TrainingApplicationCard', //56004
+        'TrainingApplicationsPendingApproval' => 'TrainingApplicationsPendingApproval', //56010
+        'ApprovedTrainingApplications' => 'ApprovedTrainingApplications', // 56011
+        'TRAININGMGT' => 'TRAININGMGT', //50010 --CODEUNIT 
 
 
 
