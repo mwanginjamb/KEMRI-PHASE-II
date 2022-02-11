@@ -144,7 +144,7 @@ class TrainingApplicationsController extends Controller
        // Get Document
        if(!empty($No))
        {
-           $document = Yii::$app->navhelper->findOne($service,'No',$No);
+           $document = Yii::$app->navhelper->findOne($service,'Application_No',$No);
        }elseif(!empty($Key)){
            $document = Yii::$app->navhelper->readByKey($service,$Key);
        }else{
