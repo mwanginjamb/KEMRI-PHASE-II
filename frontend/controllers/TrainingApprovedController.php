@@ -8,6 +8,7 @@
 
 namespace frontend\controllers;
 
+use frontend\models\EmployeeTraining;
 use frontend\models\Imprestcard;
 use frontend\models\Induction;
 use Yii;
@@ -136,8 +137,8 @@ class TrainingApprovedController extends Controller
     }
 
     public function actionView($No = '', $Key = ''){
-        $service = Yii::$app->params['ServiceName']['InductionCard'];
-        $model = new Induction();
+        $service = Yii::$app->params['ServiceName']['TrainingApplicationCard'];
+        $model = new EmployeeTraining();
 
        // Get Document
        if(!empty($No))
@@ -232,6 +233,74 @@ class TrainingApprovedController extends Controller
 
 
     /* Call Approval Workflow Methods */
+
+    public function actionSendToLnmgr()
+    {
+        $No = Yii::$app->request->post('No');
+        $service = Yii::$app->params['ServiceName']['TRAININGMGT'];
+        $data = [
+            'applicationNo' => $No,
+            'urLToSend' => Yii::$app->urlManager->createAbsoluteUrl(['training-approved/view', 'No' => $No]),
+            
+        ];
+
+        $result = Yii::$app->navhelper->Codeunit($service,$data,'IanSendTrainingForApprovaLineManager');
+        if(!is_string($result)){
+            Yii::$app->session->setFlash('success', 'Application Sent To Line Manager Successfully.', true);
+            return $this->redirect(['index']);
+        }else{
+
+            Yii::$app->session->setFlash('error', 'Error  : '. $result);
+            return $this->redirect(['index']);
+
+        }
+    }
+
+
+    public function actionSendToHro()
+    {
+        $No = Yii::$app->request->post('No');
+        $service = Yii::$app->params['ServiceName']['TRAININGMGT'];
+        $data = [
+            'applicationNo' => $No,
+            'urLToSend' => Yii::$app->urlManager->createAbsoluteUrl(['training-approved/view', 'No' => $No]),
+            
+        ];
+
+        $result = Yii::$app->navhelper->Codeunit($service,$data,'IanSendInductionForApprovalHRO');
+        if(!is_string($result)){
+            Yii::$app->session->setFlash('success', 'Application Sent To Line Manager Successfully.', true);
+            return $this->redirect(['index']);
+        }else{
+
+            Yii::$app->session->setFlash('error', 'Error  : '. $result);
+            return $this->redirect(['index']);
+
+        }
+    }
+
+
+    public function actionApproveTrainingHro()
+    {
+        $No = Yii::$app->request->post('No');
+        $service = Yii::$app->params['ServiceName']['TRAININGMGT'];
+        $data = [
+            'applicationNo' => $No,
+            'urLToSend' => Yii::$app->urlManager->createAbsoluteUrl(['training-approved/view', 'No' => $No]),
+            
+        ];
+
+        $result = Yii::$app->navhelper->Codeunit($service,$data,'IanApproveTrainingAttendanceHRO');
+        if(!is_string($result)){
+            Yii::$app->session->setFlash('success', 'Training attendance approved Successfully.', true);
+            return $this->redirect(['index']);
+        }else{
+
+            Yii::$app->session->setFlash('error', 'Error  : '. $result);
+            return $this->redirect(['index']);
+
+        }
+    }
 
     public function actionSendForApproval($No)
     {

@@ -181,12 +181,20 @@ class TrainingProgramController extends Controller
                 ++$count;
                 $Deletelink = $updateLink = $viewLink =  '';
                 $updateLink = Html::a('<i class="fa fa-edit"></i>',['update','Key'=> $quali->Key ],['class'=>'update btn btn-outline-info btn-xs', 'title' => 'Update Record']);
+               
                 $ApplyLink = ($quali->Status == 'New')?
-                Html::a('<i class="fa fa-check" mx-1></i> Apply ',[
-                    'apply',
-                    'Group_No'=> $quali->Group_No,
-                    'Employee_No'=> $quali->Employee_No,
-                 ],['class'=>'btn btn-outline-info btn-xs mx-2', 'title' => 'Apply Training']):'';
+                Html::a('<i class="fa fa-check mx-1"></i> Apply',['apply'],[
+                    'class'=>'apply btn btn-outline-info btn-xs mx-2',
+                    'title' => 'Apply Training',
+                    'data' => [
+                        'params' => [
+                            'groupNoCode' => $quali->Group_No ,
+                            'empNo' => $quali->Employee_No
+                        ],
+                        'confirm' => 'Are you sure you want to apply ?',
+                        'method' => 'post'
+                    ]
+                    ]):'';
 
                 $Deletelink = Html::a('<i class="fa fa-trash"></i>',['delete','Key'=> $quali->Key ],['class'=>'btn btn-outline-danger btn-xs text-danger',
                     'title' => 'Delete Record.',
@@ -239,6 +247,27 @@ class TrainingProgramController extends Controller
 
 
     /* Call Approval Workflow Methods */
+
+    public function actionApply()
+    {
+        $service = Yii::$app->params['ServiceName']['TRAININGMGT'];
+        $data = [
+            'groupNoCode' => Yii::$app->request->post('groupNoCode'),
+            'empNo' => Yii::$app->request->post('empNo'),
+            
+        ];
+
+        $result = Yii::$app->navhelper->Codeunit($service,$data,'IanMakeTrainingApplicationFromProgram');
+        if(!is_string($result)){
+            Yii::$app->session->setFlash('success', 'Application Made Successfully.', true);
+            return $this->redirect(['index']);
+        }else{
+
+            Yii::$app->session->setFlash('error', 'Error  : '. $result);
+            return $this->redirect(['index']);
+
+        }
+    }
 
     public function actionSendForApproval($No)
     {

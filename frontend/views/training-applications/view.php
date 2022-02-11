@@ -40,7 +40,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Training Card', 'url' => ['view','
                 'params'=>[
                     'No'=> $model->Application_No
                 ],
-                'method' => 'get',
+                'method' => 'post',
         ],
             'title' => 'Submit for Approval'
 
@@ -49,7 +49,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Training Card', 'url' => ['view','
 
     </div>
 
-    <?= ($model->Status == 'Approved')?Html::a('<i class="fas fa-forward"></i> To Ln Manager.',['Send-to-lnmgr'],['class' => 'btn btn-app bg-success mx-1',
+    <?= ($model->Status == 'Approved')?Html::a('<i class="fas fa-forward"></i> To Ln Manager.',['send-to-lnmgr'],['class' => 'btn btn-app bg-success mx-1',
                                 'data' => [
                                 'confirm' => 'Are you sure want to send this document to line manager?',
                                 'params'=>[

@@ -7,11 +7,11 @@
  */
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap4\ActiveForm;
 
-$this->title = 'Induction - '.$model->No;
-$this->params['breadcrumbs'][] = ['label' => 'Induction List', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => 'Induction Card', 'url' => ['view','No'=> $model->No]];
+$this->title = 'Training - '.$model->Application_No;
+$this->params['breadcrumbs'][] = ['label' => 'Training Applications List', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Training Card', 'url' => ['view','Key'=> $model->Key]];
 /** Status Sessions */
 
 ?>
@@ -34,13 +34,13 @@ $this->params['breadcrumbs'][] = ['label' => 'Induction Card', 'url' => ['view',
 <div class="row actions">
     <div class="col-md-4">
 
-        <?= ($model->Status == 'Inductee')?Html::a('<i class="fas fa-paper-plane"></i> Send Approval Req',['send-for-approval'],['class' => 'btn btn-app submitforapproval',
+        <?= ($model->Status == 'New')?Html::a('<i class="fas fa-paper-plane"></i> Send Approval Req',['send-for-approval'],['class' => 'btn btn-app submitforapproval',
             'data' => [
-                'confirm' => 'Are you sure you want to send imprest request for approval?',
+                'confirm' => 'Are you sure you want to send this request for approval?',
                 'params'=>[
-                    'No'=> $model->No
+                    'No'=> $model->Application_No
                 ],
-                'method' => 'get',
+                'method' => 'post',
         ],
             'title' => 'Submit for Approval'
 
@@ -49,15 +49,41 @@ $this->params['breadcrumbs'][] = ['label' => 'Induction Card', 'url' => ['view',
 
     </div>
 
-    <?= ($model->Status == 'Inductor' && $model->Action_ID == Yii::$app->user->identity->{'Employee No_'})?Html::a('<i class="fas fa-check"></i> Approve.',['approve-induction'],['class' => 'btn btn-app bg-success mx-1',
+    <?= ($model->Status == 'Approved')?Html::a('<i class="fas fa-forward"></i> To Ln Manager.',['send-to-lnmgr'],['class' => 'btn btn-app bg-success mx-1',
                                 'data' => [
-                                'confirm' => 'Are you sure you want to approve this document?',
+                                'confirm' => 'Are you sure want to send this document to line manager?',
                                 'params'=>[
-                                    'No'=> $model->No,
+                                    'No'=> $model->Application_No,
                                 ],
-                                'method' => 'get',
+                                'method' => 'post',
                             ],
-                                'title' => 'Approve Document.'
+                                'title' => 'Send to Line Manager.'
+    
+                            ]):'' ?>
+
+
+    <?= ($model->Status == 'Line_Manager')?Html::a('<i class="fas fa-forward"></i> To HRO.',['send-to-hro'],['class' => 'btn btn-app bg-success mx-1',
+                                'data' => [
+                                'confirm' => 'Are you sure want to send this document to HRO?',
+                                'params'=>[
+                                    'No'=> $model->Application_No,
+                                ],
+                                'method' => 'post',
+                            ],
+                                'title' => 'Send to Line Manager.'
+    
+                            ]):'' ?>
+
+
+<?= ($model->Status == 'HRO')?Html::a('<i class="fas fa-check"></i> Approve.',['approve-training-hro'],['class' => 'btn btn-app bg-success mx-1',
+                                'data' => [
+                                'confirm' => 'Are you sure want to approve this training attendance?',
+                                'params'=>[
+                                    'No'=> $model->Application_No,
+                                ],
+                                'method' => 'post',
+                            ],
+                                'title' => 'Approve Training Attendance.'
     
                             ]):'' ?>
 </div>
@@ -66,7 +92,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Induction Card', 'url' => ['view',
         <div class="col-md-12">
             <div class="card-info">
                 <div class="card-header">
-                    <h3>Induction Card </h3>
+                    <h3>Application Training Card </h3>
                 </div>
 
 
@@ -83,7 +109,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Induction Card', 'url' => ['view',
 
 
 
-                    <h3 class="card-title">Induction No : <?= $model->No?></h3>
+                    <h3 class="card-title">Training No : <?= $model->Application_No?></h3>
 
 
 
@@ -98,13 +124,19 @@ $this->params['breadcrumbs'][] = ['label' => 'Induction Card', 'url' => ['view',
                         <div class=" row col-md-12">
                             <div class="col-md-6">
 
-                            <?= $form->field($model, 'No')->textInput(['readonly'=> true]) ?>
+                            <?= $form->field($model, 'Application_No')->textInput(['readonly'=> true]) ?>
                             <?= $form->field($model, 'Key')->hiddenInput()->label(false) ?>
-                            <?= $form->field($model, 'Employee_No')->textInput(['readonly'=> true]) ?>
-                            <?= $form->field($model, 'Employee_Name')->textInput(['readonly' =>  true]) ?>
-                            <?= $form->field($model, 'Global_Dimension_1_Code')->textInput(['readonly' =>  true, 'disabled'=>true]) ?>
-                            <?= $form->field($model, 'Global_Dimension_2_Code')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
-                            <?= $form->field($model, 'Global_Dimension_3_Code')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
+                            <?= $form->field($model, 'Training_Need')->textInput(['readonly'=> true]) ?>
+                            <?= $form->field($model, 'Date_of_Application')->textInput(['readonly' =>  true]) ?>
+                            <?= $form->field($model, 'Training_Calender')->textInput(['readonly' =>  true, 'disabled'=>true]) ?>
+                            <?= $form->field($model, 'Training_Need_Description')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
+                            <?= $form->field($model, 'Employee_Name')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
+                            <?= $form->field($model, 'Job_Group')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
+                            <?= $form->field($model, 'Job_Title')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
+                            <?= $form->field($model, 'Status')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
+                            <?= $form->field($model, 'Start_Date')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
+                            <?= $form->field($model, 'End_Date')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
+                            <?= $form->field($model, 'Period')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
 
 
                                 <p class="parent"><span>+</span>
@@ -117,12 +149,21 @@ $this->params['breadcrumbs'][] = ['label' => 'Induction Card', 'url' => ['view',
 
                             </div>
                             <div class="col-md-6">
-                            <?= $form->field($model, 'Status')->textInput(['readonly'=> true, 'disabled'=>true]) ?>        
-                            <?= $form->field($model, 'CEO_Comments')->textarea(['rows' => 2,'readonly'=> true, 'disabled'=>true]) ?>
-                            <?= $form->field($model, 'HOO_Comments')->textarea(['rows' => 2,'readonly'=> true, 'disabled'=>true]) ?>        
-                            <?= $form->field($model, 'HOF_Comments')->textarea(['rows'=> 2,'readonly'=> true, 'disabled'=>true]) ?>        
-                            <?= $form->field($model, 'Action_Section')->textInput(['readonly'=> true]) ?>
-                            <?= $form->field($model, 'Action_ID')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
+                            <?= $form->field($model, 'Expected_Cost')->textInput(['readonly'=> true, 'disabled'=>true]) ?>        
+                            <?= $form->field($model, 'Trainer')->textarea(['rows' => 2,'readonly'=> true, 'disabled'=>true]) ?>
+                            <?= $form->field($model, 'Exceeds_Expected_Trainees')->checkbox([$model->Exceeds_Expected_Trainees]) ?>        
+                            <?= $form->field($model, 'Training_Start_Date')->textInput(['readonly'=> true, 'disabled'=>true]) ?>        
+                            <?= $form->field($model, 'CPD_Approved_Cost')->textInput(['readonly'=> true]) ?>
+                            <?= $form->field($model, 'Total_Cost')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
+                            <?= $form->field($model, 'HRO_No')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
+                            <?= $form->field($model, 'HRO_Name')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
+                            <?= $form->field($model, 'Line_Manager')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
+                            <?= $form->field($model, 'Manager_Name')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
+                            <?= $form->field($model, 'Approval_rejection_Comments')->textarea(['rows' => 1 ,'readonly'=> true, 'disabled'=>true]) ?> 
+                            <?= $form->field($model, 'Nature_of_Training')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
+                            <?= $form->field($model, 'Training_Type')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
+                            <?= $form->field($model, 'Training_Category')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
+                            
                                
                             <p class="parent"><span>+</span>
 
@@ -153,39 +194,31 @@ $this->params['breadcrumbs'][] = ['label' => 'Induction Card', 'url' => ['view',
             <div class="card">
             <div class="card-header">
                 <div class="card-title">
-                                    <h3>Employee Induction Lines</h3>
+                                    <h3>Training Cost Breakdown</h3>
                 </div>
-                <div class="card-tools">
+                <!--<div class="card-tools">
                         <?php Html::a('<i class="fa fa-plus-square"></i> New Induction Line',['add-line'],[
                             'class' => 'add btn btn-outline-info',
-                            'data-no' => $model->No,
+                            'data-no' => $model->Application_No,
                             'data-service' => 'Employee_Induction_Overall_In'
                             ]) ?>
-                </div>
+                </div>-->
             </div>
 
             <div class="card-body">
-                <?php if(property_exists($document->Employee_Induction_Overall_In,'Employee_Induction_Overall_In')){ //show Lines ?>
+                <?php if(property_exists($document->Training_Cost_Breakdown,'Training_Cost_Breakdown')){ //show Lines ?>
 
                     <div class="table-responsive">
                         <table class="table table-bordered">
                             <thead>
                             <tr>
                                 <td></td>
-                                <!-- <td class="text-bold">Induction_No</td> -->
-                                <td class="text-bold">Section</td>
-                                <td class="text-bold">Expected Start Date</td>
-                                <td class="text-bold">Expected End Date</td>
-                                <td class="text-bold">Expected Start Time</td>
-                                <td class="text-bold">Expected End Time</td>
-                                <td class="text-bold">Attended</td>
-                                
-                                <td class="text-bold">Reason for Failure</td>
                                
-                                <td class="text-bold">Employee comments</td>
-                                <td class="text-bold">Inductor Comments</td>
+                                <td class="text-bold">Application_No</td>
+                                <td class="text-bold">Cost_Description</td>
+                                <td class="text-bold">Amount</td>
+                                                            
                                
-                                <!-- <td class="text-bold">Action</td> -->
                                 
                             </tr>
                             </thead>
@@ -193,7 +226,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Induction Card', 'url' => ['view',
                             <?php
                            
 
-                            foreach($document->Employee_Induction_Overall_In->Employee_Induction_Overall_In as $obj):
+                            foreach($document->Training_Cost_Breakdown->Training_Cost_Breakdown as $obj):
                                 
                                 $deleteLink = Html::a('<i class="fa fa-trash"></i>',['delete-line' ],[
                                     'class'=>'del btn btn-outline-danger btn-xs',
@@ -204,51 +237,15 @@ $this->params['breadcrumbs'][] = ['label' => 'Induction Card', 'url' => ['view',
                                 <tr class="parent">
                                     <td><span>+</span></td>
                                     
-                                    <td data-key="<?= $obj->Key ?>" ><?= !empty($obj->Section)?$obj->Section:'' ?></td>
-                                    <td data-key="<?= $obj->Key ?>" ><?= !empty($obj->Expected_Start_Date)?$obj->Expected_Start_Date:'' ?></td>
-                                    <td data-key="<?= $obj->Key ?>" ><?= !empty($obj->Expected_End_Date)?$obj->Expected_End_Date:'' ?></td>
-                                    <td data-key="<?= $obj->Key ?>" ><?= !empty($obj->Expected_Start_Time)?Yii::$app->formatter->asTime($obj->Expected_Start_Time):'' ?></td>
-                                    <td data-key="<?= $obj->Key ?>" ><?= !empty($obj->Expected_End_Time)?Yii::$app->formatter->asTime($obj->Expected_End_Time):'' ?></td>
-                                    <td data-key="<?= $obj->Key ?>" ><?= !empty($obj->Attended)?$obj->Attended:'' ?></td>
-                                    <td data-key="<?= $obj->Key ?>" ><?= !empty($obj->Reason_for_Failure)?$obj->Reason_for_Failure:'' ?></td>
-                                    <td data-key="<?= $obj->Key ?>" ><?= !empty($obj->Employee_comments)?$obj->Employee_comments:'' ?></td>
-                                    <td data-key="<?= $obj->Key ?>" ><?= !empty($obj->Inductor_Comments)?$obj->Inductor_Comments:'' ?></td>
+                                    <td data-key="<?= $obj->Key ?>" ><?= !empty($obj->Application_No)?$obj->Application_No:'' ?></td>
+                                    <td data-key="<?= $obj->Key ?>" ><?= !empty($obj->Cost_Description)?$obj->Cost_Description:'' ?></td>
+                                    <td data-key="<?= $obj->Key ?>" ><?= !empty($obj->Amount)? Yii::$app->formatter->asDecimal($obj->Amount):'' ?></td>
+                                    
                                     
                                     
                                     <!-- <td><?= $deleteLink ?></td> -->
                                 </tr>
-                                <tr class="child">
-                                    <td colspan="11" >
-                                        <div class="table-responsive">
-                                            <table class="table table-hover ">
-                                                <thead>
-                                                    <tr>
-                                                        <td>#</td>
-                                                        <td class="text-bold">Induction Item</td>   
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php 
-                                                    
-                                                    //print_r($model->getLines($obj->Line_No)); 
-                                                    $counter = 0;                                               
-                                                    if(is_array($model->getLines($obj->Line_No))): 
-                                                        foreach($model->getLines($obj->Line_No) as $ln):
-                                                            $counter++;
-                                                        ?>
-
-                                                        <tr>
-                                                            <td><?= $counter ?></td>
-                                                            <td><?= $ln->Induction_Item ?></td>
-                                                        </tr>
-                                                        
-                                                    <?php endforeach;
-                                                 endif; ?>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </td>
-                                </tr>
+                               
                             <?php endforeach; ?>
                             </tbody>
                         </table>

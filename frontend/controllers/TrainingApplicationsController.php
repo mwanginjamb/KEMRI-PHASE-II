@@ -184,7 +184,17 @@ class TrainingApplicationsController extends Controller
                 $Deletelink = $updateLink = $viewLink = $applyLink = $sendForApproval =  '';
                 $updateLink = Html::a('<i class="fa fa-edit"></i>',['update','Key'=> $quali->Key ],['class'=>'update btn btn-outline-info btn-xs', 'title' => 'Update Record']);
                 $viewLink = Html::a('<i class="fa fa-eye"></i>',['view','Key'=> $quali->Key ],['class'=>'btn btn-outline-info btn-xs mx-2', 'title' => 'View Document']);
-                $sendForApproval = ($quali->Status == 'New')? Html::a('<i class="fa fa-check"></i>',['sendForApproval','No'=> $quali->Application_No ],['class'=>'btn btn-outline-success btn-xs mx-2', 'title' => 'Send for Approval']): '';
+                $sendForApproval = ($quali->Status == 'New')? Html::a('<i class="fa fa-forward"></i>',['send-for-approval'],[
+                    'class'=>'btn btn-outline-success btn-xs mx-2',
+                    'title' => 'Send for Approval',
+                    'data' => [
+                        'params' => [
+                            'No'=> $quali->Application_No
+                        ],
+                        'confirm' => 'Are you sure you want to send this request for approval?',
+                        'method' => 'post'
+                    ]
+                    ]): '';
                 $cancelApproval = ($quali->Status == 'Pending_Approval')? Html::a('<i class="fa fa-times"></i>',['cancelApprovalRequest','No'=> $quali->Application_No ],['class'=>'btn btn-outline-warning btn-xs mx-2', 'title' => 'Cancel Approval Request']): '';
 
 
@@ -235,29 +245,29 @@ class TrainingApplicationsController extends Controller
 
     /* Call Approval Workflow Methods */
 
-    public function actionSendForApproval($No)
+    public function actionSendForApproval()
     {
-        $service = Yii::$app->params['ServiceName']['HRAPPRAISALMGT'];
+        $No = Yii::$app->request->post('No');
+        $service = Yii::$app->params['ServiceName']['PortalFactory'];
 
         $data = [
-            'inductionNo' => $No,
-            'urLToSend' => Yii::$app->urlManager->createAbsoluteUrl(['induction/view', 'No' => $No]),
-            
+            'applicationNo' => Yii::$app->request->post('No'),
+            'approvalUrl' => Yii::$app->urlManager->createAbsoluteUrl(['training-applications/view', 'No' => $No]),
+            'sendMail' => 1,
         ];
 
-        $result = Yii::$app->navhelper->Codeunit($service,$data,'IanSendInductionForApproval');
+        $result = Yii::$app->navhelper->Codeunit($service,$data,'IanSendTrainingForApproval');
 
         if(!is_string($result)){
             Yii::$app->session->setFlash('success', 'Document sent for approval Successfully.', true);
-            return $this->redirect(['view']);
+            return $this->redirect(['index']);
         }else{
 
             Yii::$app->session->setFlash('error', 'Error  : '. $result);
-            return $this->redirect(['view']);
+            return $this->redirect(['index']);
 
         }
     }
-
     /*Cancel Approval Request */
 
     public function actionApproveInduction($No)

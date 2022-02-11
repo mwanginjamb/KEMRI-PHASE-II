@@ -182,7 +182,18 @@ class TrainingAcademicController extends Controller
                 $Deletelink = $updateLink = $viewLink = $ApplyLink = '';
                 $updateLink = Html::a('<i class="fa fa-edit"></i>',['update','Key'=> $quali->Key ],['class'=>'update btn btn-outline-info btn-xs', 'title' => 'Update Record']);
                 $ApplyLink = ($quali->Status == 'New')?
-                Html::a('<i class="fa fa-check"></i>',['apply','Key'=> $quali->Key ],['class'=>'apply btn btn-outline-info btn-xs mx-2', 'title' => 'Apply Training']):'';
+                Html::a('<i class="fa fa-check mx-1"></i> Apply',['apply'],[
+                    'class'=>'apply btn btn-outline-info btn-xs mx-2',
+                    'title' => 'Apply Training',
+                    'data' => [
+                        'params' => [
+                            'groupNoCode' => $quali->Group_No ,
+                            'empNo' => $quali->Employee_No
+                        ],
+                        'confirm' => 'Are you sure you want to apply ?',
+                        'method' => 'post'
+                    ]
+                    ]):'';
 
                 $Deletelink = Html::a('<i class="fa fa-trash"></i>',['delete','Key'=> $quali->Key ],['class'=>'btn btn-outline-danger btn-xs text-danger',
                     'title' => 'Delete Record.',
@@ -234,25 +245,47 @@ class TrainingAcademicController extends Controller
 
     /* Call Approval Workflow Methods */
 
-    public function actionSendForApproval($No)
+    public function actionApply()
     {
-        $service = Yii::$app->params['ServiceName']['HRAPPRAISALMGT'];
-
+        $service = Yii::$app->params['ServiceName']['TRAININGMGT'];
         $data = [
-            'inductionNo' => $No,
-            'urLToSend' => Yii::$app->urlManager->createAbsoluteUrl(['induction/view', 'No' => $No]),
+            'groupNoCode' => Yii::$app->request->post('groupNoCode'),
+            'empNo' => Yii::$app->request->post('empNo'),
             
         ];
 
-        $result = Yii::$app->navhelper->Codeunit($service,$data,'IanSendInductionForApproval');
-
+        $result = Yii::$app->navhelper->Codeunit($service,$data,'IanMakeTrainingApplicationFromAcademic');
         if(!is_string($result)){
-            Yii::$app->session->setFlash('success', 'Document sent for approval Successfully.', true);
-            return $this->redirect(['view']);
+            Yii::$app->session->setFlash('success', 'Application Made Successfully.', true);
+            return $this->redirect(['index']);
         }else{
 
             Yii::$app->session->setFlash('error', 'Error  : '. $result);
-            return $this->redirect(['view']);
+            return $this->redirect(['index']);
+
+        }
+    }
+
+    public function actionSendForApproval()
+    {
+        $No = Yii::$app->request->post('No');
+        $service = Yii::$app->params['ServiceName']['PortalFactory'];
+
+        $data = [
+            'applicationNo' => Yii::$app->request->post('No'),
+            'approvalUrl' => Yii::$app->urlManager->createAbsoluteUrl(['training-applications/view', 'No' => $No]),
+            'sendMail' => 1,
+        ];
+
+        $result = Yii::$app->navhelper->Codeunit($service,$data,'IanSendTrainingForApproval');
+
+        if(!is_string($result)){
+            Yii::$app->session->setFlash('success', 'Document sent for approval Successfully.', true);
+            return $this->redirect(['index']);
+        }else{
+
+            Yii::$app->session->setFlash('error', 'Error  : '. $result);
+            return $this->redirect(['index']);
 
         }
     }
