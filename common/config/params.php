@@ -475,6 +475,7 @@ return [
         'HrJobRequisition'=>'HrJobRequisition', //55054
         'HrJobRequisitionCard'=>'HrJobRequisitionCard',//55055
         'ApprovedHRJobs'=>'ApprovedHRJobs',//55053
+        'RequisitionQuestions'=>'RequisitionQuestions',//55131
 
 
 

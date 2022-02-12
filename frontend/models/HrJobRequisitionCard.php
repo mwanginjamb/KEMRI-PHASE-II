@@ -50,14 +50,14 @@ class HrJobRequisitionCard extends Model{
     }
 
     /*Get Dues*/
-    public function getDues(){
-        $service = Yii::$app->params['ServiceName']['FinalDues'];
+    public function Questions(){
+        $service = Yii::$app->params['ServiceName']['RequisitionQuestions'];
         $filter = [
-            'Exit_No' => $this->Exit_No,
+            'Requisition_No' => $this->Requisition_No,
         ];
 
-        $lines = Yii::$app->navhelper->getData($service, $filter);
-        return $lines;
+        $RequisitionQuestions = Yii::$app->navhelper->getData($service, $filter);
+        return $RequisitionQuestions;
 
     }
 

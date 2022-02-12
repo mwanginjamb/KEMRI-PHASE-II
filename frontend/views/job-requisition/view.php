@@ -194,6 +194,61 @@ $Attachmentmodel = new \frontend\models\Leaveattachment()
 
             <!--Objectives card -->
 
+            <!--Lines -->
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <?= ($model->Status == 'New')?Html::a('<i class="fa fa-plus-square"></i> Add Interview Question',['requisition-question/create','No'=>$model->Requisition_No],['class' => 'add-line btn btn-outline-info',
+                        ]):'' ?>
+                    </div>
+                </div>
+
+                <div class="card-body">
+
+                    <?php if(is_array($model->Questions())){ //show Lines ?>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+
+                                    <td><b>#</b></td>
+                                    <td><b>Question</b></td>
+                                    <td><b>Action</b></td>
+
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+                                // echo '<pre>';
+                                // print_r($model->Questions());
+                                // exit;
+                                if(is_array($model->Questions())):
+                                    foreach($model->Questions()  as $key => $obj):
+                                        if(empty($obj->Question)){
+                                            continue;
+                                        }
+                                        $deleteLink = ($model->Status == 'New')?Html::a('<i class="fa fa-trash"></i>',['requisition-question/delete','Key'=> $obj->Key ],['class'=>'delete btn btn-outline-danger btn-xs','title' => 'Delete Question.']):'';
+                                        $updateLink = ($model->Status == 'New')?Html::a('<i class="fa fa-edit"></i>',['requisition-question/update','No'=> $obj->Line_No],['class' => 'add-line btn btn-info btn-xs mx-2','title' => 'update Question.']):'';
+                                            ?>
+                                            <tr>
+                                                <td id="Key"><?= $key ?></td>
+                                                <td id="Question"><?= !empty(@$obj->Question)?$obj->Question:'Not Set' ?></td>
+                                                <td class="text-center"><?= $updateLink.$deleteLink ?></td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                <?php endif; ?>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    <?php } ?>
+                </div>
+            </div>
+
+            <!--End Lines -->
+
 
 
     </div>
@@ -207,7 +262,7 @@ $Attachmentmodel = new \frontend\models\Leaveattachment()
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
                     </button>
-                    <h4 class="modal-title" id="myModalLabel" style="position: absolute">Leave Plan</h4>
+                    <h4 class="modal-title" id="myModalLabel" style="position: absolute">Interview Question</h4>
                 </div>
                 <div class="modal-body">
 
@@ -248,7 +303,7 @@ $script = <<<JS
       
     
     /*Evaluate KRA*/
-        $('.evalkra').on('click', function(e){
+        $('.add-line').on('click', function(e){
              e.preventDefault();
             var url = $(this).attr('href');
             console.log('clicking...');
