@@ -469,6 +469,14 @@ return [
         'InductionOverallIN' => 'InductionOverallIN', //55108
         'HRAPPRAISALMGT' => 'HRAPPRAISALMGT', // 50209 -- Codeunit  
 
+        /******************** Recruitment Services ***************************************/
+
+
+        'HrJobRequisition'=>'HrJobRequisition', //55054
+        'HrJobRequisitionCard'=>'HrJobRequisitionCard',//55055
+        'ApprovedHRJobs'=>'ApprovedHRJobs',//55053
+
+
 
 
     ],

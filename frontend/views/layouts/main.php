@@ -1074,7 +1074,7 @@ $employee = (!Yii::$app->user->isGuest && is_array(Yii::$app->user->identity->em
 
                         <!-- Employee Induction -->
 
-                        <li class="nav-item has-treeview <?= Yii::$app->recruitment->currentCtrl(['induction','periodic-induction'])?'menu-open':'' ?>">
+                            <li class="nav-item has-treeview <?= Yii::$app->recruitment->currentCtrl(['induction','periodic-induction'])?'menu-open':'' ?>">
                                 <a href="#" class="nav-link <?= Yii::$app->recruitment->currentCtrl(['induction','periodic-induction'])?'active':'' ?>" title="Employee Induction">
                                     <i class="nav-icon fa fa-chart-bar" ></i>
                                     <p>
@@ -1097,6 +1097,30 @@ $employee = (!Yii::$app->user->isGuest && is_array(Yii::$app->user->identity->em
                                             <p>Periodic </p>
                                         </a>
                                     </li>
+
+                                </ul>
+                            </li>
+
+
+                            <!-- Recruitment -->
+                            <li class="nav-item has-treeview <?= Yii::$app->recruitment->currentCtrl(['induction','periodic-induction'])?'menu-open':'' ?>">
+                                <a href="#" class="nav-link <?= Yii::$app->recruitment->currentCtrl(['induction','periodic-induction'])?'active':'' ?>" title="Employee Induction">
+                                    <i class="nav-icon fa fa-chart-bar" ></i>
+                                    <p>
+                                        Recruitment
+                                        <i class="fas fa-angle-left right"></i>
+                                        <!--<span class="badge badge-info right">6</span>-->
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+
+                                    <li class="nav-item">
+                                        <a href="<?= $absoluteUrl ?>job-requisition" class="nav-link <?= Yii::$app->recruitment->currentaction('job-requisition','index')?'active':'' ?>">
+                                            <i class="fa fa-chart-line nav-icon"></i>
+                                            <p> Open Job Requisitions </p>
+                                        </a>
+                                    </li>
+
 
                                 </ul>
                             </li>
