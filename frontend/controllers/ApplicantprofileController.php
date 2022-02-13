@@ -22,6 +22,8 @@ use yii\web\BadRequestHttpException;
 use yii\web\UploadedFile;
 use yii\web\Response;
 use kartik\mpdf\Pdf;
+use kartik\tabs\TabsX;
+use yii\helpers\Url;
 
 class ApplicantprofileController extends Controller
 {
@@ -31,7 +33,7 @@ class ApplicantprofileController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'signup','index'],
+                'only' => ['logout', 'signup','index', 'view-profile'],
                 'rules' => [
                     [
                         'actions' => ['signup'],
@@ -39,7 +41,7 @@ class ApplicantprofileController extends Controller
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['logout','index'],
+                        'actions' => ['logout','index', 'view-profile'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -65,64 +67,90 @@ class ApplicantprofileController extends Controller
 
     public function actionIndex(){
 
+        if(Yii::$app->recruitment->EmployeeUserHasProfile()){
+            if(!Yii::$app->recruitment->getEmployeeApplicantProfile() == false){
+                return $this->redirect(['update','No' => Yii::$app->recruitment->getEmployeeApplicantProfile()]);
+            }
+        }
+        $createResult = $this->createEmployeeProfileOnApplicantProfile();
+        if($createResult === true){
+            return $this->redirect(['update','No' => Yii::$app->recruitment->getEmployeeApplicantProfile()]);
+        }
+        Yii::$app->session->setFlash('error','Error Creating Applicant Profile: '.$createResult);
+        return $this->redirect(['recruitment/index']);
 
-
-        return $this->render('index');
 
     }
 
-    public function actionCreate(){
-        //Yii::$app->recruitment->printrr(Yii::$app->session->get('HRUSER'));
-        if(Yii::$app->session->has('mode') && Yii::$app->session->get('mode') == 'external' && Yii::$app->session->has('HRUSER')){
-            $this->layout = 'external';
-        }
+    public function createEmployeeProfileOnApplicantProfile(){
+        //Get Employee Data
+        $Applicantprofilemodel = new Applicantprofile();
+        $JobApplicantProfileService = Yii::$app->params['ServiceName']['JobApplicantProfile'];
+        $filter = [
+            'No' => Yii::$app->user->identity->employee[0]->No
+        ];
+        $EmployeeData = Yii::$app->user->identity->employee[0];
+        $Applicantprofilemodel->First_Name = isset($EmployeeData->First_Name)?$EmployeeData->First_Name:'';
+        $Applicantprofilemodel->Middle_Name =  isset($EmployeeData->Middle_Name)?$EmployeeData->Middle_Name:'';
+        $Applicantprofilemodel->Last_Name =  isset($EmployeeData->Last_Name)?$EmployeeData->Last_Name:'';
+        $Applicantprofilemodel->Gender = isset($EmployeeData->Gender)?$EmployeeData->Gender:'';
+        
+        $Applicantprofilemodel->National_ID = isset($EmployeeData->National_ID)?$EmployeeData->National_ID:'';
+        $Applicantprofilemodel->NHIF_Number = isset($EmployeeData->NHIF_Number)?$EmployeeData->NHIF_Number:'';
+        $Applicantprofilemodel->NSSF_Number =  isset($EmployeeData->NSSF_Number)?$EmployeeData->NSSF_Number:null;
+        $Applicantprofilemodel->Marital_Status = isset($EmployeeData->Marital_Status)?$EmployeeData->Marital_Status:'';
 
-        if(Yii::$app->session->has('ProfileID') || Yii::$app->recruitment->hasProfile(Yii::$app->session->get('ProfileID')))
-        {
-            return $this->redirect(['update','No' =>Yii::$app->session->get('ProfileID') ]);
+        
+        $Applicantprofilemodel->E_Mail = isset($EmployeeData->E_Mail)?$EmployeeData->E_Mail:'';
+        $Applicantprofilemodel->Birth_Date = isset($EmployeeData->Birth_Date)?$EmployeeData->Birth_Date:'';
+        $Applicantprofilemodel->Country_Region_Code =  isset($EmployeeData->Country_Region_Code)?$EmployeeData->Country_Region_Code:null;
+        
+
+        $Applicantprofilemodel->EmployeeNo = $EmployeeData->No;
+
+        $result = Yii::$app->navhelper->postData($JobApplicantProfileService,$Applicantprofilemodel);
+        // Yii::$app->recruitment->printrr($result);
+
+        if(is_object($result)){
+            return true;
         }
+        return $result;
+
+
+
+
+    }
+
+    public function actionViewProfile(){
         $model = new Applicantprofile();
+        $Countries = $this->getCountries();
+        $PostalCodes = $this->getPostalCodes();
+        
+       $service = Yii::$app->params['ServiceName']['JobApplicantProfile'];
 
-        if(!Yii::$app->user->isGuest && !Yii::$app->session->has('HRUSER')){//If it's an employee making an application , populate profile form with their employee data where relevant
-            $model->First_Name = Yii::$app->user->identity->employee[0]->First_Name;
-            $model->Middle_Name = !empty(Yii::$app->user->identity->employee[0]->Middle_Name)?Yii::$app->user->identity->employee[0]->Middle_Name:'';
-            $model->Last_Name = Yii::$app->user->identity->employee[0]->Last_Name;
-            $model->Age = !empty(Yii::$app->user->identity->employee[0]->DAge)?Yii::$app->user->identity->employee[0]->DAge:'';
-            $model->Gender = !empty(Yii::$app->user->identity->employee[0]->Gender)?Yii::$app->user->identity->employee[0]->Gender:'';
-            $model->Marital_Status = !empty(Yii::$app->user->identity->employee[0]->Marital_Status)?Yii::$app->user->identity->employee[0]->Marital_Status:'';
 
-            $model->E_Mail = !empty(Yii::$app->user->identity->employee[0]->E_Mail)?Yii::$app->user->identity->employee[0]->E_Mail:'';
-            $model->Address = !empty(Yii::$app->user->identity->employee[0]->Address)?Yii::$app->user->identity->employee[0]->Address:'';
-            $model->Post_Code = !empty(Yii::$app->user->identity->employee[0]->Post_Code)?Yii::$app->user->identity->employee[0]->Post_Code:'';
-            $model->NHIF_Number = !empty(Yii::$app->user->identity->employee[0]->NHIF_Number)?Yii::$app->user->identity->employee[0]->NHIF_Number:'';
-            $model->NSSF_Number = !empty(Yii::$app->user->identity->employee[0]->NSSF_Number)?Yii::$app->user->identity->employee[0]->NSSF_Number:'';
-            $model->KRA_Number = !empty(Yii::$app->user->identity->employee[0]->KRA_Number)?Yii::$app->user->identity->employee[0]->KRA_Number:'';
-            $model->National_ID = !empty(Yii::$app->user->identity->employee[0]->National_ID)?Yii::$app->user->identity->employee[0]->National_ID:'';
-
-        }else if(Yii::$app->session->has('HRUSER')){ //for external users - non- employees just prepopulate the email
-            $model->E_Mail = Yii::$app->session->get('HRUSER')->email;
-            $model->First_Name = Yii::$app->session->get('HRUSER')->username;
-        }
-        $service = Yii::$app->params['ServiceName']['JobApplicantProfile'];
-
-        if(Yii::$app->request->post() && $this->loadpost(Yii::$app->request->post()['Applicantprofile'],$model)){
+       if(Yii::$app->request->post() && $this->loadpost(Yii::$app->request->post()['Applicantprofile'],$model)){
+        //    echo '<pre>';
+        //    print_r(Yii::$app->request->post());
+        //    exit;
 
            if(!empty($_FILES['Applicantprofile']['name']['imageFile'])){
                 $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
                 $model->upload();
             }
-            $result = Yii::$app->navhelper->postData($service,$model);
+                 $result = Yii::$app->navhelper->postData($service,$model);
 
             if(!is_string($result)){
 
                 //Update profileID on Employee or HRUser
+                //update a HRUser
+                $hruser = Hruser::findOne(Yii::$app->user->identity->id);
+                $hruser->profileID = $result->No;
+                $hruser->save();//do not validate model since we are just updating a single property
 
                 if(Yii::$app->session->has('HRUSER')){
-                    //update a HRUser
-                    $hruser = Hruser::findByUsername(Yii::$app->session->get('HRUSER')->username);
-                    $hruser->profileID = $result->No;
-                    $hruser->save(false);//do not validate model since we are just updating a single property
-                }else{
+              
+                
                     //update for a particular employee
                     $srvc = Yii::$app->params['ServiceName']['EmployeeCard'];
                     $filter = [
@@ -147,6 +175,79 @@ class ApplicantprofileController extends Controller
             }else{
 
                 Yii::$app->session->setFlash('error','Error Creating Applicant Profile: '.$result,true);
+                return $this->redirect(Yii::$app->request->referrer);
+            }
+
+       }
+
+        return $this->render('create',[
+
+            'model' => $model,
+            'countries' => ArrayHelper::map($Countries,'Code','Name'),
+            'PostalCodes' => ArrayHelper::map($PostalCodes,'Code','Name')
+
+        ]);
+       
+    }
+
+    public function actionCreate(){
+        //Yii::$app->recruitment->printrr(Yii::$app->session->get('HRUSER'));
+        if(Yii::$app->session->has('mode') && Yii::$app->session->get('mode') == 'external' && Yii::$app->session->has('HRUSER')){
+            $this->layout = 'external';
+        }
+
+        if(Yii::$app->session->has('ProfileID') || Yii::$app->recruitment->hasProfile(Yii::$app->session->get('ProfileID')))
+        {
+            return $this->redirect(['update','No' =>Yii::$app->session->get('ProfileID') ]);
+        }
+        $model = new Applicantprofile();
+
+        $service = Yii::$app->params['ServiceName']['JobApplicantProfile'];
+
+        if(Yii::$app->request->post() && $this->loadpost(Yii::$app->request->post()['Applicantprofile'],$model)){
+
+           if(!empty($_FILES['Applicantprofile']['name']['imageFile'])){
+                $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
+                $model->upload();
+            }
+            $result = Yii::$app->navhelper->postData($service,$model);
+
+            if(!is_string($result)){
+
+                //Update profileID on Employee or HRUser
+
+                if(Yii::$app->session->has('HRUSER')){
+                    //update a HRUser
+            
+                    $hruser = Hruser::findOne(Yii::$app->session->get('HRUSER')->id);
+           
+                    $hruser->profileID = $result->No;
+                    $hruser->save();//do not validate model since we are just updating a single property
+                }else{
+                    //update for a particular employee
+                    $srvc = Yii::$app->params['ServiceName']['EmployeeCard'];
+                    $filter = [
+                        'No' => Yii::$app->user->identity->employee[0]->No
+                    ];
+                    $Employee = Yii::$app->navhelper->getData($srvc,$filter);
+
+                    $data = [
+                        'Key' => $Employee[0]->Key,
+                        'ProfileID' => $result->No
+                    ];
+
+                    $update = Yii::$app->navhelper->updateData($srvc,$data);
+
+
+                }
+
+                Yii::$app->session->set('ProfileID', $result->No); // ProfileID session
+                Yii::$app->session->setFlash('success','Profile Created Successfully',true);
+                return $this->redirect(['update','No' => $result->No]);
+
+            }else{
+
+                Yii::$app->session->setFlash('error','Error Creating Profile: '.$result,true);
                 return $this->redirect(['create']);
 
             }
@@ -168,48 +269,11 @@ class ApplicantprofileController extends Controller
 
 
     public function actionUpdate(){
-        if(!Yii::$app->user->isGuest && !empty( Yii::$app->user->identity->Employee[0]->ProfileID)){ //Profile ID for internal user
-            $profileID = Yii::$app->user->identity->Employee[0]->ProfileID;
-
-            Yii::$app->session->set('ProfileID',$profileID);
-
-        }else if(Yii::$app->session->has('HRUSER')){ //Profile ID for external user
-            $hruser = \common\models\Hruser::findByUsername(Yii::$app->session->get('HRUSER')->username);
-            $profileID =  $hruser->profileID;
-            Yii::$app->session->set('ProfileID',$profileID);
-        }
-        //Remove Requirement entries if found persistent
-
-        if(Yii::$app->session->has('requirements')){
-            Yii::$app->session->remove('requirements');
-        }
-
-        /*if(Yii::$app->session->has('REQUISITION_NO')){
-            Yii::$app->session->remove('REQUISITION_NO');
-        }*/
-
-        if(Yii::$app->session->has('ProfileID')){
-            Yii::$app->session->remove('ProfileID');
-        }
-
-        if(Yii::$app->session->has('REQ_ENTRIES')){
-            Yii::$app->session->remove('REQ_ENTRIES');
-        }
-
-        //Remove Applicant No if found persistent
-        if(Yii::$app->session->has('Job_Application_No')){
-            Yii::$app->session->remove('Job_Application_No');
-        }
-
-        //Yii::$app->recruitment->printrr($_SESSION);
-        //Check Applicant access mode (Internal or external) then serve right layout
-        if(Yii::$app->session->has('mode') && Yii::$app->session->get('mode') == 'external' && Yii::$app->session->has('HRUSER')){
-            $this->layout = 'external';
-        }
+        
         $service = Yii::$app->params['ServiceName']['JobApplicantProfile'];
 
         $filter = [
-            'No' => $profileID,
+            'No' => Yii::$app->recruitment->getEmployeeApplicantProfile(),
         ];
         $result = Yii::$app->navhelper->getData($service, $filter);
 
@@ -223,15 +287,18 @@ class ApplicantprofileController extends Controller
         //Yii::$app->recruitment->printrr(Yii::$app->request->post()['Applicantprofile']['imageFile']);  
 
         if( Yii::$app->request->post() && $this->loadpost(Yii::$app->request->post()['Applicantprofile'],$model)){
-           
 
-           // Yii::$app->recruitment->printrr($_FILES['Applicantprofile']['name']['imageFile']);
             if(!empty($_FILES['Applicantprofile']['name']['imageFile'])){
                 $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
                 $model->upload();
             }
+            $model->Gender = '_blank_';
+            $now = date('Y-m-d');
+            $model->Birth_Date = date('Y-m-d', strtotime($now.' - 36565 days'));
             
             $result = Yii::$app->navhelper->updateData($service,$model);
+            // Yii::$app->recruitment->printrr($result);
+
 
             if(!is_string($result) ){
                 Yii::$app->session->setFlash('success','Applicant Profile Updated Successfully',true);
@@ -245,10 +312,12 @@ class ApplicantprofileController extends Controller
         }
 
         $Countries = $this->getCountries();
-       // $Religion = $this->getReligion();
+        $PostalCodes = $this->getPostalCodes();
         return $this->render('update',[
             'model' => $model,
             'countries' => ArrayHelper::map($Countries,'Code','Name'),
+            'PostalCodes' => ArrayHelper::map($PostalCodes,'Code','Name'),
+
             // 'religion' => [],
 
         ]);
@@ -429,6 +498,24 @@ class ApplicantprofileController extends Controller
             $res[] = [
                 'Code' => $c->Code,
                 'Name' => $c->Name
+            ];
+        }
+
+        return $res;
+    }
+
+
+    
+    public function getPostalCodes(){
+        $service = Yii::$app->params['ServiceName']['PostalCodes'];
+
+        $res = [];
+        $PostalCodes = \Yii::$app->navhelper->getData($service);
+        foreach($PostalCodes as $PostalCode){
+            if(!empty($PostalCode->Code))
+            $res[] = [
+                'Code' => $PostalCode->Code,
+                'Name' => $PostalCode->City
             ];
         }
 

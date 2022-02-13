@@ -156,6 +156,36 @@ class Recruitment extends Component
                 }
     }
 
+    public function EmployeeUserHasProfile(){
+        $service = Yii::$app->params['ServiceName']['JobApplicantProfileList'];
+        $filter = [
+           'EmployeeNo' => Yii::$app->user->identity->employee[0]->No
+        ];
+
+        $result = Yii::$app->navhelper->getData($service,$filter);
+        // $this->printrr($result);
+        if(is_object($result)){
+            return false;
+        }
+        return true;
+
+    }
+
+    public function getEmployeeApplicantProfile(){
+        $service = Yii::$app->params['ServiceName']['JobApplicantProfileList'];
+        $filter = [
+           'EmployeeNo' => Yii::$app->user->identity->employee[0]->No
+        ];
+
+        $result = Yii::$app->navhelper->getData($service,$filter);
+        // $this->printrr($result);
+        if(is_object($result)){
+            return false;
+        }
+        return $result[0]->No;
+
+    }
+
     //check for experience
 
     public function hasExperience($profileID){

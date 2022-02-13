@@ -86,7 +86,7 @@ class QualificationController extends Controller
     public function actionCreate(){
 
         $model = new Qualification();
-        $service = Yii::$app->params['ServiceName']['qualifications'];
+        $service = Yii::$app->params['ServiceName']['JobApplicantQualifications'];
 
         if(Yii::$app->request->post() && $this->loadpost(Yii::$app->request->post()['Qualification'],$model)){
 

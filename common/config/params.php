@@ -476,7 +476,12 @@ return [
         'HrJobRequisitionCard'=>'HrJobRequisitionCard',//55055
         'ApprovedHRJobs'=>'ApprovedHRJobs',//55053
         'RequisitionQuestions'=>'RequisitionQuestions',//55131
+        'PostalCodes'=>'PostalCodes',//367
+        'JobApplicantProfileList'=>'JobApplicantProfileList',//55080
+        'JobApplicantQualifications'=>'JobApplicantQualifications',//55064
 
+        'ProffesionalExaminers'=>'ProffesionalExaminers',//55086
+        'ApplicantProfQualifications'=>'ApplicantProfQualifications',
 
 
 

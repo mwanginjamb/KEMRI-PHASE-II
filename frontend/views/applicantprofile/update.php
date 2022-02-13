@@ -49,7 +49,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Update Applicant Profile', 'url' =
     <?= $this->render('_form', [
         'model' => $model,
         'countries' => $countries,
-        // 'religion' => $religion
+        'PostalCodes' => $PostalCodes
     ]) ?>
 
 </div>

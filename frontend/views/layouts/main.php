@@ -1121,6 +1121,27 @@ $employee = (!Yii::$app->user->isGuest && is_array(Yii::$app->user->identity->em
                                         </a>
                                     </li>
 
+                                    <li class="nav-item">
+                                        <a href="<?= $absoluteUrl ?>applicantprofile" class="nav-link <?= Yii::$app->recruitment->currentaction('recruitment','applicantprofile')?'active':'' ?>">
+                                            <i class="fa fa-check-square nav-icon"></i>
+                                            <p>Recruitment Profile </p>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a href="<?= $absoluteUrl ?>recruitment/vacancies" class="nav-link <?= Yii::$app->recruitment->currentaction('recruitment','vacancies')?'active':'' ?>">
+                                            <i class="fa fa-check-square nav-icon"></i>
+                                            <p>Internal Job Vacancies </p>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a href="<?= $absoluteUrl ?>recruitment/applications" class="nav-link <?= Yii::$app->recruitment->currentaction('recruitment','applications')?'active':'' ?>">
+                                            <i class="fa fa-check-square nav-icon"></i>
+                                            <p>My Job Aplications </p>
+                                        </a>
+                                    </li>
+
 
                                 </ul>
                             </li>
