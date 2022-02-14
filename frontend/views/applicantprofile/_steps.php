@@ -170,8 +170,8 @@ $profileAction = (Yii::$app->recruitment->EmployeeUserHasProfile())?'update?No='
                     <a href="<?=  Yii::$app->recruitment->absoluteUrl() .'experience/index' ?>" <?= Yii::$app->recruitment->currentaction('experience','index')?'class="active"': '' ?>>Employment record</a>
                     <!-- <a href="<?=  Yii::$app->recruitment->absoluteUrl() .'hobby/index' ?>" <?= Yii::$app->recruitment->currentaction('hobby','index')?'class="active"': '' ?>>Hobbies</a> -->
                     <!-- <a href="<?=  Yii::$app->recruitment->absoluteUrl() .'language/index' ?>" <?= Yii::$app->recruitment->currentaction('language','index')?'class="active"': '' ?>>Extended profile Questions</a> -->
-                    <a href="<?=  Yii::$app->recruitment->absoluteUrl() .'referee/index' ?>" <?= Yii::$app->recruitment->currentaction('referee','index')?'class="active"': '' ?>>Referees</a>
-                    <a href="<?=  Yii::$app->recruitment->absoluteUrl() .'recruitment/declaration' ?>" <?= Yii::$app->recruitment->currentaction('recruitment','declaration')?'class="active"': '' ?>>Declaration</a>
+                    <!-- <a href="<?=  Yii::$app->recruitment->absoluteUrl() .'referee/index' ?>" <?= Yii::$app->recruitment->currentaction('referee','index')?'class="active"': '' ?>>Referees</a> -->
+                    <!-- <a href="<?=  Yii::$app->recruitment->absoluteUrl() .'recruitment/declaration' ?>" <?= Yii::$app->recruitment->currentaction('recruitment','declaration')?'class="active"': '' ?>>Declaration</a> -->
                 </div>
            
 

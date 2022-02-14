@@ -120,6 +120,8 @@ class JobRequisitionController extends Controller
             if(is_object($request) )
             {
                 Yii::$app->navhelper->loadmodel($request,$model);
+                return $this->redirect(['view','No' => $model->Requisition_No]);
+
             }else{
                 Yii::$app->session->setFlash('error',  $request);
                 return $this->redirect(['index']);

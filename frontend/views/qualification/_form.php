@@ -7,6 +7,7 @@
  */
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\depdrop\DepDrop;
 ?>
 
 <div class="row">
@@ -24,16 +25,34 @@ use yii\widgets\ActiveForm;
                 <div class="row">
                     <div class="col-md-12">
 
+<?php
+// echo '<pre>';
+// print_r($qlist);
+// echo '..............';
+// print_r($Complete);
+// exit;
+// exit;
 
+?>
 
-                            <table class="table">
+                            <table class="table6">
                                 <tbody>
 
                                 
 
                                 <tr>
-                                    <?= $form->field($model, 'Description')->textInput(['maxlength' => 250]) ?>
+                                    <?= $form->field($model, 'Level')->dropDownList($EducationLevel,
+                                        ['prompt' => '- Select Level -']) 
+                                    ?>
                                 </tr>
+
+                                <tr>
+                                    <?= $form->field($model, 'Academic_Qualification')->dropDownList($qlist,
+                                        ['prompt' => 'Select Qualification', 'id'=>'Academic_Qualification']) 
+                                    ?>
+                                </tr>
+                                
+
                                 <tr>
                                     <?= $form->field($model, 'From_Date')->textInput(['type' => 'date']) ?>
                                 </tr>
@@ -44,12 +63,12 @@ use yii\widgets\ActiveForm;
                                     <?= $form->field($model, 'Institution_Company')->textInput() ?>
                                 </tr>
                                 <tr>
-                                    <?= $form->field($model, 'imageFile')->fileInput(['accept' => 'application/*']) ?>
+                                    <?= $form->field($model, 'Attachement_path')->fileInput(['accept' => 'application/*']) ?>
                                 </tr>
 
                                 <tr>
 
-                                    <?= $form->field($model, 'Employee_No')->hiddenInput(['value' => Yii::$app->recruitment->getProfileID(), 'readonly' => 'true'])->label(false) ?>
+                                    <?= $form->field($model, 'Employee_No')->hiddenInput(['value' => Yii::$app->recruitment->getEmployeeApplicantProfile(), 'readonly' => 'true'])->label(false) ?>
                                     <?= $form->field($model, 'Key')->hiddenInput()->label(false) ?>
                                 </tr>
 
@@ -104,9 +123,20 @@ use yii\widgets\ActiveForm;
 
 $script = <<<JS
     $(function(){
-        $('#qualification-qualification_code').on('change', function(){
-            var selected =  $('#qualification-qualification_code').find(':selected').text();
-            $('#qualification-description').val(selected);
+        $('#qualification-level').on('change', function(){
+            alert('ha');
+            var selected =  $('#qualification-level').val();
+
+            $.post( "/qualification/education-qualifications?Level="+selected, function( data ) {
+                $('#Academic_Qualification').empty();
+                $('#Academic_Qualification').append($('<option id="itemId" selected="selected"></option>').attr('value', '').text('Select Qualification'));
+
+                 data.forEach(item=> {
+                 
+                  $('#Academic_Qualification').append($('<option id="itemId'+ item.Code+'" ></option>').attr('value', item.Code).text(item.Description));
+
+                });
+           });
             
         });
 

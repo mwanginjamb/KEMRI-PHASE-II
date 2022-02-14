@@ -8,46 +8,11 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-/*print '<pre>';
-print_r($model); exit;*/
+// print '<pre>';
+// print_r($model); exit;
 
 
 ?>
-<div class="row">
-    <div class="col-md-12">
-        <div class="card">
-            <div class="card-body">
-                <?php
-
-                if(!Yii::$app->user->isGuest && !empty( Yii::$app->user->identity->Employee[0]->ProfileID)){ //Profile ID for internal user
-                    $profileID = Yii::$app->user->identity->Employee[0]->ProfileID;
-
-                    Yii::$app->session->set('ProfileID',$profileID);
-
-                }else if(Yii::$app->session->has('HRUSER')){ //Profile ID for external user
-                    $hruser = \common\models\Hruser::findByUsername(Yii::$app->session->get('HRUSER')->username);
-                    $profileID =  $hruser->profileID;
-                     Yii::$app->session->set('ProfileID',$profileID);
-                }
-
-                echo (Yii::$app->session->has('ProfileID') || Yii::$app->recruitment->hasProfile(Yii::$app->session->get('ProfileID')))?
-
-                    \yii\helpers\Html::a('<i class="fa fa-address-book"></i>  Update Profile and Submit Application',['applicantprofile/update','No'=> $profileID],['class' => 'btn btn-outline-warning push-right'])
-                    :
-                    \yii\helpers\Html::a('<i class="fa fa-address-book"></i>  Create a Profile',['applicantprofile/create','Job_ID'=> Yii::$app->request->get('Job_ID')],['class' => 'btn btn-outline-info push-right'])
-                ;
-
-
-
-
-
-
-           ?>
-            </div>
-        </div>
-    </div>
-</div>
-
 
 <?php
 if(Yii::$app->session->hasFlash('success')){
@@ -66,133 +31,228 @@ if(Yii::$app->session->hasFlash('success')){
     print '</div>';
 }
 ?>
-<div class="row">
-    <div class="col-md-12">
-        <div class="card card-blue">
-            <div class="card-header">
 
-                <h3 class="card-title">Job Vacancy : <?= $model->Job_Description?></h3>
+<!-- Default box -->
+<div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Job Details</h3>
+          <input id="JobId" name="JobId" type="hidden" value="<?=$model->Job_Id ?>">
+          <input id="JobRequisitionNo" name="Requisition_No" type="hidden" value="<?=$model->Requisition_No ?>">
 
-
-            </div>
-            <div class="card-body">
-
-                <table class="table table-bordered">
-                    <tr>
-                        <td colspan="2"><b>Job Title: </b><?= !empty($model->Job_Description)?$model->Job_Description: 'Not Set' ?> </td>
-                    </tr>
-
-                    <tr>
-                        <td><b>Opening Date:</b> <?= !empty($model->Start_Date)?$model->Start_Date: 'Not Set'?></td>
-                        <td><b>:Contract Period </b> <?= !empty($model->Contract_Period)?$model->Contract_Period: 'Not Set' ?></td>
-                    </tr>
-
-                    <tr>
-                        <td><b>Closing Date: </b> <?= !empty($model->End_Date)?$model->End_Date: ' Not Set' ?></td>
-                        <td><b>Probation Period : </b> <?= !empty($model->Probation_Period)?$model->Probation_Period: 'Not Set' ?></td>
-                    </tr>
-
-
-                    <tr>
-
-                        <td colspan="2">
-                            <b>Reporting Lines</b><br>
-
-                            <?= !empty($model->Position_Reporting_to)?$model->Position_Reporting_to: 'Not Set' ?>
-                        </td>
-                    </tr>
-                </table>
-
-
-
-
-
-            </div><!--end form card-body-->
+          <input id="ProfileNo" name="prodId" type="hidden" value="<?= isset(Yii::$app->user->identity->profileID)?Yii::$app->user->identity->profileID:'' ?>">
+        
         </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12 col-md-12 col-lg-8 order-1 order-md-2">
+              <div class="row">
+                <div class="col-12 col-sm-4">
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted">No of Posts</span>
+                      <span class="info-box-number text-center text-muted mb-0"><?=$model->No_Posts?></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-sm-4">
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted">Reason for Advertisement</span>
+                      <span class="info-box-number text-center text-muted mb-0"><?=$model->Reasons_For_Requisition ?></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-sm-4">
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted">Job Title</span>
+                      <span class="info-box-number text-center text-muted mb-0"><?=$model->Job_Description ?> <span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <h4>Responsibilities</h4>
+                  <hr>
+                  
+                    <div class="post clearfix">
+                        <?php if(!empty($model->Hr_Job_Responsibilities->Hr_Job_Responsibilities) && sizeof($model->Hr_Job_Responsibilities->Hr_Job_Responsibilities)): ?>
+                          <p>
+                                <?php
+                                  
+                                      echo '<ol>';
+                                        foreach($model->Hr_Job_Responsibilities->Hr_Job_Responsibilities as $resp){
 
+                                            if(!empty($resp->Responsibility_Description)){
+                                                print '<li>'.$resp->Responsibility_Description.'</li>'; 
+                                            // echo (Yii::$app->recruitment->Responsibilityspecs($resp->Line_No));
+                                            }
 
-        <div class="card card-blue">
-            <!---Add responsibilities------->
-            <div class="card-header">
-                <h3 class="card-title">Job Responsibilities</h3>
+                                        }
+                                    
+                                    echo ' </ol>';
+                                    
+                                ?>
+                          </p>
+                          <?php else: ?>
+                            <p> No Job Responsibilities</p>
+                        <?php endif; ?>
+                    </div>
+                </div>
+              </div>
+              <hr>
+
+              <div class="row">
+                <div class="col-12">
+                  <h4>Requirements</h4>
+                  <hr>
+                  
+                    <div class="post clearfix">
+                      <?php if(!empty($model->Hr_job_requirements->Hr_job_requirements) && sizeof($model->Hr_job_requirements->Hr_job_requirements)): ?>
+
+                        <p>
+                          
+                              <?php                
+                                    echo '<ol>';
+                                      foreach($model->Hr_job_requirements->Hr_job_requirements as $resp){
+
+                                          if(!empty($resp->Requirment_Description)){
+                                              print '<li>'.$resp->Requirment_Description.'</li>'; 
+                                          // echo (Yii::$app->recruitment->Responsibilityspecs($resp->Line_No));
+                                          }
+
+                                      }
+                                
+                                  echo ' </ol>';
+                                  
+                              ?>
+                        </p>
+                        <?php else: ?>
+                        <p>
+                          No Job Requirements 
+                        </p>
+                      <?php endif; ?>
+                    </div>
+                </div>
+              </div>
+              <hr>
+
             </div>
+            <div class="col-12 col-md-12 col-lg-4 order-2 order-md-1">
+              <h3 class="text-primary"> <?=$model->Job_Description ?></h3>
+              <p class="text-muted"> Job Description Here</p>
+              <br>
+             
+              <div class="col-12">
+                  <p class="lead">Other Details</p>
 
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-12">
-                    <table class="table table-bordered" >
-                        <?php
-                            if(!empty($model->Hr_Job_Responsibilities->Hr_Job_Responsibilities) && sizeof($model->Hr_Job_Responsibilities->Hr_Job_Responsibilities)){
-                                foreach($model->Hr_Job_Responsibilities->Hr_Job_Responsibilities as $resp){
-
-                                    if(!empty($resp->Responsibility_Description)){
-                                        print '<tr>
-                                        <td class="parent"><span>+</span>'.$resp->Responsibility_Description.'</td>';
-
-                                        echo (Yii::$app->recruitment->Responsibilityspecs($resp->Line_No));
-
-                                        print '</tr>';
-                                    }
-
-                                }
-                            }else{
-                                print '<tr>
-                                        <td>No responsibilities set yet.</td>
-                                    </tr>';
-                            }
-                        ?>
+                  <div class="table-responsive">
+                    <table class="table">
+                      <tr>
+                        <th style="width:50%">Application Start Date:</th>
+                        <td> <?= !empty($model->Start_Date)? Yii::$app->formatter->asDate($model->Start_Date):'Not Set' ?> </td>
+                      </tr>
+                      <tr>
+                        <th>Application End Date:</th>
+                        <td><?= !empty($model->End_Date)? Yii::$app->formatter->asDate($model->End_Date):'Not Set' ?> </td> </td>
+                      </tr>
+                      <tr>
+                        <th>Employment Type</th>
+                        <td><?=$model->Employment_Type ?></td>
+                      </tr>
+                      <tr>
+                        <th>Contract Period</th>
+                        <td><?=$model->Contract_Period ?></td>
+                      </tr>
                     </table>
-                    </div>
+                  </div>
                 </div>
+              <div class="text-center mt-5 mb-3">
+                <!-- <a href="#" class="btn btn-sm btn-primary">Add files</a>
+                <a href="#" class="btn btn-sm btn-warning">Report contact</a> -->
+              </div>
+
+              
+
             </div>
-        </div>
-            <!---end responsibilities------->
+            
+          </div>
+          <div class="row ">
 
-        <div class="card card-blue">
-            <!-------Add requirements------------>
-            <div class="card-header">
-                <h3 class="card-title">Job Requirements</h3>
-            </div>
+                <div class="col-6">
+                  <a href="/recruitment/index" class="btn btn-md btn-primary float-left">Close</a>
 
-
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        <table class="table table-bordered" >
-                            <?php
-
-                            if(!empty($model->Hr_job_requirements->Hr_job_requirements) && sizeof($model->Hr_job_requirements->Hr_job_requirements)){
-                                foreach($model->Hr_job_requirements->Hr_job_requirements as $req){
-                                    if(!empty($req->Requirement)){
-                                        print '<tr>
-                                            <td class="parent"><span>+</span>'.$req->Requirement.'</td>';
-                                            echo Yii::$app->recruitment->Requirementspecs($req->Line_No);
-
-                                        print'</tr>';
-                                    }
-
-                                }
-                            }else{
-                                print '<tr>
-                                            <td>No requirements set yet.</td>
-                                        </tr>';
-                            }
-                            ?>
-                        </table>
-                    </div>
                 </div>
-            </div>
 
-            <!---end requirements------->
+                <div class="col-6">
 
+                <?=  \yii\helpers\Html::button('Apply',
+                    [  'value' => \yii\helpers\Url::to(['leave/create',
+                        ]),
+                        // 'title' => 'New Leave Application Request',
+                        'class' => 'btn btn-warning float-right ApplyButton',
+                         ]
+                    ); 
 
+                    
+               ?>
+
+                </div>
+
+                </div>
+              
         </div>
-    </div>
-</div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+
+
 
 <?php
 
 $script = <<<JS
+
+                    $('.ApplyButton').on('click', function(){
+                            $.get('can-apply',
+                              {'ProfileId': $('#ProfileNo').val(),
+                              'JobId': $('#JobId').val(),
+                              'JobRequisitionNo':$('#JobRequisitionNo').val()
+                              }, function(response){
+                                  console.log(response)
+
+                                  if(response.error == 1){ //Does not Meet Conditions
+                                    Swal.fire("Warning", response.eror_message , "warning");
+                                    return false;
+                                  }
+
+                                  if(response.success == 1){ // Meets Conditions
+                                    Swal.fire("success", response.success_message , "success");
+
+                                    setTimeout(() => {
+                                      // Simulate a mouse click:
+                                      window.location.href = "/recruitment/vacancies";
+                                    }, 5000);
+
+                                  }
+                                 
+                          });
+   
+                    });
+
+                  //   $('.ApplyButton').on('click',function(e){
+                  //     e.preventDefault();
+                  //     var url = '/recruitment/can-apply?ProfileId='+ $('#ProfileNo').val()+'&JobId='+$('#JobId').val();
+                  //     console.log('clicking...');
+                  //     $('.modal').modal('show').find('.modal-body').load(url); 
+                  //  });
+        
+        /*Handle dismissal eveent of modal */
+        $('.modal').on('hidden.bs.modal',function(){
+            var reld = location.reload(true);
+            setTimeout(reld,1000);
+        });
+
     /*Parent-Children accordion*/ 
     
     $('td.parent').find('span').text('+');

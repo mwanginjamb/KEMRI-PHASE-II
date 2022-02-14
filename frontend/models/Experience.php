@@ -23,20 +23,23 @@ class Experience extends Model
     public $Line_No;
     public $No_of_People_Reporting_to_You;  
     public $Reporting_To;
+    public $Job_Responsibility;
+    public $Currently_Working_Here;
 
     public function rules()
     {
         return [
-            [['From_Date','Institution','Position','Job_Description'],'required'],
+            [['Start_Date', 'End_Date', 'Institution','Position','Job_Description', 'Job_Responsibility'],'required'],
         ];
     }
 
     public function attributeLabels()
     {
         return [
-            'Job_Description' => 'Responsibilities',
+            'Job_Description' => 'Job Description',
             'No_of_People_Reporting_to_You' => 'No. of People Reporting To You',
-            'Reporting_To' => 'Reporting To (Position)',
+            'Job_Responsibility'=>'Job Responsibility',
+            'Currently_Working_Here'=> 'I am currently working in this role'
         ];
     }
 }

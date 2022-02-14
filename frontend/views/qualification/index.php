@@ -117,12 +117,12 @@ $script = <<<JS
             paging: true,
             columns: [
                 { title: '....', data: 'index'},
-                { title: 'Applicant ID' ,data: 'Employee_No'},
-                { title: 'Qualification Code' ,data: 'Qualification_Code'},
+                { title: 'Level' ,data: 'Level'},
+                { title: 'Academic Qualification' ,data: 'Academic_Qualification'},
                 { title: 'From Date' ,data: 'From_Date'},
                 { title: 'To Date' ,data: 'To_Date'},
-                { title: 'Description' ,data: 'Description'},
-                { title: 'Institution / Company' ,data: 'Institution_Company'},
+                // { title: 'Description' ,data: 'Description'},
+                { title: 'Institution ' ,data: 'Institution_Company'},
                // { title: 'Comment' ,data: 'Comment'},
                
                 { title: 'Actions' ,data: 'Action'},

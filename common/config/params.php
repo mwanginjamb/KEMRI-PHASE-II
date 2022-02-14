@@ -482,7 +482,15 @@ return [
 
         'ProffesionalExaminers'=>'ProffesionalExaminers',//55086
         'ApplicantProfQualifications'=>'ApplicantProfQualifications',
-
+        'experience' => 'experience', //55062
+        'EducationQualifications'=>'EducationQualifications',//55064
+        'AcademicQualification'=>'AcademicQualification',//55085
+        'EducationLevel'=>'EducationLevel',//55084
+        'JobsCard' => 'JobsCard',//55055
+        'RequirementSpecification'=> 'RequirementSpecification', //55049
+        'ResponsibilitySpecification' => 'ResponsibilitySpecification', //55048
+        'JobApplicationList'=>'JobApplicationList', //55058
+        'HRJobApplicationsCard'=>'HRJobApplicationsCard',//55059
 
 
     ],

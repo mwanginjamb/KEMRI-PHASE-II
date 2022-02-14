@@ -62,13 +62,13 @@ $script = <<<JS
           $('#requistions').DataTable({
            
             //serverSide: true,  
-            ajax: absolute +'recruitment/getvacancies',
+            ajax: absolute +'recruitment/getinternalvacancies',
             paging: true,
             columns: [
-                { title: 'Job_ID' ,data: 'Job_ID'},
+                // { title: 'Job_ID' ,data: 'Job_ID'},
                 { title: 'Job_Description' ,data: 'Job_Description'},
                 { title: 'No_of_Posts' ,data: 'No_of_Posts'},
-                { title: 'Date_Created' ,data: 'Date_Created'},                
+                // { title: 'Date_Created' ,data: 'Date_Created'},                
                 { title: 'Requisition Type' ,data: 'ReqType'},                
                 { title: 'Action', data: 'action' },
                

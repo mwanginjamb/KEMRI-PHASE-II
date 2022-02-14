@@ -156,6 +156,39 @@ class Recruitment extends Component
                 }
     }
 
+    public function HasApplicantAcceptedTermsAndConditions($ProfileId){
+        $service = Yii::$app->params['ServiceName']['JobApplicantProfile'];
+        $filter = [
+           'No' => $ProfileId
+        ];
+
+        $result = Yii::$app->navhelper->getData($service,$filter);
+
+        if(!$result[0]->Verified == 1){
+            return true;
+        }
+        return false;
+
+    }
+
+
+    
+
+    public function HasApplicantAppliedForTheJob($ProfileId, $JobApplyingFor){
+        $service = Yii::$app->params['ServiceName']['JobApplicationList'];
+        $filter = [
+           'Profile_No' => $ProfileId,
+           'Requisition_No'=>$JobApplyingFor
+        ];
+        $result = Yii::$app->navhelper->getData($service,$filter);
+        if(is_object($result)){
+            return false;
+        }else{ 
+            return true;
+        }
+
+    }
+
     public function EmployeeUserHasProfile(){
         $service = Yii::$app->params['ServiceName']['JobApplicantProfileList'];
         $filter = [
