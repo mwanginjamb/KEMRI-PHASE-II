@@ -1125,6 +1125,50 @@ $employee = (!Yii::$app->user->isGuest && is_array(Yii::$app->user->identity->em
                                 </ul>
                             </li>
 
+                            <!-- Disciplinary -->
+                            <li class="nav-item has-treeview <?= Yii::$app->recruitment->currentCtrl(['grievance'])?'menu-open':'' ?>">
+                                <a href="#" class="nav-link <?= Yii::$app->recruitment->currentCtrl(['grievance'])?'active':'' ?>" title="Grievances and Disciplinary Management">
+                                    <i class="nav-icon fa fa-chart-bar" ></i>
+                                    <p class="text-truncate">
+                                        Grievances
+                                        <i class="fas fa-angle-left right"></i>
+                                        <!--<span class="badge badge-info right">6</span>-->
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+
+                                    <li class="nav-item">
+                                        <a href="<?= $absoluteUrl ?>induction" class="nav-link <?= Yii::$app->recruitment->currentaction('grievance','index')?'active':'' ?>">
+                                            <i class="fa fa-chart-line nav-icon"></i>
+                                            <p>Grievances </p>
+                                        </a>
+                                    </li>
+                                    
+
+                                </ul>
+                            </li>
+
+                            <li class="nav-item has-treeview <?= Yii::$app->recruitment->currentCtrl(['discipline'])?'menu-open':'' ?>">
+                                <a href="#" class="nav-link <?= Yii::$app->recruitment->currentCtrl(['discipline'])?'active':'' ?>" title="Grievances and Disciplinary Management">
+                                    <i class="nav-icon fa fa-chart-bar" ></i>
+                                    <p class="text-truncate">
+                                        Disciplinary
+                                        <i class="fas fa-angle-left right"></i>
+                                        <!--<span class="badge badge-info right">6</span>-->
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+
+                                    <li class="nav-item">
+                                        <a href="<?= $absoluteUrl ?>periodic-induction" class="nav-link <?= Yii::$app->recruitment->currentaction('discipline','index')?'active':'' ?>">
+                                            <i class="fa fa-chart-line nav-icon"></i>
+                                            <p>Disciplinary Cases </p>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </li>
+
 
 
 

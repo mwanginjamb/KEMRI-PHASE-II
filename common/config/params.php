@@ -469,6 +469,24 @@ return [
         'InductionOverallIN' => 'InductionOverallIN', //55108
         'HRAPPRAISALMGT' => 'HRAPPRAISALMGT', // 50209 -- Codeunit  
 
+         /********************Grievances***************************************/
+
+         'GrievanceList' => 'GrievanceList', //60090
+         'GrievanceCard' => 'GrievanceCard', //60091
+         'HROGrievanceList' => 'HROGrievanceList', //60092
+         'ClosedGrievanceList' => 'ClosedGrievanceList', // 60093
+
+        /********************Disciplinary***************************************/
+
+        'DisciplinaryCaseList' => 'DisciplinaryCaseList', // 55000
+        'DisciplinaryCard' => 'DisciplinaryCard', // 55002
+        'DisciplinaryLines' => 'DisciplinaryLines', //55001
+        'ReportedCaseList' => 'ReportedCaseList', //55003
+        'ClosedCaseList' => 'ClosedCaseList', //55004
+
+        'GRIEVANCEMGT' => 'GRIEVANCEMGT', // 50244 --codeunit
+
+
         /******************** Recruitment Services ***************************************/
 
 
