@@ -68,7 +68,8 @@ return [
         'PortalFactory', // 50062
         'ImprestManagement', // 50017
         'EmployeeExitManagement',
-        'HRAPPRAISALMGT'
+        'HRAPPRAISALMGT',
+        'GRIEVANCEMGT'
     ],
     'ServiceName'=>[
 
@@ -475,6 +476,7 @@ return [
          'GrievanceCard' => 'GrievanceCard', //60091
          'HROGrievanceList' => 'HROGrievanceList', //60092
          'ClosedGrievanceList' => 'ClosedGrievanceList', // 60093
+         'TypeofComplaints' => 'TypeofComplaints', //55120
 
         /********************Disciplinary***************************************/
 

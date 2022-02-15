@@ -1138,9 +1138,16 @@ $employee = (!Yii::$app->user->isGuest && is_array(Yii::$app->user->identity->em
                                 <ul class="nav nav-treeview">
 
                                     <li class="nav-item">
-                                        <a href="<?= $absoluteUrl ?>induction" class="nav-link <?= Yii::$app->recruitment->currentaction('grievance','index')?'active':'' ?>">
+                                        <a href="<?= $absoluteUrl ?>grievance" class="nav-link <?= Yii::$app->recruitment->currentaction('grievance','index')?'active':'' ?>">
                                             <i class="fa fa-chart-line nav-icon"></i>
-                                            <p>Grievances </p>
+                                            <p>Grievances List </p>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a href="<?= $absoluteUrl ?>grievance/hro" class="nav-link <?= Yii::$app->recruitment->currentaction('grievance','index')?'active':'' ?>">
+                                            <i class="fa fa-chart-line nav-icon"></i>
+                                            <p>HRO List </p>
                                         </a>
                                     </li>
                                     
@@ -1160,7 +1167,7 @@ $employee = (!Yii::$app->user->isGuest && is_array(Yii::$app->user->identity->em
                                 <ul class="nav nav-treeview">
 
                                     <li class="nav-item">
-                                        <a href="<?= $absoluteUrl ?>periodic-induction" class="nav-link <?= Yii::$app->recruitment->currentaction('discipline','index')?'active':'' ?>">
+                                        <a href="<?= $absoluteUrl ?>discipline" class="nav-link <?= Yii::$app->recruitment->currentaction('discipline','index')?'active':'' ?>">
                                             <i class="fa fa-chart-line nav-icon"></i>
                                             <p>Disciplinary Cases </p>
                                         </a>
