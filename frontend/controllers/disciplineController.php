@@ -98,7 +98,7 @@ class DisciplineController extends Controller
     
 
     public function actionUpdate($No = '', $Key = ''){
-        $model = new Grievance();
+        $model = new Discipline();
         $service = Yii::$app->params['ServiceName']['DisciplinaryCard'];
         $model->isNewRecord = false;
 

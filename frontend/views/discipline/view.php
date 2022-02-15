@@ -49,7 +49,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Case Card', 'url' => ['view','No'=
 
     </div>
 
-    <?= ($model->Action_ID == Yii::$app->user->identity->{'Employee No_'})?Html::a('<i class="fas fa-times"></i> Close Case',['close-case'],['class' => 'btn btn-app bg-success mx-1',
+    <?= ($model->HRO_Emp_No !== Yii::$app->user->identity->{'Employee No_'})?Html::a('<i class="fas fa-times"></i> Close Case',['close-case'],['class' => 'btn btn-app bg-success mx-1',
                                 'data' => [
                                 'confirm' => 'Are you sure you want to close this case?',
                                 'params'=>[
