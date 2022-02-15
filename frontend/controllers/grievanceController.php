@@ -235,7 +235,7 @@ class GrievanceController extends Controller
         $service = Yii::$app->params['ServiceName']['HROGrievanceList'];
 
         $filter = [
-            'HRO_Emp_No' => \Yii::$app->user->identity->{'Employee No_'},
+            //'HRO_Emp_No' => \Yii::$app->user->identity->{'Employee No_'},
         ];
         $records = \Yii::$app->navhelper->getData($service,$filter);
 
@@ -291,6 +291,8 @@ class GrievanceController extends Controller
         return $result;
 
     } 
+
+    
 
 
     public function actionAttended()
@@ -363,6 +365,128 @@ class GrievanceController extends Controller
 
         }
     }
+
+    // Accept Grievance
+
+    public function actionAcceptGrievance()
+    {
+        $No = Yii::$app->request->post('No');
+        $service = Yii::$app->params['ServiceName']['GRIEVANCEMGT'];
+
+        $data = [
+            'grievanceNo' => $No,
+            //'urLToSend' => Yii::$app->urlManager->createAbsoluteUrl(['grievance/view', 'No' => $No]),
+        ];
+
+       // Yii::$app->recruitment->printrr($data);
+
+
+        $result = Yii::$app->navhelper->Codeunit($service,$data,'IanAcceptGrievance');
+
+        if(!is_string($result)){
+            Yii::$app->session->setFlash('success', 'Grievance Accepted Successfully.', true);
+            return $this->redirect(['index']);
+        }else{
+
+            Yii::$app->session->setFlash('error', 'Error.  : '. $result);
+            return $this->redirect(['index']);
+
+        }
+    }
+
+
+    // Reject Grievenace
+
+    public function actionRejectGrievance()
+    {
+        $No = Yii::$app->request->post('No');
+        $service = Yii::$app->params['ServiceName']['GRIEVANCEMGT'];
+
+        $data = [
+            'grievanceNo' => $No,
+            'urLToSend' => Yii::$app->urlManager->createAbsoluteUrl(['grievance/view', 'No' => $No]),
+            'rejectionComment' => 'REJECTED'
+        ];
+
+       // Yii::$app->recruitment->printrr($data);
+
+
+        $result = Yii::$app->navhelper->Codeunit($service,$data,'IanRejectGrievance');
+
+        if(!is_string($result)){
+            Yii::$app->session->setFlash('success', 'Grievance Rejected Successfully.', true);
+            return $this->redirect(['index']);
+        }else{
+
+            Yii::$app->session->setFlash('error', 'Error.  : '. $result);
+            return $this->redirect(['index']);
+
+        }
+    }
+
+
+
+    // Convert to Discipline Case
+
+    public function actionCovertToDisciplinary()
+    {
+        $No = Yii::$app->request->post('No');
+        $service = Yii::$app->params['ServiceName']['GRIEVANCEMGT'];
+
+        $data = [
+            'grievanceNo' => $No,
+           // 'urLToSend' => Yii::$app->urlManager->createAbsoluteUrl(['grievance/view', 'No' => $No]),
+           // 'rejectionComment' => 'REJECTED'
+        ];
+
+       // Yii::$app->recruitment->printrr($data);
+
+
+        $result = Yii::$app->navhelper->Codeunit($service,$data,'IanConvertGrievanceToDisciplinary');
+
+        if(!is_string($result)){
+            Yii::$app->session->setFlash('success', 'Grievance converted to disciplinary case Successfully.', true);
+            return $this->redirect(['index']);
+        }else{
+
+            Yii::$app->session->setFlash('error', 'Error.  : '. $result);
+            return $this->redirect(['index']);
+
+        }
+    }
+
+    // Close Grievance Case
+
+    public function actionCloseGrievance()
+    {
+        $No = Yii::$app->request->post('No');
+        $service = Yii::$app->params['ServiceName']['GRIEVANCEMGT'];
+
+        $data = [
+            'grievanceNo' => $No,
+           // 'urLToSend' => Yii::$app->urlManager->createAbsoluteUrl(['grievance/view', 'No' => $No]),
+           // 'rejectionComment' => 'REJECTED'
+        ];
+
+       // Yii::$app->recruitment->printrr($data);
+
+
+        $result = Yii::$app->navhelper->Codeunit($service,$data,'IanCloseGrievance');
+
+        if(!is_string($result)){
+            Yii::$app->session->setFlash('success', 'Grievance closed Successfully.', true);
+            return $this->redirect(['index']);
+        }else{
+
+            Yii::$app->session->setFlash('error', 'Error.  : '. $result);
+            return $this->redirect(['index']);
+
+        }
+    }
+
+
+
+
 
     // Send Induction To Next Section
 
