@@ -385,11 +385,11 @@ class GrievanceController extends Controller
 
         if(!is_string($result)){
             Yii::$app->session->setFlash('success', 'Grievance Accepted Successfully.', true);
-            return $this->redirect(['index']);
+            return $this->redirect(['hro']);
         }else{
 
             Yii::$app->session->setFlash('error', 'Error.  : '. $result);
-            return $this->redirect(['index']);
+            return $this->redirect(['hro']);
 
         }
     }
@@ -415,6 +415,35 @@ class GrievanceController extends Controller
 
         if(!is_string($result)){
             Yii::$app->session->setFlash('success', 'Grievance Rejected Successfully.', true);
+            return $this->redirect(['hro']);
+        }else{
+
+            Yii::$app->session->setFlash('error', 'Error.  : '. $result);
+            return $this->redirect(['hro']);
+
+        }
+    }
+
+    // Withdraw Grievance
+
+    public function actionWithdraw()
+    {
+        $No = Yii::$app->request->post('No');
+        $service = Yii::$app->params['ServiceName']['GRIEVANCEMGT'];
+
+        $data = [
+            'grievanceNo' => $No,
+            'urLToSend' => Yii::$app->urlManager->createAbsoluteUrl(['grievance/view', 'No' => $No]),
+            'withdrawalReason' => 'Withdtwan'
+        ];
+
+       // Yii::$app->recruitment->printrr($data);
+
+
+        $result = Yii::$app->navhelper->Codeunit($service,$data,'IanWithdrawGrievance');
+
+        if(!is_string($result)){
+            Yii::$app->session->setFlash('success', 'Grievance Rejected Successfully.', true);
             return $this->redirect(['index']);
         }else{
 
@@ -428,7 +457,7 @@ class GrievanceController extends Controller
 
     // Convert to Discipline Case
 
-    public function actionCovertToDisciplinary()
+    public function actionConvertToDisciplinary()
     {
         $No = Yii::$app->request->post('No');
         $service = Yii::$app->params['ServiceName']['GRIEVANCEMGT'];
@@ -446,11 +475,11 @@ class GrievanceController extends Controller
 
         if(!is_string($result)){
             Yii::$app->session->setFlash('success', 'Grievance converted to disciplinary case Successfully.', true);
-            return $this->redirect(['index']);
+            return $this->redirect(['hro']);
         }else{
 
             Yii::$app->session->setFlash('error', 'Error.  : '. $result);
-            return $this->redirect(['index']);
+            return $this->redirect(['hro']);
 
         }
     }
@@ -463,9 +492,7 @@ class GrievanceController extends Controller
         $service = Yii::$app->params['ServiceName']['GRIEVANCEMGT'];
 
         $data = [
-            'grievanceNo' => $No,
-           // 'urLToSend' => Yii::$app->urlManager->createAbsoluteUrl(['grievance/view', 'No' => $No]),
-           // 'rejectionComment' => 'REJECTED'
+            'grievanceNo' => $No
         ];
 
        // Yii::$app->recruitment->printrr($data);
@@ -475,47 +502,14 @@ class GrievanceController extends Controller
 
         if(!is_string($result)){
             Yii::$app->session->setFlash('success', 'Grievance closed Successfully.', true);
-            return $this->redirect(['index']);
+            return $this->redirect(['hro']);
         }else{
 
             Yii::$app->session->setFlash('error', 'Error.  : '. $result);
-            return $this->redirect(['index']);
+            return $this->redirect(['hro']);
 
         }
     }
-
-
-
-
-
-    // Send Induction To Next Section
-
-    public function actionNextSection()
-    {
-        $service = Yii::$app->params['ServiceName']['HRAPPRAISALMGT'];
-        $No = Yii::$app->request->post('No');
-        $Key = Yii::$app->request->post('Key');
-
-        $data = [
-            'inductionNo' => $No,
-            'approvalURL' => Yii::$app->urlManager->createAbsoluteUrl(['induction/view', 'Key' => $Key]),
-        ];
-
-
-        $result = Yii::$app->navhelper->Codeunit($service,$data,'IanSendInductionToNextSection');
-
-        if(!is_string($result)){
-            Yii::$app->session->setFlash('success', 'Document Sent to Next Section Successfully.', true);
-            return $this->redirect(['update','Key' => $Key]);
-        }else{
-            Yii::$app->session->setFlash('error', 'Error : '. $result);
-            return $this->redirect(['index']);
-
-        }
-    }
-
-   
-
 
 
     /** Updates a single field */

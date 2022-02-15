@@ -1145,7 +1145,7 @@ $employee = (!Yii::$app->user->isGuest && is_array(Yii::$app->user->identity->em
                                     </li>
 
                                     <li class="nav-item">
-                                        <a href="<?= $absoluteUrl ?>grievance/hro" class="nav-link <?= Yii::$app->recruitment->currentaction('grievance','index')?'active':'' ?>">
+                                        <a href="<?= $absoluteUrl ?>grievance/hro" class="nav-link <?= Yii::$app->recruitment->currentaction('grievance','hro')?'active':'' ?>">
                                             <i class="fa fa-chart-line nav-icon"></i>
                                             <p>HRO List </p>
                                         </a>

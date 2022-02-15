@@ -49,7 +49,8 @@ $this->params['breadcrumbs'][] = ['label' => 'Grievance Card', 'url' => ['view',
 
     </div>
 
-    <?= ($model->Status == 'New' && $model->Employee_No == Yii::$app->user->identity->{'Employee No_'})?Html::a('<i class="fas fa-forward"></i> To HRO.',['send-to-hro'],['class' => 'btn btn-app bg-success mx-1',
+    <?= ($model->Status == 'New' && $model->Employee_No == Yii::$app->user->identity->{'Employee No_'})?Html::a('<i class="fas fa-forward"></i> To HRO.',['send-to-hro'],[
+                                'class' => 'btn btn-app bg-success mx-1',
                                 'data' => [
                                 'confirm' => 'Are you sure you want to send this document to HRO?',
                                 'params'=>[
@@ -59,7 +60,93 @@ $this->params['breadcrumbs'][] = ['label' => 'Grievance Card', 'url' => ['view',
                             ],
                                 'title' => 'Send Grievance To HRO for Acceptance.'
     
-                            ]):'' ?>
+                            ]):''
+
+        
+    ?>
+
+<?= ($model->Status == 'HRO' && $model->Employee_No == Yii::$app->user->identity->{'Employee No_'})?Html::a('<i class="fas fa-times"></i> Withdraw.',['withdraw'],[
+                                'class' => 'btn btn-app bg-success mx-1',
+                                'data' => [
+                                'confirm' => 'Are you sure you want to withdraw this grievance ?',
+                                'params'=>[
+                                    'No'=> $model->No,
+                                ],
+                                'method' => 'post',
+                            ],
+                                'title' => 'Withdraw Grievance.'
+    
+                            ]):''
+
+        
+    ?>
+
+
+    <?= ($model->Status == 'HRO')?Html::a('<i class="fas fa-check"></i> Accept ',['accept-grievance'],[
+                                'class' => 'btn btn-app bg-success mx-1',
+                                'data' => [
+                                'confirm' => 'Are you sure you want to Accept this Grievance?',
+                                'params'=>[
+                                    'No'=> $model->No,
+                                ],
+                                'method' => 'post',
+                            ],
+                                'title' => 'Accept Grievance.'
+    
+                            ]):''   
+    ?>
+
+    <?= ($model->Status == 'HRO')?Html::a('<i class="fas fa-times"></i> Reject ',['reject-grievance'],[
+                                'class' => 'btn btn-app bg-success mx-1',
+                                'data' => [
+                                'confirm' => 'Are you sure you want to Accept this Grievance?',
+                                'params'=>[
+                                    'No'=> $model->No,
+                                ],
+                                'method' => 'post',
+                            ],
+                                'title' => 'Reject Grievance.'
+    
+                            ]):''   
+    ?>
+
+
+    
+
+
+<?= ($model->Status == 'Accepted')?Html::a('<i class="fas fa-forward"></i> To Disciplinary ',['convert-to-disciplinary'],[
+                                'class' => 'btn btn-app bg-success mx-1',
+                                'data' => [
+                                'confirm' => 'Are you sure you want to Convert this grievance to a disciplinary case?',
+                                'params'=>[
+                                    'No'=> $model->No,
+                                ],
+                                'method' => 'post',
+                            ],
+                                'title' => 'Covert to Disciplinary Case.'
+    
+                            ]):''   
+    ?>
+
+
+
+
+<?= ($model->Status == 'HRO')?Html::a('<i class="fas fa-times"></i> Close ',['close-grievance'],[
+                                'class' => 'btn btn-app bg-success mx-1',
+                                'data' => [
+                                'confirm' => 'Are you sure you want to close grievance?',
+                                'params'=>[
+                                    'No'=> $model->No,
+                                ],
+                                'method' => 'post',
+                            ],
+                                'title' => 'Close Grievance.'
+    
+                            ]):''   
+    ?>
+
+
+
 </div>
 
     <div class="row">

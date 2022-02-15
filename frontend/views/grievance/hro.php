@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = ['label' => 'HRO Grievance List', 'url' => ['in
 $this->params['breadcrumbs'][] = '';
 $url = \yii\helpers\Url::home(true);
 ?>
-<div class="row">
+<!-- <div class="row">
     <div class="col-md-12">
         <div class="card">
             <div class="card-body">
@@ -26,7 +26,7 @@ $url = \yii\helpers\Url::home(true);
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 
 <?php
