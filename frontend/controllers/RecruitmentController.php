@@ -418,7 +418,7 @@ class RecruitmentController extends Controller
             return $msg[] = [
                 'error'=>0,
                 'success'=>1,
-                'success_message'=>'Succesfully Applied for This Job. Your Application No is'. $JobApplicationResult[0]->No
+                'success_message'=>'Succesfully Applied for This Job. Your Application No is'. isset($JobApplicationResult[0]->No)?$JobApplicationResult[0]->No:$JobApplicationResult
             ];
 
         }else{
@@ -534,12 +534,12 @@ class RecruitmentController extends Controller
     public function actionGetapplications(){
 
         $filter = [];
-        $service = Yii::$app->params['ServiceName']['HRJobApplicationsList'];
+        $service = Yii::$app->params['ServiceName']['JobApplicationList'];
 
             if(!Yii::$app->user->isGuest){
 
                 $filter = [
-                    'No' => Yii::$app->recruitment->getEmployeeApplicantProfile()
+                    'Profile_No' => Yii::$app->recruitment->getEmployeeApplicantProfile()
                 ];
             $applications = \Yii::$app->navhelper->getData($service,$filter);
             }
@@ -547,7 +547,7 @@ class RecruitmentController extends Controller
         
 
 
-//Yii::$app->recruitment->printrr($applications);
+// Yii::$app->recruitment->printrr($applications);
 
 
 
@@ -555,12 +555,12 @@ class RecruitmentController extends Controller
         if(is_array($applications)){
             foreach($applications as $req){
 
-                if(property_exists($req,'Job_Description') && property_exists($req,'Profile_No') ) {
+                if(property_exists($req,'Requisition_No') && property_exists($req,'No') ) {
     
                     $result['data'][] = [
                         'No' => !empty($req->No) ? $req->No : 'Not Set',
                         'Applicant_Name' => !empty($req->Full_Name) ? $req->Full_Name : '',
-                        'Job_Description' => !empty($req->Job_Description) ? $req->Job_Description : 'Not Set',
+                        'Requisition_No' => !empty($req->Job_Description) ? $req->Job_Description : 'Not Set',
                         'Application_Status' => !empty($req->Job_Application_status) ? $req->Job_Application_status : '',
     
                     ];

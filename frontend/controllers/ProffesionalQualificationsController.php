@@ -131,8 +131,7 @@ class ProffesionalQualificationsController extends Controller
         return $this->render('create',[
 
             'model' => $model,
-
-
+            'ProffesionalExaminers' => ArrayHelper::map($this->getProffesionalExaminers(),'Code', 'Description')
 
         ]);
     }
