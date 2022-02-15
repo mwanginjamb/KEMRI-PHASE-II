@@ -222,7 +222,7 @@ class DisciplineController extends Controller
                     'Name_of_Offender' => !empty($quali->Name_of_Offender)?$quali->Name_of_Offender:'',
                     'Type_of_Offense' => !empty($quali->Type_of_Offense)?$quali->Type_of_Offense:'',
                     'Status' => !empty($quali->Status)?$quali->Status:'',
-                    'Action' => $viewLink,
+                    'Action' => $viewLink.$updateLink,
                                       
                 ];
             

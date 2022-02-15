@@ -12,7 +12,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model frontend\models\AgendaDocument */
 
-$this->title = 'Employee Induction Document.';
+$this->title = 'Employee Grievance Document.';
 $this->params['breadcrumbs'][] = ['label' => 'Grievances List', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => 'Grievance card', 'url' => ['update','Key' => $model->Key]];
 

@@ -31,6 +31,11 @@ public $Rejection_Comments;
 public $HRO_Emp_No;
 public $isNewRecord;
 
+public $HRO_Findings;
+public $Complaint_Classification;
+public $Employee_Comments;
+public $Severity_of_grievance;
+
 
 
     public function rules()

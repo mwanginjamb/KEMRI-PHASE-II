@@ -11,7 +11,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model frontend\models\AgendaDocument */
 
-$this->title = 'Imprest Request ';
+$this->title = 'Grievance ';
 $this->params['breadcrumbs'][] = ['label' => 'imprest', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => 'New Imprest Request', 'url' => ['create']];
 

@@ -108,10 +108,10 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                         
                         <div class="col-md-6">
                             <?= $form->field($model, 'Offense_Description')->textInput(['readonly'=> true, 'disabled'=>true]) ?>        
-                            <?= $form->field($model, 'Witness')->textarea(['rows' => 2]) ?>
-                            <?= $form->field($model, 'Witness_Name')->textarea(['rows' => 2]) ?>        
+                            <?= $form->field($model, 'Witness')->textInput(['readonly' => true]) ?>
+                            <?= $form->field($model, 'Witness_Name')->textInput(['readonly' =>  true]) ?>        
                             <?= $form->field($model, 'Policy_Violated')->textarea(['rows'=> 2]) ?>        
-                            <?= $form->field($model, 'Disciplinary_Findings')->textInput(['readonly'=> true]) ?>
+                            <?= $form->field($model, 'Disciplinary_Findings')->textarea(['rows'=> 2]) ?>
                             <?= $form->field($model, 'Verdict')->textarea(['rows'=> 2]) ?> 
                             <?= $form->field($model, 'Surcharge_Employee')->checkbox([$model->Surcharge_Employee]) ?> 
                             <?= $form->field($model, 'Amount')->textInput(['type'=> 'number']) ?> 
@@ -153,6 +153,15 @@ $('#discipline-surcharge_employee').change((e) => {
 
 $('#discipline-amount').change((e) => {
         globalFieldUpdate('discipline',false,'Amount', e);
+});
+
+$('#discipline-policy_violated').change((e) => {
+        globalFieldUpdate('discipline',false,'Policy_Violated', e);
+});
+
+
+$('#discipline-disciplinary_findings').change((e) => {
+        globalFieldUpdate('discipline',false,'Disciplinary_Findings', e);
 });
 
 

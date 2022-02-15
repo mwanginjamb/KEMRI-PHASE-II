@@ -84,6 +84,7 @@ class GrievanceController extends Controller
         // Once Initial Request is Made Redirect to Update Page
 
             $model->Employee_No = Yii::$app->user->identity->{'Employee No_'};
+            $model->Date_of_grievance = date('Y-m-d');
             $request = Yii::$app->navhelper->postData($service,$model);
             if(is_object($request)){
                 return $this->redirect(['update','Key' => $request->Key]);
@@ -251,7 +252,7 @@ class GrievanceController extends Controller
 
                 ++$count;
                 $Deletelink = $updateLink = $viewLink = $applyLink = $sendForApproval =  '';
-                $updateLink = ($quali->Status == 'New')? Html::a('<i class="fa fa-edit"></i>',['update','Key'=> $quali->Key ],['class'=>' mx-1 update btn btn-outline-info btn-xs', 'title' => 'Update Record']): '';
+                $updateLink = ($quali->Status == 'HRO')? Html::a('<i class="fa fa-edit"></i>',['update','Key'=> $quali->Key ],['class'=>' mx-1 update btn btn-outline-info btn-xs', 'title' => 'Update Record']): '';
                 $viewLink = Html::a('<i class="fa fa-eye"></i>',['view','Key'=> $quali->Key ],['class'=>'btn btn-outline-info btn-xs mx-2', 'title' => 'View Document']);
                 $sendForApproval = ($quali->Status == 'New')? Html::a('<i class="fa fa-forward"></i>',['send-to-hro'],[
                     'class'=>'btn btn-outline-success btn-xs mx-2',
@@ -283,7 +284,7 @@ class GrievanceController extends Controller
                     'Name' => !empty($quali->Name)?$quali->Name:'',
                     'Grievance_Type' => !empty($quali->Grievance_Type)?$quali->Grievance_Type:'',
                     'Status' => !empty($quali->Status)?$quali->Status:'',
-                    'Action' => $viewLink,
+                    'Action' => $viewLink.$updateLink,
                                       
                 ];
             
