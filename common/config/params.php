@@ -477,6 +477,7 @@ return [
          'HROGrievanceList' => 'HROGrievanceList', //60092
          'ClosedGrievanceList' => 'ClosedGrievanceList', // 60093
          'TypeofComplaints' => 'TypeofComplaints', //55120
+         'OffenceSeverity' => 'OffenceSeverity', // 55123
 
         /********************Disciplinary***************************************/
 
