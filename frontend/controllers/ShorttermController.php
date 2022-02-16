@@ -151,7 +151,7 @@ class ShorttermController extends Controller
 
             }else{
                 Yii::$app->session->setFlash('error','Error Creating  Appraisal: '.$result,true);
-               return $this->redirect(['view','Employee_No' => $result->Employee_No, 'Appraisal_No' => $result->Appraisal_No]);
+               return $this->redirect(['index']);
 
             }
 
