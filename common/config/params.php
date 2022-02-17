@@ -68,7 +68,8 @@ return [
         'PortalFactory', // 50062
         'ImprestManagement', // 50017
         'EmployeeExitManagement',
-        'HRAPPRAISALMGT'
+        'HRAPPRAISALMGT',
+        'GRIEVANCEMGT'
     ],
     'ServiceName'=>[
 
@@ -469,6 +470,27 @@ return [
         'InductionOverallIN' => 'InductionOverallIN', //55108
         'HRAPPRAISALMGT' => 'HRAPPRAISALMGT', // 50209 -- Codeunit  
 
+         /********************Grievances***************************************/
+
+         'GrievanceList' => 'GrievanceList', //60090
+         'GrievanceCard' => 'GrievanceCard', //60091
+         'HROGrievanceList' => 'HROGrievanceList', //60092
+         'ClosedGrievanceList' => 'ClosedGrievanceList', // 60093
+         'TypeofComplaints' => 'TypeofComplaints', //55120
+         'OffenceSeverity' => 'OffenceSeverity', // 55123
+
+        /********************Disciplinary***************************************/
+
+        'DisciplinaryCaseList' => 'DisciplinaryCaseList', // 55000
+        'DisciplinaryCard' => 'DisciplinaryCard', // 55002
+        'DisciplinaryLines' => 'DisciplinaryLines', //55001
+        'ReportedCaseList' => 'ReportedCaseList', //55003
+        'ClosedCaseList' => 'ClosedCaseList', //55004
+        'DisciplinaryAttachments' => 'DisciplinaryAttachments', //55007
+
+        'GRIEVANCEMGT' => 'GRIEVANCEMGT', // 50244 --codeunit
+
+
         /******************** Recruitment Services ***************************************/
 
 
@@ -546,6 +568,14 @@ return [
     'FMS-ServiceName' => [
         'FMSGrants' => 'FMSGrants',
         'FMSActivities' => 'FMSActivities'
+    ],
+
+    'QualificationsMimeTypes' => [
+        'application/pdf',
+        //'application/msword',
+        //'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        //'application/vnd.openxmlformats-officedocument.wordprocessingml.template'
+
     ],
 
 
