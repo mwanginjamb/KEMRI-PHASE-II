@@ -486,6 +486,7 @@ return [
         'DisciplinaryLines' => 'DisciplinaryLines', //55001
         'ReportedCaseList' => 'ReportedCaseList', //55003
         'ClosedCaseList' => 'ClosedCaseList', //55004
+        'DisciplinaryAttachments' => 'DisciplinaryAttachments', //55007
 
         'GRIEVANCEMGT' => 'GRIEVANCEMGT', // 50244 --codeunit
 
@@ -567,6 +568,14 @@ return [
     'FMS-ServiceName' => [
         'FMSGrants' => 'FMSGrants',
         'FMSActivities' => 'FMSActivities'
+    ],
+
+    'QualificationsMimeTypes' => [
+        'application/pdf',
+        //'application/msword',
+        //'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        //'application/vnd.openxmlformats-officedocument.wordprocessingml.template'
+
     ],
 
 

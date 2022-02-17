@@ -62,7 +62,7 @@ class Navhelper extends Component{
 
      /*Read a single entry*/
 
-     public function findOne($service,$filterKey, $filterValue){
+     public function findOne($service,$filter){
 
         $url  =  new Services($service);
         $wsdl = $url->getUrl();
@@ -79,7 +79,7 @@ class Navhelper extends Component{
         }
 
 
-        $res = (array)$result = Yii::$app->navision->readEntry($creds, $wsdl, $filterKey, $filterValue);
+        $res = (array)$result = Yii::$app->navision->readEntry($creds, $wsdl, $filter);
 
         if(count($res)){
             return $res[$service];

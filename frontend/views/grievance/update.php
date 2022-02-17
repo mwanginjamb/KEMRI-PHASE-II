@@ -26,7 +26,8 @@ $this->params['breadcrumbs'][] = ['label' => 'Grievance card', 'url' => ['update
         'document' => $document,
         'employees' => $employees,
         'complaintTypes' => $complaintTypes,
-        'severity' => $severity
+        'severity' => $severity,
+        'attachment' => $attachment
     ]) ?>
 
 </div>

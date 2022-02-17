@@ -96,6 +96,8 @@ $activeState = [];
                             ?> 
                              
                              <?= $form->field($model, 'Employee_Comments')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
+
+                             <?= $form->field($model, 'attachment')->fileInput(['accept' => 'application/*']) ?>
                             
                         </div>
                         
@@ -136,6 +138,26 @@ $activeState = [];
                 <?php ActiveForm::end(); ?>
             </div>
         </div>
+
+          <!-- Attachment View -->
+          <?php if($attachment->File_path): ?>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Attachment View</h3>
+                        </div>
+                        <div class="card-body">
+                        <?php
+                                echo \lesha724\documentviewer\ViewerJsDocumentViewer::widget([
+                                'url' => $attachment->File_path, 
+                                'width'=>'100%',
+                                'height'=>'1100px',
+                                ]);?>
+                        </div>
+                    </div>
+
+            <?php endif; ?>
+
+            <!-- End Attachment View -->
 
 
        
@@ -178,6 +200,10 @@ $('#grievance-grievance_description').change((e) => {
 
 $('#grievance-rejection_comments').change((e) => {
         globalFieldUpdate('grievance',false,'Rejection_Comments', e);
+});
+
+$('#grievance-attachment').change(function(e){
+          globalUpload('DisciplinaryAttachments','grievance','attachment');
 });
 
 

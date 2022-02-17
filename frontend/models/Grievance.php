@@ -35,20 +35,22 @@ public $HRO_Findings;
 public $Complaint_Classification;
 public $Employee_Comments;
 public $Severity_of_grievance;
+public  $attachment;
 
 
 
     public function rules()
     {
         return [
-
+            [['attachment'],'file','mimeTypes' => Yii::$app->params['QualificationsMimeTypes']],
+            [['attachment'],'file','maxSize' => '5120000'], //50mb
         ];
     }
 
     public function attributeLabels()
     {
         return [
-            
+            'attachment' => 'Grievance Attachment (PDFs only)'
         ];
     }
 

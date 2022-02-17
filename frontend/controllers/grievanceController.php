@@ -17,6 +17,7 @@ use yii\filters\AccessControl;
 use yii\filters\ContentNegotiator;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
+use yii\helpers\FileHelper;
 use yii\helpers\Html;
 use yii\web\Controller;
 use yii\web\Response;
@@ -60,6 +61,15 @@ class GrievanceController extends Controller
         ];
     }
 
+    public function beforeAction($action) 
+    { 
+        
+            $this->enableCsrfValidation = false; 
+            return parent::beforeAction($action);
+        
+        
+    }
+
     public function actionIndex(){
 
         return $this->render('index');
@@ -100,18 +110,24 @@ class GrievanceController extends Controller
     public function actionUpdate($No = '', $Key = ''){
         $model = new Grievance();
         $service = Yii::$app->params['ServiceName']['GrievanceCard'];
+        $AttachmentService = Yii::$app->params['ServiceName']['DisciplinaryAttachments'];
         $model->isNewRecord = false;
 
         // Get Document
         if(!empty($No))
         {
-            $document = Yii::$app->navhelper->findOne($service,'No',$No);    
+            $document = Yii::$app->navhelper->findOne($service,['No' => $No]);    
         }elseif(!empty($Key)){
             $document = Yii::$app->navhelper->readByKey($service,$Key);    
         }else{
             //Yii::$app->session->setFlash('error', 'We are unable to fetch a document to update', true);
             return Yii::$app->redirect(['index']);
         }
+
+        $args = [
+            'Document_No' => $document->No
+        ];
+        $attachment = Yii::$app->navhelper->getData($AttachmentService, $args);
 
         if(is_object($document)){
             //load nav result to model
@@ -128,7 +144,8 @@ class GrievanceController extends Controller
             'document' => $document,
             'employees' =>  Yii::$app->navhelper->dropdown('Employees','No','Full_Name'),
             'complaintTypes' =>  Yii::$app->navhelper->dropdown('TypeofComplaints','Complaint','Complaint'),
-            'severity' => Yii::$app->navhelper->dropdown('OffenceSeverity','Severity','Severity')
+            'severity' => Yii::$app->navhelper->dropdown('OffenceSeverity','Severity','Severity'),
+            'attachment' => $attachment[0],
         ]);
     }
 
@@ -149,12 +166,13 @@ class GrievanceController extends Controller
 
     public function actionView($No = '', $Key = ''){
         $service = Yii::$app->params['ServiceName']['GrievanceCard'];
+        $AttachmentService = Yii::$app->params['ServiceName']['DisciplinaryAttachments'];
         $model = new Grievance();
 
        // Get Document
        if(!empty($No))
        {
-           $document = Yii::$app->navhelper->findOne($service,'No',$No);
+           $document = Yii::$app->navhelper->findOne($service,['No' => $No]);
        }elseif(!empty($Key)){
            $document = Yii::$app->navhelper->readByKey($service,$Key);
        }else{
@@ -162,12 +180,22 @@ class GrievanceController extends Controller
            return $this->redirect(['index']);
        }
 
+       // Read Attachment or Check if it exists
+
+       $args = [
+           'Document_No' => $document->No
+       ];
+       $attachment = Yii::$app->navhelper->getData($AttachmentService, $args);
+
+       //Yii::$app->recruitment->printrr($attachment);
+
         //load nav result to model
         $model = Yii::$app->navhelper->loadmodel($document, $model);
 
         return $this->render('view',[
             'model' => $model,
-            'document' =>  $document
+            'document' =>  $document,
+            'attachment' => $attachment[0],
         ]);
     }
 
@@ -586,6 +614,72 @@ class GrievanceController extends Controller
             return ['note' => '<div class="alert alert-success">Record Purged Successfully</div>'];
         }else{
             return ['note' => '<div class="alert alert-danger">Error Purging Record: '.$result.'</div>' ];
+        }
+    }
+
+    public function actionUpload()
+    {
+        $targetPath = '';
+        if($_FILES)
+        {
+            $targetPath = './uploads/'.Yii::$app->security->generateRandomString(5).$_FILES['attachment']['name']; // Upload file
+
+            if(!is_dir(dirname($targetPath))){
+                FileHelper::createDirectory(dirname($targetPath));
+                chmod(dirname($targetPath),0755);
+            }
+        }
+       
+        // Upload
+        if(Yii::$app->request->isPost)
+        {
+            $file = $_FILES['attachment']['tmp_name'];
+            //Return JSON
+            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            if(move_uploaded_file($file,$targetPath))
+            {
+                return [
+                    'status' => 'success',
+                    'message' => 'File Uploaded Successfully',
+                    'filePath' => $targetPath
+                ];
+            }else 
+            {
+                return 'error';
+            }
+        }
+        
+
+        // Update Nav
+        if(Yii::$app->request->isGet) 
+        {
+            $fileName = basename(Yii::$app->request->get('filePath'));
+            
+            $DocumentService = Yii::$app->params['ServiceName']['GrievanceCard'];
+            $AttachmentService = Yii::$app->params['ServiceName'][Yii::$app->request->get('Service')];
+            $Document = Yii::$app->navhelper->readByKey($DocumentService, Yii::$app->request->get('Key'));
+
+            $data = [];
+            if(is_object($Document) && isset($Document->No))
+            {
+                $data = [
+                    'Document_No' => $Document->No,
+                    'Name' => $fileName ,
+                    'File_path' => \yii\helpers\Url::home(true).'uploads/'.$fileName,
+                ];
+            }
+           
+            // Update Nav
+            $result = Yii::$app->navhelper->postData($AttachmentService, $data);
+
+            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            if(is_object($result))
+            {
+                return $result;
+            }else {
+                return $result;
+            }
+            
         }
     }
 
