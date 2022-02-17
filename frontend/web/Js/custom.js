@@ -303,7 +303,7 @@ async function globalUpload(service, entity, fieldName) {
         method: "POST",
         body: formData,
         headers: new Headers({
-          Origin: 'http://localhost:8047/'
+          Origin: 'http://localhost:80/'
         })
       });
 
@@ -320,7 +320,7 @@ async function globalUpload(service, entity, fieldName) {
     const navReq = await  fetch(endPoint,{
       method: "GET",
       headers: new Headers({
-        Origin: 'http://localhost:8047/'
+        Origin: 'http://localhost:80/'
       })
     });
 

@@ -41,18 +41,18 @@ class Navision extends Component
         try {
             $result = $client->ReadMultiple(['filter' => $filter, 'setSize' => 1000]);
             return $result;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return $e->getMessage();
         }
     }
 
-     public function readEntry($credentials, $soapWsdl,$filter,$filterValue)
+     public function readEntry($credentials, $soapWsdl,$filter)
     {
         $client = $this->createClient($credentials, $soapWsdl);
         try {
-            $result = $client->Read([$filter => $filterValue]);
+            $result = $client->Read($filter);
             return $result;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return $e->getMessage();
         }
     }
