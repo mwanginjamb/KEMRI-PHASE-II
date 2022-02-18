@@ -514,7 +514,8 @@ $employee = (!Yii::$app->user->isGuest && is_array(Yii::$app->user->identity->em
                         (
                         Yii::$app->user->identity->Employee[0]->Type_of_Employee == 'Expertriate_Payable' ||
                         Yii::$app->user->identity->Employee[0]->Type_of_Employee == 'Expertriate_Non_Payable' || 
-                        Yii::$app->user->identity->Employee[0]->Type_of_Employee == 'Part_Time'
+                        Yii::$app->user->identity->Employee[0]->Type_of_Employee == 'Part_Time' ||
+                        Yii::$app->user->identity->Employee[0]->Type_of_Employee == 'Seconded'
 
                         ) ): ?>
 
