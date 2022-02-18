@@ -217,7 +217,7 @@ $script = <<<JS
                     $('.ApplyButton').on('click', function(){
                             $.get('can-apply',
                               {'ProfileId': $('#ProfileNo').val(),
-                              'JobId': $('#JobId').val(),
+                              'JobId': $('#JobRequisitionNo').val(),
                               'JobRequisitionNo':$('#JobRequisitionNo').val()
                               }, function(response){
                                   console.log(response)
