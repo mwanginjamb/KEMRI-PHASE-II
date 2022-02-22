@@ -1077,7 +1077,7 @@ $employee = (!Yii::$app->user->isGuest && is_array(Yii::$app->user->identity->em
 
                         <?php endif;  ?>
 
-                        <?php if(1 == 0){ // start blocking phase2 modules ?>
+                        <?php if(YII_ENV_DEV){ // start blocking phase2 modules if in prod env ?>
                             <!-- Employee Induction -->
 
                             <li class="nav-item has-treeview <?= Yii::$app->recruitment->currentCtrl(['induction','periodic-induction'])?'menu-open':'' ?>">
