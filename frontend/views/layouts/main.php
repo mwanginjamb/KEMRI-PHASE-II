@@ -733,7 +733,11 @@ $employee = (!Yii::$app->user->isGuest && is_array(Yii::$app->user->identity->em
 
 
                         <!-- Start Probation Appraisal -->
-<?php if(Yii::$app->user->identity->Employee[0]->Probation_Status == 'Extended' || Yii::$app->user->identity->Employee[0]->Probation_Status == 'On_Probation' || Yii::$app->dashboard->inSupervisorList() ): ?>
+<?php if(
+    Yii::$app->user->identity->Employee[0]->Probation_Status == 'Extended' ||
+    Yii::$app->user->identity->Employee[0]->Probation_Status == 'On_Probation' ||
+    Yii::$app->user->identity->Employee[0]->Type_of_Employee == 'Seconded' ||
+    Yii::$app->dashboard->inSupervisorList() ): ?>
                         <li class="nav-item has-treeview <?= Yii::$app->recruitment->currentCtrl('probation')?'menu-open':'' ?>">
                             <a href="#" title="Performance Management" class="nav-link <?= Yii::$app->recruitment->currentCtrl('appraisal')?'active':'' ?>">
                                 <i class="nav-icon fa fa-balance-scale"></i>
@@ -1073,7 +1077,8 @@ $employee = (!Yii::$app->user->isGuest && is_array(Yii::$app->user->identity->em
 
                         <?php endif;  ?>
 
-                        <!-- Employee Induction -->
+                        <?php if(1 == 0){ // start blocking phase2 modules ?>
+                            <!-- Employee Induction -->
 
                             <li class="nav-item has-treeview <?= Yii::$app->recruitment->currentCtrl(['induction','periodic-induction'])?'menu-open':'' ?>">
                                 <a href="#" class="nav-link <?= Yii::$app->recruitment->currentCtrl(['induction','periodic-induction'])?'active':'' ?>" title="Employee Induction">
@@ -1177,12 +1182,7 @@ $employee = (!Yii::$app->user->isGuest && is_array(Yii::$app->user->identity->em
                                 </ul>
                             </li>
 
-
-
-
-
-
-
+                        <?php } // End module blocking ?>
 
                     </ul>
                 </nav>
