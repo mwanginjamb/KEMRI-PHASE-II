@@ -60,6 +60,26 @@ if($model->Employee_No == Yii::$app->user->identity->{'Employee No_'})
             <div class="card-body info-box">
 
                 <div class="row">
+
+
+                <div class="col-md-4 mx-1">
+                             <?=  Html::a('<i class="fas fa-book-open"></i> P.A Report',['report','appraisalNo'=> $_GET['Appraisal_No'],'employeeNo' => $_GET['Employee_No']],[
+                                'class' => 'btn btn-app bg-success  pull-right',
+                                'title' => 'Generate Performance Appraisal Report',
+                                'target'=> '_blank',
+                                'data' => [
+                                    // 'confirm' => 'Are you sure you want to send appraisal to peer 2?',
+                                    'params'=>[
+                                        'appraisalNo'=> $_GET['Appraisal_No'],
+                                        'employeeNo' => $_GET['Employee_No'],
+                                    ],
+                                    'method' => 'post',]
+                            ]);
+                            ?>
+                    </div>
+
+
+
                     <?php if(($model->Goal_Setting_Status == 'New' && $model->isAppraisee()) ): ?>
 
                                 <div class="col-md-4">
@@ -601,7 +621,7 @@ if($model->Employee_No == Yii::$app->user->identity->{'Employee No_'})
                                 <td><?= !empty($competency->Maximum_Weigth)?$competency->Maximum_Weigth:'' ?></td>
                                 <td><?= !empty($competency->Overal_Rating)?$competency->Overal_Rating:'' ?></td>
                                 <td><?= !empty($competency->Total_Weigth)?$competency->Total_Weigth:'' ?></td>
-                                <td><?= $updateLink.$deleteLink.$addBehaviour?></td>
+                                <td><?= $updateLink ?></td>
                             </tr>
                              <tr class="child">
                             <!-- Start Child -->
