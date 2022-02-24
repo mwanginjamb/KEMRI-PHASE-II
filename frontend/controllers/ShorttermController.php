@@ -758,7 +758,7 @@ class ShorttermController extends Controller
             'appraisalNo' => $appraisalNo,
             'employeeNo' => $employeeNo,
             'sendEmail' => 1,
-            'approvalURL' => Yii::$app->urlManager->createAbsoluteUrl(['probation/view', 'Appraisal_No' =>$appraisalNo, 'Employee_No' =>$employeeNo ])
+            'approvalURL' => Yii::$app->urlManager->createAbsoluteUrl(['shortterm/view', 'Appraisal_No' =>$appraisalNo, 'Employee_No' =>$employeeNo ])
         ];
 
         $result = Yii::$app->navhelper->CodeUnit($service,$data,'IanSendEYAppraisalToAgreementLevel');

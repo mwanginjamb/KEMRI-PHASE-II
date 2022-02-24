@@ -816,7 +816,10 @@ $employee = (!Yii::$app->user->isGuest && is_array(Yii::$app->user->identity->em
 
                         <!-- Short Term Probation -->
 
-<?php if(Yii::$app->user->identity->Employee[0]->Long_Term == false && Yii::$app->user->identity->Employee[0]->Probation_Status == 'Confirmed' ): ?>
+<?php if(
+    (Yii::$app->user->identity->Employee[0]->Long_Term == false && Yii::$app->user->identity->Employee[0]->Probation_Status == 'Confirmed') ||
+    Yii::$app->dashboard->inSupervisorList()
+     ): ?>
                         <li class="nav-item has-treeview <?= Yii::$app->recruitment->currentCtrl('shortterm')?'menu-open':'' ?>">
                             <a href="#" title="Performance Management" class="nav-link <?= Yii::$app->recruitment->currentCtrl('appraisal')?'active':'' ?>">
                                 <i class="nav-icon fa fa-balance-scale"></i>
