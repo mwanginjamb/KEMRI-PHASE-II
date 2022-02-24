@@ -30,7 +30,7 @@ class ShorttermController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'signup','index','create','update','delete','view','closedlist'],
+                'only' => ['logout', 'signup','index','create','update','delete','view','closedlist','agreementlist'],
                 'rules' => [
                     [
                         'actions' => ['signup'],
@@ -38,7 +38,7 @@ class ShorttermController extends Controller
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['logout','index','create','update','delete','view','closedlist'],
+                        'actions' => ['logout','index','create','update','delete','view','closedlist','agreementlist'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -220,7 +220,7 @@ class ShorttermController extends Controller
     }
 
     public function actionView($Employee_No, $Appraisal_No){
-        $service = Yii::$app->params['ServiceName']['ProbationCard'];
+        $service = Yii::$app->params['ServiceName']['StProbationCard'];
         $model = new Shortterm();
 
         $filter = [
@@ -261,7 +261,7 @@ class ShorttermController extends Controller
 
 
      public function actionDashview($Employee_No, $Appraisal_No){
-        $service = Yii::$app->params['ServiceName']['ProbationCard'];
+        $service = Yii::$app->params['ServiceName']['StProbationCard'];
         $model = new Shortterm();
 
         $filter = [
@@ -304,7 +304,7 @@ class ShorttermController extends Controller
 
     public function actionSetfield($field){
         $model = new Shortterm();
-        $service = Yii::$app->params['ServiceName']['ProbationCard'];
+        $service = Yii::$app->params['ServiceName']['StProbationCard'];
 
         $filter = [
             'Appraisal_No' => Yii::$app->request->post('Appraisal_No'),
