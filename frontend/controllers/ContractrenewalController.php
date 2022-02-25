@@ -286,8 +286,8 @@ class ContractrenewalController extends Controller
 
     public function getEmployees(){
         $service = Yii::$app->params['ServiceName']['Employees'];
-
-        $employees = \Yii::$app->navhelper->getData($service);
+        $filter = ['Serving_Notice' => 0];
+        $employees = \Yii::$app->navhelper->getData($service, $filter);
         $data = [];
         $i = 0;
         if(is_array($employees)){
