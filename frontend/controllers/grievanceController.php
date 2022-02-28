@@ -145,7 +145,7 @@ class GrievanceController extends Controller
             'employees' =>  Yii::$app->navhelper->dropdown('Employees','No','Full_Name'),
             'complaintTypes' =>  Yii::$app->navhelper->dropdown('TypeofComplaints','Complaint','Complaint'),
             'severity' => Yii::$app->navhelper->dropdown('OffenceSeverity','Severity','Severity'),
-            'attachment' => $attachment[0],
+            'attachment' => is_array($attachment)?$attachment[0]:[],
         ]);
     }
 
