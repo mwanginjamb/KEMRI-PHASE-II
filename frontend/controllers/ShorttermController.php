@@ -220,7 +220,7 @@ class ShorttermController extends Controller
     }
 
     public function actionView($Employee_No, $Appraisal_No){
-        $service = Yii::$app->params['ServiceName']['ProbationCard'];
+        $service = Yii::$app->params['ServiceName']['StProbationCard'];
         $model = new Shortterm();
 
         $filter = [
@@ -1126,7 +1126,7 @@ class ShorttermController extends Controller
         if(is_array($request)){
             Yii::$app->navhelper->loadmodel($request[0],$model);
             $model->Key = $request[0]->Key;
-            $model->Probation_Recomended_Action = Yii::$app->request->post('Probation_Recomended_Action');
+            
         }
 
 
