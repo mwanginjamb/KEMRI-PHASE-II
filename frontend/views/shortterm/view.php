@@ -19,9 +19,9 @@ $absoluteUrl = \yii\helpers\Url::home(true);
 /** Status Sessions */
 
 Yii::$app->session->set('Appraisal_Status',$model->Appraisal_Status);
-Yii::$app->session->set('Probation_Recomended_Action',$model->Probation_Recomended_Action);
+//Yii::$app->session->set('Probation_Recomended_Action',$model->Probation_Recomended_Action);
 Yii::$app->session->set('Goal_Setting_Status',$model->Goal_Setting_Status);
-Yii::$app->session->set('Is_Short_Term',$model->Is_Short_Term);
+//Yii::$app->session->set('Is_Short_Term',$model->Is_Short_Term);
 Yii::$app->session->set('EY_Appraisal_Status',$model->Appraisal_Status);
 
 if($model->Employee_No == Yii::$app->user->identity->{'Employee No_'})
@@ -477,7 +477,7 @@ if($model->Employee_No == Yii::$app->user->identity->{'Employee No_'})
             <div class="card-header">
                 <div class="card-title">Employee Appraisal KRAs (Key Result Areas)   </div>
                 <div class="card-tools">
-                    <?= ($model->Goal_Setting_Status == 'New' || $model->Probation_Recomended_Action == 'Extend_Probation_Period')?Html::a('<i class="fa fa-plus-square"></i> Add K.R.A',['objective/create','Employee_No'=>$model->Employee_No,'Appraisal_No' => $model->Appraisal_No],['class' => 'add-objective btn btn-sm btn-outline-info']):'' ?>
+                    <?= ($model->Goal_Setting_Status == 'New' )?Html::a('<i class="fa fa-plus-square"></i> Add K.R.A',['objective/create','Employee_No'=>$model->Employee_No,'Appraisal_No' => $model->Appraisal_No],['class' => 'add-objective btn btn-sm btn-outline-info']):'' ?>
                 </div>
             </div>
 
@@ -999,39 +999,6 @@ $script = <<<JS
 
 
 
-     $('#probation-probation_recomended_action').change(function(e){
-        const Probation_Recomended_Action = e.target.value;
-        const Appraisal_No = $('#probation-appraisal_no').val();
-        if(Appraisal_No.length){
-            
-            const url = $('input[name=url]').val()+'probation/setaction';
-            $.post(url,{'Probation_Recomended_Action': Probation_Recomended_Action,'Appraisal_No': Appraisal_No}).done(function(msg){
-                   //populate empty form fields with new data
-                   
-                  
-                   $('#probation-key').val(msg.Key);
-                  
-
-                    console.log(typeof msg);
-                    console.table(msg);
-                    if((typeof msg) === 'string') { // A string is an error
-                        const parent = document.querySelector('.field-probation-probation_recomended_action');
-                        const helpbBlock = parent.children[2];
-                        helpbBlock.innerText = msg;
-                      
-                        
-                    }else{ // An object represents correct details
-                        const parent = document.querySelector('.field-probation-probation_recomended_action');
-                        const helpbBlock = parent.children[2];
-                        helpbBlock.innerText = ''; 
-                        
-                        
-                    }
-                    
-                },'json');
-            
-        }     
-     });
 
 
 
