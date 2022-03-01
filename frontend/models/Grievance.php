@@ -36,6 +36,7 @@ public $Complaint_Classification;
 public $Employee_Comments;
 public $Severity_of_grievance;
 public  $attachment;
+public $Witness_Type;
 
 
 
