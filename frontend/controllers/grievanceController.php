@@ -195,7 +195,7 @@ class GrievanceController extends Controller
         return $this->render('view',[
             'model' => $model,
             'document' =>  $document,
-            'attachment' => $attachment[0],
+            'attachment' => is_array($attachment)?$attachment[0]:[],
         ]);
     }
 
