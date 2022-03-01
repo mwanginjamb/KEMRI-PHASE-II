@@ -69,9 +69,6 @@ return [
         'ImprestManagement', // 50017
         'EmployeeExitManagement',
         'HRAPPRAISALMGT',
-<<<<<<< HEAD
-        'GRIEVANCEMGT'
-=======
         'TRAININGMGT',
 >>>>>>> Training
     ],
