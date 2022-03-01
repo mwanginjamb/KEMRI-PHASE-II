@@ -1110,6 +1110,68 @@ $employee = (!Yii::$app->user->isGuest && is_array(Yii::$app->user->identity->em
                                 </ul>
                             </li>
 
+                            <!-- Complete Induction -->
+
+                            <!-- Start Training -->
+
+
+                            <li class="nav-item has-treeview <?= Yii::$app->recruitment->currentCtrl(['training','training-group','training-program','training-academic','training-applications','training-pending','training-approved'])?'menu-open':'' ?>">
+                                <a href="#" class="nav-link <?= Yii::$app->recruitment->currentCtrl(['training','training-group','training-program','training-academic','training-applications','training-pending','training-approved'])?'active':'' ?>" title="Employee Training Management">
+                                    <i class="nav-icon fa fa-chart-bar" ></i>
+                                    <p>
+                                        Training
+                                        <i class="fas fa-angle-left right"></i>
+                                        <!--<span class="badge badge-info right">6</span>-->
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+
+                                    <li class="nav-item">
+                                        <a href="<?= $absoluteUrl ?>training-academic" class="nav-link <?= Yii::$app->recruitment->currentaction('training-academic','index')?'active':'' ?>">
+                                            <i class="fa fa-chart-line nav-icon"></i>
+                                            <p>Individual </p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="<?= $absoluteUrl ?>training-group" class="nav-link <?= Yii::$app->recruitment->currentaction('training-group','index')?'active':'' ?>">
+                                            <i class="fa fa-chart-line nav-icon"></i>
+                                            <p>Group Training </p>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a href="<?= $absoluteUrl ?>training-program" class="nav-link <?= Yii::$app->recruitment->currentaction('training-program','index')?'active':'' ?>">
+                                            <i class="fa fa-chart-line nav-icon"></i>
+                                            <p>Program Training </p>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a href="<?= $absoluteUrl ?>training-applications" class="nav-link <?= Yii::$app->recruitment->currentaction('training-applications','index')?'active':'' ?>">
+                                            <i class="fa fa-chart-line nav-icon"></i>
+                                            <p>Training Applications </p>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a href="<?= $absoluteUrl ?>training-pending" class="nav-link <?= Yii::$app->recruitment->currentaction('training-pending','index')?'active':'' ?>">
+                                            <i class="fa fa-chart-line nav-icon"></i>
+                                            <p>Pending Applications </p>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a href="<?= $absoluteUrl ?>training-approved" class="nav-link <?= Yii::$app->recruitment->currentaction('training-approved','index')?'active':'' ?>">
+                                            <i class="fa fa-chart-line nav-icon"></i>
+                                            <p>Approved Applications  </p>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </li>
+
+                            <!-- Complete Training -->
+
 
                             <!-- Recruitment -->
                             <li class="nav-item has-treeview <?= Yii::$app->recruitment->currentCtrl(['induction','periodic-induction'])?'menu-open':'' ?>">

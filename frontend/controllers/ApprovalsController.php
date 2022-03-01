@@ -339,6 +339,21 @@ class ApprovalsController extends Controller
 
 
                     }
+                    elseif($app->Document_Type == 'Training_Application') // Training Plan
+                    {
+                        $Approvelink = ($app->Status == 'Open')? Html::a('Approve Request',['approve-request','app'=> $app->Document_No, 'empNo' => $app->Approver_No, 'docType' => $app->Document_Type  ],['class'=>'btn btn-success btn-xs','data' => [
+                            'confirm' => 'Are you sure you want to Approve this request?',
+                            'method' => 'post',
+                        ]]):'';
+
+                        $Rejectlink = ($app->Status == 'Open')? Html::a('Reject Request',['reject-request', 'docType' => $app->Document_Type ],['class'=>'btn btn-warning reject btn-xs',
+                            'rel' => $app->Document_No,
+                            'rev' => $app->Record_ID_to_Approve,
+                            'name' => $app->Table_ID
+                        ]): "";
+
+
+                    }
                     else{
                         $Approvelink = ($app->Status == 'Open')? Html::a('Approve Request',['approve-request','app'=> $app->Document_No, 'empNo' => $app->Approver_No, 'docType' => $app->Document_Type],['class'=>'btn btn-success btn-xs','data' => [
                             'confirm' => 'Are you sure you want to Approve this request?',
@@ -405,12 +420,14 @@ class ApprovalsController extends Controller
                     {
                         $detailsLink = Html::a('View Details',['overtime/view','No'=> $app->Document_No, 'Approval' => true ],['class'=>'btn btn-outline-info btn-xs','target' => '_blank']);
                     }
+                    elseif($app->Document_Type == 'Training_Application')
+                    {
+                        $detailsLink = Html::a('View Details',['training-applications/view','No'=> $app->Document_No, 'Approval' => true ],['class'=>'btn btn-outline-info btn-xs','target' => '_blank']);
+                    }
                     else{ //Employee_Exit
                         $detailsLink = '';
 
                     }
-
-
 
 
 
@@ -468,6 +485,10 @@ class ApprovalsController extends Controller
           elseif($docType == 'Change_Request')
         {
              $result = Yii::$app->navhelper->PortalWorkFlows($service,['applicationNo' => $app],'IanApproveChangeRequest');
+        }
+        elseif($docType == 'Training_Application')
+        {
+             $result = Yii::$app->navhelper->PortalWorkFlows($service,['applicationNo' => $app],'IanApproveTraining');
         }
         else{
             $result = Yii::$app->navhelper->PortalWorkFlows($service,$data,'IanApproveImprest');
@@ -528,15 +549,19 @@ class ApprovalsController extends Controller
              }
               elseif($docType == 'Overtime_Application')
             {
-                 $result = Yii::$app->navhelper->PortalWorkFlows($service,['applicationNo' => $app],'IanRejectOverTime');
+                 $result = Yii::$app->navhelper->PortalWorkFlows($service,$data,'IanRejectOverTime');
             }
             elseif($docType == 'Employee_Exit')
             {
-                 $result = Yii::$app->navhelper->PortalWorkFlows($service,['applicationNo' => $app],'IanRejectEmployeeExit');
+                 $result = Yii::$app->navhelper->PortalWorkFlows($service,$data,'IanRejectEmployeeExit');
             }
             elseif($docType == 'Change_Request')
             {
-                 $result = Yii::$app->navhelper->PortalWorkFlows($service,['applicationNo' => $app],'IanRejectChangeRequest');
+                 $result = Yii::$app->navhelper->PortalWorkFlows($service,$data,'IanRejectChangeRequest');
+            }
+            elseif($docType == 'Training_Application')
+            {
+                 $result = Yii::$app->navhelper->PortalWorkFlows($service,$data,'IanRejectTraining');
             }
             else{
                 $result = Yii::$app->navhelper->PortalWorkFlows($service,$data,'IanRejectLeave');
