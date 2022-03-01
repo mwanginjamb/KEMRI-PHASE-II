@@ -234,7 +234,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Grievance Card', 'url' => ['view',
             </div><!--end header card-->
 
             <!-- Attachment View -->
-            <?php if($attachment->File_path): ?>
+            <?php if(is_object($attachment) && $attachment->File_path): ?>
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">Attachment View</h3>

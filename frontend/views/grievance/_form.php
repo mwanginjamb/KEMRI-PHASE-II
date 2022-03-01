@@ -87,13 +87,14 @@ $activeState = [];
                             <?= $form->field($model, 'Name')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
                             <?= ($model->Status == 'New')?
                                 $form->field($model, 'Date_of_grievance')->textInput(['type'=> 'date']):
-                                $form->field($model, 'Date_of_grievance')->textInput($activeState)
-                             ?>
+                                    $form->field($model, 'Date_of_grievance')->textInput($activeState)
+                                    ?>
+
 
                             <?= ($model->Status == 'HRO' && $model->HRO_Emp_No == Yii::$app->user->identity->{'Employee No_'})?
                                 $form->field($model, 'HRO_Findings')->textarea(['rows'=> 2]):
-                                $form->field($model, 'HRO_Findings')->textInput($activeState)
-                            ?> 
+                                    $form->field($model, 'HRO_Findings')->textInput($activeState)
+                                    ?> 
                              
                              <?= $form->field($model, 'Employee_Comments')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
 
@@ -105,11 +106,15 @@ $activeState = [];
                             <?= ($model->Status == 'New')?
                             $form->field($model, 'Grievance_Type')->dropdownList($complaintTypes, ['prompt'=> 'Select ...']):
                                 $form->field($model, 'Grievance_Type')->textInput($activeState)
-                            ?>        
+                                ?>        
                             <?= ($model->Status == 'New')?
                                 $form->field($model, 'Grievance_Description')->textarea(['rows' => 2]):
-                                $form->field($model, 'Grievance_Description')->textarea($activeState)
-                                 ?>
+                                    $form->field($model, 'Grievance_Description')->textarea($activeState)
+                                    ?>
+                                    <?=  $form->field($model, 'Witness_Type')->dropdownList([
+                                        'Employee' => 'Employee',
+                                        'Self' => 'Self',
+                                    ], ['prompt'=> 'Select ...']) ?>
                             <?= ($model->Status == 'New')?$form->field($model, 'Witness')->dropdownList($employees,['prompt' => 'Select ...']):'' ?>        
                             <?= $form->field($model, 'Witness_Name')->textInput(['readonly'=> true]) ?>        
                             <?= $form->field($model, 'Status')->textInput(['readonly'=> true]) ?>
@@ -140,7 +145,7 @@ $activeState = [];
         </div>
 
           <!-- Attachment View -->
-          <?php if($attachment->File_path): ?>
+          <?php if(is_object($attachment) && $attachment->File_path): ?>
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">Attachment View</h3>
@@ -204,6 +209,19 @@ $('#grievance-rejection_comments').change((e) => {
 
 $('#grievance-attachment').change(function(e){
           globalUpload('DisciplinaryAttachments','grievance','attachment');
+});
+
+$('#grievance-witness_type').change(function(e){
+    let selectedOption = e.target.value;
+    // console.log(selectedOption);
+    if(selectedOption === 'Self')
+    {
+        $('.field-grievance-witness, .field-grievance-witness_name').hide();
+    } else if(selectedOption === 'Employee')
+    {
+        $('.field-grievance-witness, .field-grievance-witness_name').show();
+    }
+    globalFieldUpdate('grievance',false,'Witness_Type', e);
 });
 
 
