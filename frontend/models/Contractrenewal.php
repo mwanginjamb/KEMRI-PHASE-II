@@ -30,7 +30,7 @@ public $isNewRecord;
     public function rules()
     {
         return [
-
+                ['Employee_No', 'required'],
         ];
     }
 

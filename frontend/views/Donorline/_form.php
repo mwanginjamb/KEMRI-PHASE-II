@@ -6,7 +6,7 @@
  * Time: 12:13 PM
  */
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap4\ActiveForm;
 $absoluteUrl = \yii\helpers\Url::home(true);
 ?>
 
@@ -19,22 +19,24 @@ $absoluteUrl = \yii\helpers\Url::home(true);
             <div class="card-body">
 
                     <?php
-                    $form = ActiveForm::begin(); ?>
+                    $form = ActiveForm::begin([
+                        'id' => $model->formName()
+                    ]); ?>
                 <div class="row">
 
                             <div class="col-md-6">
                                     <?= $form->field($model, 'Key')->hiddenInput(['readonly' => true])->label(false) ?>
                                     <?= $form->field($model, 'Grant_Code')->dropDownList($donors, ['prompt' => 'Select Contract Code...']) ?>
                                     
-                                    <?= $form->field($model, 'Grant_Start_Date')->textInput(['type' => 'date']) ?>
-                                    <?= $form->field($model, 'Grant_End_Date')->textInput(['type' => 'date']) ?>
+                                    <?= $form->field($model, 'Contract_Grant_Start_Date')->textInput(['type' => 'date','min' => date('Y-m-d', strtotime($model->Grant_Start_Date)), 'max' => date('Y-m-d', strtotime($model->Grant_End_Date)) ]) ?>
+                                    <?= $form->field($model, 'Contract_Grant_End_Date')->textInput(['type' => 'date','min' => date('Y-m-d', strtotime($model->Grant_Start_Date)),'max' => date('Y-m-d', strtotime($model->Grant_End_Date))  ]) ?>
                                     <?= $form->field($model, 'Percentage')->textInput(['type' => 'number']) ?>
                                     <?php $form->field($model, 'Grant_Status')->dropDownList([
                                         '_blank_' => '_blank_',
                                         'Active' => 'Active',
                                         'Expired' => 'Expired',
                                         'Inactive' => 'Inactive'
-                                    ],['prompt' => 'Select ...']) ?>
+                                    ],['prompt' => 'Select ...','readonly' => true]) ?>
                                     <?= $form->field($model, 'Employee_No')->hiddenInput(['readonly' => true])->label(false) ?>
                                     <?= $form->field($model, 'Contract_Code')->hiddenInput(['readonly' => true])->label(false) ?>
                                     <?= $form->field($model, 'Change_No')->hiddenInput(['readonly' => true])->label(false) ?>
@@ -45,7 +47,8 @@ $absoluteUrl = \yii\helpers\Url::home(true);
 
                              <div class="col-md-6">
                                 <?php $form->field($model, 'Grant_Name')->textInput(['readonly' => true, 'disabled' => true]) ?>
-                                <?= $form->field($model, 'Grant_Activity')->textInput(['readonly' => true,'disabled' => true]) ?>
+
+                                <?= $form->field($model, 'Grant_Activity')->dropdownList($activities,['prompt' => 'Select ...']) ?>
                                 <?= $form->field($model, 'Grant_Type')->textInput(['readonly' => true,'disabled' => true]) ?>
                              </div>
                 </div>
@@ -67,169 +70,42 @@ $absoluteUrl = \yii\helpers\Url::home(true);
 <?php
 $script = <<<JS
 
+$('.field-donorline-grant_activity').hide();
 
- $('#donorline-grant_code').select2();
+ $('#donorline-grant_code, #donorline-grant_activity').select2();
 
- //Submit Rejection form and get results in json    
-        $('form').on('submit', function(e){
-            e.preventDefault()
-            const data = $(this).serialize();
-            const url = $(this).attr('action');
-            $.post(url,data).done(function(msg){
-                    $('.modal').modal('show')
-                    .find('.modal-body')
-                    .html(msg.note);
-        
-                },'json');
-        });
+ $('#donorline-grant_code').change((e) => {
+        globalFieldUpdate('donorline',false,'Grant_Code', e,['Grant_Type','Contract_Grant_End_Date','Contract_Grant_Start_Date']);
 
-         $('#donorline-grant_code').on('change', function(e){
-            e.preventDefault();
-                  
-            const Grant_Code = e.target.value;
-            const Line_No = $('#donorline-line_no').val();
-            
-            
-            const url = $('input[name="absolute"]').val()+'donorline/setfield?field='+'Grant_Code';
-            $.post(url,{'Grant_Code': Grant_Code,'Line_No': Line_No}).done(function(msg){
-                   //populate empty form fields with new data
-                    console.log(typeof msg);
-                    console.table(msg);
-                    if((typeof msg) === 'string') { // A string is an error
-                        const parent = document.querySelector('.field-donorline-grant_code');
-                        const helpbBlock = parent.children[2];
-                        helpbBlock.innerText = msg;
-                        disableSubmit();
-                    }else{ // An object represents correct details
-                        const parent = document.querySelector('.field-donorline-grant_code');
-                        const helpbBlock = parent.children[2];
-                        helpbBlock.innerText = ''; 
-                        enableSubmit();
-                    }
-                    $('#donorline-key').val(msg.Key);
-                    $('#donorline-grant_name').val(msg.Grant_Code);
-                    $('#donorline-grant_activity').val(msg.Grant_Activity);
-                    $('#donorline-grant_type').val(msg.Grant_Type);
-                    
-                    
-                   
-                    
-                },'json');
-        });
-         
-         // Set Contract start date
-         
-         $('#contractrenewalline-contract_start_date').on('change', function(e){
-            e.preventDefault();
-                  
-            const Contract_Start_Date = e.target.value;
-            const Line_No = $('#contractrenewalline-line_no').val();
-            
-            
-            const url = $('input[name="absolute"]').val()+'contractrenewalline/setfield?field='+'Contract_Start_Date';
-            $.post(url,{'Contract_Start_Date': Contract_Start_Date,'Line_No': Line_No}).done(function(msg){
-                   //populate empty form fields with new data
-                    console.log(typeof msg);
-                    console.table(msg);
-                    if((typeof msg) === 'string') { // A string is an error
-                        const parent = document.querySelector('.field-contractrenewalline-contract_start_date');
-                        const helpbBlock = parent.children[2];
-                        helpbBlock.innerText = msg;
-                        disableSubmit();
-                    }else{ // An object represents correct details
-                        const parent = document.querySelector('.field-contractrenewalline-contract_start_date');
-                        const helpbBlock = parent.children[2];
-                        helpbBlock.innerText = ''; 
-                        enableSubmit();
-                    }
-                    $('#contractrenewalline-key').val(msg.Key);
-                    
-                   
-                    
-                },'json');
-        });
-         
-         // set contract Period
-         
-         
-         $('#contractrenewalline-contract_period').on('change', function(e){
-            e.preventDefault();
-                  
-            const Contract_Period = e.target.value;
-            const Line_No = $('#contractrenewalline-line_no').val();
-            
-            
-            const url = $('input[name="absolute"]').val()+'contractrenewalline/setfield?field='+'Contract_Period';
-            $.post(url,{'Contract_Period': Contract_Period,'Line_No': Line_No}).done(function(msg){
-                   //populate empty form fields with new data
-                    console.log(typeof msg);
-                    console.table(msg);
-                    if((typeof msg) === 'string') { // A string is an error
-                        const parent = document.querySelector('.field-contractrenewalline-contract_period');
-                        const helpbBlock = parent.children[2];
-                        helpbBlock.innerText = msg;
-                        disableSubmit();
-                    }else{ // An object represents correct details
-                        const parent = document.querySelector('.field-contractrenewalline-contract_period');
-                        const helpbBlock = parent.children[2];
-                        helpbBlock.innerText = ''; 
-                        enableSubmit();
-                    }
-                    $('#contractrenewalline-key').val(msg.Key);
-                    $('#contractrenewalline-contract_end_date').val(msg.Contract_End_Date);
-                    
-                   
-                    
-                },'json');
-        });
-         
-         
-         
-         // Set Location
-         
-         $('#storerequisitionline-location').on('change', function(e){
-            e.preventDefault();
-                  
-            const No = $('#storerequisitionline-line_no').val();
-            const Location = $('#storerequisitionline-location').val();
-            
-            
-            const url = $('input[name="absolute"]').val()+'storerequisitionline/setlocation';
-            $.post(url,{'Line_No': No,'Location': Location}).done(function(msg){
-                   //populate empty form fields with new data
-                    console.log(typeof msg);
-                    console.table(msg);
-                    if((typeof msg) === 'string') { // A string is an error
-                        const parent = document.querySelector('.field-storerequisitionline-no');
-                        const helpbBlock = parent.children[2];
-                        helpbBlock.innerText = msg;
-                        disableSubmit();
-                    }else{ // An object represents correct details
-                        const parent = document.querySelector('.field-storerequisitionline-no');
-                        const helpbBlock = parent.children[2];
-                        helpbBlock.innerText = ''; 
-                        enableSubmit();
-                    }
-                    $('#storerequisitionline-key').val(msg.Key);
-                    $('#storerequisitionline-available_quantity').val(msg.Available_Quantity);
-                   
-                    
-                },'json');
-        });
-         
-         
-         
-         
-         
-         
-         function disableSubmit(){
-             document.getElementById('submit').setAttribute("disabled", "true");
-        }
-        
-        function enableSubmit(){
-            document.getElementById('submit').removeAttribute("disabled");
-        
-        }
+        let grantType = $('#donorline-grant_type').val();
+        console.log('Grant Type:'+grantType);
+       if(grantType)
+       {
+            if(grantType === 'CORE' )
+            {
+                $('.field-donorline-grant_activity').fadeIn();
+            }else{
+                $('.field-donorline-grant_activity').fadeOut();
+            }
+       }
+}); 
+
+ $('#donorline-contract_grant_start_date').change((e) => {
+        globalFieldUpdate('donorline',false,'Contract_Grant_Start_Date', e);
+});
+
+$('#donorline-contract_grant_end_date').change((e) => {
+        globalFieldUpdate('donorline',false,'Contract_Grant_End_Date', e);
+});
+
+$('#donorline-percentage').change((e) => {
+        globalFieldUpdate('donorline',false,'Percentage', e);
+});
+
+$('#donorline-grant_activity').change((e) => {
+        globalFieldUpdate('donorline',false,'Grant_Activity', e);
+});
+ 
 JS;
 
 $this->registerJs($script);

@@ -389,6 +389,16 @@ class ContractrenewalController extends Controller
         }
     }
 
+     /** Updates a single field */
+     public function actionSetfield($field){
+        $service = 'ContractRenewalCard';
+        $value = Yii::$app->request->post('fieldValue');
+        $result = Yii::$app->navhelper->Commit($service,[$field => $value],Yii::$app->request->post('Key'));
+        Yii::$app->response->format = \yii\web\response::FORMAT_JSON;
+        return $result;
+          
+    }
+
 
 
 

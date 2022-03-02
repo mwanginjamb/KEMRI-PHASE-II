@@ -115,7 +115,8 @@ class DonorlineController extends Controller
         if(Yii::$app->request->isAjax){
             return $this->renderAjax('create', [
                 'model' => $model,
-                'donors' => $this->getDonors()
+                'donors' => $this->getDonors(),
+                'activities' => Yii::$app->navhelper->dropdown('GrantActivity','Grant_Activity','Activity_Name')
             ]);
         }
 
@@ -172,7 +173,8 @@ class DonorlineController extends Controller
         if(Yii::$app->request->isAjax){
             return $this->renderAjax('update', [
                 'model' => $model,
-                'donors' => $this->getDonors()
+                'donors' => $this->getDonors(),
+                'activities' => Yii::$app->navhelper->dropdown('GrantActivity','Grant_Activity','Activity_Name')
             ]);
         }
 
@@ -193,77 +195,9 @@ class DonorlineController extends Controller
         }
     }
 
-    public function actionSetfield($field){
-        $model = new Donorline();
-        $service = Yii::$app->params['ServiceName']['NewEmployeeDonors'];
+    
 
-        $filter = [
-            'Line_No' => Yii::$app->request->post('Line_No')
-        ];
-        $line = Yii::$app->navhelper->getData($service, $filter);
-        //Yii::$app->recruitment->printrr($line);
-        if(is_array($line)){
-            Yii::$app->navhelper->loadmodel($line[0],$model);
-            $model->Key = $line[0]->Key;
-            $model->$field = Yii::$app->request->post($field);
-
-        }
-
-
-        $result = Yii::$app->navhelper->updateData($service,$model,['Grant_Name']);
-        
-
-        return $result;
-
-    }
-
-    // Set Location
-
-    public function actionSetlocation(){
-        $model = new Contractrenewalline();
-        $service = Yii::$app->params['ServiceName']['StoreRequisitionLine'];
-
-        $filter = [
-            'Line_No' => Yii::$app->request->post('Line_No')
-        ];
-        $line = Yii::$app->navhelper->getData($service, $filter);
-        // Yii::$app->recruitment->printrr($line);
-        if(is_array($line)){
-            Yii::$app->navhelper->loadmodel($line[0],$model);
-            $model->Key = $line[0]->Key;
-            $model->Location = Yii::$app->request->post('Location');
-
-        }
-
-
-        $result = Yii::$app->navhelper->updateData($service,$model);
-
-        return $result;
-
-    }
-
-    public function actionSetitem(){
-        $model = new Contractrenewalline();
-        $service = Yii::$app->params['ServiceName']['StoreRequisitionLine'];
-
-        $filter = [
-            'Line_No' => Yii::$app->request->post('Line_No')
-        ];
-        $line = Yii::$app->navhelper->getData($service, $filter);
-        // Yii::$app->recruitment->printrr($line);
-        if(is_array($line)){
-            Yii::$app->navhelper->loadmodel($line[0],$model);
-            $model->Key = $line[0]->Key;
-            $model->No = Yii::$app->request->post('No');
-
-        }
-
-        $result = Yii::$app->navhelper->updateData($service,$model);
-
-        return $result;
-
-    }
-
+   
     /*Get Emp Contracts */
 
     public function getContracts(){
@@ -335,29 +269,7 @@ class DonorlineController extends Controller
 
 
 
-    public function actionView($ApplicationNo){
-        $service = Yii::$app->params['ServiceName']['leaveApplicationCard'];
-        $leaveTypes = $this->getLeaveTypes();
-        $employees = $this->getEmployees();
-
-        $filter = [
-            'Application_No' => $ApplicationNo
-        ];
-
-        $leave = Yii::$app->navhelper->getData($service, $filter);
-
-        //load nav result to model
-        $leaveModel = new Leave();
-        $model = $this->loadtomodel($leave[0],$leaveModel);
-
-
-        return $this->render('view',[
-            'model' => $model,
-            'leaveTypes' => ArrayHelper::map($leaveTypes,'Code','Description'),
-            'relievers' => ArrayHelper::map($employees,'No','Full_Name'),
-        ]);
-    }
-
+    
 
     /*Get Vehicles */
     public function getVehicles(){
@@ -380,24 +292,20 @@ class DonorlineController extends Controller
     }
 
 
-
-
-
-
-
-
-
-    public function loadtomodel($obj,$model){
-
-        if(!is_object($obj)){
-            return false;
-        }
-        $modeldata = (get_object_vars($obj)) ;
-        foreach($modeldata as $key => $val){
-            if(is_object($val)) continue;
-            $model->$key = $val;
-        }
-
-        return $model;
+     /** Updates a single field */
+     public function actionSetfield($field){
+        $service = 'NewEmployeeDonors';
+        $value = Yii::$app->request->post('fieldValue');
+        $result = Yii::$app->navhelper->Commit($service,[$field => $value],Yii::$app->request->post('Key'));
+        Yii::$app->response->format = \yii\web\response::FORMAT_JSON;
+        return $result;
+          
     }
+
+
+
+
+
+
+    
 }
