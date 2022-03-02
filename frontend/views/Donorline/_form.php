@@ -56,7 +56,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                 <div class="row">
 
                     <div class="form-group">
-                        <?= Html::submitButton(($model->isNewRecord)?'Save':'Update', ['class' => 'btn btn-success','id'=>'submit']) ?>
+                        <?php Html::submitButton(($model->isNewRecord)?'Save':'Update', ['class' => 'btn btn-success','id'=>'submit']) ?>
                     </div>
 
 
@@ -74,9 +74,14 @@ $('.field-donorline-grant_activity').hide();
 
  $('#donorline-grant_code, #donorline-grant_activity').select2();
 
- $('#donorline-grant_code').change((e) => {
+ $('#donorline-grant_code').on('change',(e) => {
         globalFieldUpdate('donorline',false,'Grant_Code', e,['Grant_Type','Contract_Grant_End_Date','Contract_Grant_Start_Date']);
 
+      
+}); 
+
+ $('#donorline-contract_grant_start_date').change((e) => {
+        globalFieldUpdate('donorline',false,'Contract_Grant_Start_Date', e);
         let grantType = $('#donorline-grant_type').val();
         console.log('Grant Type:'+grantType);
        if(grantType)
@@ -88,10 +93,6 @@ $('.field-donorline-grant_activity').hide();
                 $('.field-donorline-grant_activity').fadeOut();
             }
        }
-}); 
-
- $('#donorline-contract_grant_start_date').change((e) => {
-        globalFieldUpdate('donorline',false,'Contract_Grant_Start_Date', e);
 });
 
 $('#donorline-contract_grant_end_date').change((e) => {
