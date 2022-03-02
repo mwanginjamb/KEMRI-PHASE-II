@@ -6,7 +6,7 @@
  * Time: 12:13 PM
  */
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap4\ActiveForm;
 $absoluteUrl = \yii\helpers\Url::home(true);
 ?>
 
@@ -23,7 +23,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
         <?php
 
             $form = ActiveForm::begin([
-                    // 'id' => $model->formName()
+                    'id' => $model->formName()
             ]);
 
 
@@ -113,164 +113,15 @@ $absoluteUrl = \yii\helpers\Url::home(true);
             </div>
         </div>
     </div>
-<input type="hidden" name="url" value="<?= $absoluteUrl ?>">
+    <input type="hidden" name="absolute" value="<?= $absoluteUrl ?>">
 <?php
 $script = <<<JS
- //Submit Rejection form and get results in json    
-       /* $('form').on('submit', function(e){
-            e.preventDefault()
-            const data = $(this).serialize();
-            const url = $(this).attr('action');
-            $.post(url,data).done(function(msg){
-                    $('.modal').modal('show')
-                    .find('.modal-body')
-                    .html(msg.note);
-        
-                },'json');
-        });*/
 
-        // Add a search for Employees
-
-        $('#contractrenewal-employee_no').select2();
-
-        // Set other Employee
-        
-     $('#salaryadvance-loan_type').change(function(e){
-        const loan = e.target.value;
-        const No = $('#salaryadvance-no').val();
-        if(No.length){
-            const url = $('input[name=url]').val()+'salaryadvance/setloantype';
-            $.post(url,{'loan': loan,'No': No}).done(function(msg){
-                   //populate empty form fields with new data
-                   
-                   $('#salaryadvance-repayment_period').val(msg.Repayment_Period);
-                   $('#salaryadvance-key').val(msg.Key);
-                    console.log(typeof msg);
-                    console.table(msg);
-                    if((typeof msg) === 'string') { // A string is an error
-                        const parent = document.querySelector('.field-imprestcard-employee_no');
-                        const helpbBlock = parent.children[2];
-                        helpbBlock.innerText = msg;
-                        
-                    }else{ // An object represents correct details
-                        const parent = document.querySelector('.field-imprestcard-employee_no');
-                        const helpbBlock = parent.children[2];
-                        helpbBlock.innerText = ''; 
-                        
-                    }
-                    
-                },'json');
-        }
-     });
+$('#contractrenewal-employee_no').select2();
      
-     /*Set Program and Department dimension */
-     
-     $('#salaryadvance-amount_requested').blur(function(e){
-        const amount = e.target.value;
-        const No = $('#salaryadvance-no').val();
-        if(No.length){
-            const url = $('input[name=url]').val()+'salaryadvance/setamount';
-            $.post(url,{'amount': amount,'No': No}).done(function(msg){
-                   //populate empty form fields with new data
-                   $('#salaryadvance-take_home').val(msg.Take_Home);
-                   $('#salaryadvance-key').val(msg.Key);
-                   
-                    console.log(typeof msg);
-                    console.table(msg);
-                    if((typeof msg) === 'string') { // A string is an error
-                        const parent = document.querySelector('.field-imprestcard-global_dimension_1_code');
-                        const helpbBlock = parent.children[2];
-                        helpbBlock.innerText = msg;
-                        
-                    }else{ // An object represents correct details
-                        const parent = document.querySelector('.field-imprestcard-global_dimension_1_code');
-                        const helpbBlock = parent.children[2];
-                        helpbBlock.innerText = ''; 
-                        
-                    }
-                    
-                },'json');
-        }
-     });
-     
-     
-     /* set department */
-     
-     $('#imprestcard-global_dimension_2_code').change(function(e){
-        const dimension = e.target.value;
-        const No = $('#imprestcard-no').val();
-        if(No.length){
-            const url = $('input[name=url]').val()+'imprest/setdimension?dimension=Global_Dimension_2_Code';
-            $.post(url,{'dimension': dimension,'No': No}).done(function(msg){
-                   //populate empty form fields with new data
-                    console.log(typeof msg);
-                    console.table(msg);
-                    if((typeof msg) === 'string') { // A string is an error
-                        const parent = document.querySelector('.field-imprestcard-global_dimension_2_code');
-                        const helpbBlock = parent.children[2];
-                        helpbBlock.innerText = msg;
-                        
-                    }else{ // An object represents correct details
-                        const parent = document.querySelector('.field-imprestcard-global_dimension_2_code');
-                        const helpbBlock = parent.children[2];
-                        helpbBlock.innerText = ''; 
-                        
-                    }
-                    
-                },'json');
-        }
-     });
-     
-     
-     /*Set Imprest Type*/
-     
-     $('#imprestcard-imprest_type').change(function(e){
-        const Imprest_Type = e.target.value;
-        const No = $('#imprestcard-no').val();
-        if(No.length){
-            const url = $('input[name=url]').val()+'imprest/setimpresttype';
-            $.post(url,{'Imprest_Type': Imprest_Type,'No': No}).done(function(msg){
-                   //populate empty form fields with new data
-                    console.log(typeof msg);
-                    console.table(msg);
-                    if((typeof msg) === 'string') { // A string is an error
-                        const parent = document.querySelector('.field-imprestcard-imprest_type');
-                        const helpbBlock = parent.children[2];
-                        helpbBlock.innerText = msg;
-                        
-                    }else{ // An object represents correct details
-                        const parent = document.querySelector('.field-imprestcard-imprest_type');
-                        const helpbBlock = parent.children[2];
-                        helpbBlock.innerText = '';
-                        
-                         $('.modal').modal('show')
-                        .find('.modal-body')
-                        .html('<div class="alert alert-success">Imprest Type Update Successfully.</div>');
-                        
-                    }
-                    
-                },'json');
-        }
-     });
-     
-     
-     /* Add Line */
-     $('.add-line').on('click', function(e){
-             e.preventDefault();
-            var url = $(this).attr('href');
-            console.log(url);
-            $('.modal').modal('show')
-                            .find('.modal-body')
-                            .load(url); 
-
-        });
-     
-     /*Handle modal dismissal event  */
-    $('.modal').on('hidden.bs.modal',function(){
-        var reld = location.reload(true);
-        setTimeout(reld,1000);
-    }); 
-     
+$('#contractrenewal-employee_no').change((e) => {
+        globalFieldUpdate('contractrenewal',false,'Employee_No', e,['Employee_Name']);
+});    
      
      
 JS;
