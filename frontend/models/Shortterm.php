@@ -30,17 +30,13 @@ public $Supervisor_User_Id;
 public $Overview_Manager;
 public $Overview_Manager_Name;
 public $Overview_Manager_UserID;
-public $Probation_Recomended_Action;
-public $Is_Short_Term;
-public $Overall_Score;
-
-public $Probation_Start_Date;
-public $Probation_End_date;
-public $Overview_Rejection_Comments;
-public $Supervisor_Rejection_Comments;
-
 public $Over_View_Manager_Comments;
 public $Supervisor_Overall_Comments;
+public $Overall_Score;
+public $Probation_End_date;
+public $Probation_Start_Date;
+public $Overview_Rejection_Comments;
+public $Supervisor_Rejection_Comments;
 public $Appraisal_Period;
 
     public function rules()

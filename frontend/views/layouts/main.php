@@ -514,8 +514,9 @@ $employee = (!Yii::$app->user->isGuest && is_array(Yii::$app->user->identity->em
                         (
                         Yii::$app->user->identity->Employee[0]->Type_of_Employee == 'Expertriate_Payable' ||
                         Yii::$app->user->identity->Employee[0]->Type_of_Employee == 'Expertriate_Non_Payable' || 
-                        Yii::$app->user->identity->Employee[0]->Type_of_Employee == 'Part_Time' 
-                        
+                        Yii::$app->user->identity->Employee[0]->Type_of_Employee == 'Part_Time' ||
+                        Yii::$app->user->identity->Employee[0]->Type_of_Employee == 'Seconded'
+
                         ) ): ?>
 
                         <li class="nav-item has-treeview <?= Yii::$app->recruitment->currentCtrl('appraisal')?'menu-open':'' ?>">
@@ -732,7 +733,11 @@ $employee = (!Yii::$app->user->isGuest && is_array(Yii::$app->user->identity->em
 
 
                         <!-- Start Probation Appraisal -->
-<?php if(Yii::$app->user->identity->Employee[0]->Probation_Status == 'Extended' || Yii::$app->user->identity->Employee[0]->Probation_Status == 'On_Probation' || Yii::$app->dashboard->inSupervisorList() ): ?>
+<?php if(
+    Yii::$app->user->identity->Employee[0]->Probation_Status == 'Extended' ||
+    Yii::$app->user->identity->Employee[0]->Probation_Status == 'On_Probation' ||
+    Yii::$app->user->identity->Employee[0]->Type_of_Employee == 'Seconded' ||
+    Yii::$app->dashboard->inSupervisorList() ): ?>
                         <li class="nav-item has-treeview <?= Yii::$app->recruitment->currentCtrl('probation')?'menu-open':'' ?>">
                             <a href="#" title="Performance Management" class="nav-link <?= Yii::$app->recruitment->currentCtrl('appraisal')?'active':'' ?>">
                                 <i class="nav-icon fa fa-balance-scale"></i>
@@ -811,7 +816,10 @@ $employee = (!Yii::$app->user->isGuest && is_array(Yii::$app->user->identity->em
 
                         <!-- Short Term Probation -->
 
-<?php if(Yii::$app->user->identity->Employee[0]->Long_Term == false && Yii::$app->user->identity->Employee[0]->Probation_Status == 'Confirmed' ): ?>
+<?php if(
+    (Yii::$app->user->identity->Employee[0]->Long_Term == false && Yii::$app->user->identity->Employee[0]->Probation_Status == 'Confirmed') ||
+    Yii::$app->dashboard->inSupervisorList()
+     ): ?>
                         <li class="nav-item has-treeview <?= Yii::$app->recruitment->currentCtrl('shortterm')?'menu-open':'' ?>">
                             <a href="#" title="Performance Management" class="nav-link <?= Yii::$app->recruitment->currentCtrl('appraisal')?'active':'' ?>">
                                 <i class="nav-icon fa fa-balance-scale"></i>
@@ -1072,7 +1080,8 @@ $employee = (!Yii::$app->user->isGuest && is_array(Yii::$app->user->identity->em
 
                         <?php endif;  ?>
 
-                        <!-- Employee Induction -->
+                        <?php if(YII_ENV_DEV){ // start blocking phase2 modules if in prod env ?>
+                            <!-- Employee Induction -->
 
                             <li class="nav-item has-treeview <?= Yii::$app->recruitment->currentCtrl(['induction','periodic-induction'])?'menu-open':'' ?>">
                                 <a href="#" class="nav-link <?= Yii::$app->recruitment->currentCtrl(['induction','periodic-induction'])?'active':'' ?>" title="Employee Induction">
@@ -1100,6 +1109,68 @@ $employee = (!Yii::$app->user->isGuest && is_array(Yii::$app->user->identity->em
 
                                 </ul>
                             </li>
+
+                            <!-- Complete Induction -->
+
+                            <!-- Start Training -->
+
+
+                            <li class="nav-item has-treeview <?= Yii::$app->recruitment->currentCtrl(['training','training-group','training-program','training-academic','training-applications','training-pending','training-approved'])?'menu-open':'' ?>">
+                                <a href="#" class="nav-link <?= Yii::$app->recruitment->currentCtrl(['training','training-group','training-program','training-academic','training-applications','training-pending','training-approved'])?'active':'' ?>" title="Employee Training Management">
+                                    <i class="nav-icon fa fa-chart-bar" ></i>
+                                    <p>
+                                        Training
+                                        <i class="fas fa-angle-left right"></i>
+                                        <!--<span class="badge badge-info right">6</span>-->
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+
+                                    <li class="nav-item">
+                                        <a href="<?= $absoluteUrl ?>training-academic" class="nav-link <?= Yii::$app->recruitment->currentaction('training-academic','index')?'active':'' ?>">
+                                            <i class="fa fa-chart-line nav-icon"></i>
+                                            <p>Individual </p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="<?= $absoluteUrl ?>training-group" class="nav-link <?= Yii::$app->recruitment->currentaction('training-group','index')?'active':'' ?>">
+                                            <i class="fa fa-chart-line nav-icon"></i>
+                                            <p>Group Training </p>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a href="<?= $absoluteUrl ?>training-program" class="nav-link <?= Yii::$app->recruitment->currentaction('training-program','index')?'active':'' ?>">
+                                            <i class="fa fa-chart-line nav-icon"></i>
+                                            <p>Program Training </p>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a href="<?= $absoluteUrl ?>training-applications" class="nav-link <?= Yii::$app->recruitment->currentaction('training-applications','index')?'active':'' ?>">
+                                            <i class="fa fa-chart-line nav-icon"></i>
+                                            <p>Training Applications </p>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a href="<?= $absoluteUrl ?>training-pending" class="nav-link <?= Yii::$app->recruitment->currentaction('training-pending','index')?'active':'' ?>">
+                                            <i class="fa fa-chart-line nav-icon"></i>
+                                            <p>Pending Applications </p>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a href="<?= $absoluteUrl ?>training-approved" class="nav-link <?= Yii::$app->recruitment->currentaction('training-approved','index')?'active':'' ?>">
+                                            <i class="fa fa-chart-line nav-icon"></i>
+                                            <p>Approved Applications  </p>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </li>
+
+                            <!-- Complete Training -->
 
 
                             <!-- Recruitment -->
@@ -1146,12 +1217,58 @@ $employee = (!Yii::$app->user->isGuest && is_array(Yii::$app->user->identity->em
                                 </ul>
                             </li>
 
+                            <!-- Disciplinary -->
+                            <li class="nav-item has-treeview <?= Yii::$app->recruitment->currentCtrl(['grievance'])?'menu-open':'' ?>">
+                                <a href="#" class="nav-link <?= Yii::$app->recruitment->currentCtrl(['grievance'])?'active':'' ?>" title="Grievances and Disciplinary Management">
+                                    <i class="nav-icon fa fa-chart-bar" ></i>
+                                    <p class="text-truncate">
+                                        Grievances
+                                        <i class="fas fa-angle-left right"></i>
+                                        <!--<span class="badge badge-info right">6</span>-->
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
 
+                                    <li class="nav-item">
+                                        <a href="<?= $absoluteUrl ?>grievance" class="nav-link <?= Yii::$app->recruitment->currentaction('grievance','index')?'active':'' ?>">
+                                            <i class="fa fa-chart-line nav-icon"></i>
+                                            <p>Grievances List </p>
+                                        </a>
+                                    </li>
 
+                                    <li class="nav-item">
+                                        <a href="<?= $absoluteUrl ?>grievance/hro" class="nav-link <?= Yii::$app->recruitment->currentaction('grievance','hro')?'active':'' ?>">
+                                            <i class="fa fa-chart-line nav-icon"></i>
+                                            <p>HRO List </p>
+                                        </a>
+                                    </li>
+                                    
 
+                                </ul>
+                            </li>
 
+                            <li class="nav-item has-treeview <?= Yii::$app->recruitment->currentCtrl(['discipline'])?'menu-open':'' ?>">
+                                <a href="#" class="nav-link <?= Yii::$app->recruitment->currentCtrl(['discipline'])?'active':'' ?>" title="Grievances and Disciplinary Management">
+                                    <i class="nav-icon fa fa-chart-bar" ></i>
+                                    <p class="text-truncate">
+                                        Disciplinary
+                                        <i class="fas fa-angle-left right"></i>
+                                        <!--<span class="badge badge-info right">6</span>-->
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
 
+                                    <li class="nav-item">
+                                        <a href="<?= $absoluteUrl ?>discipline" class="nav-link <?= Yii::$app->recruitment->currentaction('discipline','index')?'active':'' ?>">
+                                            <i class="fa fa-chart-line nav-icon"></i>
+                                            <p>Disciplinary Cases </p>
+                                        </a>
+                                    </li>
 
+                                </ul>
+                            </li>
+
+                        <?php } // End module blocking ?>
 
                     </ul>
                 </nav>

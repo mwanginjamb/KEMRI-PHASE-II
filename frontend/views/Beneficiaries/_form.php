@@ -6,7 +6,7 @@
  * Time: 12:13 PM
  */
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap4\ActiveForm;
 ?>
 
 <div class="row">
@@ -16,10 +16,7 @@ use yii\widgets\ActiveForm;
                 <h3 class="card-title"><?= Html::encode($this->title) ?></h3>
             </div>
             <div class="card-body">
-
-
-
-                    <?php  $form = ActiveForm::begin();      ?>
+                    <?php  $form = ActiveForm::begin(['id' => 'beneficiaries']);      ?>
                 <div class="row">
                    
 

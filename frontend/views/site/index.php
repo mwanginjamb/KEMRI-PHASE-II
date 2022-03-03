@@ -103,7 +103,7 @@ exit;*/
                             <div class="info-box">
                                 <span class="info-box-icon bg-info elevation-1"><i class="fas fa-briefcase"></i></span>
                                 <div class="info-box-content">
-                                    <span class="info-box-text">HR Vacancies</span>
+                                    <span class="info-box-text text-wrap">HR Vacancies</span>
                                     <span class="info-box-number"><?= Yii::$app->dashboard->getVacancies() ?>
                                       <small></small>
                                     </span>
@@ -123,7 +123,7 @@ exit;*/
                                 <span class="info-box-icon bg-info elevation-1"><i class="fas fa-cog"></i></span>
 
                                 <div class="info-box-content">
-                                    <span class="info-box-text">Open Approvals</span>
+                                    <span class="info-box-text text-wrap">Open Approvals</span>
                                     <span class="info-box-number"><?= Yii::$app->dashboard->getOpenApprovals() ?>
                                       <small></small>
                                     </span>
@@ -143,7 +143,7 @@ exit;*/
                                 <span class="info-box-icon bg-success elevation-1"><i class="fas fa-thumbs-up"></i></span>
 
                                 <div class="info-box-content">
-                                    <span class="info-box-text">Approved Reqs.</span>
+                                    <span class="info-box-text text-wrap">Approved Reqs.</span>
                                     <span class="info-box-number"><?= Yii::$app->dashboard->getApprovedApprovals() ?></span>
                                 </div>
                                 <!-- /.info-box-content -->
@@ -162,7 +162,7 @@ exit;*/
                                 <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-times"></i></span>
 
                                 <div class="info-box-content">
-                                    <span class="info-box-text">Rejected Reqs.</span>
+                                    <span class="info-box-text text-wrap">Rejected Reqs.</span>
                                     <span class="info-box-number"><?= Yii::$app->dashboard->getRejectedApprovals() ?></span>
                                 </div>
                                 <!-- /.info-box-content -->
@@ -183,7 +183,7 @@ exit;*/
                                         <span class="info-box-icon bg-info elevation-1"><i class="fas fa-door-open"></i></span>
 
                                         <div class="info-box-content">
-                                            <span class="info-box-text">Leave Balances</span>
+                                            <span class="info-box-text text-wrap">Leave Balances</span>
                                             <span class="info-box-number"><?= number_format(Yii::$app->dashboard->getLeaveBalanceCount())?></span>
                                         </div>
                                         <!-- /.info-box-content -->
@@ -204,7 +204,7 @@ exit;*/
                                     <span class="info-box-icon bg-info elevation-1"><i class="fas fa-paper-plane"></i></span>
 
                                     <div class="info-box-content">
-                                        <span class="info-box-text">Staff on Leave</span>
+                                        <span class="info-box-text text-wrap">Staff on Leave</span>
                                         <span class="info-box-number"><?= number_format(Yii::$app->dashboard->getOnLeave())?></span>
                                     </div>
                                     <!-- /.info-box-content -->
@@ -225,7 +225,7 @@ exit;*/
                                 <span class="info-box-icon bg-info elevation-1"><i class="fas fa-paper-plane"></i></span>
 
                                 <div class="info-box-content">
-                                    <span class="info-box-text">My Applications</span>
+                                    <span class="info-box-text text-wrap">My Applications</span>
                                     <span class="info-box-number"><?= number_format(Yii::$app->dashboard->getInternalapplications())?></span>
                                 </div>
                                 <!-- /.info-box-content -->
@@ -243,7 +243,7 @@ exit;*/
                                 <span class="info-box-icon bg-info elevation-1"><i class="fas fa-users"></i></span>
 
                                 <div class="info-box-content">
-                                    <span class="info-box-text">Super Approved</span>
+                                    <span class="info-box-text text-wrap">Super Approved</span>
                                     <span class="info-box-number"><?= number_format(Yii::$app->dashboard->getSuperApproved())?></span>
                                 </div>
                                 <!-- /.info-box-content -->
@@ -268,7 +268,7 @@ exit;*/
                                 <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-user-times"></i></span>
 
                                 <div class="info-box-content">
-                                    <span class="info-box-text">Super Rejected</span>
+                                    <span class="info-box-text text-wrap">Super Rejected</span>
                                     <span class="info-box-number"><?=number_format(Yii::$app->dashboard->getSuperRejected())?></span>
                                 </div>
                                 <!-- /.info-box-content -->
@@ -290,7 +290,7 @@ exit;*/
                                 <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-paper-plane"></i></span>
 
                                 <div class="info-box-content">
-                                    <span class="info-box-text">HoDs on Leave</span>
+                                    <span class="info-box-text text-wrap">HoDs on Leave</span>
                                     <span class="info-box-number"><?=number_format(Yii::$app->dashboard->getOnLeavehod())?></span>
                                 </div>
                                 <!-- /.info-box-content -->
@@ -309,7 +309,7 @@ exit;*/
                                         <div class="info-box mb-3">
                                             <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-balance-scale"></i></span>
                                             <div class="info-box-content">
-                                                <span class="info-box-text">probation Status</span>
+                                                <span class="info-box-text text-wrap">probation Status</span>
                                                 <span class="primary-box-number"><?= number_format(Yii::$app->dashboard->getProbations())?></span>
                                             </div>
                                             <!-- /.info-box-content -->
@@ -326,7 +326,7 @@ exit;*/
                                         <div class="info-box mb-3">
                                             <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-balance-scale"></i></span>
                                             <div class="info-box-content">
-                                                <span class="info-box-text">Short Term Status</span>
+                                                <span class="info-box-text text-wrap">Short Term Status</span>
                                                 <span class="info-box-number"><?= number_format(Yii::$app->dashboard->getShortterms())?></span>
                                             </div>
                                             <!-- /.info-box-content -->
@@ -343,7 +343,7 @@ exit;*/
                                         <div class="info-box mb-3">
                                             <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-balance-scale"></i></span>
                                             <div class="info-box-content">
-                                                <span class="info-box-text">Long Term Status</span>
+                                                <span class="info-box-text text-wrap">Long Term Status</span>
                                                 <span class="info-box-number"><?= number_format(Yii::$app->dashboard->getLongterms())?></span>
                                             </div>
                                             <!-- /.info-box-content -->
@@ -363,7 +363,7 @@ exit;*/
                                         <div class="info-box mb-3">
                                             <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-paper-plane"></i></span>
                                             <div class="info-box-content">
-                                                <span class="info-box-text">HoD Leave Balances</span>
+                                                <span class="info-box-text text-wrap">HoD Leave Balances</span>
                                                 <span class="info-box-number"><?= number_format(Yii::$app->dashboard->getHoDBalancesRecords())?></span>
                                             </div>
                                             <!-- /.info-box-content -->
@@ -386,7 +386,7 @@ exit;*/
                                 <div class="info-box mb-3">
                                     <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-balance-scale"></i></span>
                                     <div class="info-box-content">
-                                        <span class="info-box-text">Super probation Status</span>
+                                        <span class="info-box-text text-wrap">Super probation Status</span>
                                         <span class="primary-box-number"><?= number_format(Yii::$app->dashboard->getProbationsSuper())?></span>
                                     </div>
                                     <!-- /.info-box-content -->
@@ -403,7 +403,7 @@ exit;*/
                                 <div class="info-box mb-3">
                                     <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-balance-scale"></i></span>
                                     <div class="info-box-content">
-                                        <span class="info-box-text">Super ShortTerm Status</span>
+                                        <span class="info-box-text text-wrap">Super ShortTerm Status</span>
                                         <span class="info-box-number"><?= number_format(Yii::$app->dashboard->getShorttermsSuper())?></span>
                                     </div>
                                     <!-- /.info-box-content -->
@@ -420,7 +420,7 @@ exit;*/
                                 <div class="info-box mb-3">
                                     <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-balance-scale"></i></span>
                                     <div class="info-box-content">
-                                        <span class="info-box-text">Super LongTerm Status</span>
+                                        <span class="info-box-text text-wrap">Super LongTerm Status</span>
                                         <span class="info-box-number"><?= number_format(Yii::$app->dashboard->getLongtermsSuper())?></span>
                                     </div>
                                     <!-- /.info-box-content -->
@@ -444,36 +444,39 @@ exit;*/
                                 <h3 class="card-title">My Leave Balances</h3>
                             </div>
                             <div class="card-body">
-                                <table class="table table-bordered dt-responsive table-hover" id="leavebances">
-                                    <thead>
-                                        <tr>
-                                            <th>Leave Type</th>
-                                            <th>Balance</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-
-                                    <?php
-
-
-
-                                    foreach($balances as $key => $val){
-                                        if($key == 'Key') {
-                                            continue;
-                                        }
-                                        elseif ($key == 'Annual_Leave_Bal' || $key == 'Compasionate_Leave_Bal'){
-                                            print '
+                                <div class="table-responsive">
+                                    <table class="table table-bordered dt-responsive table-hover" id="leavebances">
+                                        <thead>
                                             <tr>
-                                                <td>'.$key.'</td><td>'.$val.'</td>
-                                             </tr>
-                                             ';
-                                        }
+                                                <th>Leave Type</th>
+                                                <th>Balance</th>
+                                            </tr>
+                                        </thead>
+                                                <tbody>
+    
+                                                <?php
+    
+    
+    
+                                                foreach($balances as $key => $val){
+                                                    if($key == 'Key') {
+                                                        continue;
+                                                    }
+                                                    elseif ($key == 'Annual_Leave_Bal' || $key == 'Compasionate_Leave_Bal'){
+                                                        print '
+                                                        <tr>
+                                                            <td>'.$key.'</td><td>'.$val.'</td>
+                                                        </tr>
+                                                        ';
+                                                    }
+    
+    
+                                                } ?>
+    
+                                                </tbody>
+                                    </table>
 
-
-                                    } ?>
-
-                                    </tbody>
-                                </table>
+                                </div>
                             </div>
                         </div>
 

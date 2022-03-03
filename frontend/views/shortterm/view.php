@@ -19,9 +19,9 @@ $absoluteUrl = \yii\helpers\Url::home(true);
 /** Status Sessions */
 
 Yii::$app->session->set('Appraisal_Status',$model->Appraisal_Status);
-Yii::$app->session->set('Probation_Recomended_Action',$model->Probation_Recomended_Action);
+//Yii::$app->session->set('Probation_Recomended_Action',$model->Probation_Recomended_Action);
 Yii::$app->session->set('Goal_Setting_Status',$model->Goal_Setting_Status);
-Yii::$app->session->set('Is_Short_Term',$model->Is_Short_Term);
+//Yii::$app->session->set('Is_Short_Term',$model->Is_Short_Term);
 Yii::$app->session->set('EY_Appraisal_Status',$model->Appraisal_Status);
 
 if($model->Employee_No == Yii::$app->user->identity->{'Employee No_'})
@@ -60,6 +60,26 @@ if($model->Employee_No == Yii::$app->user->identity->{'Employee No_'})
             <div class="card-body info-box">
 
                 <div class="row">
+
+
+                <div class="col-md-4 mx-1">
+                             <?=  Html::a('<i class="fas fa-book-open"></i> P.A Report',['report','appraisalNo'=> $_GET['Appraisal_No'],'employeeNo' => $_GET['Employee_No']],[
+                                'class' => 'btn btn-app bg-success  pull-right',
+                                'title' => 'Generate Performance Appraisal Report',
+                                'target'=> '_blank',
+                                'data' => [
+                                    // 'confirm' => 'Are you sure you want to send appraisal to peer 2?',
+                                    'params'=>[
+                                        'appraisalNo'=> $_GET['Appraisal_No'],
+                                        'employeeNo' => $_GET['Employee_No'],
+                                    ],
+                                    'method' => 'post',]
+                            ]);
+                            ?>
+                    </div>
+
+
+
                     <?php if(($model->Goal_Setting_Status == 'New' && $model->isAppraisee()) ): ?>
 
                                 <div class="col-md-4">
@@ -457,7 +477,7 @@ if($model->Employee_No == Yii::$app->user->identity->{'Employee No_'})
             <div class="card-header">
                 <div class="card-title">Employee Appraisal KRAs (Key Result Areas)   </div>
                 <div class="card-tools">
-                    <?= ($model->Goal_Setting_Status == 'New' || $model->Probation_Recomended_Action == 'Extend_Probation_Period')?Html::a('<i class="fa fa-plus-square"></i> Add K.R.A',['objective/create','Employee_No'=>$model->Employee_No,'Appraisal_No' => $model->Appraisal_No],['class' => 'add-objective btn btn-sm btn-outline-info']):'' ?>
+                    <?= ($model->Goal_Setting_Status == 'New' )?Html::a('<i class="fa fa-plus-square"></i> Add K.R.A',['objective/create','Employee_No'=>$model->Employee_No,'Appraisal_No' => $model->Appraisal_No],['class' => 'add-objective btn btn-sm btn-outline-info']):'' ?>
                 </div>
             </div>
 
@@ -601,7 +621,7 @@ if($model->Employee_No == Yii::$app->user->identity->{'Employee No_'})
                                 <td><?= !empty($competency->Maximum_Weigth)?$competency->Maximum_Weigth:'' ?></td>
                                 <td><?= !empty($competency->Overal_Rating)?$competency->Overal_Rating:'' ?></td>
                                 <td><?= !empty($competency->Total_Weigth)?$competency->Total_Weigth:'' ?></td>
-                                <td><?= $updateLink.$deleteLink.$addBehaviour?></td>
+                                <td><?= $updateLink ?></td>
                             </tr>
                              <tr class="child">
                             <!-- Start Child -->
@@ -979,39 +999,6 @@ $script = <<<JS
 
 
 
-     $('#probation-probation_recomended_action').change(function(e){
-        const Probation_Recomended_Action = e.target.value;
-        const Appraisal_No = $('#probation-appraisal_no').val();
-        if(Appraisal_No.length){
-            
-            const url = $('input[name=url]').val()+'probation/setaction';
-            $.post(url,{'Probation_Recomended_Action': Probation_Recomended_Action,'Appraisal_No': Appraisal_No}).done(function(msg){
-                   //populate empty form fields with new data
-                   
-                  
-                   $('#probation-key').val(msg.Key);
-                  
-
-                    console.log(typeof msg);
-                    console.table(msg);
-                    if((typeof msg) === 'string') { // A string is an error
-                        const parent = document.querySelector('.field-probation-probation_recomended_action');
-                        const helpbBlock = parent.children[2];
-                        helpbBlock.innerText = msg;
-                      
-                        
-                    }else{ // An object represents correct details
-                        const parent = document.querySelector('.field-probation-probation_recomended_action');
-                        const helpbBlock = parent.children[2];
-                        helpbBlock.innerText = ''; 
-                        
-                        
-                    }
-                    
-                },'json');
-            
-        }     
-     });
 
 
 

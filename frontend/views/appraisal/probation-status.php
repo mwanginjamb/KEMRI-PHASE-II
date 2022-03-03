@@ -76,11 +76,12 @@ $script = <<<JS
                 { title: 'Supervisor Name' ,data: 'Supervisor_Name'},
                 { title: 'Probation Recomended Action' ,data: 'Probation_Recomended_Action'},
                 { title: 'Overview Manager Name' ,data: 'Overview_Manager_Name'},
-               
-                { title: 'Action', data: 'Action' },
-                
-               
-            ] ,                              
+                { title: 'Action', data: 'Action' },     
+            ] ,
+            "columnDefs": [{
+            "targets": [1,2,3,4,5,6,7,8,9],
+            "searchable": false
+            }],                              
            language: {
                 "zeroRecords": "No records to display"
             },

@@ -286,8 +286,8 @@ class ContractrenewalController extends Controller
 
     public function getEmployees(){
         $service = Yii::$app->params['ServiceName']['Employees'];
-
-        $employees = \Yii::$app->navhelper->getData($service);
+        $filter = ['Serving_Notice' => 0];
+        $employees = \Yii::$app->navhelper->getData($service, $filter);
         $data = [];
         $i = 0;
         if(is_array($employees)){
@@ -387,6 +387,16 @@ class ContractrenewalController extends Controller
             return $this->redirect(['index']);
 
         }
+    }
+
+     /** Updates a single field */
+     public function actionSetfield($field){
+        $service = 'ContractRenewalCard';
+        $value = Yii::$app->request->post('fieldValue');
+        $result = Yii::$app->navhelper->Commit($service,[$field => $value],Yii::$app->request->post('Key'));
+        Yii::$app->response->format = \yii\web\response::FORMAT_JSON;
+        return $result;
+          
     }
 
 
