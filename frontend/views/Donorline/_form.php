@@ -48,7 +48,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                              <div class="col-md-6">
                                 <?php $form->field($model, 'Grant_Name')->textInput(['readonly' => true, 'disabled' => true]) ?>
 
-                                <?= $form->field($model, 'Grant_Activity')->dropdownList($activities,['prompt' => 'Select ...']) ?>
+                                <?= $form->field($model, 'Grant_Activity')->dropdownList($activities,['prompt' => 'Select Grant Activity ...']) ?>
                                 <?= $form->field($model, 'Grant_Type')->textInput(['readonly' => true,'disabled' => true]) ?>
                              </div>
                 </div>
@@ -80,9 +80,8 @@ $('.field-donorline-grant_activity').hide();
       
 }); 
 
- $('#donorline-contract_grant_start_date').change((e) => {
-        globalFieldUpdate('donorline',false,'Contract_Grant_Start_Date', e);
-        let grantType = $('#donorline-grant_type').val();
+$('.field-donorline-contract_grant_start_date, .field-donorline-contract_grant_end_date').hover((e) => {
+    let grantType = $('#donorline-grant_type').val();
         console.log('Grant Type:'+grantType);
        if(grantType)
        {
@@ -93,6 +92,10 @@ $('.field-donorline-grant_activity').hide();
                 $('.field-donorline-grant_activity').fadeOut();
             }
        }
+});
+
+ $('#donorline-contract_grant_start_date').change((e) => {
+        globalFieldUpdate('donorline',false,'Contract_Grant_Start_Date', e);
 });
 
 $('#donorline-contract_grant_end_date').change((e) => {
