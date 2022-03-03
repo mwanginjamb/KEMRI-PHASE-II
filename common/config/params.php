@@ -514,6 +514,9 @@ return [
         'ResponsibilitySpecification' => 'ResponsibilitySpecification', //55048
         'JobApplicationList'=>'JobApplicationList', //55058
         'HRJobApplicationsCard'=>'HRJobApplicationsCard',//55059
+        'ShortlistingCommitteeMembers'=>'ShortlistingCommitteeMembers',//56037
+        'ShortlistingCommitteeCard'=>'ShortlistingCommitteeCard',//56036
+        'ShortlistMemberEntries'=>'ShortlistMemberEntries',//56041
 
 
         /********************Training SERVICES***************************************/

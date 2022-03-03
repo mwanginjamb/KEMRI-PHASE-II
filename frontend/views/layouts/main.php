@@ -1213,6 +1213,13 @@ $employee = (!Yii::$app->user->isGuest && is_array(Yii::$app->user->identity->em
                                         </a>
                                     </li>
 
+                                    <li class="nav-item">
+                                        <a href="<?= $absoluteUrl ?>recruitment/my-short-lisitng-committees" class="nav-link <?= Yii::$app->recruitment->currentaction('recruitment','applications')?'active':'' ?>">
+                                            <i class="fa fa-check-square nav-icon"></i>
+                                            <p> Applicant Shortlisting </p>
+                                        </a>
+                                    </li>
+
 
                                 </ul>
                             </li>

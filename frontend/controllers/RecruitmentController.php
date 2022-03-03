@@ -20,6 +20,7 @@ use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
 use frontend\models\Applicantprofile;
 use common\models\JobApplicationCard;
+use frontend\models\ShortlistingCommitteeCard;
 
 
 
@@ -66,7 +67,7 @@ class RecruitmentController extends Controller
             ],
             'contentNegotiator' =>[
                 'class' => ContentNegotiator::class,
-                'only' => ['getvacancies','getexternalvacancies', 'getinternalvacancies','requirementscheck','getapplications','getinternalapplications',  'can-apply',  'get-requiremententries'],
+                'only' => ['getvacancies','getexternalvacancies', 'get-my-short-listing-committees', 'get-applicants', 'getinternalvacancies','requirementscheck','getapplications','getinternalapplications',  'can-apply',  'get-requiremententries'],
                 'formatParam' => '_format',
                 'formats' => [
                     'application/json' => Response::FORMAT_JSON,
@@ -543,14 +544,6 @@ class RecruitmentController extends Controller
                 ];
             $applications = \Yii::$app->navhelper->getData($service,$filter);
             }
-
-        
-
-
-// Yii::$app->recruitment->printrr($applications);
-
-
-
         $result = [];
         if(is_array($applications)){
             foreach($applications as $req){
@@ -572,6 +565,123 @@ class RecruitmentController extends Controller
         
         return $result;
     }
+
+    public function actionGetApplicants($committeeId){
+        if(!Yii::$app->user->isGuest){
+
+            $filter = [
+                'Shortlist_No'=>urldecode($committeeId),
+                'Member_No'=> Yii::$app->user->identity->employee[0]->No,
+            ];
+
+            $service = Yii::$app->params['ServiceName']['ShortlistMemberEntries'];
+    ;
+            $Applicants = \Yii::$app->navhelper->getData($service,$filter);
+        
+    
+            $result = [];
+            if(is_array($Applicants)){
+                foreach($Applicants as $Applicant){
+    
+                    if(property_exists($Applicant,'Profile_No') && property_exists($Applicant,'Applicant_Name') ) {
+        
+                        $ViewApplicantProfile = Html::a('View Applicant Details', ['applicants', 'ComiteeID' => $Applicant->Profile_No], [
+                        ]);
+    
+                                // Yii::$app->recruitment->printrr($ComiteeDetails);
+                        $result['data'][] = [
+                            'ApplicantName' => !empty($Applicant->Applicant_Name) ? $Applicant->Applicant_Name : 'Not Set',
+                            'Shotlisting Status' => !empty($Applicant->Status) ? $Applicant->Status : '',
+                            'Action'=>$ViewApplicantProfile  
+                        ];
+        
+                    }
+        
+                }
+            }
+            
+            return $result;
+
+        }
+    }
+
+    public function actionMyShortLisitngCommittees(){//shortlist-committee.php
+        if(!Yii::$app->user->isGuest){
+            return $this->render('shortlist-committee');
+        }
+    }
+
+    public function actionGetMyShortListingCommittees(){//shortlist-committee.php
+
+        $filter = [];
+        $service = Yii::$app->params['ServiceName']['ShortlistingCommitteeMembers'];
+
+            if(!Yii::$app->user->isGuest){
+                $filter = [
+                    'Commitee_No' => Yii::$app->user->identity->employee[0]->No,
+                    'Invite_Status'=>'In_Progress'
+                ];
+                $CommitteeMembers = \Yii::$app->navhelper->getData($service,$filter);
+            }
+
+        $result = [];
+        if(is_array($CommitteeMembers)){
+            foreach($CommitteeMembers as $CommitteeMember){
+
+                if(property_exists($CommitteeMember,'ShortList_No') && property_exists($CommitteeMember,'Commitee_No') ) {
+
+                    $ComiteeDetails = $this->getComiteeDetails($CommitteeMember->ShortList_No);
+
+                    if ($ComiteeDetails == false){ //No Comitee Found
+                        continue;
+                    }
+
+                    $ViewApplicantsLink = Html::a('view Applicants', ['applicants', 'ComiteeID' => $ComiteeDetails[0]->No], [
+                        'class' => 'btn btn-outline-success btn-md',
+                    ]);
+
+                            // Yii::$app->recruitment->printrr($ComiteeDetails);
+
+                    $result['data'][] = [
+                        'No' => !empty($CommitteeMember->ShortList_No) ? $CommitteeMember->ShortList_No : 'Not Set',
+                        'JobDescription' => !empty($ComiteeDetails[0]->Job_Description) ? $ComiteeDetails[0]->Job_Description : '',
+                        'Requisition_Purpose' => !empty($ComiteeDetails[0]->Requisition_Purpose) ? $ComiteeDetails[0]->Requisition_Purpose : 'Not Set',  
+                        'Action'=>$ViewApplicantsLink  
+                    ];
+    
+                }
+    
+            }
+        }
+        
+        return $result;
+    }
+
+    public function getComiteeDetails($commiteeNo){
+        $service = Yii::$app->params['ServiceName']['ShortlistingCommitteeCard'];
+        $filter = [
+            'No' => $commiteeNo
+        ];
+        $result = \Yii::$app->navhelper->getData($service,$filter);
+        if(is_array($result)){ //Comiteee Exists
+            return $result;
+        }
+        return false;
+    }
+
+    public function actionApplicants($ComiteeID){
+        if(!Yii::$app->user->isGuest){
+            $model = new ShortlistingCommitteeCard();
+            $data =  $this->getComiteeDetails(urldecode($ComiteeID));
+            if($data){
+                $this->loadtomodel($data[0], $model);
+                return $this->render('applicants', [
+                    'model' => $model,
+                ]);
+            }
+        }
+    }
+
 
     //Get Internal Applications
 
