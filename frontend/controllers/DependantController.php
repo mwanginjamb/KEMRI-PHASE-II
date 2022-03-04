@@ -341,17 +341,13 @@ class DependantController extends Controller
 
 
 
-    public function loadtomodel($obj,$model){
-
-        if(!is_object($obj)){
-            return false;
-        }
-        $modeldata = (get_object_vars($obj)) ;
-        foreach($modeldata as $key => $val){
-            if(is_object($val)) continue;
-            $model->$key = $val;
-        }
-
-        return $model;
+    /** Updates a single field */
+    public function actionSetfield($field){
+        $service = 'EmployeeDepandants';
+        $value = Yii::$app->request->post('fieldValue');
+        $result = Yii::$app->navhelper->Commit($service,[$field => $value],Yii::$app->request->post('Key'));
+        Yii::$app->response->format = \yii\web\response::FORMAT_JSON;
+        return $result;
+          
     }
 }

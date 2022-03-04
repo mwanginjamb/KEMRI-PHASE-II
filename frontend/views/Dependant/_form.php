@@ -28,7 +28,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                                             <?= $form->field($model, 'Key')->hiddenInput(['readonly'=> true])->label(false) ?>
                                             <?= $form->field($model, 'Relationship')->dropDownList($relationship,['prompt' => 'Select ...']) ?>
                                             <?= $form->field($model, 'Gender')->dropDownList($model->gender,['prompt' => 'Select ...']); ?>
-                                            <?= $form->field($model, 'Key')->textInput(['readonly' => true]); ?>
+                                            <?= $form->field($model, 'Key')->hiddenInput(['readonly' => true])->label(false); ?>
 
                                     </div>
 
@@ -37,7 +37,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                 <div class="row">
 
                     <div class="form-group">
-                        <?= Html::submitButton(($model->isNewRecord)?'Save':'Update', ['class' => 'btn btn-success','id'=>'submit']) ?>
+                        <?php Html::submitButton(($model->isNewRecord)?'Save':'Update', ['class' => 'btn btn-success','id'=>'submit']) ?>
                     </div>
 
 
@@ -50,127 +50,35 @@ $absoluteUrl = \yii\helpers\Url::home(true);
 <input type="hidden" name="absolute" value="<?= $absoluteUrl ?>">
 <?php
 $script = <<<JS
- //Submit Rejection form and get results in json    
-        $('form').on('submit', function(e){
-            e.preventDefault()
-            const data = $(this).serialize();
-            const url = $(this).attr('action');
-            $.post(url,data).done(function(msg){
-                    $('.modal').modal('show')
-                    .find('.modal-body')
-                    .html(msg.note);
-        
-                },'json');
-        });
+$('#dependant-full_name').change((e) => {
+        globalFieldUpdate('dependant',false,'Full_Name', e);
+});
 
-         /*Add select 2*/
-         
-         $('#drugissuanceline-no').select2();
+$('#dependant-id_birth_certificate_no').change((e) => {
+        globalFieldUpdate('dependant',false,'ID_Birth_Certificate_No', e);
+});
 
-         $('#drugissuanceline-no').on('change', function(e){
-            e.preventDefault();
-                  
-            const No = e.target.value;
-            const Line_No = $('#drugissuanceline-line_no').val();
-            
-            
-            const url = $('input[name="absolute"]').val()+'drug-issuanceline/setitem';
-            $.post(url,{'No': No,'Line_No': Line_No}).done(function(msg){
-                   //populate empty form fields with new data
-                    console.log(typeof msg);
-                    console.table(msg);
-                    if((typeof msg) === 'string') { // A string is an error
-                        const parent = document.querySelector('.field-drugissuanceline-no');
-                        const helpbBlock = parent.children[2];
-                        helpbBlock.innerText = msg;
-                        disableSubmit();
-                    }else{ // An object represents correct details
-                        const parent = document.querySelector('.field-drugissuanceline-no');
-                        const helpbBlock = parent.children[2];
-                        helpbBlock.innerText = ''; 
-                        enableSubmit();
-                    }
-                    $('#drugissuanceline-key').val(msg.Key);
-                    $('#drugissuanceline-available_quantity').val(msg.Available_Quantity);
-                   
-                    
-                },'json');
-        });
-         
-         $('#drugissuanceline-quantity').on('change', function(e){
-            e.preventDefault();
-                  
-            const Line_No = $('#drugissuanceline-line_no').val();
-            
-            
-            const url = $('input[name="absolute"]').val()+'drug-issuanceline/setquantity';
-            $.post(url,{'Line_No': Line_No,'Quantity': $(this).val()}).done(function(msg){
-                   //populate empty form fields with new data
-                    console.log(typeof msg);
-                    console.table(msg);
-                    if((typeof msg) === 'string'){ // A string is an error
-                        const parent = document.querySelector('.field-drugissuanceline-quantity');
-                        const helpbBlock = parent.children[2];
-                        helpbBlock.innerText = msg;
-                        disableSubmit();
-                    }else{ // An object represents correct details
-                        const parent = document.querySelector('.field-drugissuanceline-quantity');
-                        const helpbBlock = parent.children[2];
-                        helpbBlock.innerText = ''; 
-                        enableSubmit();
-                    }
-                    $('#drugissuanceline-key').val(msg.Key);
-                                        
-                },'json');
-        });
-         
-         
-         
-         // Set Location
-         
-         $('#drugissuanceline-location').on('change', function(e){
-            e.preventDefault();
-                  
-            const No = $('#drugissuanceline-line_no').val();
-            const Location = $('#drugissuanceline-location').val();
-            
-            
-            const url = $('input[name="absolute"]').val()+'drug-issuanceline/setlocation';
-            $.post(url,{'Line_No': No,'Location': Location}).done(function(msg){
-                   //populate empty form fields with new data
-                    console.log(typeof msg);
-                    console.table(msg);
-                    if((typeof msg) === 'string') { // A string is an error
-                        const parent = document.querySelector('.field-drugissuanceline-no');
-                        const helpbBlock = parent.children[2];
-                        helpbBlock.innerText = msg;
-                        disableSubmit();
-                    }else{ // An object represents correct details
-                        const parent = document.querySelector('.field-drugissuanceline-no');
-                        const helpbBlock = parent.children[2];
-                        helpbBlock.innerText = ''; 
-                        enableSubmit();
-                    }
-                    $('#drugissuanceline-key').val(msg.Key);
-                    $('#drugissuanceline-available_quantity').val(msg.Available_Quantity);
-                   
-                    
-                },'json');
-        });
-         
-         
-         
-         
-         
-         
-         function disableSubmit(){
-             document.getElementById('submit').setAttribute("disabled", "true");
-        }
-        
-        function enableSubmit(){
-            document.getElementById('submit').removeAttribute("disabled");
-        
-        }
+$('#dependant-is_student').change((e) => {
+        globalFieldUpdate('dependant',false,'Is_Student', e);
+});
+
+$('#dependant-date_of_birth').blur((e) => {
+        globalFieldUpdate('dependant',false,'Date_of_Birth', e);
+});
+
+$('#dependant-relationship').change((e) => {
+        globalFieldUpdate('dependant',false,'Relationship', e);
+});
+
+$('#dependant-gender').change((e) => {
+        globalFieldUpdate('dependant',false,'Gender', e);
+});
+
+$('#dependant-full_name').change((e) => {
+        globalFieldUpdate('dependant',false,'Full_Name', e);
+});
+
+
 JS;
 
 $this->registerJs($script);
