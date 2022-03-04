@@ -35,14 +35,22 @@ public $isNewRecord;
     public function rules()
     {
         return [
-
+            [[
+                'Full_Name',
+                'ID_Birth_Certificate_No',
+                'Is_Student',
+                'Date_of_Birth',
+                'Gender',
+                'Relationship'
+            ],'required'],
+            ['Gender','in', 'range' => ['Male','Female','Unknown']]
         ];
     }
 
     public function attributeLabels()
     {
         return [
-
+            'ID_Birth_Certificate_No' => 'ID / Birth_Certificate_No'
         ];
     }
 

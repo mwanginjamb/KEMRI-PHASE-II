@@ -6,7 +6,7 @@
  * Time: 12:13 PM
  */
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap4\ActiveForm;
 $absoluteUrl = \yii\helpers\Url::home(true);
 ?>
 
@@ -15,7 +15,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
 
 
                     <?php
-                    $form = ActiveForm::begin(); ?>
+                    $form = ActiveForm::begin(['id' => 'dependant']); ?>
                         <div class="row">
 
 
@@ -28,6 +28,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                                             <?= $form->field($model, 'Key')->hiddenInput(['readonly'=> true])->label(false) ?>
                                             <?= $form->field($model, 'Relationship')->dropDownList($relationship,['prompt' => 'Select ...']) ?>
                                             <?= $form->field($model, 'Gender')->dropDownList($model->gender,['prompt' => 'Select ...']); ?>
+                                            <?= $form->field($model, 'Key')->textInput(['readonly' => true]); ?>
 
                                     </div>
 

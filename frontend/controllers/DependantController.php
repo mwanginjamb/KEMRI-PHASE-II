@@ -88,11 +88,11 @@ class DependantController extends Controller
         }
         
 
-        if(Yii::$app->request->post() && Yii::$app->navhelper->loadpost(Yii::$app->request->post()['Dependant'],$model) ){
+        if(Yii::$app->request->post() && Yii::$app->navhelper->loadpost(Yii::$app->request->post()['Dependant'],$model) && $model->validate() ){
 
-            $filter = [
-                'Line_No' => $model->Line_No,
-            ];
+            $record = Yii::$app->navhelper->readByKey($service, $model->Key);
+
+            $model = Yii::$app->navhelper->loadmodel($record, $model);
 
             $result = Yii::$app->navhelper->updateData($service,$model);
 
