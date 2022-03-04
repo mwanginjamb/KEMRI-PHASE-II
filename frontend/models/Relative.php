@@ -33,7 +33,7 @@ class Relative extends Model
     public function rules()
     {
         return [
-            [['First_Name','Middle_Name','Last_Name','Phone_No','Birth_Date','Gender'], 'required'],
+            [['First_Name','Middle_Name','Last_Name','Phone_No','Birth_Date','Gender','ID_Birth_Certificate_No','Relative_Code'], 'required'],
         ];
     }
 
