@@ -70,7 +70,7 @@ return [
         'EmployeeExitManagement',
         'HRAPPRAISALMGT',
         'TRAININGMGT',
->>>>>>> Training
+
     ],
     'ServiceName'=>[
 
