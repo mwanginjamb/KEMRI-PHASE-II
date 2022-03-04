@@ -61,7 +61,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                 <div class="row">
 
                     <div class="form-group">
-                        <?= Html::submitButton(($model->isNewRecord)?'Save':'Update', ['class' => 'btn btn-success']) ?>
+                        <?php Html::submitButton(($model->isNewRecord)?'Save':'Update', ['class' => 'btn btn-success']) ?>
                     </div>
 
 
@@ -71,42 +71,24 @@ $absoluteUrl = \yii\helpers\Url::home(true);
         </div>
     </div>
 </div>
-<input type="hidden" name="url" value="<?= $absoluteUrl ?>">
+<input type="hidden" name="absolute" value="<?= $absoluteUrl ?>">
 <?php
 $script = <<<JS
- //Submit Rejection form and get results in json    
-        $('form').on('submit', function(e){
-            e.preventDefault()
-            const data = $(this).serialize();
-            const url = $(this).attr('action');
-            $.post(url,data).done(function(msg){
-                    $('.modal').modal('show')
-                    .find('.modal-body')
-                    .html(msg.note);
-        
-                },'json');
-        });
+  $('#professionalchange-body_code').change((e) => {
+        globalFieldUpdate('professionalchange',false,'Body_Code', e);
+});
 
+$('#professionalchange-from_date').blur((e) => {
+        globalFieldUpdate('professionalchange',false,'From_Date', e);
+});
 
+$('#professionalchange-to_date').blur((e) => {
+        globalFieldUpdate('professionalchange',false,'To_Date', e);
+});
 
-
-         $('#professionalchange-body_code').change(function(e){
-         e.preventDefault();
-          const Body_Code = e.target.value;
-          const Change_No = $('#professionalchange-change_no').val();
-          // Check if leave required an attachment or not
-            const Vurl = $('input[name=url]').val()+'professionalchange/commit';
-            $.get(Vurl,{"Body_Code": Body_Code, "Change_No": Change_No }).done(function(msg){
-                console.log(msg);
-
-                if(typeof msg == 'object') {
-                    $('#professionalchange-key').val(msg.Key);
-                }
-                
-            });
-         
-     });
-
+$('#professionalchange-membership_no').change((e) => {
+        globalFieldUpdate('professionalchange',false,'Membership_No', e);
+});
 
 JS;
 
