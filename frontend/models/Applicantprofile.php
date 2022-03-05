@@ -78,6 +78,25 @@ public $CommiteeID;
         }
     }
 
+    public function getInterviewQuestions($CommiteeID, $EmpNo){
+        $service = \Yii::$app->params['ServiceName']['InterviewMemberEntries'];
+        $filter = [
+            'Profile_No' => $this->No,
+            'Interview_No' =>$CommiteeID,
+            'Member_No'=>$EmpNo
+        ];
+        $result = \Yii::$app->navhelper->getData($service, $filter);
+        // echo '<pre>';
+        // print_r($result);
+        // exit;
+
+        if(is_array($result)){
+            return $result;
+        }
+        return false;
+
+    }
+
 
 }
 

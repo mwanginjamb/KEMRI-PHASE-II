@@ -1220,6 +1220,13 @@ $employee = (!Yii::$app->user->isGuest && is_array(Yii::$app->user->identity->em
                                         </a>
                                     </li>
 
+                                    <li class="nav-item">
+                                        <a href="<?= $absoluteUrl ?>interviews/my-interviwing-committees" class="nav-link <?= Yii::$app->recruitment->currentaction('recruitment','applications')?'active':'' ?>">
+                                            <i class="fa fa-check-square nav-icon"></i>
+                                            <p> Applicant Interviewing </p>
+                                        </a>
+                                    </li>
+
 
                                 </ul>
                             </li>

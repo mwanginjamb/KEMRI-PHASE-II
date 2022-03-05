@@ -517,6 +517,9 @@ return [
         'ShortlistingCommitteeMembers'=>'ShortlistingCommitteeMembers',//56037
         'ShortlistingCommitteeCard'=>'ShortlistingCommitteeCard',//56036
         'ShortlistMemberEntries'=>'ShortlistMemberEntries',//56041
+        'InterviewingCommitteeMembers'=>'InterviewingCommitteeMembers',//56040
+        'InterviewingCommitteeCard'=>'InterviewingCommitteeCard',//56039
+        'InterviewMemberEntries'=>'InterviewMemberEntries',//56042
 
 
         /********************Training SERVICES***************************************/
