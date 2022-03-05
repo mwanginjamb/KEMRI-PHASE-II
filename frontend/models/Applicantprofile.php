@@ -44,6 +44,7 @@ public $Citizenship;
 public $Verified;
 public $EmployeeNo;
 public $Motivation;
+public $CommiteeID;
 
 
     public function rules()
