@@ -78,7 +78,9 @@ class AdminlteAsset extends AssetBundle
         'Js/custom.js',
         'https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js',
 
-		'Js/matomo.js'
+		'Js/matomo.js',
+
+        'https://cdn.jsdelivr.net/npm/sweetalert2@9', //Sweet Alert
 
     ];
     public $depends = [

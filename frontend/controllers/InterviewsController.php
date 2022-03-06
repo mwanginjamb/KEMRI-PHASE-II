@@ -367,6 +367,9 @@ class InterviewsController extends Controller
 
     }
 
+
+
+
     public function actionCanApply($ProfileId, $JobId){
         //Get Job Requirements
 
@@ -596,6 +599,36 @@ class InterviewsController extends Controller
             
             return $result;
 
+        }
+    }
+
+    public function actionScore(){
+        if(Yii::$app->request->isPost){
+            $service = Yii::$app->params['ServiceName']['InterviewMemberEntries'];
+            $InterviewMemberEntry = Yii::$app->navhelper->readByKey($service,Yii::$app->request->post()['Key']); 
+            $Score = (int) Yii::$app->request->post()['Score'];
+            if($Score > 100){
+                return 'The Score Cannot Exceed 100';
+            }
+            if(is_object($InterviewMemberEntry)){
+                //update
+                $data =[
+                    'Score' => $Score ,
+                    'Key'=>$InterviewMemberEntry->Key,
+                ];
+                $res = Yii::$app->navhelper->updateData($service,$data);
+                if(is_object($res)){//update is OK
+                    Yii::$app->response->format = \yii\web\response::FORMAT_JSON;
+                    return  $returnData =[
+                        'Scored' =>true,
+                        'Key'=>$res->Key,
+                    ];
+                }
+
+                return $res;
+
+            }
+            return $InterviewMemberEntry;
         }
     }
 

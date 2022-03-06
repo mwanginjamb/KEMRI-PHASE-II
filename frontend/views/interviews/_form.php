@@ -12,6 +12,9 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 //$this->title = 'AAS - Employee Profile'
+// echo '<pre>';
+// print_r($Questions);
+// exit;
 ?>
              <?= $this->render('_steps', ['model'=>$model]) ?>
              <div class="row">
@@ -114,7 +117,7 @@ use yii\widgets\ActiveForm;
                            <?php if($Questions): ?>
                             <form class="form-horizontal">
                                 <div class="table-responsive">
-                                    <table class="table table-bordered  table-highlight">
+                                    <table class="table table-bordered  table-highlight ScoresTable">
                                         <thead>
                                             <th  style="width:70em">Question</th>
                                             <th style="width:20em">Score</th>
@@ -125,7 +128,10 @@ use yii\widgets\ActiveForm;
                                                     <td>
                                                         <textarea rows="5" class="form-control" readonly ><?= $Question->Question ?></textarea> 
                                                     </td>
-                                                    <td><input type="text" class="form-control" value="<?= $Question->Score ?>"/></td>
+                                                    <td>
+                                                        <input type="text" class="form-control Score" value="<?= $Question->Score ?>"/>
+                                                        <input type="hidden"  class="form-control Key"  value="<?= $Question->Key ?>">
+                                                    </td>
                                                 </tr>
                                             <?php endforeach; ?>
                                         </tbody>
@@ -142,25 +148,44 @@ use yii\widgets\ActiveForm;
 
                     <?php ActiveForm::end(); ?>
     </div>
+<input type="hidden" name="absolute" value="<?= Yii::$app->recruitment->absoluteUrl() ?>">
+<input type="hidden" name="ProfileNo" value="<?= $model->No ?>">
 </div>
 
 <?php
 $script = <<<JS
 
+            var absolute = $('input[name=absolute]').val();
 
-    $('#applicantprofile-disabled').change((e) => {
 
-      if($('#applicantprofile-disabled').val() == 1){
-          $('#applicantprofile-describe_disability').show();
-          $('.DisabilityLabel').show();
-          return false;
-      }
-      $('#applicantprofile-describe_disability').hide();
-      $('.DisabilityLabel').hide();
+           $('.ScoresTable').on('change', '.Score', function(){ 
+                var currentrow = $(this).closest('tr');
+                var Score = currentrow.find('.Score').val();
+                var Key = currentrow.find('.Key').val(); 
 
-      
-
-    }); 
+                if(Score){ //Ensure No Blanks
+                       //Submit Score
+                    var commurl = absolute+'interviews/score';
+                    $.post(commurl,{'Key': Key,'Score':Score,},function(data){
+                        if(data.length){
+                            Swal.fire("Warning", data , "warning");;
+                            return false;
+                        }
+                            //Set Value of LineKey
+                            var j = data.key;
+                            $('.NewLineModal').find('#linekey').val(j);
+                            $('.NewLineModal').find('.amount_usd').val(data.Additional_Reporting_Currency);
+                            $('.NewLineModal').find('.gfbudget').val(data.Available_Amount);
+                            $('.NewLineModal').find('#linenumber').val(data.linenumber);
+                            $('.NewLineModal').find('.description').val(data.Description);
+                            $('.NewLineModal').find('.totalamount').val(data.Amount);
+                            $('.NewLineModal').find('.noOfNights').val(data.No_of_Days);
+                            // alert(lineKey);
+                    });
+                }
+               
+                 
+            });
     
   
     
