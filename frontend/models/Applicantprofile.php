@@ -45,6 +45,7 @@ public $Verified;
 public $EmployeeNo;
 public $Motivation;
 public $CommiteeID;
+public $ApplicationID;
 
 
     public function rules()

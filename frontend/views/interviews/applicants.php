@@ -2,7 +2,12 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 $absoluteUrl = \yii\helpers\Url::home(true);
-$this->title = $model->Job_Description . ' Applicants '
+$this->title = $model->Job_Description . ' Applicants ';
+
+// echo '<pre>';
+// print_r($model);
+// exit;
+
 ?>
 
 <div class="row">
@@ -12,6 +17,15 @@ $this->title = $model->Job_Description . ' Applicants '
                 <h1 class="card-title"><?= Html::encode($this->title) ?></h1>
             </div>
             <div class="card-body">
+
+            <?= Html::a('<i class="fas fa-check"></i> Submit Assesment',['submit-assesment','ComiteeID'=> $model->No,],[
+                
+                'class' => 'mx-1 btn btn-app bg-success ',
+                'rel' => '',
+                'rev' =>'',
+                'title' => 'Reject KRAs and Send them Back to Appraisee.',
+              ]
+            ) ?>
 
                 <?php
 

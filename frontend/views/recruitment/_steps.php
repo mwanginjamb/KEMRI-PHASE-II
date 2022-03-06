@@ -164,10 +164,10 @@ use yii\helpers\Html;
         <div class="card">
             <div class="card-header">
                 <div class="breadcrumbb flat">
-                    <a href="<?=  Yii::$app->recruitment->absoluteUrl() .'recruitment/applicant-details?ProfileID='.$model->No.'&ComitteID='.$model->CommiteeID ?>" <?= Yii::$app->recruitment->currentaction('recruitment',['applicant-details', 'update'])?'class="active"': '' ?>>Personal Info</a>
-                    <a href="<?=  Yii::$app->recruitment->absoluteUrl() .'recruitment/qualification/?ProfileID='.$model->No .'&ComitteID='.$model->CommiteeID ?>" <?= Yii::$app->recruitment->currentaction('recruitment','qualification')?'class="active"': '' ?>>Academic Qualifications</a>
-                    <a href="<?=  Yii::$app->recruitment->absoluteUrl() .'recruitment/proffesional-qualifications?ProfileID='.$model->No .'&ComitteID='.$model->CommiteeID ?>" <?= Yii::$app->recruitment->currentaction('recruitment','proffesional-qualifications')?'class="active"': '' ?>>Proffesonal Certifications</a>
-                    <a href="<?=  Yii::$app->recruitment->absoluteUrl() .'recruitment/work-experience?ProfileID='.$model->No . '&ComitteID='.$model->CommiteeID ?>" <?= Yii::$app->recruitment->currentaction('recruitment','work-experience')?'class="active"': '' ?>>Employment record</a>
+                    <a href="<?=  Yii::$app->recruitment->absoluteUrl() .'recruitment/applicant-details?ProfileID='.$model->No.'&ComitteID='.$model->CommiteeID.'&ApplicationID='.$model->ApplicationID?>" <?= Yii::$app->recruitment->currentaction('recruitment',['applicant-details', 'update'])?'class="active"': '' ?>>Personal Info</a>
+                    <a href="<?=  Yii::$app->recruitment->absoluteUrl() .'recruitment/qualification/?ProfileID='.$model->No .'&ComitteID='.$model->CommiteeID.'&ApplicationID='.$model->ApplicationID ?>" <?= Yii::$app->recruitment->currentaction('recruitment','qualification')?'class="active"': '' ?>>Academic Qualifications</a>
+                    <a href="<?=  Yii::$app->recruitment->absoluteUrl() .'recruitment/proffesional-qualifications?ProfileID='.$model->No .'&ComitteID='.$model->CommiteeID.'&ApplicationID='.$model->ApplicationID ?>" <?= Yii::$app->recruitment->currentaction('recruitment','proffesional-qualifications')?'class="active"': '' ?>>Proffesonal Certifications</a>
+                    <a href="<?=  Yii::$app->recruitment->absoluteUrl() .'recruitment/work-experience?ProfileID='.$model->No . '&ComitteID='.$model->CommiteeID.'&ApplicationID='.$model->ApplicationID ?>" <?= Yii::$app->recruitment->currentaction('recruitment','work-experience')?'class="active"': '' ?>>Employment record</a>
                     <!-- <a href="<?=  Yii::$app->recruitment->absoluteUrl() .'hobby/index' ?>" <?= Yii::$app->recruitment->currentaction('hobby','index')?'class="active"': '' ?>>Hobbies</a> -->
                     <!-- <a href="<?=  Yii::$app->recruitment->absoluteUrl() .'language/index' ?>" <?= Yii::$app->recruitment->currentaction('language','index')?'class="active"': '' ?>>Extended profile Questions</a> -->
                     <!-- <a href="<?=  Yii::$app->recruitment->absoluteUrl() .'referee/index' ?>" <?= Yii::$app->recruitment->currentaction('referee','index')?'class="active"': '' ?>>Referees</a> -->
@@ -185,7 +185,7 @@ use yii\helpers\Html;
             ) ?> -->
             
 
-            <?= Html::a('<i class="fas fa-check"></i> Short List Candidate',['shortlist','ProfileID'=> urlencode($model->No), 'ComitteID'=>urlencode($model->CommiteeID)],
+            <?= Html::a('<i class="fas fa-check"></i> Short List Candidate',['shortlist','ProfileID'=> urlencode($model->ApplicationID), 'ComitteID'=>urlencode($model->CommiteeID)],
                     ['
                     class' => 'mx-1 btn btn-app bg-success ',
                     'title' => 'Shortlist Candidate.',

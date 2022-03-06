@@ -13,6 +13,15 @@ $this->title = $model->Job_Description . ' Applicants '
             </div>
             <div class="card-body">
 
+                <?= Html::a('<i class="fas fa-check"></i> Submit Interview Assesment',['submit-assesment','ComiteeID'=> $model->No,],[
+                    
+                    'class' => 'mx-1 btn btn-app bg-success ',
+                    'rel' => '',
+                    'rev' =>'',
+                    'title' => 'Reject KRAs and Send them Back to Appraisee.',
+                ]
+                ) ?>
+
                 <?php
 
                     $form = ActiveForm::begin([

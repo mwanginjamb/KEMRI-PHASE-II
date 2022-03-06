@@ -585,7 +585,12 @@ class RecruitmentController extends Controller
     
                     if(property_exists($Applicant,'Profile_No') && property_exists($Applicant,'Applicant_Name') ) {
         
-                        $ViewApplicantProfile = Html::a('View Applicant Details', ['applicant-details', 'ProfileID' => $Applicant->Profile_No , 'ComitteID'=>urlencode($committeeId)], [
+                        $ViewApplicantProfile = Html::a('View Applicant Details', [
+                            'applicant-details', 
+                            'ProfileID' => $Applicant->Profile_No ,
+                            'ComitteID'=>urlencode($committeeId),
+                            'ApplicationID'=>$Applicant->Applicant_No,
+                            ], [
                         ]);
     
                                 // Yii::$app->recruitment->printrr($ComiteeDetails);
@@ -605,7 +610,7 @@ class RecruitmentController extends Controller
         }
     }
 
-    public function actionApplicantDetails($ProfileID, $ComitteID){
+    public function actionApplicantDetails($ProfileID, $ComitteID, $ApplicationID){
 
             $model = new Applicantprofile();
             $service = Yii::$app->params['ServiceName']['JobApplicantProfile'];
@@ -615,6 +620,7 @@ class RecruitmentController extends Controller
             ];
             $result = Yii::$app->navhelper->getData($service, $filter);
             $model->CommiteeID = urldecode($ComitteID);
+            $model->ApplicationID = urldecode($ApplicationID);
    
             $model = $this->loadtomodel($result[0],$model);  
     
@@ -634,7 +640,7 @@ class RecruitmentController extends Controller
             ]);
     }
 
-    public function actionQualification($ProfileID, $ComitteID){
+    public function actionQualification($ProfileID, $ComitteID, $ApplicationID){
 
         $model = new Applicantprofile();
         $service = Yii::$app->params['ServiceName']['JobApplicantProfile'];
@@ -644,6 +650,8 @@ class RecruitmentController extends Controller
         ];
         $result = Yii::$app->navhelper->getData($service, $filter);
         $model->CommiteeID = urldecode($ComitteID);
+        $model->ApplicationID = urldecode($ApplicationID);
+
 
         $model = $this->loadtomodel($result[0],$model);  
 
@@ -707,7 +715,7 @@ class RecruitmentController extends Controller
     }
 
 
-    public function actionProffesionalQualifications($ProfileID, $ComitteID){
+    public function actionProffesionalQualifications($ProfileID, $ComitteID, $ApplicationID){
         
         $model = new Applicantprofile();
         $service = Yii::$app->params['ServiceName']['JobApplicantProfile'];
@@ -718,8 +726,10 @@ class RecruitmentController extends Controller
             'No' => urldecode($ProfileID),
         ];
         $result = Yii::$app->navhelper->getData($service, $filter);
-
+        $model->CommiteeID = urldecode($ComitteID);
+        $model->ApplicationID = urldecode($ApplicationID);
         $model = $this->loadtomodel($result[0],$model);  
+
 
         return $this->render('proffesional-qualifications', [
             'model' => $model,
@@ -728,7 +738,27 @@ class RecruitmentController extends Controller
 
     }
 
-    public function actionWorkExperience($ProfileID, $ComitteID){
+    public function actionSubmitAssesment($ComiteeID){
+        $service = Yii::$app->params['ServiceName']['JobApplication'];
+       $data = [
+           'shortListNo' => urldecode( $ComiteeID),
+           'memberNo' => Yii::$app->user->identity->employee[0]->No ,
+       ];
+
+       $result = Yii::$app->navhelper->CodeUnit($service,$data,'IanSubmitAssesment');
+
+       if(!is_string($result))
+       {
+           Yii::$app->session->setFlash('success', 'Assesment Submitted Successfuly');
+       }else
+       {
+           Yii::$app->session->setFlash('error', $result);
+       }
+
+       return $this->redirect(['my-short-lisitng-committees']);
+   }
+
+    public function actionWorkExperience($ProfileID, $ComitteID, $ApplicationID){
         $model = new Applicantprofile();
         $service = Yii::$app->params['ServiceName']['JobApplicantProfile'];
         $model->CommiteeID = urldecode($ComitteID);
@@ -737,6 +767,8 @@ class RecruitmentController extends Controller
             'No' => urldecode($ProfileID),
         ];
         $result = Yii::$app->navhelper->getData($service, $filter);
+        $model->CommiteeID = urldecode($ComitteID);
+        $model->ApplicationID = urldecode($ApplicationID);
 
         $model = $this->loadtomodel($result[0],$model);  
 

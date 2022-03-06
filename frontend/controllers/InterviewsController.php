@@ -823,24 +823,24 @@ class InterviewsController extends Controller
         return $result;
     }
 
-    public function actionShortlist($ProfileID, $ComitteID){
+    public function actionSubmitAssesment($ComiteeID){
          $service = Yii::$app->params['ServiceName']['JobApplication'];
         $data = [
-            'applicantNo' => urldecode( $ProfileID),
+            'shortListNo' => urldecode( $ComiteeID),
             'memberNo' => Yii::$app->user->identity->employee[0]->No ,
         ];
 
-        $result = Yii::$app->navhelper->CodeUnit($service,$data,'IanShortListEntry');
+        $result = Yii::$app->navhelper->CodeUnit($service,$data,'IanSubmitInterviewAssesment');
 
         if(!is_string($result))
         {
-            Yii::$app->session->setFlash('success', 'Candidate Shorlisted Successfuly');
+            Yii::$app->session->setFlash('success', 'Assesment Submitted Successfuly');
         }else
         {
             Yii::$app->session->setFlash('error', $result);
         }
 
-        return $this->redirect(['applicants', 'ComiteeID'=>urlencode($ComitteID)]);
+        return $this->redirect(['my-interviwing-committees']);
     }
 
     public function actionRejectCandidate($ProfileID, $ComitteID){
