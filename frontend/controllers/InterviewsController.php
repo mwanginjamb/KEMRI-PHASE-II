@@ -676,6 +676,7 @@ class InterviewsController extends Controller
 
         return $this->render('qualification', [
             'model' => $model,
+            'Questions'=>$model->getInterviewQuestions(urldecode($ComitteID), Yii::$app->user->identity->employee[0]->No),
         ]);
 
     }
@@ -750,6 +751,8 @@ class InterviewsController extends Controller
 
         return $this->render('proffesional-qualifications', [
             'model' => $model,
+            'Questions'=>$model->getInterviewQuestions(urldecode($ComitteID), Yii::$app->user->identity->employee[0]->No),
+
         ]);
 
 
@@ -769,6 +772,8 @@ class InterviewsController extends Controller
 
         return $this->render('experience', [
             'model' => $model,
+            'Questions'=>$model->getInterviewQuestions(urldecode($ComitteID), Yii::$app->user->identity->employee[0]->No),
+
         ]);
     }
 

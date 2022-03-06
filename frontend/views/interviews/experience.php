@@ -43,25 +43,24 @@ if(Yii::$app->session->hasFlash('success')){
     print '</div>';
 }
 ?>
-<div class="row">
-    <div class="col-md-12">
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title"> Work Experince.</h3>
-
-
-
-
-
-
-            </div>
-            <div class="card-body">
-                <table class="table table-bordered dt-responsive table-hover" id="leaves">
-                </table>
-            </div>
+     <div class="row">
+        <div class=" row col-md-6"> 
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title"> Work Experince.</h3>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-bordered dt-responsive table-hover" id="leaves">
+                            </table>
+                        </div>
+                    </div>
+                </div>
         </div>
-    </div>
-</div>
+        <div class=" row col-md-6 ml-1"> 
+            <?= $this->render('questions', ['Questions'=>$Questions]) ?>
+       </div>
+     </div>
     <!--My Bs Modal template  --->
 
     <div class="modal fade bs-example-modal-lg bs-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
@@ -124,36 +123,36 @@ $script = <<<JS
        var table = $('#leaves').DataTable();
       table.columns([0]).visible(false);
     
-    /*End Data tables*/
-        $('#leaves').on('click','.update', function(e){
-             e.preventDefault();
-            var url = $(this).attr('href');
-            console.log('clicking...');
-            $('.modal').modal('show')
-                            .find('.modal-body')
-                            .load(url); 
 
+        
+      $('.ScoresTable').on('change', '.Score', function(){ 
+            var currentrow = $(this).closest('tr');
+            var Score = currentrow.find('.Score').val();
+            var Key = currentrow.find('.Key').val(); 
+
+            if(Score){ //Ensure No Blanks
+                    //Submit Score
+                var commurl = absolute+'interviews/score';
+                $.post(commurl,{'Key': Key,'Score':Score,},function(data){
+                    if(data.length){
+                        Swal.fire("Warning", data , "warning");;
+                        return false;
+                    }
+                        //Set Value of LineKey
+                        var j = data.key;
+                        $('.NewLineModal').find('#linekey').val(j);
+                        $('.NewLineModal').find('.amount_usd').val(data.Additional_Reporting_Currency);
+                        $('.NewLineModal').find('.gfbudget').val(data.Available_Amount);
+                        $('.NewLineModal').find('#linenumber').val(data.linenumber);
+                        $('.NewLineModal').find('.description').val(data.Description);
+                        $('.NewLineModal').find('.totalamount').val(data.Amount);
+                        $('.NewLineModal').find('.noOfNights').val(data.No_of_Days);
+                        // alert(lineKey);
+                });
+            }
+            
+                
         });
-        
-        
-       //Add an experience
-    
-     $('.create').on('click',function(e){
-        e.preventDefault();
-        var url = $(this).attr('href');
-        console.log('clicking...');
-        $('.modal').modal('show')
-                        .find('.modal-body')
-                        .load(url); 
-
-     });
-    
-    /*Handle dismissal eveent of modal */
-    $('.modal').on('hidden.bs.modal',function(){
-        var reld = location.reload(true);
-        setTimeout(reld,1000);
-    }); 
-        
         
         
     });//end jquery
