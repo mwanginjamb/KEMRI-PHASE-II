@@ -6,7 +6,7 @@
  * Time: 12:13 PM
  */
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap4\ActiveForm;
 ?>
 
 <div class="row">
@@ -17,12 +17,8 @@ use yii\widgets\ActiveForm;
             </div>
             <div class="card-body">
 
-
-
-                    <?php  $form = ActiveForm::begin();      ?>
+                <?php  $form = ActiveForm::begin(['id' => 'relative']);      ?>
                 <div class="row">
-                   
-
                             <table class="table">
                                 <tbody>
 

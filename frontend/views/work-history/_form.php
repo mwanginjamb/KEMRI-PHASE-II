@@ -6,7 +6,7 @@
  * Time: 12:13 PM
  */
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap4\ActiveForm;
 $absoluteUrl = \yii\helpers\Url::home(true);
 ?>
 
@@ -20,7 +20,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
 
 
 
-                    <?php  $form = ActiveForm::begin();      ?>
+                    <?php  $form = ActiveForm::begin(['id' => 'work-history']);      ?>
                 <div class="row">
                    
 
@@ -61,7 +61,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                 <div class="row">
 
                     <div class="form-group">
-                        <?= Html::submitButton(($model->isNewRecord)?'Save':'Update', ['class' => 'btn btn-success']) ?>
+                        <?php Html::submitButton(($model->isNewRecord)?'Save':'Update', ['class' => 'btn btn-success']) ?>
                     </div>
 
 
@@ -71,7 +71,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
         </div>
     </div>
 </div>
-<input type="hidden" name="url" value="<?= $absoluteUrl ?>">
+<input type="hidden" name="absolute" value="<?= $absoluteUrl ?>">
 <?php
 $script = <<<JS
  //Submit Rejection form and get results in json    
@@ -87,25 +87,39 @@ $script = <<<JS
                 },'json');
         });
 
+        $('#workhistory-key_experience').change((e) => {
+                globalFieldUpdate('workhistory','work-history','Key_Experience', e);
+        });
 
 
+        $('#workhistory-salary_on_leaving').change((e) => {
+                globalFieldUpdate('workhistory','work-history','Salary_on_Leaving', e);
+        });
 
-         $('#professionalchange-body_code').change(function(e){
-         e.preventDefault();
-          const Body_Code = e.target.value;
-          const Change_No = $('#professionalchange-change_no').val();
-          // Check if leave required an attachment or not
-            const Vurl = $('input[name=url]').val()+'professionalchange/commit';
-            $.get(Vurl,{"Body_Code": Body_Code, "Change_No": Change_No }).done(function(msg){
-                console.log(msg);
 
-                if(typeof msg == 'object') {
-                    $('#professionalchange-key').val(msg.Key);
-                }
-                
-            });
-         
-     });
+        $('#workhistory-from_date').blur((e) => {
+                globalFieldUpdate('workhistory','work-history','From_Date', e);
+        });
+
+        $('#workhistory-to_date').blur((e) => {
+                globalFieldUpdate('workhistory','work-history','To_Date', e);
+        });
+
+        $('#workhistory-institution_company').change((e) => {
+                globalFieldUpdate('workhistory','work-history','Institution_Company', e);
+        });
+
+        $('#workhistory-work_done').change((e) => {
+                globalFieldUpdate('workhistory','work-history','Work_Done', e);
+        });
+
+        $('#workhistory-reason_for_leaving').change((e) => {
+                globalFieldUpdate('workhistory','work-history','Reason_For_Leaving', e);
+        });
+
+        $('#workhistory-action').change((e) => {
+                globalFieldUpdate('workhistory','work-history','Action', e);
+        });
 
 
 JS;

@@ -30,7 +30,7 @@ class Qualificationchange extends Model
     public function rules()
     {
         return [
-            [['From_Date','To_Date','Institution_Company'], 'required'],
+            [['Qualification_Code','From_Date','To_Date','Institution_Company'], 'required'],
         ];
     }
 
