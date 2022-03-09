@@ -77,6 +77,11 @@ class ProfessionalchangeController extends Controller
        
         $model->isNewRecord = true;
 
+        if(Yii::$app->request->get('Change_No') && !Yii::$app->request->post()){
+            $result = Yii::$app->navhelper->postData($service, $model);
+            Yii::$app->navhelper->loadmodel($result,$model);
+        }
+
         if(Yii::$app->request->post() && $model->load(Yii::$app->request->post()['Professionalchange'],'')  && $model->validate() ){
 
          Yii::$app->navhelper->loadpost(Yii::$app->request->post()['Professionalchange'], $model); // my fall back in case yii model loader fails
@@ -239,26 +244,13 @@ class ProfessionalchangeController extends Controller
 
 
 
-
-
-
-
-
-
-
-
-
-    public function loadtomodel($obj,$model){
-
-        if(!is_object($obj)){
-            return false;
-        }
-        $modeldata = (get_object_vars($obj)) ;
-        foreach($modeldata as $key => $val){
-            if(is_object($val)) continue;
-            $model->$key = $val;
-        }
-
-        return $model;
+    /** Updates a single field */
+    public function actionSetfield($field){
+        $service = 'EmployeeProffesionalBodies';
+        $value = Yii::$app->request->post('fieldValue');
+        $result = Yii::$app->navhelper->Commit($service,[$field => $value],Yii::$app->request->post('Key'));
+        Yii::$app->response->format = \yii\web\response::FORMAT_JSON;
+        return $result;
+        
     }
 }

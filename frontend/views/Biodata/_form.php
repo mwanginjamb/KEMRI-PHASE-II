@@ -6,7 +6,7 @@
  * Time: 12:13 PM
  */
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap4\ActiveForm;
 ?>
 
 <div class="row">
@@ -19,7 +19,7 @@ use yii\widgets\ActiveForm;
 
 
 
-                    <?php  $form = ActiveForm::begin();      ?>
+                    <?php  $form = ActiveForm::begin(['id' => 'biodata']);      ?>
                 <div class="row">
                    
 
@@ -36,7 +36,7 @@ use yii\widgets\ActiveForm;
                                     <?= $form->field($model, 'Passport_No')->textInput(['maxlength'=> 50,'minlength'=> 7]) ?>
                                                                   
 
-                                    <?= $form->field($model, 'Status')->dropDownList(
+                                    <?php $form->field($model, 'Status')->dropDownList(
                                         ['New' => 'New','Personal_E_mail' => 'Personal_E_mail'],
                                         ['prompt' => 'Select ...']
                                     ) ?>
