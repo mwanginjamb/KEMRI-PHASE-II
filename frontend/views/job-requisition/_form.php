@@ -68,6 +68,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                             <?= $form->field($model, 'Type')->dropDownList([
                                 'New'=>'New',
                                 'Re_Advert'=>'Re_Advert',
+                                'Replacement'=>'Replacement'
                             ],['prompt' => '-- Select Type -- ','required'=> true]) ?>
 
                              <?= $form->field($model, 'Criticality')->dropDownList([

@@ -520,6 +520,7 @@ return [
         'InterviewingCommitteeMembers'=>'InterviewingCommitteeMembers',//56040
         'InterviewingCommitteeCard'=>'InterviewingCommitteeCard',//56039
         'InterviewMemberEntries'=>'InterviewMemberEntries',//56042
+        'RequisitionGrants'=>'RequisitionGrants',//55130
 
 
         /********************Training SERVICES***************************************/

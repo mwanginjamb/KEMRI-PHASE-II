@@ -31,6 +31,9 @@ class HrJobRequisitionCard extends Model{
     public $Location;
     public $Contract_Type;
     public $Rejection_Comments;
+    public $Is_Replacement;
+    public $Replaced_Employee;
+    public $Employee_Name;
     public $isNewRecord;
 
     public function rules(){
@@ -41,15 +44,14 @@ class HrJobRequisitionCard extends Model{
     public function attributeLabels()
     {
         return [
-            'Global_Dimension_1_Code'=> 'Program',
+            'Job_Id'=> 'Job Title',
             'Global_Dimension_2_Code'=> 'Department',
-            'Start_Date'=>'Application Start Date',
+            'Global_Dimension_1_Code'=>'Program',
             'End_Date'=>'Application End Date',
             'No_Posts'=>'Required Posts'
         ];
     }
 
-    /*Get Dues*/
     public function Questions(){
         $service = Yii::$app->params['ServiceName']['RequisitionQuestions'];
         $filter = [
@@ -60,6 +62,18 @@ class HrJobRequisitionCard extends Model{
         return $RequisitionQuestions;
 
     }
+
+    public function Grants(){
+        $service = Yii::$app->params['ServiceName']['RequisitionGrants'];
+        $filter = [
+            'Requisition_No' => $this->Requisition_No,
+        ];
+
+        $RequisitionGrants = Yii::$app->navhelper->getData($service, $filter);
+        return $RequisitionGrants;
+
+    }
+
 
 
 

@@ -393,7 +393,34 @@ class JobRequisitionController extends Controller
             'Programs'=>$this->getPrograms(),
             'Departments'=>$this->getDepartments(),
             'Locations'=>$this->getLocations(),
+            'Employees'=>$this->getEmployees(),
         ]);
+    }
+
+    public function getEmployees(){
+
+        //Yii::$app->recruitment->printrr(Yii::$app->user->identity->Employee[0]->Global_Dimension_3_Code);
+        $service = Yii::$app->params['ServiceName']['Employees'];
+        $filter = [
+            // 'Global_Dimension_3_Code' => Yii::$app->user->identity->Employee[0]->Global_Dimension_3_Code
+        ];
+        $employees = \Yii::$app->navhelper->getData($service, $filter);
+        $data = [];
+        $i = 0;
+        if(is_array($employees)){
+
+            foreach($employees as  $emp){
+                $i++;
+                if(!empty($emp->Full_Name) && !empty($emp->No)){
+                    $data[$i] = [
+                        'No' => $emp->No,
+                        'Full_Name' => $emp->Full_Name
+                    ];
+                }
+
+            }
+        }
+        return ArrayHelper::map($data,'No','Full_Name');
     }
 
     
@@ -908,11 +935,11 @@ class JobRequisitionController extends Controller
         $data = [
             'applicationNo' => $No,
             'sendMail' => 1,
-            'approvalUrl' => '',
+            'approvalUrl' => Yii::$app->urlManager->createAbsoluteUrl(['job-requisition/viewsubmitted', 'No' =>$No ])
         ];
 
 
-        $result = Yii::$app->navhelper->PortalWorkFlows($service,$data,'IanSendLeaveForApproval');
+        $result = Yii::$app->navhelper->PortalWorkFlows($service,$data,'IanSendEmployeeRequisitionForApproval');
 
         if(!is_string($result)){
             Yii::$app->session->setFlash('success', 'Request Sent to Supervisor for Approval Successfully.', true);
@@ -921,8 +948,8 @@ class JobRequisitionController extends Controller
         }else{
 
             Yii::$app->session->setFlash('error', 'Error Sending Request for Approval  : '. $result);
-            // return $this->redirect(['view','No' => $No]);
-             return $this->redirect(['index']);
+            return $this->redirect(['view','No' => $No]);
+            //  return $this->redirect(['index']);
 
         }
     }

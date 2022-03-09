@@ -24,7 +24,7 @@ $Attachmentmodel = new \frontend\models\Leaveattachment()
 <div class="row">
     <div class="col-md-4">
 
-        <?= ($model->Status == 'New')?Html::a('<i class="fas fa-paper-plane"></i> Send Approval Req',['send-for-approval'],['class' => 'btn btn-app submitforapproval',
+        <?= ($model->Status == 'New')?Html::a('<i class="fas fa-paper-plane"></i> Send Approval Req',['send-for-approval', 'No'=>$model->Requisition_No],['class' => 'btn btn-app submitforapproval',
             'data' => [
                 'confirm' => 'Are you sure you want to send this document for approval?',
                 'params'=>[
@@ -106,14 +106,22 @@ $Attachmentmodel = new \frontend\models\Leaveattachment()
 
                                 <?= $form->field($model, 'Job_Id')->dropDownList($ApprovedHRJobs,['prompt' => '-- Select Job --']) ?>
 
-                                <?= $form->field($model, 'Start_Date')->textInput(['type' => 'date','required' => true]) ?>
-                                <?= $form->field($model, 'Start_Date')->textInput(['type' => 'date','required' => true]) ?>
-                                <?= $form->field($model, 'Probation_Period')->textInput(['required' => true]) ?>
+                                <!-- <?= $form->field($model, 'Start_Date')->textInput(['type' => 'date','required' => true]) ?> -->
+                                <!-- <?= $form->field($model, 'Probation_Period')->textInput(['required' => true]) ?> -->
+                                <?= $form->field($model, 'Criticality')->dropDownList([
+                                    'High'=>'High',
+                                    'Low'=>'Low',
+                                ],['prompt' => '-- Select Criticality -- ','required'=> true]) ?>
+
                                 <?= $form->field($model, 'Global_Dimension_1_Code')->dropDownList($Programs,['prompt' => '-- Select Program --']) ?>
                                 <?= $form->field($model, 'Type')->dropDownList([
-                                    'New'=>'New',
-                                    'Re_Advert'=>'Re_Advert',
+                                    'New'=>'New Position',
+                                    'Re_Advert'=>'Re Advertisement',
+                                    'Replacement'=>'Replacement'
                                 ],['prompt' => '-- Select Type -- ','required'=> true]) ?>
+                               
+                               <?= $form->field($model, 'Replaced_Employee')->dropDownList($Employees,['prompt' => '-- Select Employee Being Replaced --']) ?>
+
 
 
 
@@ -122,7 +130,7 @@ $Attachmentmodel = new \frontend\models\Leaveattachment()
                             <div class="col-md-4">
                             
                                 <?= $form->field($model, 'Occupied_Position')->textInput(['readonly' =>  true]) ?>
-                                <?= $form->field($model, 'Requisition_Period')->textInput(['required' => true]) ?>
+                                <!-- <?= $form->field($model, 'Requisition_Period')->textInput(['required' => true]) ?> -->
 
                                 <?= $form->field($model, 'Requisition_Type')->dropDownList([
                                     'Internal'=>'Internal',
@@ -131,10 +139,7 @@ $Attachmentmodel = new \frontend\models\Leaveattachment()
                                 ],['prompt' => '-- Select Requisition Type -- ','required'=> true]) ?>
                                 <?= $form->field($model, 'Contract_Period')->textInput(['required' => true]) ?>
                                 <?= $form->field($model, 'Global_Dimension_2_Code')->dropDownList($Departments,['prompt' => '-- Select Department --']) ?>
-                                <?= $form->field($model, 'Criticality')->dropDownList([
-                                    'High'=>'High',
-                                    'Low'=>'Low',
-                                ],['prompt' => '-- Select Criticality -- ','required'=> true]) ?>
+                               
 
                                 
                             </div>
@@ -143,7 +148,7 @@ $Attachmentmodel = new \frontend\models\Leaveattachment()
 
                                 <?= $form->field($model, 'No_Posts')->textInput() ?>
 
-                                <?= $form->field($model, 'End_Date')->textInput(['readonly' => true]) ?>
+                                <!-- <?= $form->field($model, 'End_Date')->textInput(['readonly' => true]) ?> -->
 
 
                                 <?= $form->field($model, 'Employment_Type')->dropDownList([
@@ -154,9 +159,13 @@ $Attachmentmodel = new \frontend\models\Leaveattachment()
                                     'Board'=>'Board',
                                 ],['prompt' => '-- Select Employment Type -- ','required'=> true]) ?>
 
+
+
+
+
                                 <?= $form->field($model, 'Contract_Type')->dropDownList($ContractTypes,['prompt' => '-- Select Job --']) ?>
                                 <?= $form->field($model, 'Location')->dropDownList($Locations,['prompt' => '-- Select Department --']) ?>                                
-                                <?= $form->field($model, 'Reasons_For_Requisition')->textarea(['rows'=> 2,'maxlength' => 250]) ?>
+                                <!-- <?= $form->field($model, 'Reasons_For_Requisition')->textarea(['rows'=> 2,'maxlength' => 250]) ?> -->
 
                               
 
@@ -199,46 +208,84 @@ $Attachmentmodel = new \frontend\models\Leaveattachment()
             <div class="card">
                 <div class="card-header">
                     <div class="card-title">
-                        <?= ($model->Status == 'New')?Html::a('<i class="fa fa-plus-square"></i> Add Interview Question',['requisition-question/create','No'=>$model->Requisition_No],['class' => 'add-line btn btn-outline-info',
+                        <?= ($model->Status == 'New')?Html::a('<i class="fa fa-plus-square"></i> Add Grant',['requisitiongrants/create','No'=>$model->Requisition_No],['class' => 'add-line btn btn-outline-info',
                         ]):'' ?>
                     </div>
                 </div>
 
                 <div class="card-body">
+                     <?php if(is_array($model->Grants())){ //echo '<pre>'; print_r($model->Grants() ); exit; //show Lines ?>
 
-                    <?php if(is_array($model->Questions())){ //show Lines ?>
                         <div class="table-responsive">
                             <table class="table table-bordered">
                                 <thead>
                                 <tr>
+                                    <td><b>Donor Code</b></td>
+                                    <td><b>Donor Name</b></td>
+                                    <td><b>Percentage</b></td>
+                                    <td><b>Grant Start Date</b></td>
+                                    <td><b>Grant End_Date</b></td>
+                                    <td><b>Grant Activity</b></td>
+                                    <td><b>Grant Type</b></td>
 
-                                    <td><b>#</b></td>
-                                    <td><b>Question</b></td>
-                                    <td><b>Action</b></td>
+                                    <?php if($model->Status == 'New'): ?>
+                                        <td><b>Actions</b></td> 
+                                    <?php endif; ?>
 
 
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <?php
-                                // echo '<pre>';
-                                // print_r($model->Questions());
-                                // exit;
-                                if(is_array($model->Questions())):
-                                    foreach($model->Questions()  as $key => $obj):
-                                        if(empty($obj->Question)){
-                                            continue;
-                                        }
-                                        $deleteLink = ($model->Status == 'New')?Html::a('<i class="fa fa-trash"></i>',['requisition-question/delete','Key'=> $obj->Key ],['class'=>'delete btn btn-outline-danger btn-xs','title' => 'Delete Question.']):'';
-                                        $updateLink = ($model->Status == 'New')?Html::a('<i class="fa fa-edit"></i>',['requisition-question/update','No'=> $obj->Line_No],['class' => 'add-line btn btn-info btn-xs mx-2','title' => 'update Question.']):'';
-                                            ?>
-                                            <tr>
-                                                <td id="Key"><?= $key ?></td>
-                                                <td id="Question"><?= !empty(@$obj->Question)?$obj->Question:'Not Set' ?></td>
-                                                <td class="text-center"><?= $updateLink.$deleteLink ?></td>
-                                            </tr>
-                                        <?php endforeach; ?>
-                                <?php endif; ?>
+                                // print '<pre>'; print_r($model->lines); exit;
+
+                                foreach($model->Grants() as $Grant):
+
+                                    if(!empty($Grant->Donor_Code)) {
+                                        $updateLink = Html::a('<i class="fa fa-edit"></i>', ['requisitiongrants/update', 'LineNo' => $Grant->LineNo], ['class' => 'update-objective btn btn-outline-info btn-xs']);
+                                       $deleteLink = Html::a('<i class="fa fa-trash"></i>', ['requisitiongrants/delete', 'Key' => $Grant->Key], ['class' => 'delete btn btn-outline-danger btn-xs']);
+
+                                        $donorDetails = Html::a('<i class="fa fa-plus"></i>', ['donorline/create',
+
+                                                    // 'Contract_Code' => $obj->Contract_Code,
+                                                    // 'Contract_Line_No' => $obj->Line_No,
+                                                    // 'Employee_No' => $model->Employee_No,
+                                                    // 'Change_No' => $model->No,
+                                                    // 'Grant_Start_Date' => $obj->Contract_Start_Date,
+                                                    // 'Grant_End_Date' => $obj->Contract_End_Date
+                                        ],
+
+                                        [
+                                            'class' => 'update-objective btn btn-success btn-xs', 'title' => 'Add Donor Details',
+                                            'title' => 'Add Donor Line.',
+                                            
+                                            
+                                        ],
+                                         
+                                    );
+
+
+
+
+                                        ?>
+                                        <tr class="parent">
+
+                                            <td><?= !empty($Grant->Donor_Code) ? $Grant->Donor_Code : 'Not Set' ?></td>
+                                            <td><?= !empty($Grant->Donor_Name) ? $Grant->Donor_Name : 'Not Set' ?></td>
+                                            <td><?= !empty($Grant->Percentage) ? $Grant->Percentage : 'Not Set' ?></td>
+                                            <td><?= !empty($Grant->Grant_Start_Date) ? $Grant->Grant_Start_Date : 'Not Set' ?></td>
+                                            <td><?= !empty($Grant->Grant_End_Date) ? $Grant->Grant_End_Date : 'Not Set' ?></td>
+                                            <td><?= !empty($Grant->Grant_Activity) ? $Grant->Grant_Activity : 'Not Set' ?></td>
+                                            <td><?= !empty($Grant->Grant_Type) ? $Grant->Grant_Type : 'Not Set' ?></td>
+                                            <?php if($model->Status == 'New'): ?>
+                                                <td><?= $updateLink. '| '. $deleteLink ?></td>
+                                            <?php endif; ?>
+
+                                        </tr>
+                                   
+                                        <?php
+                                    }
+                                endforeach; ?>
                                 </tbody>
                             </table>
                         </div>
@@ -262,7 +309,7 @@ $Attachmentmodel = new \frontend\models\Leaveattachment()
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
                     </button>
-                    <h4 class="modal-title" id="myModalLabel" style="position: absolute">Interview Question</h4>
+                    <h4 class="modal-title" id="myModalLabel" style="position: absolute">Donor Details</h4>
                 </div>
                 <div class="modal-body">
 
@@ -282,8 +329,20 @@ $Attachmentmodel = new \frontend\models\Leaveattachment()
 $script = <<<JS
 
     $(function(){
-      
-        
+        if($('#hrjobrequisitioncard-type').val() == 'Replacement'){
+                $('.field-hrjobrequisitioncard-replaced_employee').show();
+        }else{
+                $('.field-hrjobrequisitioncard-replaced_employee').hide();
+        }
+
+        $('#hrjobrequisitioncard-type').change((e) => {
+            if($('#hrjobrequisitioncard-type').val() == 'Replacement'){
+                $('.field-hrjobrequisitioncard-replaced_employee').show();
+                return false;
+            }
+            $('.field-hrjobrequisitioncard-replaced_employee').hide();
+        }); 
+
      /*Deleting Records*/
      
      $('.delete, .delete-objective').on('click',function(e){
@@ -377,25 +436,7 @@ $script = <<<JS
         setTimeout(reld,1000);
     }); 
         
-    /*Parent-Children accordion*/ 
-    
-    $('tr.parent').find('span').text('+');
-    $('tr.parent').find('span').css({"color":"red", "font-weight":"bolder"});    
-    $('tr.parent').nextUntil('tr.parent').slideUp(1, function(){});    
-    $('tr.parent').click(function(){
-            $(this).find('span').text(function(_, value){return value=='-'?'+':'-'}); //to disregard an argument -event- on a function use an underscore in the parameter               
-            $(this).nextUntil('tr.parent').slideToggle(100, function(){});
-     });
-    
-    /*Divs parenting*/
-    
-     $('p.parent').find('span').text('+');
-    $('p.parent').find('span').css({"color":"red", "font-weight":"bolder"});    
-    $('p.parent').nextUntil('p.parent').slideUp(1, function(){});    
-    $('p.parent').click(function(){
-            $(this).find('span').text(function(_, value){return value=='-'?'+':'-'}); //to disregard an argument -event- on a function use an underscore in the parameter               
-            $(this).nextUntil('p.parent').slideToggle(100, function(){});
-     });
+
     
         //Add Career Development Plan
         
@@ -570,7 +611,7 @@ $style = <<<CSS
     
     /* Table Media Queries */
     
-     @media (max-width: 500px) {
+     /* @media (max-width: 500px) {
           table td:nth-child(2),td:nth-child(3),td:nth-child(6),td:nth-child(7),td:nth-child(8),td:nth-child(9),td:nth-child(10), td:nth-child(11) {
                 display: none;
         }
@@ -593,7 +634,7 @@ $style = <<<CSS
           table td:nth-child(2),td:nth-child(7),td:nth-child(8),td:nth-child(9),td:nth-child(10), td:nth-child(11) {
                 display: none;
         }
-    }
+    } */
 CSS;
 
 $this->registerCss($style);

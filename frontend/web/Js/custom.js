@@ -167,6 +167,7 @@ function globalFieldUpdate(entity,controller = false, fieldName, ev, autoPopulat
   
   const fieldValue = ev.target.value;
   const Key = $(keyField).val();
+  console.log(`My Model is ${model}`);
 
   console.log(`My Key is ${Key}`);
   console.log(autoPopulateFields);
