@@ -6,7 +6,7 @@
  * Time: 12:13 PM
  */
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap4\ActiveForm;
 $absoluteUrl = \yii\helpers\Url::home(true);
 ?>
 

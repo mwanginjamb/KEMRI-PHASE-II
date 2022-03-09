@@ -6,7 +6,7 @@
  * Time: 12:13 PM
  */
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap4\ActiveForm;
 $absoluteUrl = \yii\helpers\Url::home(true);
 ?>
 
@@ -20,7 +20,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
 
 
 
-                    <?php  $form = ActiveForm::begin();      ?>
+                <?php  $form = ActiveForm::begin(['id' => 'qualificationchange']);      ?>
                 <div class="row">
                    
 
@@ -43,7 +43,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                                    
 
                                     <?= $form->field($model, 'Action')->dropDownList(
-                                        ['Retain' => 'Retain','Remove' => 'Remove','New_Addition' => 'New_Addition'],
+                                        ['Existing' => 'Existing','New_Addition' => 'New_Addition'],
                                         ['prompt' => 'Select ...']
                                     ) ?>
                             </div>
@@ -61,7 +61,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                 <div class="row">
 
                     <div class="form-group">
-                        <?= Html::submitButton(($model->isNewRecord)?'Save':'Update', ['class' => 'btn btn-success']) ?>
+                        <?php Html::submitButton(($model->isNewRecord)?'Save':'Update', ['class' => 'btn btn-success']) ?>
                     </div>
 
 
@@ -71,42 +71,29 @@ $absoluteUrl = \yii\helpers\Url::home(true);
         </div>
     </div>
 </div>
-<input type="hidden" name="url" value="<?= $absoluteUrl ?>">
+<input type="hidden" name="absolute" value="<?= $absoluteUrl ?>">
 <?php
 $script = <<<JS
- //Submit Rejection form and get results in json    
-        $('form').on('submit', function(e){
-            e.preventDefault()
-            const data = $(this).serialize();
-            const url = $(this).attr('action');
-            $.post(url,data).done(function(msg){
-                    $('.modal').modal('show')
-                    .find('.modal-body')
-                    .html(msg.note);
-        
-                },'json');
-        });
+ 
+ $('#qualificationchange-qualification_code').change((e) => {
+        globalFieldUpdate('qualificationchange',false,'Qualification_Code', e);
+});
 
+$('#qualificationchange-from_date').blur((e) => {
+        globalFieldUpdate('qualificationchange',false,'From_Date', e);
+});
 
+$('#qualificationchange-to_date').blur((e) => {
+        globalFieldUpdate('qualificationchange',false,'To_Date', e);
+});
 
+$('#qualificationchange-institution_company').change((e) => {
+        globalFieldUpdate('qualificationchange',false,'Institution_Company', e);
+});
 
-         $('#qualificationchange-qualification_code').change(function(e){
-         e.preventDefault();
-          const Qualification_Code = e.target.value;
-          const Change_No = $('#qualificationchange-change_no').val();
-          // Check if leave required an attachment or not
-            const Vurl = $('input[name=url]').val()+'qualificationchange/commit';
-            $.get(Vurl,{"Qualification_Code": Qualification_Code, "Change_No": Change_No }).done(function(msg){
-                console.log(msg);
-
-                if(typeof msg == 'object') {
-                    $('#qualificationchange-key').val(msg.Key);
-                }
-                
-            });
-         
-     });
-
+$('#qualificationchange-action').change((e) => {
+        globalFieldUpdate('qualificationchange',false,'Action', e);
+});
 
 JS;
 

@@ -9,6 +9,9 @@
 
 //var_dump(Yii::$app->recruitment->hasProfile(Yii::$app->session->get('ProfileID')));
 use yii\helpers\Html;
+$profileAction = (Yii::$app->recruitment->EmployeeUserHasProfile())?'update?No='.Yii::$app->recruitment->getEmployeeApplicantProfile():'view-profile';
+
+//var_dump(Yii::$app->recruitment->hasProfile(Yii::$app->session->get('ProfileID')));
 ?>
 
 <style>

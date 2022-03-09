@@ -32,7 +32,7 @@ class Workhistory extends Model
     public function rules()
     {
         return [
-            [['From_Date','To_Date','Institution_Company','Work_Done','Key_Experience'], 'required'],
+            [['From_Date','To_Date','Institution_Company','Work_Done'], 'required'],
         ];
     }
 
