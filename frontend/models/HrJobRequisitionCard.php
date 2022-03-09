@@ -35,6 +35,7 @@ class HrJobRequisitionCard extends Model{
     public $Replaced_Employee;
     public $Employee_Name;
     public $isNewRecord;
+    public $Employee_No;
 
     public function rules(){
         return [

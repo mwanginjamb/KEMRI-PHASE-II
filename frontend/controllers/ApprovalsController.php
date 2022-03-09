@@ -324,6 +324,25 @@ class ApprovalsController extends Controller
 
 
                     }
+
+                    
+
+                    elseif($app->Document_Type == 'Job_Requisition') // Contract Renewal
+                    {
+                        $Approvelink = ($app->Status == 'Open')? Html::a('Approve Request',['approve-request','app'=> $app->Document_No, 'empNo' => $app->Approver_No, 'docType' => $app->Document_Type  ],['class'=>'btn btn-success btn-xs','data' => [
+                            'confirm' => 'Are you sure you want to Approve this request?',
+                            'method' => 'post',
+                        ]]):'';
+
+                        $Rejectlink = ($app->Status == 'Open')? Html::a('Reject Request',['reject-request', 'docType' => $app->Document_Type ],['class'=>'btn btn-warning reject btn-xs',
+                            'rel' => $app->Document_No,
+                            'rev' => $app->Record_ID_to_Approve,
+                            'name' => $app->Table_ID
+                        ]): "";
+
+
+                    }
+
                     elseif($app->Document_Type == 'Change_Request') // Contract Renewal
                     {
                         $Approvelink = ($app->Status == 'Open')? Html::a('Approve Request',['approve-request','app'=> $app->Document_No, 'empNo' => $app->Approver_No, 'docType' => $app->Document_Type  ],['class'=>'btn btn-success btn-xs','data' => [
@@ -380,6 +399,12 @@ class ApprovalsController extends Controller
                     {
                         $detailsLink = Html::a('Request Details',['imprest/view','No'=> $app->Document_No, 'Approval' => true ],['class'=>'btn btn-outline-info btn-xs','target' => '_blank']);
                     }
+
+                    elseif ($app->Document_Type == 'Job_Requisition')
+                    {
+                        $detailsLink = Html::a('Request Details',['job-requisition/viewsubmitted','No'=> $app->Document_No, 'Approval' => true ],['class'=>'btn btn-outline-info btn-xs','target' => '_blank']);
+                    }
+
                     elseif($app->Document_Type == 'Leave_Reimbursement')
                     {
                         $detailsLink = Html::a('View Details',['leave-reimburse/view','No'=> $app->Document_No, 'Approval' => true ],['class'=>'btn btn-outline-info btn-xs','target' => '_blank']);
@@ -470,6 +495,10 @@ class ApprovalsController extends Controller
         {
              $result = Yii::$app->navhelper->PortalWorkFlows($service,$data,'IanApproveLeave');
         }
+        elseif($docType == 'Job_Requisition')
+        {
+           $result = Yii::$app->navhelper->PortalWorkFlows($service,$data,'IanApproveEmployeeRequisition');
+        }
         elseif($docType == 'Contract_Renewal')
         {
              $result = Yii::$app->navhelper->PortalWorkFlows($service,['applicationNo' => $app],'IanApproveChangeRequest');
@@ -543,6 +572,11 @@ class ApprovalsController extends Controller
              {
                 $result = Yii::$app->navhelper->PortalWorkFlows($service,$data,'IanRejectLeave');
              }
+             elseif($docType == 'Job_Requisition')
+             {
+                $result = Yii::$app->navhelper->PortalWorkFlows($service,$data,'IanRejectEmployeeRequisition');
+             }
+             
              elseif($docType == 'Contract_Renewal')
              {
                 $result = Yii::$app->navhelper->PortalWorkFlows($service,$data,'IanRejectChangeRequest');

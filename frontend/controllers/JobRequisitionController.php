@@ -114,7 +114,7 @@ class JobRequisitionController extends Controller
 
             $now = date('Y-m-d');
             $model->Start_Date = date('Y-m-d', strtotime($now));
-            // $model->Employee_No = Yii::$app->user->identity->{'Employee No_'};
+            $model->Employee_No = Yii::$app->user->identity->{'Employee No_'};
             $request = Yii::$app->navhelper->postData($service,$model);
             //Yii::$app->recruitment->printrr($request);
             if(is_object($request) )
@@ -432,7 +432,7 @@ class JobRequisitionController extends Controller
     public function actionList(){
         $service = Yii::$app->params['ServiceName']['HrJobRequisition'];
         $filter = [
-            // 'Employee_No' => Yii::$app->user->identity->Employee[0]->No,
+            'Status' => 'New',
         ];
 
         $results = \Yii::$app->navhelper->getData($service,$filter);
@@ -952,6 +952,47 @@ class JobRequisitionController extends Controller
             //  return $this->redirect(['index']);
 
         }
+    }
+
+
+    public function actionViewsubmitted($No, $Approval = true){
+        $model = new HrJobRequisitionCard();
+        $model->isNewRecord = false;
+        $service = Yii::$app->params['ServiceName']['HrJobRequisitionCard'];
+
+      
+        $filter = [
+            'Requisition_No' => urldecode($No)
+        ];
+
+        $result = Yii::$app->navhelper->getData($service, $filter);
+
+         // check Authority To view the document
+        if(!$Approval)
+        {
+            Yii::$app->navhelper->checkAuthority($result[0]);
+        }
+        
+
+        //load nav result to model
+        $model = $this->loadtomodel($result[0], $model);
+
+        //Yii::$app->recruitment->printrr($model);
+
+        return $this->render('view-submitted',[
+            'model' => $model,
+            'ApprovedHRJobs' => $this->getApprovedHRJobs(),
+            'ContractTypes'=>$this->getContractTypes(),
+            'Programs'=>$this->getPrograms(),
+            'Departments'=>$this->getDepartments(),
+            'Locations'=>$this->getLocations(),
+            'Employees'=>$this->getEmployees(),
+            'ApprovalDetails'=>$this->getApprovlDetails(urldecode($No)),
+        ]);
+    }
+
+    public function  getApprovlDetails($No){
+
     }
 
     /*Cancel Approval Request */
