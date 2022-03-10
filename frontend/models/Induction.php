@@ -48,6 +48,9 @@ public $isNewRecord;
         return [
             'Global_Dimension_1_Code' => 'Program',
             'Global_Dimension_2_Code' => 'Department',
+            'CEO_Comments' => 'C.E.O Commets',
+            'HOO_Comments' => 'H.O.D Comments',
+            'HOF_Comments' => 'H.O.F Comments'
         ];
     }
 
