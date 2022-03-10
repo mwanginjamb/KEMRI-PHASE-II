@@ -117,6 +117,7 @@ use yii\widgets\ActiveForm;
 <?php
 $script = <<<JS
 
+console.log('clicked...')
 
     $('#applicantprofile-disabled').change((e) => {
 
@@ -128,9 +129,48 @@ $script = <<<JS
       $('#applicantprofile-describe_disability').hide();
       $('.DisabilityLabel').hide();
 
-      
+     
 
+    });
+    
+    $('.rejectey').on('click', function(e){
+            console.log('clicked...')
+            e.preventDefault();
+            const form = $('#eyrejform').html(); 
+            const ProfileID = $(this).attr('rel');
+            const ComitteID = $(this).attr('rev');
+                            
+            //Display the rejection comment form
+            $('.modal').modal('show')
+                            .find('.modal-body')
+                            .append(form);
+            
+            //populate relevant input field with code unit required params
+                    
+            $('input[name=ProfileID]').val(ProfileID);
+            $('input[name=ComitteID]').val(ComitteID);
+            
+            //Submit Rejection form and get results in json    
+            $('form#ey-reject-form').on('submit', function(e){
+                e.preventDefault()
+                const data = $(this).serialize();
+                const url = $(this).attr('action');
+                $.post(url,data).done(function(msg){
+                        $('.modal').modal('show')
+                        .find('.modal-body')
+                        .html(msg.note);
+            
+                    },'json');
+            });
+                       
+    });
+
+      /*Handle modal dismissal event  */
+    $('.modal').on('hidden.bs.modal',function(){
+        var reld = location.reload(true);
+        setTimeout(reld,1000);
     }); 
+        
     
   
     
