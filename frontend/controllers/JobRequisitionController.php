@@ -210,7 +210,7 @@ class JobRequisitionController extends Controller
         $service = Yii::$app->params['ServiceName']['DimensionValueList'];
 
         $filter = [
-            'Global_Dimension_No' => 6
+            'Global_Dimension_No' => 5
         ];
         $result = \Yii::$app->navhelper->getData($service, $filter);
         return ArrayHelper::map($result,'Code','Name');

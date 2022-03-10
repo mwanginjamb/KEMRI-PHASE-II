@@ -199,7 +199,7 @@ $profileAction = (Yii::$app->recruitment->EmployeeUserHasProfile())?'update?No='
 
             ]) ?>
 
-            <?= Html::a('<i class="fas fa-times"></i> Reject Candidate',['reject-candidate','ProfileID'=> urlencode( $model->No),'ComitteID'=>urlencode($model->CommiteeID)],
+            <?= Html::a('<i class="fas fa-times"></i> Reject Candidate',['reject-candidate','ProfileID'=> urlencode( $model->ApplicationID),'ComitteID'=>urlencode($model->CommiteeID)],
                     ['
                     class' => 'mx-1 btn btn-app bg-danger ',
                     'rel' => '',

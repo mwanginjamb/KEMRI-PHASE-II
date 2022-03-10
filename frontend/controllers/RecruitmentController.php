@@ -410,16 +410,14 @@ class RecruitmentController extends Controller
 
         ///Apply for Job 
         $JobApplicationResult = $this->ApplyForJob($data);
-        // echo '<pre>';
-        // print_r($JobApplicationResult);
-        // exit;
+        
 
-        if(is_array($JobApplicationResult)){
+        if(is_array($JobApplicationResult) && isset($JobApplicationResult['return_value'])){ //Success
 
             return $msg[] = [
                 'error'=>0,
                 'success'=>1,
-                'success_message'=>'Succesfully Applied for This Job. Your Application No is'. isset($JobApplicationResult[0]->No)?$JobApplicationResult[0]->No:$JobApplicationResult
+                'success_message'=>'Succesfully Applied for This Job. Your Application No is'. $JobApplicationResult['return_value']
             ];
 
         }else{
@@ -1321,23 +1319,8 @@ class RecruitmentController extends Controller
 
         $service = Yii::$app->params['ServiceName']['JobApplication'];
 
-        $Applicant_No = Yii::$app->navhelper->Jobs($service,$data,'IanGenerateEmployeeRequirementEntries');
-        // echo '<pre>';
-        // print_r($Applicant_No);
-        // exit;
-        $JobApplicationData = [];
-        if(is_array($Applicant_No)){
+        return Yii::$app->navhelper->Jobs($service,$data,'IanGenerateEmployeeRequirementEntries');
 
-            Yii::$app->session->set('Job_Applicant_No',$Applicant_No['return_value']);
-            // Get Entries
-            $JobApplicationData = Yii::$app->navhelper->getData($HRJobApplicationsCardService,['No' => $Applicant_No['return_value'] ]);
-
-            if(is_object($JobApplicationData)){
-                $JobApplicationData  =   $Applicant_No['return_value'] ;     
-           }
-        }
-
-        return $JobApplicationData;
 
     }
 
