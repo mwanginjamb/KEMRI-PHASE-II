@@ -39,7 +39,7 @@ if(Yii::$app->session->hasFlash('success')){
           <h3 class="card-title">Job Details</h3>
           <input id="JobId" name="JobId" type="hidden" value="<?=$model->Job_Id ?>">
           <input id="JobRequisitionNo" name="Requisition_No" type="hidden" value="<?=$model->Requisition_No ?>">
-
+          <input id="EmployeeNo" name="EmployeeNo" type="hidden" value="<?=Yii::$app->user->identity->employee[0]->No ?>">
           <input id="ProfileNo" name="prodId" type="hidden" value="<?= Yii::$app->recruitment->getEmployeeApplicantProfile()?>">
         
         </div>
@@ -216,7 +216,7 @@ $script = <<<JS
 
                     $('.ApplyButton').on('click', function(){
                             $.get('can-apply',
-                              {'ProfileId': $('#ProfileNo').val(),
+                              {'ProfileId': $('#EmployeeNo').val(),
                               'JobId': $('#JobRequisitionNo').val(),
                               'JobRequisitionNo':$('#JobRequisitionNo').val()
                               }, function(response){

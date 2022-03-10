@@ -386,12 +386,12 @@ class RecruitmentController extends Controller
 
         $msg = [];
 
-        if(Yii::$app->recruitment->EmployeeUserHasProfile() === false){ //Employee has no Profile
-            return $msg[] = [
-                'error'=>1,
-                'eror_message'=>'Kindly Fill in Your Recruitment Profile and Submit the Profile Before Applying for the Job',
-            ];
-        }
+        // if(Yii::$app->recruitment->EmployeeUserHasProfile() === false){ //Employee has no Profile
+        //     return $msg[] = [
+        //         'error'=>1,
+        //         'eror_message'=>'Kindly Fill in Your Recruitment Profile and Submit the Profile Before Applying for the Job',
+        //     ];
+        // }
 
         // if( Yii::$app->recruitment->HasApplicantAcceptedTermsAndConditions()){
         //     return $msg[] = [
@@ -400,13 +400,13 @@ class RecruitmentController extends Controller
         //     ];
         // }
 
-        $HasAppliedForTheJob =  Yii::$app->recruitment->HasApplicantAppliedForTheJob(Yii::$app->recruitment->getEmployeeApplicantProfile(), $JobId);
-        if($HasAppliedForTheJob === true){
-            return $msg[] = [
-                'error'=>1,
-                'eror_message'=>'You Have Already Applied For This Job',
-            ];
-        }
+        // $HasAppliedForTheJob =  Yii::$app->recruitment->HasApplicantAppliedForTheJob(Yii::$app->recruitment->getEmployeeApplicantProfile(), $JobId);
+        // if($HasAppliedForTheJob === true){
+        //     return $msg[] = [
+        //         'error'=>1,
+        //         'eror_message'=>'You Have Already Applied For This Job',
+        //     ];
+        // }
 
         ///Apply for Job 
         $JobApplicationResult = $this->ApplyForJob($data);
@@ -624,7 +624,7 @@ class RecruitmentController extends Controller
    
             $model = $this->loadtomodel($result[0],$model);  
     
-            //Yii::$app->recruitment->printrr(Yii::$app->request->post()['Applicantprofile']['imageFile']);  
+            // Yii::$app->recruitment->printrr($result);  
     
           
     
@@ -1322,7 +1322,9 @@ class RecruitmentController extends Controller
         $service = Yii::$app->params['ServiceName']['JobApplication'];
 
         $Applicant_No = Yii::$app->navhelper->Jobs($service,$data,'IanGenerateEmployeeRequirementEntries');
-
+        // echo '<pre>';
+        // print_r($Applicant_No);
+        // exit;
         $JobApplicationData = [];
         if(is_array($Applicant_No)){
 
