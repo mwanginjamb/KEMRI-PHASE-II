@@ -400,13 +400,13 @@ class RecruitmentController extends Controller
         //     ];
         // }
 
-        // $HasAppliedForTheJob =  Yii::$app->recruitment->HasApplicantAppliedForTheJob(Yii::$app->recruitment->getEmployeeApplicantProfile(), $JobId);
-        // if($HasAppliedForTheJob === true){
-        //     return $msg[] = [
-        //         'error'=>1,
-        //         'eror_message'=>'You Have Already Applied For This Job',
-        //     ];
-        // }
+        $HasAppliedForTheJob =  Yii::$app->recruitment->HasApplicantAppliedForTheJob(Yii::$app->recruitment->getEmployeeApplicantProfile(), $JobId);
+        if($HasAppliedForTheJob === true){
+            return $msg[] = [
+                'error'=>1,
+                'eror_message'=>'You Have Already Applied For This Job',
+            ];
+        }
 
         ///Apply for Job 
         $JobApplicationResult = $this->ApplyForJob($data);
@@ -417,7 +417,7 @@ class RecruitmentController extends Controller
             return $msg[] = [
                 'error'=>0,
                 'success'=>1,
-                'success_message'=>'Succesfully Applied for This Job. Your Application No is'. $JobApplicationResult['return_value']
+                'success_message'=>'Succesfully Applied for This Job. Your Application No is '. $JobApplicationResult['return_value']
             ];
 
         }else{
@@ -841,25 +841,35 @@ class RecruitmentController extends Controller
         return $this->redirect(['applicants', 'ComiteeID'=>urlencode($ComitteID)]);
     }
 
-    public function actionRejectCandidate($ProfileID, $ComitteID){
+    public function actionRejectCandidate(){
         $service = Yii::$app->params['ServiceName']['JobApplication'];
-       $data = [
-           'applicantNo' => urldecode( $ProfileID),
-           'memberNo' => Yii::$app->user->identity->employee[0]->No ,
-       ];
+        $ComitteID = Yii::$app->request->post('ComitteID');
+
+        $data = [
+            'applicantNo' =>Yii::$app->request->post('ProfileID'),
+            'memberNo' => Yii::$app->user->identity->employee[0]->No ,
+            'rejectionComment' =>Yii::$app->request->post('comment'),
+        ];
 
        $result = Yii::$app->navhelper->CodeUnit($service,$data,'IanRejectListEntry');
 
-       if(!is_string($result))
-       {
-           Yii::$app->session->setFlash('success', 'Candidate Rejected Successfuly');
-       }else
-       {
-           Yii::$app->session->setFlash('error', $result);
+       Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+       if(!is_string($result)){
+           //Yii::$app->session->setFlash('success', 'Perfomance Appraisal Goals Rejected and Sent Back to Appraisee Successfully.', true);
+           return ['note' => '<div class="alert alert-success alert-dismissable">Perfomance Appraisal Goals Rejected and Sent Back to Appraisee Successfully.</div>'];
+       }else{
+
+          // Yii::$app->session->setFlash('error', 'Error Rejecting Performance Appraisal Goals : '. $result);
+           return ['note' => '<div class="alert alert-danger alert-dismissable">Error Rejecting Performance Appraisal Goals </div>'];
+
+
        }
 
        return $this->redirect(['applicants', 'ComiteeID'=>urlencode($ComitteID)]);
     }
+
+
     
 
     public function actionGetqualifications($ProfileID){

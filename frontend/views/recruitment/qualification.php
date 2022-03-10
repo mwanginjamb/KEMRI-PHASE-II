@@ -66,28 +66,7 @@ if(Yii::$app->session->hasFlash('success')){
     </div>
 
 
-    <!--My Bs Modal template  --->
 
-    <div class="modal fade bs-example-modal-lg bs-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
-                    </button>
-                    <h4 class="modal-title" id="myModalLabel" style="position: absolute">My Academic Qualifications</h4>
-                </div>
-                <div class="modal-body">
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <!--<button type="button" class="btn btn-primary">Save changes</button>-->
-                </div>
-
-            </div>
-        </div>
-    </div>
 
 
 <input type="hidden" name="absolute" value="<?= Yii::$app->recruitment->absoluteUrl() ?>">
@@ -161,6 +140,45 @@ $script = <<<JS
                             .load(url); 
     
          });
+
+        $('.rejectey').on('click', function(e){
+            console.log('clicked...')
+            e.preventDefault();
+            const form = $('#eyrejform').html(); 
+            const ProfileID = $(this).attr('rel');
+            const ComitteID = $(this).attr('rev');
+                            
+            //Display the rejection comment form
+            $('.modal').modal('show')
+                            .find('.modal-body')
+                            .append(form);
+            
+            //populate relevant input field with code unit required params
+                    
+            $('input[name=ProfileID]').val(ProfileID);
+            $('input[name=ComitteID]').val(ComitteID);
+            
+            //Submit Rejection form and get results in json    
+            $('form#ey-reject-form').on('submit', function(e){
+                e.preventDefault()
+                const data = $(this).serialize();
+                const url = $(this).attr('action');
+                $.post(url,data).done(function(msg){
+                        $('.modal').modal('show')
+                        .find('.modal-body')
+                        .html(msg.note);
+            
+                    },'json');
+            });
+                       
+        });
+
+        /*Handle modal dismissal event  */
+        $('.modal').on('hidden.bs.modal',function(){
+            var reld = location.reload(true);
+            setTimeout(reld,1000);
+        }); 
+
         
         /*Handle dismissal eveent of modal */
         $('.modal').on('hidden.bs.modal',function(){

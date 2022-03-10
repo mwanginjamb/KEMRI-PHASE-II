@@ -159,6 +159,7 @@ $Attachmentmodel = new \frontend\models\Leaveattachment()
 
                 </div>
 
+ 
                     <?php ActiveForm::end(); ?>
 
 
@@ -314,6 +315,9 @@ $script = <<<JS
             }
             $('.field-hrjobrequisitioncard-replaced_employee').hide();
         }); 
+
+
+        
 
      /*Deleting Records*/
      

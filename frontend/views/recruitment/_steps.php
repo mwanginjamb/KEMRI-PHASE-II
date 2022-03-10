@@ -9,6 +9,8 @@
 
 //var_dump(Yii::$app->recruitment->hasProfile(Yii::$app->session->get('ProfileID')));
 use yii\helpers\Html;
+use yii\widgets\ActiveForm;
+
 $profileAction = (Yii::$app->recruitment->EmployeeUserHasProfile())?'update?No='.Yii::$app->recruitment->getEmployeeApplicantProfile():'view-profile';
 
 //var_dump(Yii::$app->recruitment->hasProfile(Yii::$app->session->get('ProfileID')));
@@ -199,18 +201,71 @@ $profileAction = (Yii::$app->recruitment->EmployeeUserHasProfile())?'update?No='
 
             ]) ?>
 
-            <?= Html::a('<i class="fas fa-times"></i> Reject Candidate',['reject-candidate','ProfileID'=> urlencode( $model->ApplicationID),'ComitteID'=>urlencode($model->CommiteeID)],
-                    ['
-                    class' => 'mx-1 btn btn-app bg-danger ',
-                    'rel' => '',
-                    'rev' =>'',
-                    'title' => 'Reject KRAs and Send them Back to Appraisee.',
-                    'data' => [
-                        'confirm' => 'Are you sure you want to Reject this Candidate ?',
-                        'method' => 'post',
-                    ]
-
+             <?= Html::a('<i class="fas fa-times"></i> Reject',['reject-candidate', 'ProfileID'=> urlencode( $model->ApplicationID),'ComitteID'=>urlencode($model->CommiteeID)],[
+                                'class' => 'btn btn-app bg-warning rejectey',
+                                'title' => 'Reject Goals Set by Appraisee',
+                                'rel' => $model->ApplicationID,
+                                'rev' => $model->CommiteeID,
+                                /*'data' => [
+                                'confirm' => 'Are you sure you want to Reject this Mid Year Appraisal?',
+                                'method' => 'post',]*/
             ]) ?>
+
+
+
+        
+
+
+                            <!--My Bs Modal template  --->
+
+<div class="modal fade bs-example-modal-lg bs-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel" style="position: absolute">Candidate Rejection Reasons</h4>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-----end modal----------->
+
+
+    <div id="eyrejform" style="display: none">
+
+        <?= Html::beginForm(['recruitment/reject-candidate'],'post',['id'=>'ey-reject-form']) ?>
+
+        <?= Html::textarea('comment','',['placeholder'=>'Why are You Rejecting this Candidate?','row'=> 4,'class'=>'form-control','required'=>true])?>
+
+        <?= Html::input('hidden','ProfileID','',['class'=> 'form-control','style'=>'margin-top: 10px']); ?>
+        <?= Html::input('hidden','ComitteID','',['class'=> 'form-control','style'=>'margin-top: 10px']); ?>
+
+
+        <?= Html::submitButton('Reject Candidate',['class' => 'btn btn-warning','style'=>'margin-top: 10px']) ?>
+
+        <?= Html::endForm() ?>
+    </div>
+
+
+    <?php
+
+$script = <<<JS
+
+   
+        
+JS;
+
 
 
 
