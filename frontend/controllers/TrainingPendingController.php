@@ -8,6 +8,7 @@
 
 namespace frontend\controllers;
 
+use frontend\models\EmployeeTraining;
 use frontend\models\Imprestcard;
 use frontend\models\Induction;
 use Yii;
@@ -136,13 +137,13 @@ class TrainingPendingController extends Controller
     }
 
     public function actionView($No = '', $Key = ''){
-        $service = Yii::$app->params['ServiceName']['InductionCard'];
-        $model = new Induction();
+        $service = Yii::$app->params['ServiceName']['TrainingApplicationCard'];
+        $model = new EmployeeTraining();
 
        // Get Document
-       if(!empty($No))
+       if(!empty($Application_No))
        {
-           $document = Yii::$app->navhelper->findOne($service,'No',$No);
+           $document = Yii::$app->navhelper->findOne($service,'Application_No',$No);
        }elseif(!empty($Key)){
            $document = Yii::$app->navhelper->readByKey($service,$Key);
        }else{

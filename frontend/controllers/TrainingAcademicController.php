@@ -8,6 +8,7 @@
 
 namespace frontend\controllers;
 
+use frontend\models\EmployeeTraining;
 use frontend\models\Imprestcard;
 use frontend\models\Induction;
 use Yii;
@@ -137,7 +138,7 @@ class TrainingAcademicController extends Controller
 
     public function actionView($No = '', $Key = ''){
         $service = Yii::$app->params['ServiceName']['InductionCard'];
-        $model = new Induction();
+        $model = new EmployeeTraining();
 
        // Get Document
        if(!empty($No))
@@ -164,7 +165,7 @@ class TrainingAcademicController extends Controller
         $service = Yii::$app->params['ServiceName']['AcademicTraining'];
 
         $filter = [
-            //'Employee_No' => \Yii::$app->user->identity->{'Employee No_'},
+            'Employee_No' => \Yii::$app->user->identity->{'Employee No_'},
         ];
         $records = \Yii::$app->navhelper->getData($service,$filter);
 
@@ -215,6 +216,7 @@ class TrainingAcademicController extends Controller
                     'Venue' => !empty($quali->Venue)?$quali->Venue:'',
                     'Training_Calender' => !empty($quali->Training_Calender)?$quali->Training_Calender:'',
                     'Nature_of_training' => !empty($quali->Nature_of_training)?$quali->Nature_of_training:'',
+                    'Approved_Cost' => !empty($quali->Approved_Cost)? Yii::$app->formatter->asDecimal($quali->Approved_Cost):'',
                     'Status' => !empty($quali->Status)?$quali->Status:'',                     
                     'Action' => $ApplyLink                    
                 ];

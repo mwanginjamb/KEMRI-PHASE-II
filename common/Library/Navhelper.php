@@ -80,7 +80,7 @@ class Navhelper extends Component{
 
 
         $res = (array)$result = Yii::$app->navision->readEntry($creds, $wsdl, $filter);
-
+        //Yii::$app->recruitment->printrr($res);
         if(count($res)){
             return $res[$service];
         }else{

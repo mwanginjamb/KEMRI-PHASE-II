@@ -141,16 +141,16 @@ class TrainingApplicationsController extends Controller
         $service = Yii::$app->params['ServiceName']['TrainingApplicationCard'];
         $model = new EmployeeTraining();
 
-       // Get Document
-       if(!empty($No))
-       {
-           $document = Yii::$app->navhelper->findOne($service,'Application_No',$No);
-       }elseif(!empty($Key)){
-           $document = Yii::$app->navhelper->readByKey($service,$Key);
-       }else{
-          // Yii::$app->session->setFlash('error', 'We are unable to fetch the document', true);
-           return $this->redirect(['index']);
-       }
+      // Get Document
+      if(!empty($No))
+      {
+          $document = Yii::$app->navhelper->findOne($service,['Application_No' => $No] );
+      }elseif(!empty($Key)){
+          $document = Yii::$app->navhelper->readByKey($service,$Key);
+      }else{
+         // Yii::$app->session->setFlash('error', 'We are unable to fetch the document', true);
+          return $this->redirect(['index']);
+      }
 
         //load nav result to model
         $model = Yii::$app->navhelper->loadmodel($document, $model);
@@ -166,8 +166,10 @@ class TrainingApplicationsController extends Controller
         $service = Yii::$app->params['ServiceName']['TrainingApplicationsList'];
 
         $filter = [
-            //'Employee_No' => \Yii::$app->user->identity->{'Employee No_'},
+            'Employee_No' => \Yii::$app->user->identity->{'Employee No_'},
         ];
+
+        //Yii::$app->recruitment->printrr($filter);
         $records = \Yii::$app->navhelper->getData($service,$filter);
 
         $result = [];

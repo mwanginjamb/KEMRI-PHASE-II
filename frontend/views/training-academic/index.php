@@ -39,7 +39,7 @@ if(Yii::$app->session->hasFlash('success')){
     <div class="col-md-12">
         <div class="card card-info">
             <div class="card-header">
-                <h3 class="card-title">Academic Training List</h3>
+                <h3 class="card-title">Approved  CPD Training List</h3>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -80,6 +80,7 @@ $script = <<<JS
                 { title: 'Institution' ,data: 'Institution'},
                 { title: 'Venue' ,data: 'Venue'},
                 { title: 'Training Calender' ,data: 'Training_Calender'},
+                { title: 'Approved Cost' ,data: 'Approved_Cost'},
                 { title: 'Status' ,data: 'Status'},      
                 { title: 'Action', data: 'Action' }
                

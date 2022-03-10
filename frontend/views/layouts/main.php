@@ -1148,7 +1148,7 @@ $employee = (!Yii::$app->user->isGuest && is_array(Yii::$app->user->identity->em
                                     <li class="nav-item">
                                         <a href="<?= $absoluteUrl ?>training-academic" class="nav-link <?= Yii::$app->recruitment->currentaction('training-academic','index')?'active':'' ?>">
                                             <i class="fa fa-chart-line nav-icon"></i>
-                                            <p>Individual </p>
+                                            <p>Approved CPD </p>
                                         </a>
                                     </li>
                                     <li class="nav-item">

@@ -518,6 +518,8 @@ return [
         'TrainingApplicationCard' => 'TrainingApplicationCard', //56004
         'TrainingApplicationsPendingApproval' => 'TrainingApplicationsPendingApproval', //56010
         'ApprovedTrainingApplications' => 'ApprovedTrainingApplications', // 56011
+        'TrainingCostBreakDown' => 'TrainingCostBreakDown', //56023
+        'TrainingCosts' => 'TrainingCosts', //56034
         'TRAININGMGT' => 'TRAININGMGT', //50010 --CODEUNIT 
 
 
