@@ -167,8 +167,9 @@ $this->params['breadcrumbs'][] = ['label' => 'Training Card', 'url' => ['view','
 
             <div class="card">
             <div class="card-header">
-                
-                    <h3 class="card-header">Training Cost Breakdown</h3>
+                <div class="card-title">
+                    <h3>Training Cost Breakdown</h3>
+                </div>
                 
                <div class="card-tools">
                         <?= Html::a('<i class="fa fa-plus-square"></i> Add Cost Break-down Line',['add-line'],[
@@ -275,94 +276,58 @@ $this->params['breadcrumbs'][] = ['label' => 'Training Card', 'url' => ['view','
 $script = <<<JS
 
     $(function(){
+
+        
+         // Trigger Creation of a line
+            $('.add').on('click',function(e){
+                    e.preventDefault();
+                    let url = $(this).attr('href');
+                
+                    let data = $(this).data();
+                    const payload = {
+                        'Document_No': data.no,
+                        'Service': data.service
+                    };
+                    //console.log(payload);
+                    //return;
+                    $('a.add').text('Inserting...');
+                    $('a.add').attr('disabled', true);
+                    $.get(url, payload).done((msg) => {
+                        console.log(msg);
+                        setTimeout(() => {
+                            location.reload(true);
+                        },1500);
+                    });
+                });
       
         
      /*Deleting Records*/
      
-     $('.delete, .delete-objective').on('click',function(e){
-         e.preventDefault();
-           var secondThought = confirm("Are you sure you want to delete this record ?");
-           if(!secondThought){//if user says no, kill code execution
-                return;
-           }
-           
-         var url = $(this).attr('href');
-         $.get(url).done(function(msg){
-             $('.modal').modal('show')
-                    .find('.modal-body')
-                    .html(msg.note);
-         },'json');
-     });
+     $('.del').on('click',function(e){
+            e.preventDefault();
+            if(confirm('Are you sure about deleting this record?'))
+            {
+                let data = $(this).data();
+                let url = $(this).attr('href');
+                let Key = data.key;
+                let Service = data.service;
+                const payload = {
+                    'Key': Key,
+                    'Service': Service
+                };
+                $(this).text('Deleting...');
+                $(this).attr('disabled', true);
+                $.get(url, payload).done((msg) => {
+                    console.log(msg);
+                    setTimeout(() => {
+                        location.reload(true);
+                    },3000);
+                });
+            }
+            
+    });
       
     
-    /*Evaluate KRA*/
-        $('.evalkra').on('click', function(e){
-             e.preventDefault();
-            var url = $(this).attr('href');
-            console.log('clicking...');
-            $('.modal').modal('show')
-                            .find('.modal-body')
-                            .load(url); 
-
-        });
-        
-        
-      //Add a training plan
-    
-     $('.add-objective, .update-objective').on('click',function(e){
-        e.preventDefault();
-        var url = $(this).attr('href');
-        console.log('clicking...');
-        $('.modal').modal('show')
-                        .find('.modal-body')
-                        .load(url); 
-
-     });
-     
-     
-     //Update a training plan
-    
-     $('.update-trainingplan').on('click',function(e){
-        e.preventDefault();
-        var url = $(this).attr('href');
-        console.log('clicking...');
-        $('.modal').modal('show')
-                        .find('.modal-body')
-                        .load(url); 
-
-     });
-     
-     
-     //Update/ Evalute Employeeappraisal behaviour -- evalbehaviour
-     
-      $('.evalbehaviour').on('click',function(e){
-        e.preventDefault();
-        var url = $(this).attr('href');
-        console.log('clicking...');
-        $('.modal').modal('show')
-                        .find('.modal-body')
-                        .load(url); 
-
-     });
-      
-      /*Add learning assessment competence-----> add-learning-assessment */
-      
-      
-      $('.add-learning-assessment').on('click',function(e){
-        e.preventDefault();
-        var url = $(this).attr('href');
-        console.log('clicking...');
-        $('.modal').modal('show')
-                        .find('.modal-body')
-                        .load(url); 
-
-     });
-      
-      
-     
-      
-      
-      
     
     /*Handle modal dismissal event  */
     $('.modal').on('hidden.bs.modal',function(){
@@ -390,92 +355,7 @@ $script = <<<JS
             $(this).nextUntil('p.parent').slideToggle(100, function(){});
      });
     
-        //Add Career Development Plan
-        
-        $('.add-cdp').on('click',function(e){
-            e.preventDefault();
-            var url = $(this).attr('href');
-           
-            
-            console.log('clicking...');
-            $('.modal').modal('show')
-                            .find('.modal-body')
-                            .load(url); 
-            
-         });//End Adding career development plan
-         
-         /*Add Career development Strength*/
-         
-         
-        $('.add-cds').on('click',function(e){
-            e.preventDefault();
-            var url = $(this).attr('href');
-            
-            $('.modal').modal('show')
-                            .find('.modal-body')
-                            .load(url); 
-            
-         });
-         
-         /*End Add Career development Strength*/
-         
-         
-         /* Add further development Areas */
-         
-            $('.add-fda').on('click',function(e){
-            e.preventDefault();
-            var url = $(this).attr('href');
-                       
-            console.log('clicking...');
-            $('.modal').modal('show')
-                            .find('.modal-body')
-                            .load(url); 
-            
-         });
-         
-         /* End Add further development Areas */
-         
-         /*Add Weakness Development Plan*/
-             $('.add-wdp').on('click',function(e){
-            e.preventDefault();
-            var url = $(this).attr('href');
-                       
-            console.log('clicking...');
-            $('.modal').modal('show')
-                            .find('.modal-body')
-                            .load(url); 
-            
-         });
-         /*End Add Weakness Development Plan*/
-
-         //Change Action taken
-
-         $('select#probation-action_taken').on('change',(e) => {
-
-            const key = $('input[id=Key]').val();
-            const Employee_No = $('input[id=Employee_No]').val();
-            const Appraisal_No = $('input[id=Appraisal_No]').val();
-            const Action_Taken = $('#probation-action_taken option:selected').val();
-           
-              
-
-            /* var data = {
-                "Action_Taken": Action_Taken,
-                "Appraisal_No": Appraisal_No,
-                "Employee_No": Employee_No,
-                "Key": key
-
-             } 
-            */
-            $.get('./takeaction', {"Key":key,"Appraisal_No":Appraisal_No, "Action_Taken": Action_Taken,"Employee_No": Employee_No}).done(function(msg){
-                 $('.modal').modal('show')
-                    .find('.modal-body')
-                    .html(msg.note);
-                });
-
-
-            });
-    
+      
         
     });//end jquery
 
@@ -492,36 +372,9 @@ $style = <<<CSS
         font-weight: bold;
     }
 
-    table td:nth-child(11), td:nth-child(12) {
-                text-align: center;
-    }
     
-    /* Table Media Queries */
     
-     @media (max-width: 500px) {
-          table td:nth-child(2),td:nth-child(3),td:nth-child(6),td:nth-child(7),td:nth-child(8),td:nth-child(9),td:nth-child(10), td:nth-child(11) {
-                display: none;
-        }
-    }
     
-     @media (max-width: 550px) {
-          table td:nth-child(2),td:nth-child(6),td:nth-child(7),td:nth-child(8),td:nth-child(9),td:nth-child(10), td:nth-child(11) {
-                display: none;
-        }
-    }
-    
-    @media (max-width: 650px) {
-          table td:nth-child(2),td:nth-child(6),td:nth-child(7),td:nth-child(8),td:nth-child(9),td:nth-child(10), td:nth-child(11) {
-                display: none;
-        }
-    }
-
-
-    @media (max-width: 1500px) {
-          table td:nth-child(2),td:nth-child(7),td:nth-child(8),td:nth-child(9),td:nth-child(10), td:nth-child(11) {
-                display: none;
-        }
-    }
 CSS;
 
 $this->registerCss($style);
