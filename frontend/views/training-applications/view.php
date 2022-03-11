@@ -167,16 +167,16 @@ $this->params['breadcrumbs'][] = ['label' => 'Training Card', 'url' => ['view','
 
             <div class="card">
             <div class="card-header">
-                <div class="card-title">
-                                    <h3>Training Cost Breakdown</h3>
-                </div>
-                <!--<div class="card-tools">
-                        <?php Html::a('<i class="fa fa-plus-square"></i> New Induction Line',['add-line'],[
+                
+                    <h3 class="card-header">Training Cost Breakdown</h3>
+                
+               <div class="card-tools">
+                        <?= Html::a('<i class="fa fa-plus-square"></i> Add Cost Break-down Line',['add-line'],[
                             'class' => 'add btn btn-outline-info',
                             'data-no' => $model->Application_No,
-                            'data-service' => 'Employee_Induction_Overall_In'
+                            'data-service' => 'TrainingCostBreakDown'
                             ]) ?>
-                </div>-->
+                </div>
             </div>
 
             <div class="card-body">
@@ -212,8 +212,8 @@ $this->params['breadcrumbs'][] = ['label' => 'Training Card', 'url' => ['view','
                                     <td><span>+</span></td>
                                     
                                     <td data-key="<?= $obj->Key ?>" ><?= !empty($obj->Application_No)?$obj->Application_No:'' ?></td>
-                                    <td data-key="<?= $obj->Key ?>" ><?= !empty($obj->Cost_Description)?$obj->Cost_Description:'' ?></td>
-                                    <td data-key="<?= $obj->Key ?>" ><?= !empty($obj->Amount)? Yii::$app->formatter->asDecimal($obj->Amount):'' ?></td>
+                                    <td data-key="<?= $obj->Key ?>" data-name="Cost_Description" data-service="TrainingCostBreakDown" ondblclick="addDropDown(this,'cost-description')" ><?= !empty($obj->Cost_Description)?$obj->Cost_Description:'' ?></td>
+                                    <td data-key="<?= $obj->Key ?>" data-name="Amount" data-service="TrainingCostBreakDown" ondblclick="addInput(this,'number')" ><?= !empty($obj->Amount)? Yii::$app->formatter->asDecimal($obj->Amount):'' ?></td>
                                     
                                     
                                     

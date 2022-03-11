@@ -228,6 +228,16 @@ class TrainingPendingController extends Controller
         return $data;
     }
 
+    // Training Cost Drop Down
+
+    public function actionCostDescription()
+    {
+
+        $data = Yii::$app->navhelper->dropdown('TrainingCosts','Description','Description');
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        return $data;
+    }
+
 
     
 
@@ -326,7 +336,7 @@ class TrainingPendingController extends Controller
     {
         $service = Yii::$app->params['ServiceName'][$Service];
         $data = [
-            'Induction_No' => $Document_No,
+            'Application_No' => $Document_No,
             'Line_No' => time()
         ];
 
