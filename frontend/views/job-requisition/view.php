@@ -152,11 +152,11 @@ $Attachmentmodel = new \frontend\models\Leaveattachment()
 
 
                                 <?= $form->field($model, 'Employment_Type')->dropDownList([
-                                    'Permanent'=>'Permanent',
+                                    // 'Permanent'=>'Permanent',
                                     'Contract'=>'Contract',
                                     'Consultant'=>'Consultant',
                                     'Intern'=>'Intern',
-                                    'Board'=>'Board',
+                                    // 'Board'=>'Board',
                                 ],['prompt' => '-- Select Employment Type -- ','required'=> true]) ?>
 
 
@@ -164,7 +164,7 @@ $Attachmentmodel = new \frontend\models\Leaveattachment()
 
 
                                 <?= $form->field($model, 'Contract_Type')->dropDownList($ContractTypes,['prompt' => '-- Select Job --']) ?>
-                                <?= $form->field($model, 'Location')->dropDownList($Locations,['prompt' => '-- Select Department --']) ?>                                
+                                <?= $form->field($model, 'Location')->dropDownList($Locations,['prompt' => '-- Select Location --']) ?>                                
                                 <!-- <?= $form->field($model, 'Reasons_For_Requisition')->textarea(['rows'=> 2,'maxlength' => 250]) ?> -->
 
                               
