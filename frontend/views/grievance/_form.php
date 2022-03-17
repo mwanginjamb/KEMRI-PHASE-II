@@ -9,12 +9,18 @@ use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 $absoluteUrl = \yii\helpers\Url::home(true);
  //Yii::$app->recruitment->printrr(Yii::$app->user->identity->{'Employee No_'});
-$activeState = [];
- if($model->Status == 'New')
- {
-     $activeStete = [];
- }else {
-     $activeState = ['readonly' =>  true, 'diasbled' => true];
+$activeStatus = $HroActiveStatus = $HrmActiveStatus =  [];
+
+ if($model->Status !== 'New'){ 
+     $activeStatus = ['readonly' =>  true, 'disabled' => true];
+ }
+
+ if($model->Status !== 'HRO'){
+    $HroActiveStatus = ['readonly' =>  true, 'disabled' => true];
+ }
+
+ if($model->Status !== 'HRM'){
+    $HrmActiveStatus = ['readonly' =>  true, 'disabled' => true];
  }
 ?>
 
@@ -87,29 +93,33 @@ $activeState = [];
                             <?= $form->field($model, 'Name')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
                             <?= ($model->Status == 'New')?
                                 $form->field($model, 'Date_of_grievance')->textInput(['type'=> 'date']):
-                                    $form->field($model, 'Date_of_grievance')->textInput($activeState)
+                                    $form->field($model, 'Date_of_grievance')->textInput($activeStatus)
                                     ?>
 
 
                             <?= ($model->Status == 'HRO' && $model->HRO_Emp_No == Yii::$app->user->identity->{'Employee No_'})?
                                 $form->field($model, 'HRO_Findings')->textarea(['rows'=> 2]):
-                                    $form->field($model, 'HRO_Findings')->textInput($activeState)
+                                    $form->field($model, 'HRO_Findings')->textInput($HroActiveStatus)
                                     ?> 
                              
                              <?= $form->field($model, 'Employee_Comments')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
-
+                             
                              <?= $form->field($model, 'attachment')->fileInput(['accept' => 'application/*']) ?>
+                             
+                             <?php $form->field($model, 'HRO_Emp_No')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
+                             <?= $form->field($model, 'HRM_Emp_Name')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
+
                             
                         </div>
                         
                         <div class="col-md-6">
                             <?= ($model->Status == 'New')?
                             $form->field($model, 'Grievance_Type')->dropdownList($complaintTypes, ['prompt'=> 'Select ...']):
-                                $form->field($model, 'Grievance_Type')->textInput($activeState)
+                                $form->field($model, 'Grievance_Type')->textInput($activeStatus)
                                 ?>        
                             <?= ($model->Status == 'New')?
                                 $form->field($model, 'Grievance_Description')->textarea(['rows' => 2]):
-                                    $form->field($model, 'Grievance_Description')->textarea($activeState)
+                                    $form->field($model, 'Grievance_Description')->textarea($activeStatus)
                                     ?>
                                     <?=  $form->field($model, 'Witness_Type')->dropdownList([
                                         'Employee' => 'Employee',
@@ -119,17 +129,24 @@ $activeState = [];
                             <?= $form->field($model, 'Witness_Name')->textInput(['readonly'=> true]) ?>        
                             <?= $form->field($model, 'Status')->textInput(['readonly'=> true]) ?>
                             <?= $form->field($model, 'Rejection_Comments')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
-
+                            
                             <?= ($model->Status == 'HRO' && $model->HRO_Emp_No == Yii::$app->user->identity->{'Employee No_'})?
                                 $form->field($model, 'Severity_of_grievance')->dropdownList($severity, ['prompt'=> 'Select ...']):
-                                $form->field($model, 'Severity_of_grievance')->textInput($activeState)
-                            ?> 
+                                    $form->field($model, 'Severity_of_grievance')->textInput($HroActiveStatus)
+                                    ?> 
 
                             <?= ($model->Status == 'HRO' && $model->HRO_Emp_No == Yii::$app->user->identity->{'Employee No_'})?
                                 $form->field($model, 'Complaint_Classification')->dropdownList($complaintTypes, ['prompt'=> 'Select ...']):
-                                $form->field($model, 'Complaint_Classification')->textInput($activeState)
-                            ?> 
+                                    $form->field($model, 'Complaint_Classification')->textInput($HroActiveStatus)
+                                    ?> 
 
+                                <?= (($model->Status == 'HRM' && $model->HRM_Emp_No == Yii::$app->user->identity->{'Employee No_'}))?
+                                        
+                                        $model->Status .$form->field($model, 'HRM_Rejection_Comments')->textInput() :
+
+                                        $form->field($model, 'HRM_Rejection_Comments')->textInput($HrmActiveStatus)
+                                         
+                                         ?> 
                         </div>
                   
 
