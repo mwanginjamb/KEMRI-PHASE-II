@@ -116,7 +116,7 @@ class DonorlineController extends Controller
             return $this->renderAjax('create', [
                 'model' => $model,
                 'donors' => $this->getDonors(),
-                'activities' => Yii::$app->navhelper->dropdown('GrantActivity','Grant_Activity','Activity_Name')
+                'activities' => Yii::$app->navhelper->dropdown('GrantActivity','Grant_Activity','Grant_Activity')
             ]);
         }
 
@@ -174,7 +174,7 @@ class DonorlineController extends Controller
             return $this->renderAjax('update', [
                 'model' => $model,
                 'donors' => $this->getDonors(),
-                'activities' => Yii::$app->navhelper->dropdown('GrantActivity','Grant_Activity','Activity_Name')
+                'activities' => Yii::$app->navhelper->dropdown('GrantActivity','Grant_Activity','Grant_Activity')
             ]);
         }
 

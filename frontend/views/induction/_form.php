@@ -311,7 +311,7 @@ $script = <<<JS
 
      /*Parent-Children accordion*/ 
     
-     $('tr.parent').find('span').text('+');
+    $('tr.parent').find('span').text('+');
     $('tr.parent').find('span').css({"color":"red", "font-weight":"bolder"});    
     $('tr.parent').nextUntil('tr.parent').slideUp(1, function(){});    
     $('tr.parent').click(function(){

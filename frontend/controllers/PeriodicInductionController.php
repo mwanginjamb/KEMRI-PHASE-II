@@ -48,7 +48,7 @@ class PeriodicInductionController extends Controller
             ],
             'contentNegotiator' =>[
                 'class' => ContentNegotiator::class,
-                'only' => ['list'],
+                'only' => ['list','list-hod'],
                 'formatParam' => '_format',
                 'formats' => [
                     'application/json' => Response::FORMAT_JSON,
@@ -64,7 +64,11 @@ class PeriodicInductionController extends Controller
 
     }
 
-    
+    public function actionPeriodicHod(){
+
+        return $this->render('periodic-hod');
+
+    }
  
 
 
@@ -165,6 +169,52 @@ class PeriodicInductionController extends Controller
 
         $filter = [
             'Employee_No' => \Yii::$app->user->identity->{'Employee No_'},
+        ];
+        $records = \Yii::$app->navhelper->getData($service,$filter);
+
+        $result = [];
+        $count = 0;
+        
+            foreach($records as $quali){
+
+                if(empty($quali->Key))
+                {
+                    continue;
+                }
+
+                ++$count;
+                $Deletelink = $updateLink = $viewLink =  '';
+                $updateLink = Html::a('<i class="fa fa-edit"></i>',['update','Key'=> $quali->Key ],['class'=>'update btn btn-outline-info btn-xs', 'title' => 'Update Record']);
+                $viewLink = Html::a('<i class="fa fa-eye"></i>',['view','Key'=> $quali->Key ],['class'=>'btn btn-outline-info btn-xs mx-2', 'title' => 'View Document']);
+
+                $Deletelink = Html::a('<i class="fa fa-trash"></i>',['delete','Key'=> $quali->Key ],['class'=>'btn btn-outline-danger btn-xs text-danger',
+                    'title' => 'Delete Record.',
+                    'data' => [
+                    'confirm' => 'Are you sure you want to delete this record?',
+                    'method' => 'post',
+                ]]);
+
+               
+                $result['data'][] = [
+                    'index' => !empty($quali->No)?$quali->No:'',
+                    'Employee_No' => !empty($quali->Employee_No)?$quali->Employee_No:'',
+                    'Employee_Name' => !empty($quali->Employee_Name)?$quali->Employee_Name:'',
+                    'Global_Dimension_1_Code' => !empty($quali->Global_Dimension_1_Code)?$quali->Global_Dimension_1_Code:'',
+                    'Global_Dimension_2_Code' => !empty($quali->Global_Dimension_2_Code)?$quali->Global_Dimension_2_Code:'',
+                    'Status' => !empty($quali->Status)?$quali->Status:'',                     
+                    'Action' => $updateLink.$viewLink.$Deletelink                    
+                ];
+            
+        }
+        return $result;
+
+    } 
+
+    public function actionListHod(){
+        $service = Yii::$app->params['ServiceName']['PeriodHOD'];
+
+        $filter = [
+            'Action_ID' => \Yii::$app->user->identity->{'Employee No_'},
         ];
         $records = \Yii::$app->navhelper->getData($service,$filter);
 

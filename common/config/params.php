@@ -467,8 +467,12 @@ return [
 
         'InductionList' => 'InductionList', //55093
         'InductionCard' => 'InductionCard', //55094
+        'PeriodicInductionCard' => 'PeriodicInductionCard',
         'InductionLine' => 'InductionLine', // 55095
         'InductionOverallIN' => 'InductionOverallIN', //55108
+        'PeriodicInductionList' => 'PeriodicInductionList',//55101
+        'IndividualHOD' => 'IndividualHOD', // 55106
+        'PeriodHOD' => 'PeriodHOD',//55105
         'HRAPPRAISALMGT' => 'HRAPPRAISALMGT', // 50209 -- Codeunit  
 
          /********************Grievances***************************************/

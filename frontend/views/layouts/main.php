@@ -23,7 +23,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
 $employee = (!Yii::$app->user->isGuest && is_array(Yii::$app->user->identity->employee))?Yii::$app->user->identity->employee[0]:[];
 
 
-//Yii::$app->recruitment->printrr(Yii::$app->user->identity);
+//Yii::$app->recruitment->printrr(Yii::$app->navhelper->codeunit(Yii::$app->params['ServiceName']['PortalFactory'],['employeeNo' => Yii::$app->user->identity->{'Employee No_'} ],'IanCanViewShortTerm'));
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -817,7 +817,13 @@ $employee = (!Yii::$app->user->isGuest && is_array(Yii::$app->user->identity->em
                         <!-- Short Term Probation -->
 
 <?php if(
-    (Yii::$app->user->identity->Employee[0]->Long_Term == false && Yii::$app->user->identity->Employee[0]->Probation_Status == 'Confirmed') ||
+    
+    Yii::$app->user->identity->Employee[0]->Long_Term == false ||
+    (
+        (Yii::$app->user->identity->Employee[0]->Probation_Status == 'Confirmed') 
+    && Yii::$app->navhelper->codeunit(Yii::$app->params['ServiceName']['PortalFactory'],['employeeNo' => Yii::$app->user->identity->{'Employee No_'} ],'IanCanViewShortTerm') == true
+     )
+    ||
     Yii::$app->dashboard->inSupervisorList()
      ): ?>
                         <li class="nav-item has-treeview <?= Yii::$app->recruitment->currentCtrl('shortterm')?'menu-open':'' ?>">
@@ -1101,9 +1107,22 @@ $employee = (!Yii::$app->user->isGuest && is_array(Yii::$app->user->identity->em
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="<?= $absoluteUrl ?>periodic-induction" class="nav-link <?= Yii::$app->recruitment->currentaction('periodic-induction','index')?'active':'' ?>">
+                                        <a href="<?= $absoluteUrl ?>induction/individual-hod" class="nav-link <?= Yii::$app->recruitment->currentaction('induction','individual-hod')?'active':'' ?>">
+                                            <i class="fa fa-chart-line nav-icon"></i>
+                                            <p>Individual HOD List </p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="<?= $absoluteUrl ?>periodic-induction" class="nav-link <?= Yii::$app->recruitment->currentaction('periodic-induction',['index','update'])?'active':'' ?>">
                                             <i class="fa fa-chart-line nav-icon"></i>
                                             <p>Periodic </p>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a href="<?= $absoluteUrl ?>periodic-induction/periodic-hod" class="nav-link <?= Yii::$app->recruitment->currentaction('periodic-induction','periodic-hod')?'active':'' ?>">
+                                            <i class="fa fa-chart-line nav-icon"></i>
+                                            <p>Periodic HOD List </p>
                                         </a>
                                     </li>
 
@@ -1174,8 +1193,8 @@ $employee = (!Yii::$app->user->isGuest && is_array(Yii::$app->user->identity->em
 
 
                             <!-- Recruitment -->
-                            <li class="nav-item has-treeview <?= Yii::$app->recruitment->currentCtrl(['induction','periodic-induction'])?'menu-open':'' ?>">
-                                <a href="#" class="nav-link <?= Yii::$app->recruitment->currentCtrl(['induction','periodic-induction'])?'active':'' ?>" title="Employee Induction">
+                            <li class="nav-item has-treeview <?= Yii::$app->recruitment->currentCtrl(['recruitment'])?'menu-open':'' ?>">
+                                <a href="#" class="nav-link <?= Yii::$app->recruitment->currentCtrl(['recruitment'])?'active':'' ?>" title="Employee Induction">
                                     <i class="nav-icon fa fa-chart-bar" ></i>
                                     <p>
                                         Recruitment

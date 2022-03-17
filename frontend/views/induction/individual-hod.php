@@ -11,22 +11,10 @@
 /* @var $this yii\web\View */
 
 $this->title = Yii::$app->params['generalTitle'];
-$this->params['breadcrumbs'][] = ['label' => 'Employee Induction List', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'HoD Individual Induction List', 'url' => ['index']];
 $this->params['breadcrumbs'][] = '';
 $url = \yii\helpers\Url::home(true);
 ?>
-<div class="row">
-    <div class="col-md-12">
-        <div class="card">
-            <div class="card-body">
-        <?= \yii\helpers\Html::a('New',['create'],['class' => 'btn btn-info push-right', 'data' => [
-            'confirm' => 'Are you sure you want to create a new Induction Document ?',
-            'method' => 'post',
-        ],]) ?>
-            </div>
-        </div>
-    </div>
-</div>
 
 
 <?php
@@ -50,7 +38,7 @@ if(Yii::$app->session->hasFlash('success')){
     <div class="col-md-12">
         <div class="card card-info">
             <div class="card-header">
-                <h3 class="card-title">Induction List</h3>
+                <h3 class="card-title">HoD Induction List</h3>
             </div>
             <div class="card-body">
                 <table class="table table-bordered dt-responsive table-hover" id="table">
@@ -74,7 +62,7 @@ $script = <<<JS
           $('#table').DataTable({
            
             //serverSide: true,  
-            ajax: url+'induction/list',
+            ajax: url+'induction/list-hod',
             paging: true,
             columns: [
                 { title: '#' ,data: 'index'},
