@@ -1288,42 +1288,42 @@ $employee = (!Yii::$app->user->isGuest && is_array(Yii::$app->user->identity->em
                                     </li>
 
                                     <li class="nav-item">
-                                        <a href="<?= $absoluteUrl ?>succession/evaluation-list-evaluator" class="nav-link <?= Yii::$app->recruitment->currentaction('succession','index')?'active':'' ?>">
+                                        <a href="<?= $absoluteUrl ?>succession/evaluation-list-evaluator" class="nav-link <?= Yii::$app->recruitment->currentaction('succession','evaluation-list-evaluator')?'active':'' ?>">
                                             <i class="fa fa-chart-line nav-icon"></i>
                                             <p>Evaluator Eval. List </p>
                                         </a>
                                     </li>
 
                                     <li class="nav-item">
-                                        <a href="<?= $absoluteUrl ?>succession/objective-setting" class="nav-link <?= Yii::$app->recruitment->currentaction('succession','index')?'active':'' ?>">
+                                        <a href="<?= $absoluteUrl ?>succession/objective-setting" class="nav-link <?= Yii::$app->recruitment->currentaction('succession','objective-setting')?'active':'' ?>">
                                             <i class="fa fa-chart-line nav-icon"></i>
                                             <p>Objective Setting </p>
                                         </a>
                                     </li>
 
                                     <li class="nav-item">
-                                        <a href="<?= $absoluteUrl ?>succession/appraisee" class="nav-link <?= Yii::$app->recruitment->currentaction('succession','index')?'active':'' ?>">
+                                        <a href="<?= $absoluteUrl ?>succession/appraisee" class="nav-link <?= Yii::$app->recruitment->currentaction('succession','appraisee')?'active':'' ?>">
                                             <i class="fa fa-chart-line nav-icon"></i>
                                             <p>Appraisee List </p>
                                         </a>
                                     </li>
 
                                     <li class="nav-item">
-                                        <a href="<?= $absoluteUrl ?>succession/appraisee-list" class="nav-link <?= Yii::$app->recruitment->currentaction('succession','index')?'active':'' ?>">
+                                        <a href="<?= $absoluteUrl ?>succession/appraisee-list" class="nav-link <?= Yii::$app->recruitment->currentaction('succession','appraisee-list')?'active':'' ?>">
                                             <i class="fa fa-chart-line nav-icon"></i>
                                             <p>Supervisor List </p>
                                         </a>
                                     </li>
 
                                     <li class="nav-item">
-                                        <a href="<?= $absoluteUrl ?>succession/hr-list" class="nav-link <?= Yii::$app->recruitment->currentaction('succession','index')?'active':'' ?>">
+                                        <a href="<?= $absoluteUrl ?>succession/hr-list" class="nav-link <?= Yii::$app->recruitment->currentaction('succession','hr-list')?'active':'' ?>">
                                             <i class="fa fa-chart-line nav-icon"></i>
                                             <p>HR List </p>
                                         </a>
                                     </li>
 
                                     <li class="nav-item">
-                                        <a href="<?= $absoluteUrl ?>succession/closed-list" class="nav-link <?= Yii::$app->recruitment->currentaction('succession','index')?'active':'' ?>">
+                                        <a href="<?= $absoluteUrl ?>succession/closed-list" class="nav-link <?= Yii::$app->recruitment->currentaction('succession','closed-list')?'active':'' ?>">
                                             <i class="fa fa-chart-line nav-icon"></i>
                                             <p>HR List </p>
                                         </a>
