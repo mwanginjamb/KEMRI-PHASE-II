@@ -522,6 +522,18 @@ return [
 
 
 
+        /********************SUccession Planning*************************************/
+        'SuccessionEvaluationList' => 'SuccessionEvaluationList', // 55137
+        'SuccessionEvaluationListEvaluator' => 'SuccessionEvaluationListEvaluator', //55139
+        'SuccessionObjectiveSettingList' => 'SuccessionObjectiveSettingList',// 55141
+        'SuccessionAppraiseeList' => 'SuccessionAppraiseeList', //  55143
+        'SuccesssionSupervisorList' => 'SuccesssionSupervisorList', //55144
+        'SuccessionHRList' => 'SuccessionHRList', //55146
+        'SuccessionClosedList' => 'SuccessionClosedList', //55147
+
+        'SuccessionAppraisalCard' => 'SuccessionAppraisalCard' //55142
+
+
     ],
     'QualificationsMimeTypes' => [
 
