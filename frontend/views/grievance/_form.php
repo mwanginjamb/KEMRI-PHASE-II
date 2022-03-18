@@ -22,6 +22,7 @@ $activeStatus = $HroActiveStatus = $HrmActiveStatus =  [];
  if($model->Status !== 'HRM'){
     $HrmActiveStatus = ['readonly' =>  true, 'disabled' => true];
  }
+ //Yii::$app->recruitment->printrr($attachment);
 ?>
 
 

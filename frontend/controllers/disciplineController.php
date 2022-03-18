@@ -364,6 +364,32 @@ class DisciplineController extends Controller
         }
     }
 
+    public function actionCloseCase()
+    {
+        $No = Yii::$app->request->get('No');
+        $service = Yii::$app->params['ServiceName']['GRIEVANCEMGT'];
+
+        $data = [
+            'disciplinaryNo' => $No,
+           // 'urLToSend' => Yii::$app->urlManager->createAbsoluteUrl(['grievance/view', 'No' => $No]),
+        ];
+
+      // Yii::$app->recruitment->printrr($data);
+
+
+        $result = Yii::$app->navhelper->Codeunit($service,$data,'IanCloseDisciplinary');
+
+        if(!is_string($result)){
+            Yii::$app->session->setFlash('success', 'Disciplinary Case Closed Successfully.', true);
+            return $this->redirect(['index']);
+        }else{
+
+            Yii::$app->session->setFlash('error', 'Error.  : '. $result);
+            return $this->redirect(['index']);
+
+        }
+    }
+
     // Send Induction To Next Section
 
     public function actionNextSection()
