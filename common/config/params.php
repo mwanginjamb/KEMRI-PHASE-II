@@ -70,6 +70,7 @@ return [
         'EmployeeExitManagement',
         'HRAPPRAISALMGT',
         'TRAININGMGT',
+        'HRSUCCESSIONPLANNING'
 
     ],
     'ServiceName'=>[
@@ -531,7 +532,8 @@ return [
         'SuccessionHRList' => 'SuccessionHRList', //55146
         'SuccessionClosedList' => 'SuccessionClosedList', //55147
 
-        'SuccessionAppraisalCard' => 'SuccessionAppraisalCard' //55142
+        'SuccessionAppraisalCard' => 'SuccessionAppraisalCard', //55142
+        'HRSUCCESSIONPLANNING' => 'HRSUCCESSIONPLANNING', //50068
 
 
     ],

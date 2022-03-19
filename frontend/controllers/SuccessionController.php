@@ -57,7 +57,10 @@ class SuccessionController extends Controller
                     'list-appraisee',
                     'list-supervisor',
                     'list-hr',
-                    'list-closed'
+                    'list-closed',
+                    'answers',
+                    'preferred-answers',
+                    'recommendations'
 
                 ],
                 'formatParam' => '_format',
@@ -69,16 +72,43 @@ class SuccessionController extends Controller
         ];
     }
 
+    public function beforeAction($action)
+    {
+
+        $ExceptedActions = ['answers','preferred-answers','recommendations'];
+
+        if (in_array($action->id , $ExceptedActions) ) {
+            $this->enableCsrfValidation = false;
+        }
+
+        return parent::beforeAction($action);
+    }
+
     public function actionEvaluationList(){
 
+        $service = Yii::$app->params['ServiceName']['SuccessionEvaluationList'];
+        $filter = [
+            //'Employee_No' => Yii::$app->user->identity->{'Employee No_'},
+        ];
 
-        return $this->render('evaluation-list');
+        $list = Yii::$app->navhelper->getData($service, $filter);
+
+        return $this->render('evaluation-list', ['model' => $list]);
 
     }
 
     public function actionEvaluationListEvaluator(){
 
-        return $this->render('evaluation-list-evaluator');
+        $service = Yii::$app->params['ServiceName']['SuccessionEvaluationListEvaluator'];
+        $filter = [
+            //'Employee_No' => Yii::$app->user->identity->{'Employee No_'},
+        ];
+
+        $list = Yii::$app->navhelper->getData($service, $filter);
+
+        
+
+        return $this->render('evaluation-list-evaluator',['model' => $list]);
 
     }
 
@@ -117,9 +147,87 @@ class SuccessionController extends Controller
 
     }
 
+    // Answers Endpoint
+
+    public function actionAnswers()
+    {
+        $answers = [
+            '_blank_' => '_blank_',
+            'Yes' => 'Yes',
+            'No' => 'No'
+        ];
+
+        return $answers;
+    }
+
+    // Preferred answers Endpoint
+
+    public function actionPreferredAnswers()
+    {
+        $answers = [
+            '_blank_' => '_blank_',
+            'Yes' => 'Yes',
+            'No' => 'No'
+        ];
+
+        return $answers;
+    }
+
+    // Recommendation Endpoint
+
+    public function actionRecommendations()
+    {
+        $answers = [
+            '_blank_' => '_blank_',
+            'Recomend' => 'Recomend',
+            'Decline' => 'Decline'
+        ];
+
+        return $answers;
+    }
+
+     /** Updates a single field */
+     public function actionSetfield($field){
+        $service = 'ImprestRequestCardPortal';
+        $value = Yii::$app->request->post('fieldValue');
+       
+        $result = Yii::$app->navhelper->Commit($service,[$field => $value],Yii::$app->request->post('Key'));
+        Yii::$app->response->format = \yii\web\response::FORMAT_JSON;
+        return $result;
+          
+    }
+
+
+    /**
+     * Grid Commitment Function
+     */
+
+    public function actionCommit(){
+        $commitService = Yii::$app->request->post('service');
+        $key = Yii::$app->request->post('key');
+        $name = Yii::$app->request->post('name');
+        $value = Yii::$app->request->post('value');
+
+        $service = Yii::$app->params['ServiceName'][$commitService];
+        $request = Yii::$app->navhelper->readByKey($service, $key);
+        $data = [];
+        if(is_object($request)){
+            $data = [
+                'Key' => $request->Key,
+                $name => $value
+            ];
+        }else{
+            Yii::$app->response->format = \yii\web\response::FORMAT_JSON;
+            return ['error' => $request];
+        }
+
+        $result = Yii::$app->navhelper->updateData($service,$data);
+        Yii::$app->response->format = \yii\web\response::FORMAT_JSON;
+        return $result;
+
+    }
+
    
-
-
 
     public function actionCreate(){
 
@@ -322,20 +430,11 @@ class SuccessionController extends Controller
         }
     }
 
-    /*Data access functions */
-
-    public function actionLeavebalances(){
-
-        $balances = $this->Getleavebalance();
-
-        return $this->render('leavebalances',['balances' => $balances]);
-
-    }
 
     // Employee List
 
-    public function actionGetprobations(){
-        $service = Yii::$app->params['ServiceName']['ObjectiveSettingList'];
+    public function actionListEvaluation(){
+        $service = Yii::$app->params['ServiceName']['SuccessionEvaluationList'];
         $filter = [
             'Employee_No' => Yii::$app->user->identity->{'Employee No_'},
         ];

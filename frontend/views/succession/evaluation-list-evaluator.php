@@ -10,9 +10,12 @@
 
 /* @var $this yii\web\View */
 
-$this->title = 'HRMIS - Approved Appraisals';
-$this->params['breadcrumbs'][] = ['label' => 'Performance Management', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => 'Approved Appraisals List', 'url' => ['approvedappraisals']];
+$this->title = 'HRMIS - Evaluator Succession Evaluation';
+$this->params['breadcrumbs'][] = ['label' => 'Evaluator Succession Evaluation', 'url' => ['evaluation-list']];
+// $this->params['breadcrumbs'][] = ['label' => 'Approved Appraisals List', 'url' => ['approvedappraisals']];
+
+//Yii::$app->recruitment->printrr($model);
+
 ?>
 
 
@@ -38,11 +41,53 @@ if(Yii::$app->session->hasFlash('success')){
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">My Approved Appraisal List</h3>
+                <h3 class="card-title">Evaluator Succession Evaluation List</h3>
             </div>
             <div class="card-body">
-                <table class="table table-bordered dt-responsive table-hover" id="appraisal">
-                </table>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover" >
+
+
+                        <thead>
+                            <tr>
+                                <td class="text-bold">Evaluation_No</td>
+                                <td class="text-bold">Succession_No</td>
+                                <!-- <td class="text-bold">Employee_No</td> -->
+                                <td class="text-bold">Employee_Name</td>
+                                <td class="text-bold">Question</td>
+                                <td class="text-bold ">Answer</td>
+                                <td class="text-bold text-info">Preferred_Answer</td>
+                                <td class="text-bold text-info">Recomendation</td>
+                                <td class="text-bold text-info">Comment</td>
+                                <td class="text-bold">Candidate_Status</td>
+                                <td class="text-bold">Evaluator_Status</td>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <?php foreach($model as $record): ?>
+
+                                <tr>
+                                    <td><?= $record->Evaluation_No ?></td>
+                                    <td><?= $record->Succession_No ?></td>
+                                    <!-- <td><?= $record->Employee_No ?></td> -->
+                                    <td><?= $record->Employee_Name ?></td>
+                                    <td ><?= $record->Question ?></td>
+                                    <td ><?= $record->Answer ?></td>
+                                    <td data-key="<?= $record->Key ?>" data-name="Preferred_Answer" data-service="SuccessionEvaluationListEvaluator" ondblclick="addDropDown(this,'preferred-answers')"><?= !empty($record->Preferred_Answer)?$record->Preferred_Answer:'' ?></td>
+                                    <td data-key="<?= $record->Key ?>" data-name="Recomendation" data-service="SuccessionEvaluationListEvaluator" ondblclick="addDropDown(this,'recommendations')"><?= !empty($record->Recomendation)?$record->Recomendation:'' ?></td>
+                                    <td data-key="<?= $record->Key ?>" data-name="Comment" data-service="SuccessionEvaluationListEvaluator" ondblclick="addInput(this)"><?= !empty($record->Comment)?$record->Comment:'' ?></td>
+                                    <td ><?= $record->Candidate_Status ?></td>
+                                    <td ><?= $record->Evaluator_Status ?></td>
+                                </tr>
+
+                            <?php endforeach; ?>
+                        </tbody>
+
+
+                    </table>
+
+                </div>
             </div>
         </div>
     </div>
@@ -53,48 +98,9 @@ if(Yii::$app->session->hasFlash('success')){
 $script = <<<JS
 
     $(function(){
-        var absolute = $('input[name=absolute]').val();
-         /*Data Tables*/
-         
-         $.fn.dataTable.ext.errMode = 'throw';
         
-    
-          $('#appraisal').DataTable({
-           
-            //serverSide: true,  
-            ajax: absolute+'appraisal/getapprovedappraisals',
-            paging: true,
-            columns: [
-                { title: 'Appraisal No' ,data: 'Appraisal_No'},
-                { title: 'Employee No' ,data: 'Employee_No'},
-                { title: 'Employee Name' ,data: 'Employee_Name'},
-                { title: 'Level Grade' ,data: 'Level_Grade'},
-                { title: 'Job Title' ,data: 'Job_Title'},
-                { title: 'Function Team' ,data: 'Function_Team'},
-                { title: 'Appraisal Period' ,data: 'Appraisal_Period'},
-                { title: 'Goal Setting Start Date' ,data: 'Goal_Setting_Start_Date'},
-               
-                { title: 'Action', data: 'Action' },
-                
-               
-            ] ,                              
-           language: {
-                "zeroRecords": "No Appraisals to display"
-            },
-            
-            order : [[ 6, "desc" ]]
-            
-           
-       });
         
-       //Hidding some 
-       var table = $('#appraisal').DataTable();
-       //table.columns([0,6]).visible(false);
-    
-    /*End Data tables*/
-        $('#appraisal').on('click','tr', function(){
-            
-        });
+       
     });
         
 JS;
