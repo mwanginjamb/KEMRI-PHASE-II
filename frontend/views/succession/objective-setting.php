@@ -13,8 +13,8 @@
 use yii\helpers\Html;
 
 $this->title = Yii::$app->params['generalTitle'];
-$this->params['breadcrumbs'][] = ['label' => 'Performance Management', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => 'Probation - Approved Goals List', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'succession Objective Setting', 'url' => ['objective-setting']];
+
 ?>
 
 
@@ -41,7 +41,7 @@ if(Yii::$app->session->hasFlash('success')){
         <div class="card">
             <div class="card-header">
 
-                <h3 class="card-title"> Probation Approved Appraisal Goals List  &nbsp;    <?php Html::a('<i class="fa fa-plus-square"></i> Add New Appraisal',['create'],['class' => 'add-objective btn btn-outline-info btn-sm']) ?></h3>
+                <h3 class="card-title"> Succession Goal Setting List  &nbsp;    <?php Html::a('<i class="fa fa-plus-square"></i> Add New Appraisal',['create'],['class' => 'add-objective btn btn-outline-info btn-sm']) ?></h3>
 
                 
             </div>
@@ -67,11 +67,10 @@ $script = <<<JS
           $('#appraisal').DataTable({
            
             //serverSide: true,  
-            ajax: absolute+'probation/appraiseeapprovedgoals',
+            ajax: absolute+'succession/list-objective-setting',
             paging: true,
             columns: [
                 { title: 'Appraisal No' ,data: 'Appraisal_No'},
-                { title: 'Employee No' ,data: 'Employee_No'},
                 { title: 'Employee Name' ,data: 'Employee_Name'},
                 { title: 'Level Grade' ,data: 'Level_Grade'},
                 { title: 'Job Title' ,data: 'Job_Title'},
@@ -83,7 +82,7 @@ $script = <<<JS
                
             ] ,                              
            language: {
-                "zeroRecords": "No Probation Appraisals to display"
+                "zeroRecords": "No records to display"
             },
             
             order : [[ 0, "desc" ]]
