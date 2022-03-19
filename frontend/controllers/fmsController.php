@@ -137,91 +137,10 @@ class FmsController extends Controller
     }
 
 
-    public function actionUpdate(){
-        $model = new Employeeappraisalkpi() ;
-        $model->isNewRecord = false;
-        $service = Yii::$app->params['ServiceName']['EmployeeAppraisalKPI'];
-        $filter = [
-            'KRA_Line_No' => Yii::$app->request->get('KRA_Line_No'),
-            'Employee_No' => Yii::$app->request->get('Employee_No'),
-            'Appraisal_No' => Yii::$app->request->get('Appraisal_No'),
-            'Line_No' => Yii::$app->request->get('Line_No'),
-        ];
-        $result = Yii::$app->navhelper->getData($service,$filter);
-
-        if(is_array($result)){
-            //load nav result to model
-            $model = Yii::$app->navhelper->loadmodel($result[0],$model) ;
-        }else{
-            Yii::$app->recruitment->printrr($result);
-        }
+ 
 
 
-        if(Yii::$app->request->post() && Yii::$app->navhelper->loadpost(Yii::$app->request->post()['Employeeappraisalkpi'],$model) && $model->validate() ){
-            $result = Yii::$app->navhelper->updateData($service,$model);
-
-            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-            if(!is_string($result)){
-
-                return ['note' => '<div class="alert alert-success">Employee Objective/ KPI Updated Successfully. </div>' ];
-            }else{
-
-                return ['note' => '<div class="alert alert-danger">Error Updating Employee Objective/ KPI: '.$result.'</div>'];
-            }
-
-        }
-
-        if(Yii::$app->request->isAjax){
-            return $this->renderAjax('update', [
-                'model' => $model,
-                'ratings' => $this->getRatings(),
-                'assessments' => $this->getPerformancelevels(),
-            ]);
-        }
-
-        return $this->render('update',[
-            'model' => $model,
-            'ratings' => $this->getRatings(),
-            'assessments' => $this->getPerformancelevels() ,
-        ]);
-    }
-
-
-
-    public function actionDelete(){
-        $service = Yii::$app->params['ServiceName']['EmployeeAppraisalKPI'];
-        $result = Yii::$app->navhelper->deleteData($service,Yii::$app->request->get('Key'));
-        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        if(!is_string($result)){
-            return ['note' => '<div class="alert alert-success">Record Purged Successfully</div>'];
-        }else{
-            return ['note' => '<div class="alert alert-danger">Error Purging Record: '.$result.'</div>' ];
-        }
-    }
-
-    public function actionView($ApplicationNo){
-        $service = Yii::$app->params['ServiceName']['leaveApplicationCard'];
-        $leaveTypes = $this->getLeaveTypes();
-        $employees = $this->getEmployees();
-
-        $filter = [
-            'Application_No' => $ApplicationNo
-        ];
-
-        $leave = Yii::$app->navhelper->getData($service, $filter);
-
-        //load nav result to model
-        $leaveModel = new Leave();
-        $model = $this->loadtomodel($leave[0],$leaveModel);
-
-
-        return $this->render('view',[
-            'model' => $model,
-            'leaveTypes' => ArrayHelper::map($leaveTypes,'Code','Description'),
-            'relievers' => ArrayHelper::map($employees,'No','Full_Name'),
-        ]);
-    }
-
+  
 
 
 

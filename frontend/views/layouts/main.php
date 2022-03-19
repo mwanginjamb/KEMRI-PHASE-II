@@ -1302,14 +1302,14 @@ $employee = (!Yii::$app->user->isGuest && is_array(Yii::$app->user->identity->em
                                     </li>
 
                                     <li class="nav-item">
-                                        <a href="<?= $absoluteUrl ?>succession/appraisee" class="nav-link <?= Yii::$app->recruitment->currentaction('succession','appraisee')?'active':'' ?>">
+                                        <a href="<?= $absoluteUrl ?>succession/appraisee-list" class="nav-link <?= Yii::$app->recruitment->currentaction('succession','appraisee')?'active':'' ?>">
                                             <i class="fa fa-chart-line nav-icon"></i>
                                             <p>Appraisee List </p>
                                         </a>
                                     </li>
 
                                     <li class="nav-item">
-                                        <a href="<?= $absoluteUrl ?>succession/appraisee-list" class="nav-link <?= Yii::$app->recruitment->currentaction('succession','appraisee-list')?'active':'' ?>">
+                                        <a href="<?= $absoluteUrl ?>succession/supervisor-list" class="nav-link <?= Yii::$app->recruitment->currentaction('succession','appraisee-list')?'active':'' ?>">
                                             <i class="fa fa-chart-line nav-icon"></i>
                                             <p>Supervisor List </p>
                                         </a>
