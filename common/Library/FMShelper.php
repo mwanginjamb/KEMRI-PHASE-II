@@ -93,6 +93,34 @@ class FMShelper extends Component{
         
     }
 
+    /**
+     * Check if a record has been updated
+     */
+
+    public function isUpdated($service,$Key){
+
+        $url  =  new FmsService($service);
+        $wsdl = $url->getUrl();
+        $username =  Yii::$app->params['FMSUsername'];
+        $password =  Yii::$app->params['FMSPassword'];
+        $creds = (object)[];
+        $creds->UserName = $username;
+        $creds->PassWord = $password;
+
+        if(!Yii::$app->navision->isUp($wsdl,$creds)) {
+
+            return ['error' => 'Service unavailable.'];
+
+        }
+
+
+        $res = Yii::$app->navision->isUpdated($creds, $wsdl, ['Key' => $Key]);
+
+       return $res->IsUpdated_Result;
+        
+    }
+
+
     //create record(s)-----> post data
     public function postData($service,$data){
         $identity = \Yii::$app->user->identity;

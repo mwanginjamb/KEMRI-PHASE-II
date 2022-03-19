@@ -57,6 +57,19 @@ class Navision extends Component
         }
     }
 
+    // Check if a record is has been updated
+
+    public function isUpdated($credentials, $soapWsdl, $filter)
+    {
+        $client = $this->createClient($credentials, $soapWsdl);
+        try {
+            $result = $client->IsUpdated($filter);
+            return $result;
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
     public function addEntry($credentials, $soapWsdl, $Entry, $EntryID)
     {
         /* print '<pre>';

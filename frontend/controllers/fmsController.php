@@ -75,13 +75,21 @@ class FmsController extends Controller
 		{
 			foreach($fmsGrants as $grant)
 			 {
+
+                // Always check got updated  grants
+               // $this->actionUpdated($grant);
+              
 				if(!in_array($grant->No,$this->actionEssGrantCodes()))
 				{
 					$result = $this->postToEss($grant);
 					$this->GrantLogger($result);					
 					return $result;
  
-				}
+				}else{
+                    print('No Grant to Sync....');
+                }
+
+                   
 	  
 			 }
 		}
@@ -94,136 +102,7 @@ class FmsController extends Controller
         return 'Hallo Francis, what are you doing? ';
     }
 
-    public function actionCreate($Change_No){
-
-        $model = new Misc();
-        $service = Yii::$app->params['ServiceName']['Miscinformation'];
-        $model->Action = 'New_Addition';
-        $model->Change_No = $Change_No;
-        $model->Employee_No = Yii::$app->user->identity->{'Employee No_'};
-       
-        $model->isNewRecord = true;
-
-        if(Yii::$app->request->post() && $model->load(Yii::$app->request->post()['Misc'],'')  && $model->validate() ){
-
-           
-            $result = Yii::$app->navhelper->postData($service,$model);
-            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-            if(is_object($result)){
-
-                return ['note' => '<div class="alert alert-success">Record Added Successfully. </div>'];
-
-            }else{
-
-                return ['note' => '<div class="alert alert-danger">Error Adding Record : '.$result.'</div>' ];
-
-            }
-
-        }//End Saving experience
-
-        if(Yii::$app->request->isAjax){
-            return $this->renderAjax('create', [
-                'model' => $model,
-                'articles' => $this->getMiscArticles(),
-                
-            ]);
-        }
-
-        return $this->render('create',[
-            'model' => $model,
-            'articles' => $this->getMiscArticles(),
-           
-        ]);
-    }
-
-
-    public function actionUpdate(){
-        $model = new Employeeappraisalkpi() ;
-        $model->isNewRecord = false;
-        $service = Yii::$app->params['ServiceName']['EmployeeAppraisalKPI'];
-        $filter = [
-            'KRA_Line_No' => Yii::$app->request->get('KRA_Line_No'),
-            'Employee_No' => Yii::$app->request->get('Employee_No'),
-            'Appraisal_No' => Yii::$app->request->get('Appraisal_No'),
-            'Line_No' => Yii::$app->request->get('Line_No'),
-        ];
-        $result = Yii::$app->navhelper->getData($service,$filter);
-
-        if(is_array($result)){
-            //load nav result to model
-            $model = Yii::$app->navhelper->loadmodel($result[0],$model) ;
-        }else{
-            Yii::$app->recruitment->printrr($result);
-        }
-
-
-        if(Yii::$app->request->post() && Yii::$app->navhelper->loadpost(Yii::$app->request->post()['Employeeappraisalkpi'],$model) && $model->validate() ){
-            $result = Yii::$app->navhelper->updateData($service,$model);
-
-            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-            if(!is_string($result)){
-
-                return ['note' => '<div class="alert alert-success">Employee Objective/ KPI Updated Successfully. </div>' ];
-            }else{
-
-                return ['note' => '<div class="alert alert-danger">Error Updating Employee Objective/ KPI: '.$result.'</div>'];
-            }
-
-        }
-
-        if(Yii::$app->request->isAjax){
-            return $this->renderAjax('update', [
-                'model' => $model,
-                'ratings' => $this->getRatings(),
-                'assessments' => $this->getPerformancelevels(),
-            ]);
-        }
-
-        return $this->render('update',[
-            'model' => $model,
-            'ratings' => $this->getRatings(),
-            'assessments' => $this->getPerformancelevels() ,
-        ]);
-    }
-
-
-
-    public function actionDelete(){
-        $service = Yii::$app->params['ServiceName']['EmployeeAppraisalKPI'];
-        $result = Yii::$app->navhelper->deleteData($service,Yii::$app->request->get('Key'));
-        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        if(!is_string($result)){
-            return ['note' => '<div class="alert alert-success">Record Purged Successfully</div>'];
-        }else{
-            return ['note' => '<div class="alert alert-danger">Error Purging Record: '.$result.'</div>' ];
-        }
-    }
-
-    public function actionView($ApplicationNo){
-        $service = Yii::$app->params['ServiceName']['leaveApplicationCard'];
-        $leaveTypes = $this->getLeaveTypes();
-        $employees = $this->getEmployees();
-
-        $filter = [
-            'Application_No' => $ApplicationNo
-        ];
-
-        $leave = Yii::$app->navhelper->getData($service, $filter);
-
-        //load nav result to model
-        $leaveModel = new Leave();
-        $model = $this->loadtomodel($leave[0],$leaveModel);
-
-
-        return $this->render('view',[
-            'model' => $model,
-            'leaveTypes' => ArrayHelper::map($leaveTypes,'Code','Description'),
-            'relievers' => ArrayHelper::map($employees,'No','Full_Name'),
-        ]);
-    }
-
-
-
+    // Fetch Grants to post to HRMIS
 
     public function getGrants()
     {
@@ -232,6 +111,48 @@ class FmsController extends Controller
           return $data;
     }
 
+    // A Diagnosis function to display all grants from FMS - ON BROWSER
+
+    public function actionShowGrants()
+    {
+          $service = Yii::$app->params['FMS-ServiceName']['FMSGrants'];
+          $data = Yii::$app->fms->getData($service, []);
+          Yii::$app->recruitment->printrr($data);
+    }
+
+    // Check Update Grants
+
+    public function actionUpdated($grant){
+        $service = Yii::$app->params['FMS-ServiceName']['FMSGrants'];
+        $res = Yii::$app->fms->isUpdated($service, $grant->Key);
+        
+
+        // Log updated Grants
+
+        $obj = print_r($grant, true);
+
+        $result = var_dump($res);
+        if($res){
+            
+            $this->UpdateLogger($result);
+            $this->UpdateLogger($obj);
+            Yii::$app->session->set('ugrant', $grant);
+            $this->UpdateLogger($grant);
+        }
+
+        
+        $this->UpdateLogger($result);
+        $this->UpdateLogger($obj);
+ 
+    }
+
+    public function actionInspect()
+    {
+        Yii::$app->recruitment->printrr(Yii::$app->session->get('ugrant'));
+    }
+
+
+     // A Diagnosis function to display all synced Grants in HRMIS - ON BROWSER
 
      public function actionEssGrants()
     {
@@ -241,6 +162,8 @@ class FmsController extends Controller
 
           Yii::$app->recruitment->printrr($data);
     }
+
+    // A function to send Grants to HRMIS - Main sync Function
 
     public function postToEss($grant)
     {
@@ -263,7 +186,14 @@ class FmsController extends Controller
 
         $result = Yii::$app->navhelper->postData($service, $args);
 
-        print_r($result);
+        if(is_object($result)){
+            return $result;
+        }else if(is_string($result) && $result !== 'null'){
+            return $result; // ERP Error
+        }
+        else{
+            return 'No Grants to sync at the moment from FMS. Turus!!';
+        }
 
        
         
@@ -416,7 +346,7 @@ class FmsController extends Controller
 		$fp = fopen($filename, 'a');
 		fwrite($fp, $req_dump);
 		fclose($fp);
-		exit;
+		
 	}
 	
 	private function ActivityLogger($message)
@@ -426,7 +356,20 @@ class FmsController extends Controller
 		$fp = fopen($filename, 'a');
 		fwrite($fp, $req_dump);
 		fclose($fp);
-		exit;
+       
+       exit;
+		
+	}
+
+    private function UpdateLogger($message)
+	{
+		$filename = 'log/update.txt';
+		//$req_dump = print_r($message, TRUE);
+		$fp = fopen($filename, 'a');
+		fwrite($fp, $message);
+		fclose($fp);
+       
+		
 	}
 
 
