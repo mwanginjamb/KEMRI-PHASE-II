@@ -23,6 +23,8 @@ $model->isNewRecord = true;
 
     <?= $this->render('_form', [
         'model' => $model,
+        'categories' => $categories,
+        'ratings' => $ratings
     ]) ?>
 
 </div>

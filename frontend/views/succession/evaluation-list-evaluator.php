@@ -6,7 +6,7 @@
  * Time: 5:23 PM
  */
 
-
+use yii\bootstrap4\Html;
 
 /* @var $this yii\web\View */
 
@@ -37,6 +37,34 @@ if(Yii::$app->session->hasFlash('success')){
     print '</div>';
 }
 ?>
+
+
+<!-- Actions -->
+
+<div class="row">
+    <div class="container">
+
+            <?= Html::a('<i class="fas fa-forward"></i> submit',['submit-plan-evaluator'],['class' => 'btn btn-app bg-success submitforapproval',
+                        'data' => [
+                                'confirm' => 'Are you sure you want to submit this succession plan ?',
+                                'params' => [
+                                    'evaluationNo' =>  $model[0]->Evaluation_No
+                                ],
+                                'method' => 'post',
+                            ],
+                        'title' => 'Submit Succession Plan as an Evaluator.'
+
+            ]) ?>
+
+
+    </div>
+</div>
+
+<!-- Actions -->
+
+
+
+
 <div class="row">
     <div class="col-md-12">
         <div class="card">

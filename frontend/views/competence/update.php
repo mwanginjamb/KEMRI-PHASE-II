@@ -21,6 +21,7 @@ $this->title = 'Update Employee Competence Line';
 
     <?= $this->render('_form',[
         'model' => $model,
+        'categories' => $categories,
         'ratings' => $ratings
     ]) ?>
 

@@ -41,7 +41,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
 
                                     <?= $form->field($model, 'Employee_Code')->hiddenInput(['readonly' => true])->label(false) ?>
 
-                                    <?= $form->field($model, 'Category')->textInput(['required' => true]); ?>
+                                    <?= $form->field($model, 'Category')->dropDownList($categories,['prompt' => 'Select ...','required' => true]); ?>
                                     <?= $form->field($model, 'Maximum_Weigth')->textInput(['disabled' => true, 'readonly' => true]); ?>
                                     <?= $form->field($model, 'Overal_Rating')->textInput(['disabled' => true, 'readonly' => true]); ?>
                                     <?= $form->field($model, 'Total_Weigth')->textInput(['disabled' => true, 'readonly' => true]); ?>

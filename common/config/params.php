@@ -279,6 +279,7 @@ return [
         'StProbationKRAs' => 'StProbationKRAs', //60001
         'StProbationKPIs' => 'StProbationKPIs', //60002
         'StEmployeeAppraisalCompetence' => 'StEmployeeAppraisalCompetence',//60033
+        'CompetenceCategories' => 'CompetenceCategories', //60031
         'StAreasofFurtherDev' => 'StAreasofFurtherDev', // 60040
         'ESS_Files' => 'ESS_Files',// 50097
 

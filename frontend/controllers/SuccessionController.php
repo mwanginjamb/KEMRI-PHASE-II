@@ -68,6 +68,7 @@ class SuccessionController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'logout' => ['post'],
+                    'submit-plan' => ['post'],
                 ],
             ],
             'contentNegotiator' =>[
@@ -705,6 +706,13 @@ class SuccessionController extends Controller
         return $religion;
     }
 
+
+
+/**
+ * Actions
+ */
+
+
     //Submit Appraisal to supervisor
 
     public function actionSubmit($appraisalNo,$employeeNo)
@@ -714,17 +722,17 @@ class SuccessionController extends Controller
             'appraisalNo' => $appraisalNo,
             'employeeNo' => $employeeNo,
             'sendEmail' => 1,
-            'approvalURL' => Yii::$app->urlManager->createAbsoluteUrl(['probation/view', 'Appraisal_No' =>$appraisalNo, 'Employee_No' =>$employeeNo ])
+            'approvalURL' => Yii::$app->urlManager->createAbsoluteUrl(['succession/view', 'Appraisal_No' =>$appraisalNo, 'Employee_No' =>$employeeNo ])
         ];
 
-        $result = Yii::$app->navhelper->CodeUnit($service,$data,'IanSendGoalSettingForApproval');
+        $result = Yii::$app->navhelper->Codeunit($service,$data,'IanSendGoalSettingForApproval');
 
         if(!is_string($result)){
-            Yii::$app->session->setFlash('success', 'Probation Appraisal Submitted Successfully.', true);
+            Yii::$app->session->setFlash('success', 'Document Submitted Successfully.', true);
             return $this->redirect(['index']);
         }else{
 
-            Yii::$app->session->setFlash('error', 'Error Submitting Probation Appraisal : '. $result);
+            Yii::$app->session->setFlash('error', 'Error Submitting Document : '. $result);
             return $this->redirect(['index']);
 
         }
@@ -746,7 +754,7 @@ class SuccessionController extends Controller
             'approvalURL' => Yii::$app->urlManager->createAbsoluteUrl(['probation/superproblist'])
         ];
 
-        $result = Yii::$app->navhelper->CodeUnit($service,$data,'IanSendEYAppraisalToAgreementLevel');
+        $result = Yii::$app->navhelper->Codeunit($service,$data,'IanSendEYAppraisalToAgreementLevel');
 
         if(!is_string($result)){
             Yii::$app->session->setFlash('success', 'Probation Appraisal Send to Agreement Successfully.', true);
@@ -769,18 +777,18 @@ class SuccessionController extends Controller
             'appraisalNo' => $appraisalNo,
             'employeeNo' => $employeeNo,
             'sendEmail' => 1,
-            'approvalURL' => Yii::$app->urlManager->createAbsoluteUrl(['probation/view', 'Appraisal_No' =>$appraisalNo, 'Employee_No' =>$employeeNo ])
+            'approvalURL' => Yii::$app->urlManager->createAbsoluteUrl(['succession/view', 'Appraisal_No' =>$appraisalNo, 'Employee_No' =>$employeeNo ])
         ];
 
-        $result = Yii::$app->navhelper->CodeUnit($service,$data,'IanSendGoalSettingToOverview');
+        $result = Yii::$app->navhelper->Codeunit($service,$data,'IanSendGoalSettingToOverview');
 
         if(!is_string($result)){
-            Yii::$app->session->setFlash('success', 'Probation Appraisal Submitted to Overview Manager Successfully.', true);
-            return $this->redirect(['superglist','Appraisal_No' => $appraisalNo,'Employee_No' => $employeeNo]);
+            Yii::$app->session->setFlash('success', 'Document Submitted Successfully.', true);
+            return $this->redirect(['supervisor-list']);
         }else{
 
-            Yii::$app->session->setFlash('error', 'Error Submitting Probation Appraisal to Overview Manager : '. $result);
-            return $this->redirect(['superglist','Appraisal_No' => $appraisalNo,'Employee_No' => $employeeNo]);
+            Yii::$app->session->setFlash('error', 'Error Submitting Document : '. $result);
+            return $this->redirect(['supervisor-list']);
 
         }
 
@@ -800,15 +808,15 @@ class SuccessionController extends Controller
             
         ];
 
-        $result = Yii::$app->navhelper->CodeUnit($service,$data,'IanApproveGoalSetting');
+        $result = Yii::$app->navhelper->Codeunit($service,$data,'IanApproveGoalSetting');
 
         if(!is_string($result)){
             Yii::$app->session->setFlash('success', 'Appraisal Goals Approved Successfully.', true);
-            return $this->redirect(['ovglist','Appraisal_No' => $appraisalNo,'Employee_No' => $employeeNo]);
+            return $this->redirect(['hr-list']);
         }else{
 
             Yii::$app->session->setFlash('error', 'Error   : '. $result);
-            return $this->redirect(['ovglist','Appraisal_No' => $appraisalNo,'Employee_No' => $employeeNo]);
+            return $this->redirect(['hr-list']);
 
         }
 
@@ -829,12 +837,12 @@ class SuccessionController extends Controller
         $result = Yii::$app->navhelper->IanSendNewEmployeeAppraisalBackToSupervisor($service,$data);
 
         if(!is_string($result)){
-            Yii::$app->session->setFlash('success', 'Probation Appraisal Sent Back to Supervisor Successfully.', true);
-            return $this->redirect(['view','Appraisal_No' => $appraisalNo,'Employee_No' => $employeeNo]);
+            Yii::$app->session->setFlash('success', 'Document Sent Back to Supervisor Successfully.', true);
+            return $this->redirect(['hr-list']);
         }else{
 
-            Yii::$app->session->setFlash('error', 'Error Sending Probation Back to Supervisor  : '. $result);
-            return $this->redirect(['view','Appraisal_No' => $appraisalNo,'Employee_No' => $employeeNo]);
+            Yii::$app->session->setFlash('error', 'Error Sending Document Back to Supervisor  : '. $result);
+            return $this->redirect(['hr-list']);
 
         }
 
@@ -853,15 +861,15 @@ class SuccessionController extends Controller
             'rejectionComments' => Yii::$app->request->post('comment'),
         ];
 
-        $result = Yii::$app->navhelper->CodeUnit($service,$data,'IanSendGoalSettingBackToAppraisee');
+        $result = Yii::$app->navhelper->Codeunit($service,$data,'IanSendGoalSettingBackToAppraisee');
 
         if(!is_string($result)){
-            Yii::$app->session->setFlash('success', 'Probation Appraisal Sent Back to Appraisee Successfully.', true);
-            return $this->redirect(['superglist']);
+            Yii::$app->session->setFlash('success', 'Document Sent Back to Appraisee Successfully.', true);
+            return $this->redirect(['supervisor-list']);
         }else{
 
-            Yii::$app->session->setFlash('error', 'Error Sending Probation Back to Appraisee  : '. $result);
-            return $this->redirect(['superglist']);
+            Yii::$app->session->setFlash('error', 'Error Sending Document Back to Appraisee  : '. $result);
+            return $this->redirect(['supervisor-list']);
 
         }
 
@@ -883,15 +891,15 @@ class SuccessionController extends Controller
             'rejectionComments' => Yii::$app->request->post('comment'),
         ];
 
-        $result = Yii::$app->navhelper->CodeUnit($service,$data,'IanSendGoalSettingBackToLineManager');
+        $result = Yii::$app->navhelper->Codeunit($service,$data,'IanSendGoalSettingBackToLineManager');
 
         if(!is_string($result)){
-            Yii::$app->session->setFlash('success', 'Probation Sent Back Line Manager with comments Successfully.', true);
-            return $this->redirect(['ovglist','Appraisal_No' => $appraisalNo,'Employee_No' => $employeeNo]);
+            Yii::$app->session->setFlash('success', 'Document sent to Supervisor with comments Successfully.', true);
+            return $this->redirect(['hr-list']);
         }else{
 
-            Yii::$app->session->setFlash('error', 'Error Line Manager : '. $result);
-            return $this->redirect(['ovglist','Appraisal_No' => $appraisalNo,'Employee_No' => $employeeNo]);
+            Yii::$app->session->setFlash('error', 'Error  : '. $result);
+            return $this->redirect(['hr-list']);
 
         }
 
@@ -906,18 +914,18 @@ class SuccessionController extends Controller
             'appraisalNo' => $appraisalNo,
             'employeeNo' => $employeeNo,
             'sendEmail' => 1,
-            'approvalURL' => Yii::$app->urlManager->createAbsoluteUrl(['probation/view', 'Appraisal_No' =>$appraisalNo, 'Employee_No' =>$employeeNo ])
+            'approvalURL' => Yii::$app->urlManager->createAbsoluteUrl(['succession/view', 'Appraisal_No' =>$appraisalNo, 'Employee_No' =>$employeeNo ])
         ];
 
-        $result = Yii::$app->navhelper->CodeUnit($service,$data,'IanSendEYAppraisalForApproval');
+        $result = Yii::$app->navhelper->Codeunit($service,$data,'IanSendEYAppraisalForApproval');
 
         if(!is_string($result)){
-            Yii::$app->session->setFlash('success', 'Probation Appraisal Submitted Successfully.', true);
-            return $this->redirect(['approvedglist','Appraisal_No' => $appraisalNo,'Employee_No' => $employeeNo]);
+            Yii::$app->session->setFlash('success', 'Document Submitted Successfully.', true);
+            return $this->redirect(['appraisee-list']);
         }else{
 
-            Yii::$app->session->setFlash('error', 'Error Submitting Probation Appraisal : '. $result);
-            return $this->redirect(['approvedglist','Appraisal_No' => $appraisalNo,'Employee_No' => $employeeNo]);
+            Yii::$app->session->setFlash('error', 'Error Submitting Document : '. $result);
+            return $this->redirect(['appraisee-list']);
 
         }
 
@@ -934,19 +942,19 @@ class SuccessionController extends Controller
             'appraisalNo' => $appraisalNo,
             'employeeNo' => $employeeNo,
             'sendEmail' => 1,
-            'approvalURL' => Yii::$app->urlManager->createAbsoluteUrl(['probation/view', 'Appraisal_No' =>$appraisalNo, 'Employee_No' =>$employeeNo ]),
+            'approvalURL' => Yii::$app->urlManager->createAbsoluteUrl(['succession/view', 'Appraisal_No' =>$appraisalNo, 'Employee_No' =>$employeeNo ]),
             'rejectionComments' => Yii::$app->request->post('comment'),
         ];
 
-        $result = Yii::$app->navhelper->CodeUnit($service,$data,'IanSendEYAppraisaBackToAppraisee');
+        $result = Yii::$app->navhelper->Codeunit($service,$data,'IanSendEYAppraisaBackToAppraisee');
 
         if(!is_string($result)){
-            Yii::$app->session->setFlash('success', 'Probation Sent Back to Appraisee with Comments Successfully.', true);
-            return $this->redirect(['superproblist','Appraisal_No' => $appraisalNo,'Employee_No' => $employeeNo]);
+            Yii::$app->session->setFlash('success', 'Document Sent Back to Appraisee with Comments Successfully.', true);
+            return $this->redirect(['supervisor-list']);
         }else{
 
             Yii::$app->session->setFlash('error', 'Error  : '. $result);
-            return $this->redirect(['superproblist','Appraisal_No' => $appraisalNo,'Employee_No' => $employeeNo]);
+            return $this->redirect(['supervisor-list']);
 
         }
 
@@ -965,19 +973,19 @@ class SuccessionController extends Controller
             'appraisalNo' => $appraisalNo,
             'employeeNo' => $employeeNo,
             'sendEmail' => 1,
-            'approvalURL' => Yii::$app->urlManager->createAbsoluteUrl(['probation/view','Appraisal_No' => $appraisalNo,'Employee_No' => $employeeNo]),
+            'approvalURL' => Yii::$app->urlManager->createAbsoluteUrl(['succession/view','Appraisal_No' => $appraisalNo,'Employee_No' => $employeeNo]),
             'rejectionComments' => Yii::$app->request->post('comment'),
         ];
 
-        $result = Yii::$app->navhelper->CodeUnit($service,$data,'IanSendEYAppraisaBackToLineManager');
+        $result = Yii::$app->navhelper->Codeunit($service,$data,'IanSendEYAppraisaBackToLineManager');
 
         if(!is_string($result)){
-            Yii::$app->session->setFlash('success', 'Probation Sent Back to Line Manager with Comments Successfully.', true);
-            return $this->redirect(['ovproblist']);
+            Yii::$app->session->setFlash('success', 'Document sent Bank to Supervisor with Comments Successfully.', true);
+            return $this->redirect(['hr-list']);
         }else{
 
             Yii::$app->session->setFlash('error', 'Error  : '. $result);
-            return $this->redirect(['ovproblist']);
+            return $this->redirect(['hr-list']);
 
         }
 
@@ -997,7 +1005,7 @@ class SuccessionController extends Controller
                 'appraisalNo' =>Yii::$app->request->post('appraisalNo'),
                 'employeeNo' => Yii::$app->request->post('employeeNo')
             ];
-            $path = Yii::$app->navhelper->CodeUnit($service,$data,'IanGenerateNewEmployeeAppraisalReport');
+            $path = Yii::$app->navhelper->Codeunit($service,$data,'IanGenerateNewEmployeeAppraisalReport');
             //Yii::$app->recruitment->printrr($path);
             if(!is_file($path['return_value'])){
 
@@ -1023,6 +1031,48 @@ class SuccessionController extends Controller
             'content' => '',
         ]);
 
+    }
+
+    // Planning Actions
+
+    public function actionSubmitPlan()
+    {
+        $service = Yii::$app->params['ServiceName']['HRSUCCESSIONPLANNING'];
+        $params = [
+            'evaluationNo' => Yii::$app->request->post('evaluationNo')
+        ];
+
+        $result = Yii::$app->navhelper->codeunit($service, $params,'IanSubmitSuccessionPlanningCandidate');
+        
+        if(!is_string($result)){
+            Yii::$app->session->setFlash('success', 'Document sent Successfully.', true);
+            return $this->redirect(['evaluation-list']);
+        }else{
+
+            Yii::$app->session->setFlash('error', 'Error  : '. $result);
+            return $this->redirect(['evaluation-list']);
+
+        }
+    }
+
+    public function actionSubmitPlanEvaluator()
+    {
+        $service = Yii::$app->params['ServiceName']['HRSUCCESSIONPLANNING'];
+        $params = [
+            'evaluationNo' => Yii::$app->request->post('evaluationNo')
+        ];
+
+        $result = Yii::$app->navhelper->codeunit($service, $params,'IanSubmitSuccessionPlanningEvaluator');
+        
+        if(!is_string($result)){
+            Yii::$app->session->setFlash('success', 'Document sent Successfully.', true);
+            return $this->redirect(['evaluation-list']);
+        }else{
+
+            Yii::$app->session->setFlash('error', 'Error  : '. $result);
+            return $this->redirect(['evaluation-list']);
+
+        }
     }
 
 }
