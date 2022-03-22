@@ -41,7 +41,7 @@ if(Yii::$app->session->hasFlash('success')){
         <div class="card">
             <div class="card-header">
 
-                <h3 class="card-title">Closed Probation Appraisal List  &nbsp;    <?= Html::a('<i class="fa fa-plus-square"></i> Add New Appraisal',['create'],['class' => 'add-objective btn btn-outline-info btn-sm']) ?></h3>
+                <h3 class="card-title">Closed Succession Evaluation List  &nbsp;    <?php Html::a('<i class="fa fa-plus-square"></i> Add New Appraisal',['create'],['class' => 'add-objective btn btn-outline-info btn-sm']) ?></h3>
 
                 
             </div>
@@ -67,23 +67,18 @@ $script = <<<JS
           $('#appraisal').DataTable({
            
             //serverSide: true,  
-            ajax: absolute+'probation/closedappraisallist',
+            ajax: absolute+'succession/list-closed',
             paging: true,
             columns: [
                 { title: 'Appraisal No' ,data: 'Appraisal_No'},
-                { title: 'Employee No' ,data: 'Employee_No'},
                 { title: 'Employee Name' ,data: 'Employee_Name'},
                 { title: 'Level Grade' ,data: 'Level_Grade'},
                 { title: 'Job Title' ,data: 'Job_Title'},
-                { title: 'Appraisal Start Date' ,data: 'Appraisal_Start_Date'},
-                { title: 'Appraisal End Date' ,data: 'Appraisal_End_Date'},
-                               
-                { title: 'Action', data: 'Action' },
-                
+                { title: 'Action', data: 'Action' },                
                
             ] ,                              
            language: {
-                "zeroRecords": "No Probation Appraisals to display"
+                "zeroRecords": "No Closed Evaluations to display"
             },
             
             order : [[ 0, "desc" ]]

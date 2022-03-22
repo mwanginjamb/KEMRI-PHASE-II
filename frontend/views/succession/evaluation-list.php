@@ -36,6 +36,7 @@ if(Yii::$app->session->hasFlash('success')){
     echo Yii::$app->session->getFlash('error');
     print '</div>';
 }
+//Yii::$app->recruitment->printrr($model);
 ?>
 
 <!-- Actions -->
@@ -47,7 +48,8 @@ if(Yii::$app->session->hasFlash('success')){
                         'data' => [
                                 'confirm' => 'Are you sure you want to submit this succession plan ?',
                                 'params' => [
-                                    'evaluationNo' =>  $model[0]->Evaluation_No
+                                    'successionNo' => is_array($model)?$model[0]->Succession_No:'',
+                                    'employeeNo' => is_array($model)?$model[0]->Employee_No:''
                                 ],
                                 'method' => 'post',
                             ],
@@ -81,27 +83,31 @@ if(Yii::$app->session->hasFlash('success')){
                                 <td class="text-bold">Employee_Name</td>
                                 <td class="text-bold">Question</td>
                                 <td class="text-bold text-info">Answer</td>
-                                <td class="text-bold">Preferred_Answer</td>
+                                <!-- <td class="text-bold">Preferred_Answer</td>
                                 <td class="text-bold">Recomendation</td>
                                 <td class="text-bold">Candidate_Status</td>
-                                <td class="text-bold">Evaluator_Status</td>
+                                <td class="text-bold">Evaluator_Status</td> -->
                             </tr>
                         </thead>
 
                         <tbody>
-                            <?php foreach($model as $record): ?>
+                            <?php foreach($model as $record):
+                                if(empty($record->Succession_No)){
+                                    continue;
+                                }
+                                ?>
 
                                 <tr>
-                                    <td><?= $record->Evaluation_No ?></td>
-                                    <td><?= $record->Succession_No ?></td>
-                                    <!-- <td><?= $record->Employee_No ?></td> -->
-                                    <td><?= $record->Employee_Name ?></td>
-                                    <td><?= $record->Question ?></td>
+                                    <td><?= !empty($record->Evaluation_No)?$record->Evaluation_No:'' ?></td>
+                                    <td><?= !empty($record->Succession_No)?$record->Succession_No:'' ?></td>
+                                   
+                                    <td><?= !empty($record->Employee_Name)?$record->Employee_Name:'' ?></td>
+                                    <td><?= !empty($record->Question)?$record->Question:'' ?></td>
                                     <td data-key="<?= $record->Key ?>" data-name="Answer" data-service="SuccessionEvaluationList" ondblclick="addDropDown(this,'answers')"><?= $record->Answer ?></td>
-                                    <td><?= $record->Preferred_Answer ?></td>
+                                    <!-- <td><?= $record->Preferred_Answer ?></td>
                                     <td><?= $record->Recomendation ?></td>
                                     <td><?= $record->Candidate_Status ?></td>
-                                    <td><?= $record->Evaluator_Status ?></td>
+                                    <td><?= $record->Evaluator_Status ?></td> -->
                                 </tr>
 
                             <?php endforeach; ?>

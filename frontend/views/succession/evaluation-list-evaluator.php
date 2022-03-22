@@ -36,6 +36,7 @@ if(Yii::$app->session->hasFlash('success')){
     echo Yii::$app->session->getFlash('error');
     print '</div>';
 }
+
 ?>
 
 
@@ -48,7 +49,8 @@ if(Yii::$app->session->hasFlash('success')){
                         'data' => [
                                 'confirm' => 'Are you sure you want to submit this succession plan ?',
                                 'params' => [
-                                    'evaluationNo' =>  $model[0]->Evaluation_No
+                                    'successionNo' => is_array($model)?$model[0]->Succession_No:'',
+                                    'employeeNo' => is_array($model)?$model[0]->Employee_No:''
                                 ],
                                 'method' => 'post',
                             ],

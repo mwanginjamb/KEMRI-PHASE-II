@@ -42,7 +42,8 @@ class SuccessionController extends Controller
                      'appraisee-list',
                      'supervisor-list',
                      'hr-list',
-                     'closed-list'
+                     'closed-list',
+                     'acceptance-list'
                     ],
                 'rules' => [
                     [
@@ -57,7 +58,8 @@ class SuccessionController extends Controller
                         'appraisee-list',
                         'supervisor-list',
                         'hr-list',
-                        'closed-list'
+                        'closed-list',
+                        'acceptance-list'
                     ],
                         'allow' => true,
                         'roles' => ['@'],
@@ -83,7 +85,8 @@ class SuccessionController extends Controller
                     'list-closed',
                     'answers',
                     'preferred-answers',
-                    'recommendations'
+                    'recommendations',
+                    'list-acceptance'
 
                 ],
                 'formatParam' => '_format',
@@ -107,41 +110,45 @@ class SuccessionController extends Controller
         return parent::beforeAction($action);
     }
 
+    
     public function actionEvaluationList(){
-
+        
         $service = Yii::$app->params['ServiceName']['SuccessionEvaluationList'];
         $filter = [
-            //'Employee_No' => Yii::$app->user->identity->{'Employee No_'},
+            'Employee_No' => Yii::$app->user->identity->{'Employee No_'},
         ];
-
         $list = Yii::$app->navhelper->getData($service, $filter);
-
         return $this->render('evaluation-list', ['model' => $list]);
-
     }
-
+    
     public function actionEvaluationListEvaluator(){
-
+        
         $service = Yii::$app->params['ServiceName']['SuccessionEvaluationListEvaluator'];
         $filter = [
             //'Employee_No' => Yii::$app->user->identity->{'Employee No_'},
         ];
-
+        
+        $list = Yii::$app->navhelper->getData($service, $filter);
+        return $this->render('evaluation-list-evaluator',['model' => $list]);
+    }
+    
+    public function actionAcceptanceList(){
+       
+        $service = Yii::$app->params['ServiceName']['SuccessionAcceptance'];
+        $filter = [
+            'Employee_No' => Yii::$app->user->identity->{'Employee No_'},
+        ];
         $list = Yii::$app->navhelper->getData($service, $filter);
 
-        
-
-        return $this->render('evaluation-list-evaluator',['model' => $list]);
-
+        return $this->render('succession-acceptance',['model' =>  $list]);
     }
-
     public function actionObjectiveSetting(){
-
-
+        
+        
         return $this->render('objective-setting');
-
+        
     }
-
+    
     public function actionAppraiseeList(){
 
 
@@ -209,16 +216,7 @@ class SuccessionController extends Controller
         return $answers;
     }
 
-     /** Updates a single field */
-     public function actionSetfield($field){
-        $service = 'ImprestRequestCardPortal';
-        $value = Yii::$app->request->post('fieldValue');
-       
-        $result = Yii::$app->navhelper->Commit($service,[$field => $value],Yii::$app->request->post('Key'));
-        Yii::$app->response->format = \yii\web\response::FORMAT_JSON;
-        return $result;
-          
-    }
+     
 
 
     /**
@@ -346,13 +344,220 @@ class SuccessionController extends Controller
     // Lists
 
 
+
+    public function actionListAcceptance(){
+        $service = Yii::$app->params['ServiceName']['SuccessionAcceptance'];
+        $filter = [
+            'Employee_No' => Yii::$app->user->identity->{'Employee No_'},
+        ];
+        $appraisals = \Yii::$app->navhelper->getData($service,$filter);
+        //ksort($appraisals);
+        $result = [];
+
+        if(is_array($appraisals)){
+            foreach($appraisals as $req){
+
+                $Viewlink = Html::a('View', ['view'], 
+                [
+                    'class' => 'btn btn-outline-primary btn-xs',
+                    'data' => [
+                        'params' => [
+                            'Key' => $req->Key
+                        ],
+                        'method' => 'GET'
+                    ]
+                ]);
+
+                $result['data'][] = [
+                    'Succession_No' => !empty($req->Succession_No) ? $req->Succession_No : 'Not Set',
+                    'Employee_Name' => !empty($req->Employee_Name) ? $req->Employee_Name : 'Not Set',
+                    'Status' => !empty($req->Status) ? $req->Status : 'Not Set',
+                    'Rejection_Comments' => !empty($req->Rejection_Comments) ? $req->Rejection_Comments : '',
+                    'Succession_Job' =>  !empty($req->Rejection_Comments) ?$req->Rejection_Comments : '',
+                   
+                ];
+
+            }
+        }
+
+        return $result;
+    }
+
+
     /**
      * Objective setting List
      */
     public function actionListObjectiveSetting(){
         $service = Yii::$app->params['ServiceName']['SuccessionObjectiveSettingList'];
         $filter = [
-           // 'Employee_No' => Yii::$app->user->identity->{'Employee No_'},
+           'Employee_No' => Yii::$app->user->identity->{'Employee No_'},
+        ];
+        $appraisals = \Yii::$app->navhelper->getData($service,$filter);
+        //ksort($appraisals);
+        $result = [];
+
+        if(is_array($appraisals)){
+            foreach($appraisals as $req){
+
+                $Viewlink = Html::a('View', ['view'], 
+                [
+                    'class' => 'btn btn-outline-primary btn-xs',
+                    'data' => [
+                        'params' => [
+                            'Key' => $req->Key
+                        ],
+                        'method' => 'GET'
+                    ]
+                ]);
+
+                $result['data'][] = [
+                    'Appraisal_No' => !empty($req->Appraisal_No) ? $req->Appraisal_No : 'Not Set',
+                    'Employee_Name' => !empty($req->Employee_Name) ? $req->Employee_Name : 'Not Set',
+                    'Level_Grade' => !empty($req->Level_Grade) ? $req->Level_Grade : 'Not Set',
+                    'Job_Title' => !empty($req->Job_Title) ? $req->Job_Title : '',
+                    'Appraisal_Start_Date' =>  !empty($req->Appraisal_Start_Date) ?$req->Appraisal_Start_Date : '',
+                    'Appraisal_End_Date' =>  !empty($req->Appraisal_End_Date) ?$req->Appraisal_End_Date : '',
+                    'Action' => !empty($Viewlink) ? $Viewlink : '',
+
+                ];
+
+            }
+        }
+
+        return $result;
+    }
+
+    // List Appraisee
+
+    public function actionListAppraisee(){
+        $service = Yii::$app->params['ServiceName']['SuccessionAppraiseeList'];
+        $filter = [
+           'Employee_No' => Yii::$app->user->identity->{'Employee No_'},
+        ];
+        $appraisals = \Yii::$app->navhelper->getData($service,$filter);
+        //ksort($appraisals);
+        $result = [];
+
+        if(is_array($appraisals)){
+            foreach($appraisals as $req){
+
+                $Viewlink = Html::a('View', ['view'], 
+                [
+                    'class' => 'btn btn-outline-primary btn-xs',
+                    'data' => [
+                        'params' => [
+                            'Key' => $req->Key
+                        ],
+                        'method' => 'GET'
+                    ]
+                ]);
+
+                $result['data'][] = [
+                    'Appraisal_No' => !empty($req->Appraisal_No) ? $req->Appraisal_No : 'Not Set',
+                    'Employee_Name' => !empty($req->Employee_Name) ? $req->Employee_Name : 'Not Set',
+                    'Level_Grade' => !empty($req->Level_Grade) ? $req->Level_Grade : 'Not Set',
+                    'Job_Title' => !empty($req->Job_Title) ? $req->Job_Title : '',
+                    'Appraisal_Start_Date' =>  !empty($req->Appraisal_Start_Date) ?$req->Appraisal_Start_Date : '',
+                    'Appraisal_End_Date' =>  !empty($req->Appraisal_End_Date) ?$req->Appraisal_End_Date : '',
+                    'Action' => !empty($Viewlink) ? $Viewlink : '',
+
+                ];
+
+            }
+        }
+
+        return $result;
+    }
+
+    public function actionListHr(){
+        $service = Yii::$app->params['ServiceName']['SuccessionHRList'];
+        $filter = [
+           'Employee_No' => Yii::$app->user->identity->{'Employee No_'},
+        ];
+        $appraisals = \Yii::$app->navhelper->getData($service,$filter);
+        //ksort($appraisals);
+        $result = [];
+
+        if(is_array($appraisals)){
+            foreach($appraisals as $req){
+
+                $Viewlink = Html::a('View', ['view'], 
+                [
+                    'class' => 'btn btn-outline-primary btn-xs',
+                    'data' => [
+                        'params' => [
+                            'Key' => $req->Key
+                        ],
+                        'method' => 'GET'
+                    ]
+                ]);
+
+                $result['data'][] = [
+                    'Appraisal_No' => !empty($req->Appraisal_No) ? $req->Appraisal_No : 'Not Set',
+                    'Employee_Name' => !empty($req->Employee_Name) ? $req->Employee_Name : 'Not Set',
+                    'Level_Grade' => !empty($req->Level_Grade) ? $req->Level_Grade : 'Not Set',
+                    'Job_Title' => !empty($req->Job_Title) ? $req->Job_Title : '',
+                    'Appraisal_Start_Date' =>  !empty($req->Appraisal_Start_Date) ?$req->Appraisal_Start_Date : '',
+                    'Appraisal_End_Date' =>  !empty($req->Appraisal_End_Date) ?$req->Appraisal_End_Date : '',
+                    'Action' => !empty($Viewlink) ? $Viewlink : '',
+
+                ];
+
+            }
+        }
+
+        return $result;
+    }
+
+    // List Closed
+
+    public function actionListClosed(){
+        $service = Yii::$app->params['ServiceName']['SuccessionClosedList'];
+        $filter = [
+           'Employee_No' => Yii::$app->user->identity->{'Employee No_'},
+        ];
+        $appraisals = \Yii::$app->navhelper->getData($service,$filter);
+        //ksort($appraisals);
+        $result = [];
+
+        if(is_array($appraisals)){
+            foreach($appraisals as $req){
+
+                $Viewlink = Html::a('View', ['view'], 
+                [
+                    'class' => 'btn btn-outline-primary btn-xs',
+                    'data' => [
+                        'params' => [
+                            'Key' => $req->Key
+                        ],
+                        'method' => 'GET'
+                    ]
+                ]);
+
+                $result['data'][] = [
+                    'Appraisal_No' => !empty($req->Appraisal_No) ? $req->Appraisal_No : 'Not Set',
+                    'Employee_Name' => !empty($req->Employee_Name) ? $req->Employee_Name : 'Not Set',
+                    'Level_Grade' => !empty($req->Level_Grade) ? $req->Level_Grade : 'Not Set',
+                    'Job_Title' => !empty($req->Job_Title) ? $req->Job_Title : '',
+                    'Appraisal_Start_Date' =>  !empty($req->Appraisal_Start_Date) ?$req->Appraisal_Start_Date : '',
+                    'Appraisal_End_Date' =>  !empty($req->Appraisal_End_Date) ?$req->Appraisal_End_Date : '',
+                    'Action' => !empty($Viewlink) ? $Viewlink : '',
+
+                ];
+
+            }
+        }
+
+        return $result;
+    }
+
+
+    // List Supervisor
+
+    public function actionListSupervisor(){
+        $service = Yii::$app->params['ServiceName']['SuccesssionSupervisorList'];
+        $filter = [
+           //'Employee_No' => Yii::$app->user->identity->{'Employee No_'},
         ];
         $appraisals = \Yii::$app->navhelper->getData($service,$filter);
         //ksort($appraisals);
@@ -713,11 +918,61 @@ class SuccessionController extends Controller
  */
 
 
+    // Accept Plan
+
+    
+    public function actionAcceptPlan()
+    {
+        $service = Yii::$app->params['ServiceName']['HRSUCCESSIONPLANNING'];
+        $data = [
+            'empNo' => Yii::$app->request->post('empNo'),
+            'lineNo' => Yii::$app->request->post('lineNo'),
+            
+        ];
+
+        $result = Yii::$app->navhelper->Codeunit($service,$data,'IanAcceptSuccessionPlaning');
+
+        if(!is_string($result)){
+            Yii::$app->session->setFlash('success', 'Document Submitted Successfully.', true);
+            return $this->redirect(['acceptance-list']);
+        }else{
+
+            Yii::$app->session->setFlash('error', 'Error Submitting Document : '. $result);
+            return $this->redirect(['acceptance-list']);
+
+        }
+
+    }
+
+
+    public function actionRejectPlan()
+    {
+        $service = Yii::$app->params['ServiceName']['HRSUCCESSIONPLANNING'];
+        $data = [
+            'empNo' => Yii::$app->request->post('empNo'),
+            'lineNo' => Yii::$app->request->post('lineNo'),
+            
+        ];
+
+        $result = Yii::$app->navhelper->Codeunit($service,$data,'IanRejectSuccessionPlaning');
+
+        if(!is_string($result)){
+            Yii::$app->session->setFlash('success', 'Document Submitted Successfully.', true);
+            return $this->redirect(['acceptance-list']);
+        }else{
+
+            Yii::$app->session->setFlash('error', 'Error Submitting Document : '. $result);
+            return $this->redirect(['acceptance-list']);
+
+        }
+
+    }
+
     //Submit Appraisal to supervisor
 
     public function actionSubmit($appraisalNo,$employeeNo)
     {
-        $service = Yii::$app->params['ServiceName']['AppraisalWorkflow'];
+        $service = Yii::$app->params['ServiceName']['HRSUCCESSIONPLANNING'];
         $data = [
             'appraisalNo' => $appraisalNo,
             'employeeNo' => $employeeNo,
@@ -729,11 +984,11 @@ class SuccessionController extends Controller
 
         if(!is_string($result)){
             Yii::$app->session->setFlash('success', 'Document Submitted Successfully.', true);
-            return $this->redirect(['index']);
+            return $this->redirect(['objective-setting']);
         }else{
 
             Yii::$app->session->setFlash('error', 'Error Submitting Document : '. $result);
-            return $this->redirect(['index']);
+            return $this->redirect(['objective-setting']);
 
         }
 
@@ -746,7 +1001,7 @@ class SuccessionController extends Controller
 
     public function actionAgreementlevel($appraisalNo,$employeeNo)
     {
-        $service = Yii::$app->params['ServiceName']['AppraisalWorkflow'];
+        $service = Yii::$app->params['ServiceName']['HRSUCCESSIONPLANNING'];
         $data = [
             'appraisalNo' => $appraisalNo,
             'employeeNo' => $employeeNo,
@@ -772,7 +1027,7 @@ class SuccessionController extends Controller
 
     public function actionSubmittooverview($appraisalNo,$employeeNo)
     {
-        $service = Yii::$app->params['ServiceName']['AppraisalWorkflow'];
+        $service = Yii::$app->params['ServiceName']['HRSUCCESSIONPLANNING'];
         $data = [
             'appraisalNo' => $appraisalNo,
             'employeeNo' => $employeeNo,
@@ -800,7 +1055,7 @@ class SuccessionController extends Controller
 
     public function actionApprovegoals($appraisalNo,$employeeNo)
     {
-        $service = Yii::$app->params['ServiceName']['AppraisalWorkflow'];
+        $service = Yii::$app->params['ServiceName']['HRSUCCESSIONPLANNING'];
         $data = [
             'appraisalNo' => $appraisalNo,
             'employeeNo' => $employeeNo,
@@ -825,7 +1080,7 @@ class SuccessionController extends Controller
 
      public function actionBacktosuper($appraisalNo,$employeeNo)
     {
-        $service = Yii::$app->params['ServiceName']['AppraisalWorkflow'];
+        $service = Yii::$app->params['ServiceName']['HRSUCCESSIONPLANNING'];
         $data = [
             'appraisalNo' => $appraisalNo,
             'employeeNo' => $employeeNo,
@@ -850,7 +1105,7 @@ class SuccessionController extends Controller
 
     public function actionBacktoemp()
     {
-        $service = Yii::$app->params['ServiceName']['AppraisalWorkflow'];
+        $service = Yii::$app->params['ServiceName']['HRSUCCESSIONPLANNING'];
         $appraisalNo = Yii::$app->request->post('Appraisal_No');
         $employeeNo = Yii::$app->request->post('Employee_No');
         $data = [
@@ -880,7 +1135,7 @@ class SuccessionController extends Controller
 
     public function actionBacktolinemgr()
     {
-        $service = Yii::$app->params['ServiceName']['AppraisalWorkflow'];
+        $service = Yii::$app->params['ServiceName']['HRSUCCESSIONPLANNING'];
         $appraisalNo = Yii::$app->request->post('Appraisal_No');
         $employeeNo = Yii::$app->request->post('Employee_No');
         $data = [
@@ -909,7 +1164,7 @@ class SuccessionController extends Controller
 
     public function actionSubmitprobationtolinemgr($appraisalNo,$employeeNo)
     {
-        $service = Yii::$app->params['ServiceName']['AppraisalWorkflow'];
+        $service = Yii::$app->params['ServiceName']['HRSUCCESSIONPLANNING'];
         $data = [
             'appraisalNo' => $appraisalNo,
             'employeeNo' => $employeeNo,
@@ -931,11 +1186,37 @@ class SuccessionController extends Controller
 
     }
 
+    // Submit to overview
+
+    public function actionSubmitprobationtooverview($appraisalNo,$employeeNo)
+    {
+        $service = Yii::$app->params['ServiceName']['HRSUCCESSIONPLANNING'];
+        $data = [
+            'appraisalNo' => $appraisalNo,
+            'employeeNo' => $employeeNo,
+            'sendEmail' => 1,
+            'approvalURL' => Yii::$app->urlManager->createAbsoluteUrl(['succession/view', 'Appraisal_No' =>$appraisalNo, 'Employee_No' =>$employeeNo ])
+        ];
+
+        $result = Yii::$app->navhelper->Codeunit($service,$data,'IanSendEYAppraisalToOverview');
+
+        if(!is_string($result)){
+            Yii::$app->session->setFlash('success', 'Document Submitted Successfully.', true);
+            return $this->redirect(['supervisor-list']);
+        }else{
+
+            Yii::$app->session->setFlash('error', 'Error Submitting Document : '. $result);
+            return $this->redirect(['supervisor-list']);
+
+        }
+
+    }
+
     // Reject Probation and send it back to appraisee
 
     public function actionProbationbacktoappraisee()
     {
-        $service = Yii::$app->params['ServiceName']['AppraisalWorkflow'];
+        $service = Yii::$app->params['ServiceName']['HRSUCCESSIONPLANNING'];
         $appraisalNo = Yii::$app->request->post('Appraisal_No');
         $employeeNo = Yii::$app->request->post('Employee_No');
         $data = [
@@ -966,7 +1247,7 @@ class SuccessionController extends Controller
 
      public function actionOverviewbacktolinemgr()
     {
-        $service = Yii::$app->params['ServiceName']['AppraisalWorkflow'];
+        $service = Yii::$app->params['ServiceName']['HRSUCCESSIONPLANNING'];
         $appraisalNo = Yii::$app->request->post('Appraisal_No');
         $employeeNo = Yii::$app->request->post('Employee_No');
         $data = [
@@ -990,6 +1271,36 @@ class SuccessionController extends Controller
         }
 
     }
+
+
+    // Approve and close - By HR
+
+    public function actionClose()
+    {
+        $service = Yii::$app->params['ServiceName']['HRSUCCESSIONPLANNING'];
+        $appraisalNo = Yii::$app->request->post('Appraisal_No');
+        $employeeNo = Yii::$app->request->post('Employee_No');
+        $data = [
+            'appraisalNo' => Yii::$app->request->post('Appraisal_No'),
+            'employeeNo' => Yii::$app->request->post('Employee_No'),
+            'sendEmail' => 1,
+            'approvalURL' => Yii::$app->urlManager->createAbsoluteUrl(['succession/view', 'Appraisal_No' =>$appraisalNo, 'Employee_No' =>$employeeNo ])
+        ];
+
+        $result = Yii::$app->navhelper->Codeunit($service,$data,'IanApproveEYAppraisal');
+
+        if(!is_string($result)){
+            Yii::$app->session->setFlash('success', 'Document Submitted Successfully.', true);
+            return $this->redirect(['hr-list']);
+        }else{
+
+            Yii::$app->session->setFlash('error', 'Error Submitting Document : '. $result);
+            return $this->redirect(['hr-list']);
+
+        }
+
+    }
+
 
 
 
@@ -1039,7 +1350,8 @@ class SuccessionController extends Controller
     {
         $service = Yii::$app->params['ServiceName']['HRSUCCESSIONPLANNING'];
         $params = [
-            'evaluationNo' => Yii::$app->request->post('evaluationNo')
+            'successionNo' => Yii::$app->request->post('successionNo'),
+            'employeeNo' =>  Yii::$app->request->post('employeeNo'),
         ];
 
         $result = Yii::$app->navhelper->codeunit($service, $params,'IanSubmitSuccessionPlanningCandidate');
@@ -1059,7 +1371,8 @@ class SuccessionController extends Controller
     {
         $service = Yii::$app->params['ServiceName']['HRSUCCESSIONPLANNING'];
         $params = [
-            'evaluationNo' => Yii::$app->request->post('evaluationNo')
+            'successionNo' => Yii::$app->request->post('successionNo'),
+            'employeeNo' =>  Yii::$app->request->post('employeeNo'),
         ];
 
         $result = Yii::$app->navhelper->codeunit($service, $params,'IanSubmitSuccessionPlanningEvaluator');
@@ -1073,6 +1386,16 @@ class SuccessionController extends Controller
             return $this->redirect(['evaluation-list']);
 
         }
+    }
+
+      /** Updates a single field */
+      public function actionSetfield($field){
+        $service = 'SuccessionAppraisalCard';
+        $value = Yii::$app->request->post('fieldValue');
+        $result = Yii::$app->navhelper->Commit($service,[$field => $value],Yii::$app->request->post('Key'));
+        Yii::$app->response->format = \yii\web\response::FORMAT_JSON;
+        return $result;
+          
     }
 
 }

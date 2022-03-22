@@ -1280,6 +1280,14 @@ $employee = (!Yii::$app->user->isGuest && is_array(Yii::$app->user->identity->em
                                 </a>
                                 <ul class="nav nav-treeview">
 
+
+                                <li class="nav-item">
+                                        <a href="<?= $absoluteUrl ?>succession/acceptance-list" class="nav-link <?= Yii::$app->recruitment->currentaction('succession','acceptance-list')?'active':'' ?>">
+                                            <i class="fa fa-chart-line nav-icon"></i>
+                                            <p>Succession Acceptance List </p>
+                                        </a>
+                                    </li>
+
                                     <li class="nav-item">
                                         <a href="<?= $absoluteUrl ?>succession/evaluation-list" class="nav-link <?= Yii::$app->recruitment->currentaction('succession','evaluation-list')?'active':'' ?>">
                                             <i class="fa fa-chart-line nav-icon"></i>
@@ -1302,14 +1310,14 @@ $employee = (!Yii::$app->user->isGuest && is_array(Yii::$app->user->identity->em
                                     </li>
 
                                     <li class="nav-item">
-                                        <a href="<?= $absoluteUrl ?>succession/appraisee-list" class="nav-link <?= Yii::$app->recruitment->currentaction('succession','appraisee')?'active':'' ?>">
+                                        <a href="<?= $absoluteUrl ?>succession/appraisee-list" class="nav-link <?= Yii::$app->recruitment->currentaction('succession','appraisee-list')?'active':'' ?>">
                                             <i class="fa fa-chart-line nav-icon"></i>
                                             <p>Appraisee List </p>
                                         </a>
                                     </li>
 
                                     <li class="nav-item">
-                                        <a href="<?= $absoluteUrl ?>succession/supervisor-list" class="nav-link <?= Yii::$app->recruitment->currentaction('succession','appraisee-list')?'active':'' ?>">
+                                        <a href="<?= $absoluteUrl ?>succession/supervisor-list" class="nav-link <?= Yii::$app->recruitment->currentaction('succession','supervisor-list')?'active':'' ?>">
                                             <i class="fa fa-chart-line nav-icon"></i>
                                             <p>Supervisor List </p>
                                         </a>
@@ -1325,7 +1333,7 @@ $employee = (!Yii::$app->user->isGuest && is_array(Yii::$app->user->identity->em
                                     <li class="nav-item">
                                         <a href="<?= $absoluteUrl ?>succession/closed-list" class="nav-link <?= Yii::$app->recruitment->currentaction('succession','closed-list')?'active':'' ?>">
                                             <i class="fa fa-chart-line nav-icon"></i>
-                                            <p>HR List </p>
+                                            <p>Closed List </p>
                                         </a>
                                     </li>
 

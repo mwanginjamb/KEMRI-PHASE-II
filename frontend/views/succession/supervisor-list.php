@@ -10,7 +10,7 @@
 
 /* @var $this yii\web\View */
 
-$this->title = 'HRMIS -  End Year Appraisal List: Peer 1';
+$this->title = 'HRMIS -  Succession Evaluation : Supervisor  List';
 $this->params['breadcrumbs'][] = ['label' => 'Performance Management', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => 'End Year Appraisal List (Peer 1)', 'url' => ['index']];
 ?>
@@ -38,7 +38,7 @@ if(Yii::$app->session->hasFlash('success')){
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">End Year Appraisal List (Peer 1)</h3>
+                    <h3 class="card-title"> Supervisor Evaluation List</h3>
                 </div>
                 <div class="card-body">
                     <table class="table table-bordered dt-responsive table-hover" id="appraisal">
@@ -62,18 +62,13 @@ $script = <<<JS
           $('#appraisal').DataTable({
            
             //serverSide: true,  
-            ajax: absolute+'appraisal/geteypeer1list',
+            ajax: absolute+'succession/list-supervisor',
             paging: true,
             columns: [
                 { title: 'Appraisal No' ,data: 'Appraisal_No'},
-                { title: 'Employee No' ,data: 'Employee_No'},
                 { title: 'Employee Name' ,data: 'Employee_Name'},
                 { title: 'Level Grade' ,data: 'Level_Grade'},
                 { title: 'Job Title' ,data: 'Job_Title'},
-                { title: 'Function Team' ,data: 'Function_Team'},
-                { title: 'Appraisal Period' ,data: 'Appraisal_Period'},
-                { title: 'Goal Setting Start Date' ,data: 'Goal_Setting_Start_Date'},
-               
                 { title: 'Action', data: 'Action' },
                 
                
@@ -82,7 +77,7 @@ $script = <<<JS
                 "zeroRecords": "No Appraisals to display"
             },
             
-            order : [[ 6, "desc" ]]
+            order : [[ 0, "desc" ]]
             
            
        });

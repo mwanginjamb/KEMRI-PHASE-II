@@ -52,8 +52,8 @@ public $Succession_Recomended_Action;
     {
         return [
 
-
-
+            'Over_View_Manager_Comments' => 'HR Comments',
+            'Supervisor_Overall_Comments' => 'Incumbent\'s Overall Comments'
         ];
     }
 

@@ -6,6 +6,7 @@
  * Time: 6:09 PM
  */
 
+use yii\bootstrap4\Html as Bootstrap4Html;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -59,10 +60,10 @@ Yii::$app->session->set('Goal_Setting_Status',$model->Goal_Setting_Status);
                                 <div class="col-md-4">
 
                                     <?= Html::a('<i class="fas fa-forward"></i> submit',['submit','appraisalNo'=> $model->Appraisal_No,'employeeNo' => $model->Employee_No],['class' => 'btn btn-app submitforapproval','data' => [
-                                            'confirm' => 'Are you sure you want to submit this probation appraisal to supervisor ?',
+                                            'confirm' => 'Are you sure you want to submit this evaluation ?',
                                             'method' => 'post',
                                         ],
-                                        'title' => 'Submit KRAs to Line Manager.'
+                                        'title' => 'Submit .'
 
                                     ]) ?>
                                 </div>
@@ -131,16 +132,16 @@ Yii::$app->session->set('Goal_Setting_Status',$model->Goal_Setting_Status);
 
                     <?php if($model->Appraisal_Status == 'Appraisee_Level' && $model->isAppraisee()): ?>
 
-                        <div class="col-md-4">
+                        <div class="">
 
-                            <?= Html::a('<i class="fas fa-forward"></i> Submit ',['submitprobationtolinemgr','appraisalNo'=> $model->Appraisal_No,'employeeNo' => $model->Employee_No],
+                            <?= Bootstrap4Html::a('<i class="fas fa-forward"></i> Submit ',['submitprobationtolinemgr','appraisalNo'=> $model->Appraisal_No,'employeeNo' => $model->Employee_No],
                                 [
 
                                 'class' => 'mx-1 btn btn-app submitforapproval','data' => [
-                                'confirm' => 'Are you sure you want to Submit Probation Appraisal to Line Manager ?',
+                                'confirm' => 'Are you sure you want to Submit Succession Evaluation Appraisal to Line Manager ?',
                                 'method' => 'post',
                             ],
-                                'title' => 'Submit Probation to Line Manager.'
+                                'title' => 'Submit Evaluation to Incumbent.'
                             ]) ?>
 
                         </div>
@@ -154,26 +155,26 @@ Yii::$app->session->set('Goal_Setting_Status',$model->Goal_Setting_Status);
                     <?php if($model->Appraisal_Status == 'Supervisor_Level' && $model->isSupervisor()): ?>
 
 
-                         <?= Html::a('<i class="fas fa-backward"></i> To Appraisee.',['probationbacktoappraisee','appraisalNo'=> $model->Appraisal_No,'employeeNo' => $model->Employee_No],
+                         <?= Bootstrap4Html::a('<i class="fas fa-backward"></i> To Appraisee.',['probationbacktoappraisee','appraisalNo'=> $model->Appraisal_No,'employeeNo' => $model->Employee_No],
                                 [
                                     'class' => 'btn btn-app bg-danger rejectappraiseesubmition',
-                                    'rel' => $_GET['Appraisal_No'],
-                                    'rev' => $_GET['Employee_No'],
-                                    'title' => 'Submit Probation  Back to Appraisee'
+                                    'rel' => $model->Appraisal_No,
+                                    'rev' => $model->Employee_No,
+                                    'title' => 'Submit  Evaluation Back to Appraisee'
 
                             ]) ?>
 
 
                             <!-- Send Probation to Overview -->
 
-                            <?= Html::a('<i class="fas fa-forward"></i> Submit ',['submitprobationtooverview','appraisalNo'=> $model->Appraisal_No,'employeeNo' => $model->Employee_No],
+                            <?= Bootstrap4Html::a('<i class="fas fa-forward"></i> Submit ',['submitprobationtooverview','appraisalNo'=> $model->Appraisal_No,'employeeNo' => $model->Employee_No],
                                 [
 
                                 'class' => 'mx-1 btn btn-app submitforapproval','data' => [
                                 'confirm' => 'Are you sure you want to Submit Probation Appraisal to Overview Manager ?',
                                 'method' => 'post',
                             ],
-                                'title' => 'Submit Probation to Overview Manager.'
+                                'title' => 'Submit Evaluation to Overview Manager.'
                             ]) ?>
 
 
@@ -187,29 +188,34 @@ Yii::$app->session->set('Goal_Setting_Status',$model->Goal_Setting_Status);
 
                     <?php if($model->Appraisal_Status == 'Overview_Manager' && $model->isOverview()): ?>
                         
-                        <div class="col-md-4">
+                        <div class="">
 
-                            <?= Html::a('<i class="fas fa-backward"></i> To Line Mgr.',['overviewbacktolinemgr','appraisalNo'=> $model->Appraisal_No,'employeeNo' => $model->Employee_No],
+                            <?= Bootstrap4Html::a('<i class="fas fa-backward"></i> To Line Mgr.',['overviewbacktolinemgr','appraisalNo'=> $model->Appraisal_No,'employeeNo' => $model->Employee_No],
                                 [
                                     'class' => 'mx-1 btn btn-app bg-danger Overviewbacktolinemgr',
-                                    'rel' => $_GET['Appraisal_No'],
-                                    'rev' => $_GET['Employee_No'],
+                                    'rel' => $model->Appraisal_No,
+                                    'rev' => $model->Employee_No,
                                     'title' => 'Send Probation Appraisal Back to Line Manager'
 
                             ]) ?>
 
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="">
 
-                            <?= Html::a('<i class="fas fa-check"></i> Approve',['approveprobationoverview','appraisalNo'=> $model->Appraisal_No,'employeeNo' => $model->Employee_No],
+                            <?= Bootstrap4Html::a('<i class="fas fa-check"></i> Approve',['close'],
                                 [
 
-                                'class' => 'mx-1 btn btn-app bg-success submitforapproval','data' => [
-                                'confirm' => 'Are you sure you want to approve goals ?',
-                                'method' => 'post',
+                                'class' => 'mx-1 btn btn-app bg-success submitforapproval',
+                                'data' => [
+                                    'params' => [
+                                        'Appraisal_No' => $model->Appraisal_No,
+                                        'Employee_No' => $model->Employee_No,
+                                    ],
+                                    'confirm' => 'Are you sure you want to approve and close this succession evaluation ?',
+                                    'method' => 'post',
                             ],
-                                'title' => 'Approve Probation Appraisal.'
+                                'title' => 'Approve Succession Evaluation.'
                             ]) ?>
 
                         </div>
@@ -252,15 +258,15 @@ Yii::$app->session->set('Goal_Setting_Status',$model->Goal_Setting_Status);
                     <?php endif; ?>
 
                     <div class="col-md-4">
-                             <?=  ($model->Appraisal_Status == 'Closed')?Html::a('<i class="fas fa-book-open"></i> P.A Report',['report','appraisalNo'=> $model->Appraisal_No,'employeeNo' => $model->Employee_No],[
+                             <?php  ($model->Appraisal_Status == 'Closed')?Html::a('<i class="fas fa-book-open"></i> P.A Report',['report','appraisalNo'=> $model->Appraisal_No,'employeeNo' => $model->Employee_No],[
                                 'class' => 'btn btn-app bg-success  pull-right',
                                 'title' => 'Generate Performance Appraisal Report',
                                 'target'=> '_blank',
                                 'data' => [
                                     // 'confirm' => 'Are you sure you want to send appraisal to peer 2?',
                                     'params'=>[
-                                        'appraisalNo'=> $_GET['Appraisal_No'],
-                                        'employeeNo' => $_GET['Employee_No'],
+                                        'appraisalNo'=> $model->Appraisal_No,
+                                        'employeeNo' => $model->Employee_No
                                     ],
                                     'method' => 'post',]
                             ]):'';
@@ -300,6 +306,8 @@ Yii::$app->session->set('Goal_Setting_Status',$model->Goal_Setting_Status);
                <div class="row">
                    <div class=" row col-md-12">
                        <div class="col-md-6">
+
+                       <?= $form->field($model, 'Key')->hiddenInput()->label(false) ?>
 
                            <?= $form->field($model, 'Appraisal_No')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
                            <?= $form->field($model, 'Employee_No')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
@@ -360,17 +368,17 @@ Yii::$app->session->set('Goal_Setting_Status',$model->Goal_Setting_Status);
                                                 </div>
                                             </div>
                                             <div class="card-body">
-                                                 <?= ($model->Appraisal_Status == 'Supervisor_Level') ?$form->field($model, 'Probation_Recomended_Action')->dropDownList(
+                                                 <?= ($model->Appraisal_Status == 'Supervisor_Level') ?$form->field($model, 'Succession_Recomended_Action')->dropDownList(
                                                     [
                                                         '_blank_' => '_blank_',
-                                                        'Confirm' => 'Confirm',
-                                                        'Extend_Probation' => 'Extend_Probation',
-                                                        'Terminate_Employee' => 'Terminate_Employee'
+                                                        'Recomend' => 'Recomend',
+                                                        'Reject' => 'Reject',
+                                                       
                                                     ],['prompt' => 'Select ...']
                                                    ): '' ?>
 
 
-                                                    <?= ($model->Appraisal_Status == 'Overview_Manager' || $model->Appraisal_Status == 'Appraisee_Level' || $model->Appraisal_Status == 'Closed') ?$form->field($model, 'Probation_Recomended_Action')->textInput(['readonly' => true]): '' ?>
+                                                    <?= ($model->Appraisal_Status == 'Overview_Manager' || $model->Appraisal_Status == 'Appraisee_Level' || $model->Appraisal_Status == 'Closed') ?$form->field($model, 'Succession_Recomended_Action')->textInput(['readonly' => true]): '' ?>
                                             </div>
                                         </div>
 
@@ -379,12 +387,12 @@ Yii::$app->session->set('Goal_Setting_Status',$model->Goal_Setting_Status);
 
                                         <div class="card-header">
                                                 <div class="card-title">
-                                                    Line Manager Comments
+                                                Incumbent's Comments
                                                 </div>
                                             </div>
                                             <div class="card-body">
                                                  <?= ($model->Appraisal_Status == 'Supervisor_Level') ?$form->field($model, 'Supervisor_Overall_Comments')->textArea(['rows' => 2, 'maxlength'=> '140']): '' ?>
-                                                    <span class="text-success" id="confirmation-super">Comment Saved Successfully.</span>
+                                                    
 
                                                     <?= ($model->Appraisal_Status !== 'Supervisor_Level') ?$form->field($model, 'Supervisor_Overall_Comments')->textArea(['rows' => 2, 'readonly' => true, 'disabled' =>  true]): '' ?>
                                             </div>
@@ -401,12 +409,12 @@ Yii::$app->session->set('Goal_Setting_Status',$model->Goal_Setting_Status);
 
                                             <div class="card-header">
                                                 <div class="card-title">
-                                                    Overview Manager Comments
+                                                    HR Comments
                                                 </div>
                                             </div>
                                             <div class="card-body">
                                                  <?= ($model->Appraisal_Status == 'Overview_Manager') ?$form->field($model, 'Over_View_Manager_Comments')->textArea(['rows' => 2, 'maxlength'=> '140']): '' ?>
-                                                    <span class="text-success" id="confirmation">Comment Saved Successfully.</span>
+                                                    
 
                                                     <?= ($model->Appraisal_Status !== 'Overview_Manager') ?$form->field($model, 'Over_View_Manager_Comments')->textArea(['rows' => 2, 'readonly' => true, 'disabled' =>  true]): '' ?>
                                             </div>
@@ -492,7 +500,7 @@ Yii::$app->session->set('Goal_Setting_Status',$model->Goal_Setting_Status);
 
                                                     foreach($model->getKpi($obj->Line_No) as $kpi):
 
-                             $updateLink = Html::a('<i class="fa fa-edit"></i>',['probation-kpi/update','Line_No'=> $kpi->Line_No,'Employee_No'=>$model->Employee_No,'Appraisal_No' => $model->Appraisal_No,'KRA_Line_No' => $obj->Line_No],['class' => 'mx-1 update-objective btn btn-xs btn-outline-info', 'title' => 'Update Key Result Area']);
+                             $updateLink = Html::a('<i class="fa fa-edit"></i>',['probation-kpi/update','Key'=> $kpi->Key],['class' => 'mx-1 update-objective btn btn-xs btn-outline-info', 'title' => 'Update Key Result Area']);
                              $deleteLink = ($model->Goal_Setting_Status == 'New')?Html::a('<i class="fa fa-trash"></i>',['probation-kpi/delete','Key'=> $kpi->Key ],['class'=>'mx-1 delete btn btn-danger btn-xs', 'title' => 'Delete Key Performance Indicator/ Objective']):'';
 
 
@@ -533,102 +541,7 @@ Yii::$app->session->set('Goal_Setting_Status',$model->Goal_Setting_Status);
          <!--Competencies Card--->
 
 
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">Employee Appraisal Competence</div>
-
-                <div class="card-tools">
-                    <?php Html::a('<i class="fa fa-plus"></i> Add Competence',['competence/create','Appraisal_Code'=> $model->Appraisal_No],['class' => 'mx-1 update-objective btn btn-xs btn-outline-info', 'title' => 'Create Record ?']); ?>
-                </div>
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <?php if(is_array($model->Competencies)): ?>
-                    <table class="table table-bordered">
-                        <thead>
-                            <td colspan="2" ><b>Category</b></td>
-                            <td ><b>Maximum Weight</b></td>
-                            <td ><b>Overall Rating</b></td>
-                            <td ><b>Total Weight</b></td>
-                            <td></td>
-                        </thead>
-                        <tbody>
-                            <?php foreach($model->Competencies as $competency):
-
-
-                                 $updateLink = Html::a('<i class="fa fa-edit"></i>',['competence/update','Line_No'=> $competency->Line_No],['class' => 'mx-1 update-objective btn btn-xs btn-outline-info', 'title' => 'Update Record ?']);
-                             $deleteLink = Html::a('<i class="fa fa-trash"></i>',['competence/delete','Key'=> $competency->Key ],['class'=>'mx-1 delete btn btn-danger btn-xs', 'title' => 'Delete Record']);
-
-                             $addBehaviour =  Html::a('<i class="fa fa-plus"></i>',['employeeappraisalbehaviour/create','Appraisal_No'=> $model->Appraisal_No,'Employee_No' => Yii::$app->user->identity->{'Employee No_'},'Category_Line_No' => $competency->Line_No],['class' => 'mx-1 update-objective btn btn-xs btn-outline-info', 'title' => 'Add Competence Behaviour ?']); 
-
-                             ?>
-                            <tr class="parent">
-                                 <td><span>+</span></td>
-                                <td><?= !empty($competency->Category)?$competency->Category:'' ?></td>
-                                <td><?= !empty($competency->Maximum_Weigth)?$competency->Maximum_Weigth:'' ?></td>
-                                <td><?= !empty($competency->Overal_Rating)?$competency->Overal_Rating:'' ?></td>
-                                <td><?= !empty($competency->Total_Weigth)?$competency->Total_Weigth:'' ?></td>
-                                <td><?= $updateLink ?></td>
-                            </tr>
-                             <tr class="child">
-                            <!-- Start Child -->
-
-                                <td colspan="6">
-                                    <table class="table table-hover table-borderless table-info">
-                                            <thead>
-                                            <tr>
-                                                <th colspan="7" style="text-align: center;">Employee Appraisal Behaviours</th>
-                                            </tr>
-                                            <tr>
-                                                
-                                                <td><b>Behaviour Name</b></td>
-                                               
-                                                <td><b>Self Rating</b></td>
-                                                <td><b>Appraisee Remark</b></td>
-                                                <td width="4%"><b>Appraiser Rating</b></td>
-                                                <td><b>Weight</b></td>
-                                                <td><b>Appraiser Remarks</b></td>
-                                                <td><b>Action</b></td>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <?php if(is_array($model->getBehaviours($competency->Line_No, $model->Appraisal_No))){
-
-                                                foreach($model->getBehaviours($competency->Line_No, $model->Appraisal_No) as $be):  ?>
-                                                    <tr>
-                                                        
-                                                        <td><?= isset($be->Behaviour_Name)?$be->Behaviour_Name:'Not Set' ?></td>
-                                                       
-                                                        <td><?= !empty($be->Self_Rating)?$be->Self_Rating:'' ?></td>
-                                                        <td><?= !empty($be->Appraisee_Remark)?$be->Appraisee_Remark:'' ?></td>
-                                                        <td><?= !empty($be->Appraiser_Rating)?$be->Appraiser_Rating:'' ?></td>
-                                                       
-                                                        <td><?= !empty($be->Weight)?$be->Weight:'' ?></td>
-                                                       
-                                                        <td><?= !empty($be->Overall_Remarks)?$be->Overall_Remarks:'' ?></td>
-                                                        <td><?= (
-                                                            $model->Goal_Setting_Status == 'New' ||
-                                                            $model->Appraisal_Status == 'Appraisee_Level' ||
-                                                            $model->Appraisal_Status == 'Supervisor_Level'
-                                                             )?Html::a('<i title="Evaluate Behaviour" class="fa fa-edit"></i>',['employeeappraisalbehaviour/update','Employee_No'=>$be->Employee_No,'Line_No'=> $be->Line_No,'Appraisal_No' => $be->Appraisal_Code ],['class' => ' evalbehaviour btn btn-info btn-xs']):'' ?></td>
-                                                    </tr>
-                                                    <?php
-                                                endforeach;
-                                            }
-                                            ?>
-                                            </tbody>
-                                        </table>
-                                </td>
-
-                            <!-- End Child -->
-                             </tr>
-                        <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                <?php endif; ?>
-                </div>
-            </div>
-        </div>
+       
 
 
 
@@ -637,7 +550,7 @@ Yii::$app->session->set('Goal_Setting_Status',$model->Goal_Setting_Status);
 
 
 
-    </>
+    
 </div>
 
 <!--My Bs Modal template  --->
@@ -739,13 +652,32 @@ Yii::$app->session->set('Goal_Setting_Status',$model->Goal_Setting_Status);
         <?= Html::endForm() ?>
 </div>
 
-<input type="hidden" name="url" value="<?= $absoluteUrl ?>">
+<input type="hidden" name="absolute" value="<?= $absoluteUrl ?>">
 <?php
 
 $script = <<<JS
 
     $(function(){
-      
+
+        // Commit Recommended action
+
+        $('#succession-succession_recomended_action').change((e) => {
+            globalFieldUpdate('Succession',false,'Succession_Recomended_Action', e);
+        });
+
+
+        // Commit supervisor overall comment
+
+        $('#succession-supervisor_overall_comments').change((e) => {
+            globalFieldUpdate('Succession',false,'Supervisor_Overall_Comments', e);
+        });
+
+        // Commit Overview Comments
+
+        $('#succession-over_view_manager_comments').change((e) => {
+            globalFieldUpdate('Succession',false,'Over_View_Manager_Comments', e);
+        });
+    
         
      /*Deleting Records*/
      
@@ -935,92 +867,7 @@ $script = <<<JS
         
 
 
-    /*Commit Recommended action by supervisor*/
-
-
-     $('#probation-probation_recomended_action').change(function(e){
-        const Probation_Recomended_Action = e.target.value;
-        const Appraisal_No = $('#probation-appraisal_no').val();
-        if(Appraisal_No.length){
-            
-            const url = $('input[name=url]').val()+'probation/setaction';
-            $.post(url,{'Probation_Recomended_Action': Probation_Recomended_Action,'Appraisal_No': Appraisal_No}).done(function(msg){
-                   //populate empty form fields with new data
-                   
-                  
-                   $('#probation-key').val(msg.Key);
-                  
-
-                    console.log(typeof msg);
-                    console.table(msg);
-                    if((typeof msg) === 'string') { // A string is an error
-                        const parent = document.querySelector('.field-probation-probation_recomended_action');
-                        const helpbBlock = parent.children[2];
-                        helpbBlock.innerText = msg;
-                      
-                        
-                    }else{ // An object represents correct details
-                        const parent = document.querySelector('.field-probation-probation_recomended_action');
-                        const helpbBlock = parent.children[2];
-                        helpbBlock.innerText = ''; 
-                        
-                        
-                    }
-                    
-                },'json');
-            
-        }     
-     });
-
-
-     /*Commit Overview Manager Comment*/
-      $('#confirmation').hide();
-     $('#probation-over_view_manager_comments').change(function(e){
-        const Over_View_Manager_Comments = e.target.value;
-        const Appraisal_No = $('#probation-appraisal_no').val();
-        if(Appraisal_No.length){
-            
-            const url = $('input[name=url]').val()+'probation/set-overview-comment';
-            $.post(url,{'Over_View_Manager_Comments': Over_View_Manager_Comments,'Appraisal_No': Appraisal_No}).done(function(msg){
-                   //populate empty form fields with new data
-                   
-                  
-                   $('#probation-key').val(msg.Key);
-                  
-
-                    console.log(typeof msg);
-                    console.table(msg);
-                    if((typeof msg) === 'string') { // A string is an error
-                        const parent = document.querySelector('.field-probation-over_view_manager_comments');
-                        const helpbBlock = parent.children[2];
-                        helpbBlock.innerText = msg;
-                      
-                        
-                    }else{ // An object represents correct details
-                        const parent = document.querySelector('.field-probation-over_view_manager_comments');
-                        const helpbBlock = parent.children[2];
-                        helpbBlock.innerText = ''; 
-                        $('#confirmation').show();
-                        
-                        
-                    }
-                    
-                },'json');
-            
-        }     
-     });
-
-
-
-
-
-
-
-
-
-
-         // End Action Committing
-
+   
          
 
 

@@ -534,6 +534,7 @@ return [
         'SuccessionClosedList' => 'SuccessionClosedList', //55147
 
         'SuccessionAppraisalCard' => 'SuccessionAppraisalCard', //55142
+        'SuccessionAcceptance' => 'SuccessionAcceptance', //55140
         'HRSUCCESSIONPLANNING' => 'HRSUCCESSIONPLANNING', //50068
 
 
