@@ -42,6 +42,10 @@ class EmployeeTraining extends Model
     public $Nature_of_Training;
     public $Training_Type;
     public $Training_Category;
+    public $Recomended_Action;
+    public $HRO_Comments;
+    public $Line_Manager_Comments;
+    public $Line_Manager_Rejection_Comment;
 
     public function rules()
     {

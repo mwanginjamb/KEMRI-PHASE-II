@@ -522,6 +522,10 @@ return [
         'TrainingCosts' => 'TrainingCosts', //56034
         'TRAININGMGT' => 'TRAININGMGT', //50010 --CODEUNIT 
 
+        'TrainingLineManagerList' => 'TrainingLineManagerList',//56043
+        'TrainingHROList' => 'TrainingHROList', // 56044
+        'TrainingClosedList' => 'TrainingClosedList', // 56045
+
 
 
     ],

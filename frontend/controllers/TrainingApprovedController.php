@@ -49,7 +49,7 @@ class TrainingApprovedController extends Controller
             ],
             'contentNegotiator' =>[
                 'class' => ContentNegotiator::class,
-                'only' => ['list'],
+                'only' => ['list','list-linemanager','list-hro','list-closed'],
                 'formatParam' => '_format',
                 'formats' => [
                     'application/json' => Response::FORMAT_JSON,
@@ -62,6 +62,26 @@ class TrainingApprovedController extends Controller
     public function actionIndex(){
 
         return $this->render('index');
+
+    }
+
+    // Line Mgr List
+
+    public function actionLineManager(){
+
+        return $this->render('line-manager');
+
+    }
+
+    public function actionhro(){
+
+        return $this->render('hro');
+
+    }
+
+    public function actionclosed(){
+
+        return $this->render('closed');
 
     }
 
@@ -212,6 +232,169 @@ class TrainingApprovedController extends Controller
         return $result;
 
     } 
+
+    // Line manger List
+
+    public function actionListLinemanager(){
+        $service = Yii::$app->params['ServiceName']['ApprovedTrainingApplications'];
+
+        $filter = [
+            //'Employee_No' => \Yii::$app->user->identity->{'Employee No_'},
+        ];
+        $records = \Yii::$app->navhelper->getData($service,$filter);
+
+        $result = [];
+        $count = 0;
+        
+            foreach($records as $quali){
+
+                if(empty($quali->Key))
+                {
+                    continue;
+                }
+
+                ++$count;
+                $Deletelink = $updateLink = $viewLink = $applyLink = $sendForApproval =  '';
+                $updateLink = Html::a('<i class="fa fa-edit"></i>',['update','Key'=> $quali->Key ],['class'=>'update btn btn-outline-info btn-xs', 'title' => 'Update Record']);
+                $viewLink = Html::a('<i class="fa fa-eye"></i>',['view','Key'=> $quali->Key ],['class'=>'btn btn-outline-info btn-xs mx-2', 'title' => 'View Document']);
+                $sendForApproval = ($quali->Status == 'New')? Html::a('<i class="fa fa-check"></i>',['sendForApproval','No'=> $quali->Application_No ],['class'=>'btn btn-outline-success btn-xs mx-2', 'title' => 'Send for Approval']): '';
+                $cancelApproval = ($quali->Status == 'Pending_Approval')? Html::a('<i class="fa fa-times"></i>',['cancelApprovalRequest','No'=> $quali->Application_No ],['class'=>'btn btn-outline-warning btn-xs mx-2', 'title' => 'Cancel Approval Request']): '';
+
+
+                $Deletelink = Html::a('<i class="fa fa-trash"></i>',['delete','Key'=> $quali->Key ],['class'=>'btn btn-outline-danger btn-xs text-danger',
+                    'title' => 'Delete Record.',
+                    'data' => [
+                    'confirm' => 'Are you sure you want to delete this record?',
+                    'method' => 'post',
+                ]]);
+
+               
+                $result['data'][] = [
+                    
+                    'Employee_No' => !empty($quali->Employee_No)?$quali->Employee_No:'',
+                    'Employee_Name' => !empty($quali->Employee_Name)?$quali->Employee_Name:'',
+                    'Application_No' => !empty($quali->Application_No)?$quali->Application_No:'',
+                    'Date_of_Application' => !empty($quali->Date_of_Application)?$quali->Date_of_Application:'',
+                    'Training_Calender' => !empty($quali->Training_Calender)?$quali->Training_Calender:'',
+                    'Period' => !empty($quali->Period)?$quali->Period:'',
+                    'Trainer' => !empty($quali->Trainer)?$quali->Trainer:'',
+                    'Status' => !empty($quali->Status)?$quali->Status:'',                     
+                    'Action' => $viewLink.$cancelApproval                  
+                ];
+            
+        }
+        return $result;
+
+    }
+
+    // Hro List
+
+
+    public function actionListHro(){
+        $service = Yii::$app->params['ServiceName']['ApprovedTrainingApplications'];
+
+        $filter = [
+            //'Employee_No' => \Yii::$app->user->identity->{'Employee No_'},
+        ];
+        $records = \Yii::$app->navhelper->getData($service,$filter);
+
+        $result = [];
+        $count = 0;
+        
+            foreach($records as $quali){
+
+                if(empty($quali->Key))
+                {
+                    continue;
+                }
+
+                ++$count;
+                $Deletelink = $updateLink = $viewLink = $applyLink = $sendForApproval =  '';
+                $updateLink = Html::a('<i class="fa fa-edit"></i>',['update','Key'=> $quali->Key ],['class'=>'update btn btn-outline-info btn-xs', 'title' => 'Update Record']);
+                $viewLink = Html::a('<i class="fa fa-eye"></i>',['view','Key'=> $quali->Key ],['class'=>'btn btn-outline-info btn-xs mx-2', 'title' => 'View Document']);
+                $sendForApproval = ($quali->Status == 'New')? Html::a('<i class="fa fa-check"></i>',['sendForApproval','No'=> $quali->Application_No ],['class'=>'btn btn-outline-success btn-xs mx-2', 'title' => 'Send for Approval']): '';
+                $cancelApproval = ($quali->Status == 'Pending_Approval')? Html::a('<i class="fa fa-times"></i>',['cancelApprovalRequest','No'=> $quali->Application_No ],['class'=>'btn btn-outline-warning btn-xs mx-2', 'title' => 'Cancel Approval Request']): '';
+
+
+                $Deletelink = Html::a('<i class="fa fa-trash"></i>',['delete','Key'=> $quali->Key ],['class'=>'btn btn-outline-danger btn-xs text-danger',
+                    'title' => 'Delete Record.',
+                    'data' => [
+                    'confirm' => 'Are you sure you want to delete this record?',
+                    'method' => 'post',
+                ]]);
+
+               
+                $result['data'][] = [
+                    
+                    'Employee_No' => !empty($quali->Employee_No)?$quali->Employee_No:'',
+                    'Employee_Name' => !empty($quali->Employee_Name)?$quali->Employee_Name:'',
+                    'Application_No' => !empty($quali->Application_No)?$quali->Application_No:'',
+                    'Date_of_Application' => !empty($quali->Date_of_Application)?$quali->Date_of_Application:'',
+                    'Training_Calender' => !empty($quali->Training_Calender)?$quali->Training_Calender:'',
+                    'Period' => !empty($quali->Period)?$quali->Period:'',
+                    'Trainer' => !empty($quali->Trainer)?$quali->Trainer:'',
+                    'Status' => !empty($quali->Status)?$quali->Status:'',                     
+                    'Action' => $viewLink.$cancelApproval                  
+                ];
+            
+        }
+        return $result;
+
+    }
+
+    // Closed List
+
+    public function actionListClosed(){
+        $service = Yii::$app->params['ServiceName']['ApprovedTrainingApplications'];
+
+        $filter = [
+            //'Employee_No' => \Yii::$app->user->identity->{'Employee No_'},
+        ];
+        $records = \Yii::$app->navhelper->getData($service,$filter);
+
+        $result = [];
+        $count = 0;
+        
+            foreach($records as $quali){
+
+                if(empty($quali->Key))
+                {
+                    continue;
+                }
+
+                ++$count;
+                $Deletelink = $updateLink = $viewLink = $applyLink = $sendForApproval =  '';
+                $updateLink = Html::a('<i class="fa fa-edit"></i>',['update','Key'=> $quali->Key ],['class'=>'update btn btn-outline-info btn-xs', 'title' => 'Update Record']);
+                $viewLink = Html::a('<i class="fa fa-eye"></i>',['view','Key'=> $quali->Key ],['class'=>'btn btn-outline-info btn-xs mx-2', 'title' => 'View Document']);
+                $sendForApproval = ($quali->Status == 'New')? Html::a('<i class="fa fa-check"></i>',['sendForApproval','No'=> $quali->Application_No ],['class'=>'btn btn-outline-success btn-xs mx-2', 'title' => 'Send for Approval']): '';
+                $cancelApproval = ($quali->Status == 'Pending_Approval')? Html::a('<i class="fa fa-times"></i>',['cancelApprovalRequest','No'=> $quali->Application_No ],['class'=>'btn btn-outline-warning btn-xs mx-2', 'title' => 'Cancel Approval Request']): '';
+
+
+                $Deletelink = Html::a('<i class="fa fa-trash"></i>',['delete','Key'=> $quali->Key ],['class'=>'btn btn-outline-danger btn-xs text-danger',
+                    'title' => 'Delete Record.',
+                    'data' => [
+                    'confirm' => 'Are you sure you want to delete this record?',
+                    'method' => 'post',
+                ]]);
+
+               
+                $result['data'][] = [
+                    
+                    'Employee_No' => !empty($quali->Employee_No)?$quali->Employee_No:'',
+                    'Employee_Name' => !empty($quali->Employee_Name)?$quali->Employee_Name:'',
+                    'Application_No' => !empty($quali->Application_No)?$quali->Application_No:'',
+                    'Date_of_Application' => !empty($quali->Date_of_Application)?$quali->Date_of_Application:'',
+                    'Training_Calender' => !empty($quali->Training_Calender)?$quali->Training_Calender:'',
+                    'Period' => !empty($quali->Period)?$quali->Period:'',
+                    'Trainer' => !empty($quali->Trainer)?$quali->Trainer:'',
+                    'Status' => !empty($quali->Status)?$quali->Status:'',                     
+                    'Action' => $viewLink.$cancelApproval                  
+                ];
+            
+        }
+        return $result;
+
+    }
 
 
     public function actionAttended()
