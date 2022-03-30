@@ -1187,21 +1187,21 @@ $employee = (!Yii::$app->user->isGuest && is_array(Yii::$app->user->identity->em
                                     </li>
 
                                     <li class="nav-item">
-                                        <a href="<?= $absoluteUrl ?>line-manager" class="nav-link <?= Yii::$app->recruitment->currentaction('training-approved','line-manager')?'active':'' ?>">
+                                        <a href="<?= $absoluteUrl ?>training-approved/line-manager" class="nav-link <?= Yii::$app->recruitment->currentaction('training-approved','line-manager')?'active':'' ?>">
                                             <i class="fa fa-chart-line nav-icon"></i>
                                             <p>Line Mgr. List  </p>
                                         </a>
                                     </li>
 
                                     <li class="nav-item">
-                                        <a href="<?= $absoluteUrl ?>hro" class="nav-link <?= Yii::$app->recruitment->currentaction('training-approved','hro')?'active':'' ?>">
+                                        <a href="<?= $absoluteUrl ?>training-approved/hro" class="nav-link <?= Yii::$app->recruitment->currentaction('training-approved','hro')?'active':'' ?>">
                                             <i class="fa fa-chart-line nav-icon"></i>
                                             <p>HRO list  </p>
                                         </a>
                                     </li>
 
                                     <li class="nav-item">
-                                        <a href="<?= $absoluteUrl ?>closed" class="nav-link <?= Yii::$app->recruitment->currentaction('training-approved','closed')?'active':'' ?>">
+                                        <a href="<?= $absoluteUrl ?>training-approved/closed" class="nav-link <?= Yii::$app->recruitment->currentaction('training-approved','closed')?'active':'' ?>">
                                             <i class="fa fa-chart-line nav-icon"></i>
                                             <p>Closed List  </p>
                                         </a>

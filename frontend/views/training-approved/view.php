@@ -13,7 +13,7 @@ $this->title = 'Training - '.$model->Application_No;
 $this->params['breadcrumbs'][] = ['label' => 'Training Applications List', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => 'Training Card', 'url' => ['view','Key'=> $model->Key]];
 /** Status Sessions */
-
+$absoluteUrl = \yii\helpers\Url::home(true);
 ?>
 
 
@@ -62,7 +62,10 @@ $this->params['breadcrumbs'][] = ['label' => 'Training Card', 'url' => ['view','
                             ]):'' ?>
 
 
-    <?= ($model->Status == 'Line_Manager')?Html::a('<i class="fas fa-forward"></i> To HRO.',['send-to-hro'],['class' => 'btn btn-app bg-success mx-1',
+    <?php 
+        if($model->Status == 'Line_Manager'){
+
+            echo Html::a('<i class="fas fa-forward"></i> To HRO.',['send-to-hro'],['class' => 'btn btn-app bg-success mx-1',
                                 'data' => [
                                 'confirm' => 'Are you sure want to send this document to HRO?',
                                 'params'=>[
@@ -72,20 +75,45 @@ $this->params['breadcrumbs'][] = ['label' => 'Training Card', 'url' => ['view','
                             ],
                                 'title' => 'Send to Line Manager.'
     
-                            ]):'' ?>
+            ]);
 
 
-<?= ($model->Status == 'HRO')?Html::a('<i class="fas fa-check"></i> Approve.',['approve-training-hro'],['class' => 'btn btn-app bg-success mx-1',
-                                'data' => [
-                                'confirm' => 'Are you sure want to approve this training attendance?',
-                                'params'=>[
-                                    'No'=> $model->Application_No,
-                                ],
-                                'method' => 'post',
-                            ],
-                                'title' => 'Approve Training Attendance.'
-    
-                            ]):'' ?>
+            echo Html::a('<i class="fas fa-backward"></i>Send Back',['rejection-linemanager'],
+            ['
+                    class' => 'mx-1 btn btn-app bg-danger rejectgoalsettingbyoverview',
+                    'data-no' => $model->Application_No,
+                    'data-action' => $absoluteUrl.'training-approved/reject-hro',
+                    'title' => 'Reject Training Application with Comments'
+
+             ]);
+
+        }
+    ?>
+
+
+<?php if($model->Status == 'HRO')
+    {
+        echo Html::a('<i class="fas fa-check"></i> Approve.',['approve-training-hro'],['class' => 'btn btn-app bg-success mx-1',
+                    'data' => [
+                    'confirm' => 'Are you sure want to approve this training attendance?',
+                    'params'=>[
+                        'No'=> $model->Application_No,
+                    ],
+                    'method' => 'post',
+                ],
+                    'title' => 'Approve Training Attendance.'
+        ]);
+
+        echo Html::a('<i class="fas fa-backward"></i>Send Back',['rejection-hro'],
+        ['
+                class' => 'mx-1 btn btn-app bg-danger rejectgoalsettingbyoverview',
+                'data-no' => $model->Application_No,
+                'data-action' => $absoluteUrl.'training-approved/rejection-hro',
+                'title' => 'Reject and Send Training Application back to Line Manager with Comments'
+
+         ]);
+    }
+    ?>
 </div>
 
     <div class="row">
@@ -137,33 +165,45 @@ $this->params['breadcrumbs'][] = ['label' => 'Training Card', 'url' => ['view','
                             <?= $form->field($model, 'Start_Date')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
                             <?= $form->field($model, 'End_Date')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
                             <?= $form->field($model, 'Period')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
+                            <?= $form->field($model, 'Recomended_Action')->dropdownList([
+                                '_blank_' => '_blank_',
+                                '_x0032__point_Increment' => 'Point Increment',
+                                'Promote_to_Higher_Position' => 'Promote to Higher Position',
+                                'Maintain_Current_Status' => 'Maintain Current Status',
+                            ],['prompt' => 'select ...']) ?>
 
-
-                                <p class="parent"><span>+</span>
-
-
-
-
-                                </p>
-
-
-                            </div>
-                            <div class="col-md-6">
-                            <?= $form->field($model, 'Expected_Cost')->textInput(['readonly'=> true, 'disabled'=>true]) ?>        
-                            <?= $form->field($model, 'Trainer')->textarea(['rows' => 2,'readonly'=> true, 'disabled'=>true]) ?>
-                            <?= $form->field($model, 'Exceeds_Expected_Trainees')->checkbox([$model->Exceeds_Expected_Trainees]) ?>        
-                            <?= $form->field($model, 'Training_Start_Date')->textInput(['readonly'=> true, 'disabled'=>true]) ?>        
-                            <?= $form->field($model, 'CPD_Approved_Cost')->textInput(['readonly'=> true]) ?>
-                            <?= $form->field($model, 'Total_Cost')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
-                            <?= $form->field($model, 'HRO_No')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
-                            <?= $form->field($model, 'HRO_Name')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
-                            <?= $form->field($model, 'Line_Manager')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
-                            <?= $form->field($model, 'Manager_Name')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
-                            <?= $form->field($model, 'Approval_rejection_Comments')->textarea(['rows' => 1 ,'readonly'=> true, 'disabled'=>true]) ?> 
-                            <?= $form->field($model, 'Nature_of_Training')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
-                            <?= $form->field($model, 'Training_Type')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
-                            <?= $form->field($model, 'Training_Category')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
+                            <?= $form->field($model, 'Line_Manager_Comments')->textarea(['rows'=> 2]) ?>
+                            <?= $form->field($model, 'Line_Manager_Rejection_Comment')->textarea(['rows'=> 2]) ?>
                             
+                            
+                            
+                            <p class="parent"><span>+</span>
+                            
+                            
+                            
+                            
+                        </p>
+                        
+                        
+                    </div>
+                    <div class="col-md-6">
+                        <?= $form->field($model, 'Key')->textInput(['readonly'=> true, 'disabled'=>true]) ?>        
+                        <?= $form->field($model, 'Expected_Cost')->textInput(['readonly'=> true, 'disabled'=>true]) ?>        
+                        <?= $form->field($model, 'Trainer')->textarea(['rows' => 2,'readonly'=> true, 'disabled'=>true]) ?>
+                        <?= $form->field($model, 'Exceeds_Expected_Trainees')->checkbox([$model->Exceeds_Expected_Trainees]) ?>        
+                        <?= $form->field($model, 'Training_Start_Date')->textInput(['readonly'=> true, 'disabled'=>true]) ?>        
+                        <?= $form->field($model, 'CPD_Approved_Cost')->textInput(['readonly'=> true]) ?>
+                        <?= $form->field($model, 'Total_Cost')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
+                        <?= $form->field($model, 'HRO_No')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
+                        <?= $form->field($model, 'HRO_Name')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
+                        <?= $form->field($model, 'Line_Manager')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
+                        <?= $form->field($model, 'Manager_Name')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
+                        <?= $form->field($model, 'Approval_rejection_Comments')->textarea(['rows' => 1 ,'readonly'=> true, 'disabled'=>true]) ?> 
+                        <?= $form->field($model, 'Nature_of_Training')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
+                        <?= $form->field($model, 'Training_Type')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
+                        <?= $form->field($model, 'Training_Category')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
+                        
+                        <?= $form->field($model, 'HRO_Comments')->textarea(['rows'=> 2]) ?>
                                
                             <p class="parent"><span>+</span>
 
@@ -196,13 +236,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Training Card', 'url' => ['view','
                 <div class="card-title">
                                     <h3>Training Cost Breakdown</h3>
                 </div>
-                <!--<div class="card-tools">
-                        <?php Html::a('<i class="fa fa-plus-square"></i> New Induction Line',['add-line'],[
-                            'class' => 'add btn btn-outline-info',
-                            'data-no' => $model->Application_No,
-                            'data-service' => 'Employee_Induction_Overall_In'
-                            ]) ?>
-                </div>-->
+               
             </div>
 
             <div class="card-body">
@@ -212,7 +246,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Training Card', 'url' => ['view','
                         <table class="table table-bordered">
                             <thead>
                             <tr>
-                                <td></td>
+                                <!-- <td></td> -->
                                
                                 <td class="text-bold">Application_No</td>
                                 <td class="text-bold">Cost_Description</td>
@@ -235,7 +269,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Training Card', 'url' => ['view','
                                 ]);
                                 ?>
                                 <tr class="parent">
-                                    <td><span>+</span></td>
+                                    <!-- <td><span>+</span></td> -->
                                     
                                     <td data-key="<?= $obj->Key ?>" ><?= !empty($obj->Application_No)?$obj->Application_No:'' ?></td>
                                     <td data-key="<?= $obj->Key ?>" ><?= !empty($obj->Cost_Description)?$obj->Cost_Description:'' ?></td>
@@ -281,7 +315,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Training Card', 'url' => ['view','
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
                     </button>
-                    <h4 class="modal-title" id="myModalLabel" style="position: absolute">Imprest Management</h4>
+                    <h4 class="modal-title" id="myModalLabel" style="position: absolute">Training Management</h4>
                 </div>
                 <div class="modal-body">
 
@@ -295,7 +329,25 @@ $this->params['breadcrumbs'][] = ['label' => 'Training Card', 'url' => ['view','
         </div>
     </div>
 
+    <!-- Training Application Rejection comment form -->
 
+    <div id="rejgoalsbyoverview" style="display: none">
+
+        <?= Html::beginForm(['training-approved/rejection-linemanager'],'post',['id'=>'reject-form']) ?>
+
+        <?= Html::textarea('comment','',['placeholder'=>'Rejection Comment','row'=> 4,'class'=>'form-control','required'=>true])?>
+
+        <?= Html::input('hidden','applicationNo','',['class'=> 'form-control']); ?>
+       
+
+
+        <?= Html::submitButton('submit',['class' => 'btn btn-warning','style'=>'margin-top: 10px']) ?>
+
+        <?= Html::endForm() ?>
+    </div>
+
+    <!-- End Rejection Comment -->
+    <input type="hidden" name="absolute" value="<?= $absoluteUrl ?>">
 <?php
 
 $script = <<<JS
@@ -319,75 +371,7 @@ $script = <<<JS
                     .html(msg.note);
          },'json');
      });
-      
-    
-    /*Evaluate KRA*/
-        $('.evalkra').on('click', function(e){
-             e.preventDefault();
-            var url = $(this).attr('href');
-            console.log('clicking...');
-            $('.modal').modal('show')
-                            .find('.modal-body')
-                            .load(url); 
-
-        });
-        
-        
-      //Add a training plan
-    
-     $('.add-objective, .update-objective').on('click',function(e){
-        e.preventDefault();
-        var url = $(this).attr('href');
-        console.log('clicking...');
-        $('.modal').modal('show')
-                        .find('.modal-body')
-                        .load(url); 
-
-     });
-     
-     
-     //Update a training plan
-    
-     $('.update-trainingplan').on('click',function(e){
-        e.preventDefault();
-        var url = $(this).attr('href');
-        console.log('clicking...');
-        $('.modal').modal('show')
-                        .find('.modal-body')
-                        .load(url); 
-
-     });
-     
-     
-     //Update/ Evalute Employeeappraisal behaviour -- evalbehaviour
-     
-      $('.evalbehaviour').on('click',function(e){
-        e.preventDefault();
-        var url = $(this).attr('href');
-        console.log('clicking...');
-        $('.modal').modal('show')
-                        .find('.modal-body')
-                        .load(url); 
-
-     });
-      
-      /*Add learning assessment competence-----> add-learning-assessment */
-      
-      
-      $('.add-learning-assessment').on('click',function(e){
-        e.preventDefault();
-        var url = $(this).attr('href');
-        console.log('clicking...');
-        $('.modal').modal('show')
-                        .find('.modal-body')
-                        .load(url); 
-
-     });
-      
-      
-     
-      
-      
+       
       
     
     /*Handle modal dismissal event  */
@@ -408,7 +392,7 @@ $script = <<<JS
     
     /*Divs parenting*/
     
-     $('p.parent').find('span').text('+');
+    $('p.parent').find('span').text('+');
     $('p.parent').find('span').css({"color":"red", "font-weight":"bolder"});    
     $('p.parent').nextUntil('p.parent').slideUp(1, function(){});    
     $('p.parent').click(function(){
@@ -416,91 +400,70 @@ $script = <<<JS
             $(this).nextUntil('p.parent').slideToggle(100, function(){});
      });
     
-        //Add Career Development Plan
+       
+         
+    // Reject Action
+
+    $('.rejectgoalsettingbyoverview').on('click', function(e){
+        e.preventDefault();
+        const form = $('#rejgoalsbyoverview').html(); 
+        const applicationNo = $(this).data().no;
+        const action = $(this).data().action;
         
-        $('.add-cdp').on('click',function(e){
-            e.preventDefault();
-            var url = $(this).attr('href');
+        console.log('Application No: '+applicationNo);
+        console.table($(this).data());
+        
+        //Display the rejection comment form
+        $('.modal').modal('show')
+                        .find('.modal-body')
+                        .append(form);
+        
+        //populate relevant input field with code unit required params
+                
+        $('input[name=applicationNo]').val(applicationNo);
+       
+        
+        //Submit Rejection form and get results in json    
+        $('form#reject-form').on('submit', function(e){
+            e.preventDefault()
+            const data = $(this).serialize();
+            const url = action;
+
            
-            
-            console.log('clicking...');
-            $('.modal').modal('show')
-                            .find('.modal-body')
-                            .load(url); 
-            
-         });//End Adding career development plan
-         
-         /*Add Career development Strength*/
-         
-         
-        $('.add-cds').on('click',function(e){
-            e.preventDefault();
-            var url = $(this).attr('href');
-            
-            $('.modal').modal('show')
-                            .find('.modal-body')
-                            .load(url); 
-            
-         });
-         
-         /*End Add Career development Strength*/
-         
-         
-         /* Add further development Areas */
-         
-            $('.add-fda').on('click',function(e){
-            e.preventDefault();
-            var url = $(this).attr('href');
-                       
-            console.log('clicking...');
-            $('.modal').modal('show')
-                            .find('.modal-body')
-                            .load(url); 
-            
-         });
-         
-         /* End Add further development Areas */
-         
-         /*Add Weakness Development Plan*/
-             $('.add-wdp').on('click',function(e){
-            e.preventDefault();
-            var url = $(this).attr('href');
-                       
-            console.log('clicking...');
-            $('.modal').modal('show')
-                            .find('.modal-body')
-                            .load(url); 
-            
-         });
-         /*End Add Weakness Development Plan*/
-
-         //Change Action taken
-
-         $('select#probation-action_taken').on('change',(e) => {
-
-            const key = $('input[id=Key]').val();
-            const Employee_No = $('input[id=Employee_No]').val();
-            const Appraisal_No = $('input[id=Appraisal_No]').val();
-            const Action_Taken = $('#probation-action_taken option:selected').val();
-           
-              
-
-            /* var data = {
-                "Action_Taken": Action_Taken,
-                "Appraisal_No": Appraisal_No,
-                "Employee_No": Employee_No,
-                "Key": key
-
-             } 
-            */
-            $.get('./takeaction', {"Key":key,"Appraisal_No":Appraisal_No, "Action_Taken": Action_Taken,"Employee_No": Employee_No}).done(function(msg){
-                 $('.modal').modal('show')
+            $('form#reject-form').html('<p class="alert alert-info">Processing ....</p>');
+            $.post(url,data).done(function(msg){
+                    $('.modal').modal('show')
                     .find('.modal-body')
                     .html(msg.note);
-                });
+        
+                },'json');
+        });
+        
+        
+    });
+    
+    // End Reject Action
+         
+         
+    // Commit Approval Comments fields
+         
+    $('#employeetraining-recomended_action').change((e) => {
+        globalFieldUpdate('employeetraining','training-approved','Recomended_Action', e);
+    });
 
+    $('#employeetraining-line_manager_comments').change((e) => {
+        globalFieldUpdate('employeetraining','training-approved','Line_Manager_Comments', e);
+    });
 
-            });
+    $('#employeetraining-line_manager_rejection_comment').change((e) => {
+        globalFieldUpdate('employeetraining','training-approved','Line_Manager_Comments', e);
+    });
+
+    $('#employeetraining-hro_comments').change((e) => {
+        globalFieldUpdate('employeetraining','training-approved','HRO_Comments', e);
+    });
+
+  
     
         
     });//end jquery

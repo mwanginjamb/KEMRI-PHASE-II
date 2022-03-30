@@ -172,11 +172,11 @@ $this->params['breadcrumbs'][] = ['label' => 'Training Card', 'url' => ['view','
                 </div>
                 
                <div class="card-tools">
-                        <?= Html::a('<i class="fa fa-plus-square"></i> Add Cost Break-down Line',['add-line'],[
+                        <?= ($model->Employee_No == Yii::$app->user->identity->{'Employee No_'})? Html::a('<i class="fa fa-plus-square"></i> Add Cost Break-down Line',['add-line'],[
                             'class' => 'add btn btn-outline-info',
                             'data-no' => $model->Application_No,
                             'data-service' => 'TrainingCostBreakDown'
-                            ]) ?>
+                            ]):'' ?>
                 </div>
             </div>
 
@@ -187,7 +187,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Training Card', 'url' => ['view','
                         <table class="table table-bordered">
                             <thead>
                             <tr>
-                                <td></td>
+                                <!-- <td></td> -->
                                
                                 <td class="text-bold">Application_No</td>
                                 <td class="text-bold">Cost_Description</td>
@@ -210,7 +210,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Training Card', 'url' => ['view','
                                 ]);
                                 ?>
                                 <tr class="parent">
-                                    <td><span>+</span></td>
+                                    <!-- <td><span>+</span></td> -->
                                     
                                     <td data-key="<?= $obj->Key ?>" ><?= !empty($obj->Application_No)?$obj->Application_No:'' ?></td>
                                     <td data-key="<?= $obj->Key ?>" data-name="Cost_Description" data-service="TrainingCostBreakDown" ondblclick="addDropDown(this,'cost-description')" ><?= !empty($obj->Cost_Description)?$obj->Cost_Description:'' ?></td>

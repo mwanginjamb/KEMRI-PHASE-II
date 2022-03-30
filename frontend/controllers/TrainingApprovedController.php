@@ -27,7 +27,8 @@ class TrainingApprovedController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout','signup','index','list','create','update','delete'],
+                'only' => ['logout','signup','index','list','create',
+                'update','delete','line-manager','hro','closed'],
                 'rules' => [
                     [
                         'actions' => ['signup'],
@@ -35,7 +36,8 @@ class TrainingApprovedController extends Controller
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['logout','index','list', 'create', 'update','delete' ],
+                        'actions' => ['logout','index','list', 'create', 'update',
+                        'delete','line-manager','hro','closed' ],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -73,13 +75,13 @@ class TrainingApprovedController extends Controller
 
     }
 
-    public function actionhro(){
+    public function actionHro(){
 
         return $this->render('hro');
 
     }
 
-    public function actionclosed(){
+    public function actionClosed(){
 
         return $this->render('closed');
 
@@ -185,7 +187,7 @@ class TrainingApprovedController extends Controller
         $service = Yii::$app->params['ServiceName']['ApprovedTrainingApplications'];
 
         $filter = [
-            //'Employee_No' => \Yii::$app->user->identity->{'Employee No_'},
+            'Employee_No' => \Yii::$app->user->identity->{'Employee No_'},
         ];
         $records = \Yii::$app->navhelper->getData($service,$filter);
 
@@ -236,10 +238,10 @@ class TrainingApprovedController extends Controller
     // Line manger List
 
     public function actionListLinemanager(){
-        $service = Yii::$app->params['ServiceName']['ApprovedTrainingApplications'];
+        $service = Yii::$app->params['ServiceName']['TrainingLineManagerList'];
 
         $filter = [
-            //'Employee_No' => \Yii::$app->user->identity->{'Employee No_'},
+            'Line_Manager' => \Yii::$app->user->identity->{'Employee No_'},
         ];
         $records = \Yii::$app->navhelper->getData($service,$filter);
 
@@ -291,10 +293,10 @@ class TrainingApprovedController extends Controller
 
 
     public function actionListHro(){
-        $service = Yii::$app->params['ServiceName']['ApprovedTrainingApplications'];
+        $service = Yii::$app->params['ServiceName']['TrainingHROList'];
 
         $filter = [
-            //'Employee_No' => \Yii::$app->user->identity->{'Employee No_'},
+            'HRO_No' => \Yii::$app->user->identity->{'Employee No_'},
         ];
         $records = \Yii::$app->navhelper->getData($service,$filter);
 
@@ -345,7 +347,7 @@ class TrainingApprovedController extends Controller
     // Closed List
 
     public function actionListClosed(){
-        $service = Yii::$app->params['ServiceName']['ApprovedTrainingApplications'];
+        $service = Yii::$app->params['ServiceName']['TrainingClosedList'];
 
         $filter = [
             //'Employee_No' => \Yii::$app->user->identity->{'Employee No_'},
@@ -362,36 +364,39 @@ class TrainingApprovedController extends Controller
                     continue;
                 }
 
-                ++$count;
-                $Deletelink = $updateLink = $viewLink = $applyLink = $sendForApproval =  '';
-                $updateLink = Html::a('<i class="fa fa-edit"></i>',['update','Key'=> $quali->Key ],['class'=>'update btn btn-outline-info btn-xs', 'title' => 'Update Record']);
-                $viewLink = Html::a('<i class="fa fa-eye"></i>',['view','Key'=> $quali->Key ],['class'=>'btn btn-outline-info btn-xs mx-2', 'title' => 'View Document']);
-                $sendForApproval = ($quali->Status == 'New')? Html::a('<i class="fa fa-check"></i>',['sendForApproval','No'=> $quali->Application_No ],['class'=>'btn btn-outline-success btn-xs mx-2', 'title' => 'Send for Approval']): '';
-                $cancelApproval = ($quali->Status == 'Pending_Approval')? Html::a('<i class="fa fa-times"></i>',['cancelApprovalRequest','No'=> $quali->Application_No ],['class'=>'btn btn-outline-warning btn-xs mx-2', 'title' => 'Cancel Approval Request']): '';
-
-
-                $Deletelink = Html::a('<i class="fa fa-trash"></i>',['delete','Key'=> $quali->Key ],['class'=>'btn btn-outline-danger btn-xs text-danger',
-                    'title' => 'Delete Record.',
-                    'data' => [
-                    'confirm' => 'Are you sure you want to delete this record?',
-                    'method' => 'post',
-                ]]);
-
-               
-                $result['data'][] = [
-                    
-                    'Employee_No' => !empty($quali->Employee_No)?$quali->Employee_No:'',
-                    'Employee_Name' => !empty($quali->Employee_Name)?$quali->Employee_Name:'',
-                    'Application_No' => !empty($quali->Application_No)?$quali->Application_No:'',
-                    'Date_of_Application' => !empty($quali->Date_of_Application)?$quali->Date_of_Application:'',
-                    'Training_Calender' => !empty($quali->Training_Calender)?$quali->Training_Calender:'',
-                    'Period' => !empty($quali->Period)?$quali->Period:'',
-                    'Trainer' => !empty($quali->Trainer)?$quali->Trainer:'',
-                    'Status' => !empty($quali->Status)?$quali->Status:'',                     
-                    'Action' => $viewLink.$cancelApproval                  
-                ];
-            
-        }
+                if($quali->Employee_No == \Yii::$app->user->identity->{'Employee No_'} || $quali->HRO_No == \Yii::$app->user->identity->{'Employee No_'} || $quali->Line_Manager == \Yii::$app->user->identity->{'Employee No_'} ){
+                    ++$count;
+                    $Deletelink = $updateLink = $viewLink = $applyLink = $sendForApproval =  '';
+                    $updateLink = Html::a('<i class="fa fa-edit"></i>',['update','Key'=> $quali->Key ],['class'=>'update btn btn-outline-info btn-xs', 'title' => 'Update Record']);
+                    $viewLink = Html::a('<i class="fa fa-eye"></i>',['view','Key'=> $quali->Key ],['class'=>'btn btn-outline-info btn-xs mx-2', 'title' => 'View Document']);
+                    $sendForApproval = ($quali->Status == 'New')? Html::a('<i class="fa fa-check"></i>',['sendForApproval','No'=> $quali->Application_No ],['class'=>'btn btn-outline-success btn-xs mx-2', 'title' => 'Send for Approval']): '';
+                    $cancelApproval = ($quali->Status == 'Pending_Approval')? Html::a('<i class="fa fa-times"></i>',['cancelApprovalRequest','No'=> $quali->Application_No ],['class'=>'btn btn-outline-warning btn-xs mx-2', 'title' => 'Cancel Approval Request']): '';
+    
+    
+                    $Deletelink = Html::a('<i class="fa fa-trash"></i>',['delete','Key'=> $quali->Key ],['class'=>'btn btn-outline-danger btn-xs text-danger',
+                        'title' => 'Delete Record.',
+                        'data' => [
+                        'confirm' => 'Are you sure you want to delete this record?',
+                        'method' => 'post',
+                    ]]);
+    
+                   
+                    $result['data'][] = [
+                        
+                        'Employee_No' => !empty($quali->Employee_No)?$quali->Employee_No:'',
+                        'Employee_Name' => !empty($quali->Employee_Name)?$quali->Employee_Name:'',
+                        'Application_No' => !empty($quali->Application_No)?$quali->Application_No:'',
+                        'Date_of_Application' => !empty($quali->Date_of_Application)?$quali->Date_of_Application:'',
+                        'Training_Calender' => !empty($quali->Training_Calender)?$quali->Training_Calender:'',
+                        'Period' => !empty($quali->Period)?$quali->Period:'',
+                        'Trainer' => !empty($quali->Trainer)?$quali->Trainer:'',
+                        'Status' => !empty($quali->Status)?$quali->Status:'',                     
+                        'Action' => $viewLink.$cancelApproval                  
+                    ];
+    
+                }
+                           
+            }
         return $result;
 
     }
@@ -439,7 +444,7 @@ class TrainingApprovedController extends Controller
         }
     }
 
-
+// Line Manager - sending to HRO
     public function actionSendToHro()
     {
         $No = Yii::$app->request->post('No');
@@ -452,12 +457,68 @@ class TrainingApprovedController extends Controller
 
         $result = Yii::$app->navhelper->Codeunit($service,$data,'IanSendInductionForApprovalHRO');
         if(!is_string($result)){
-            Yii::$app->session->setFlash('success', 'Application Sent To Line Manager Successfully.', true);
-            return $this->redirect(['index']);
+            Yii::$app->session->setFlash('success', 'Application Sent To HRO Successfully.', true);
+            return $this->redirect(['line-manager']);
         }else{
 
             Yii::$app->session->setFlash('error', 'Error  : '. $result);
-            return $this->redirect(['index']);
+            return $this->redirect(['line-manager']);
+
+        }
+    }
+
+
+// Line Manager - sending sending back to employee
+
+public function actionRejectionLinemanager()
+    {
+        $No = Yii::$app->request->post('applicationNo');
+        $Comment = Yii::$app->request->post('comment');
+        $service = Yii::$app->params['ServiceName']['TRAININGMGT'];
+        $data = [
+            'applicationNo' => $No,
+            'rejectionComment' => $Comment,
+            'urLToSend' => Yii::$app->urlManager->createAbsoluteUrl(['training-approved/view', 'No' => $No]),
+            
+        ];
+
+        $result = Yii::$app->navhelper->Codeunit($service,$data,'IanRejectTrainingAttendanceLineManager');
+        if(!is_string($result)){
+            Yii::$app->session->setFlash('success', 'Application Sent Back to Applicant Successfully.', true);
+            return $this->redirect(['line-manager']);
+        }else{
+
+            Yii::$app->session->setFlash('error', 'Error  : '. $result);
+            return $this->redirect(['line-manager']);
+
+        }
+    }
+
+
+    // HRO - Reject: Send Back to Line Manager
+
+    public function actionRejectionHro()
+    {
+        $No = Yii::$app->request->post('applicationNo');
+        $Comment = Yii::$app->request->post('comment');
+        $service = Yii::$app->params['ServiceName']['TRAININGMGT'];
+        $data = [
+            'applicationNo' => $No,
+            'rejectionComment' => $Comment,
+            'urLToSend' => Yii::$app->urlManager->createAbsoluteUrl(['training-approved/view', 'No' => $No]),
+            
+        ];
+
+       // Yii::$app->recruitment->printrr($data);
+
+        $result = Yii::$app->navhelper->Codeunit($service,$data,'IanRejectTrainingAttendanceHRO');
+        if(!is_string($result)){
+            Yii::$app->session->setFlash('success', 'Application Sent Back to Line Manager Successfully.', true);
+            return $this->redirect(['hro']);
+        }else{
+
+            Yii::$app->session->setFlash('error', 'Error  : '. $result);
+            return $this->redirect(['hro']);
 
         }
     }
@@ -476,11 +537,11 @@ class TrainingApprovedController extends Controller
         $result = Yii::$app->navhelper->Codeunit($service,$data,'IanApproveTrainingAttendanceHRO');
         if(!is_string($result)){
             Yii::$app->session->setFlash('success', 'Training attendance approved Successfully.', true);
-            return $this->redirect(['index']);
+            return $this->redirect(['hro']);
         }else{
 
             Yii::$app->session->setFlash('error', 'Error  : '. $result);
-            return $this->redirect(['index']);
+            return $this->redirect(['hro']);
 
         }
     }
@@ -565,7 +626,7 @@ class TrainingApprovedController extends Controller
 
     /** Updates a single field */
     public function actionSetfield($field){
-        $service = 'ImprestRequestSubformPortal';
+        $service = 'TrainingApplicationCard';
         $value = Yii::$app->request->post('fieldValue');
         $result = Yii::$app->navhelper->Commit($service,[$field => $value],Yii::$app->request->post('Key'));
         Yii::$app->response->format = \yii\web\response::FORMAT_JSON;
