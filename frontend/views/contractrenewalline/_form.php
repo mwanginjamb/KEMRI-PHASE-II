@@ -31,17 +31,21 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                                     
 
 
-                                    <?= $form->field($model, 'Grade')->dropDownList($grades, [
+                                    <?php $form->field($model, 'Grade')->dropDownList($grades, [
                                     'prompt' => 'Select Scale ...',
                                     'onchange' => '$.post("../contractrenewalline/pointer-dd?scale="+$(this).val(), (data) => {
                                                     $("select#contractrenewalline-pointer").html( data );
                                                 })'
                                      ]) ?>
 
+                                    <?= $form->field($model, 'Grade')->textInput(['readonly' => true, 'disabled' => true]); ?>
+
+                                    <?php $form->field($model, 'Pointer')->dropDownList($pointers,['prompt' => 'Select ....']) ?>
+                                    
+                                    <?= $form->field($model, 'Pointer')->textInput(['readonly' => true, 'disabled' => true]); ?>
 
 
 
-                                    <?= $form->field($model, 'Pointer')->dropDownList($pointers,['prompt' => 'Select ....']) ?>
                                     <?= $form->field($model, 'Job_Title')->textInput(['readonly' =>  true]) ?>
 
 

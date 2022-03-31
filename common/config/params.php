@@ -57,7 +57,7 @@ return [
         'language',
         'referee',
         'recruitment',
-        'employeerequisition'
+        'employeerequisition',
     ],
     'codeUnits' => [
         //'Portal_Workflows', //50019
@@ -69,7 +69,8 @@ return [
         'ImprestManagement', // 50017
         'EmployeeExitManagement',
         'HRAPPRAISALMGT',
-        'GRIEVANCEMGT'
+        'TRAININGMGT',
+
     ],
     'ServiceName'=>[
 
@@ -466,8 +467,12 @@ return [
 
         'InductionList' => 'InductionList', //55093
         'InductionCard' => 'InductionCard', //55094
+        'PeriodicInductionCard' => 'PeriodicInductionCard',
         'InductionLine' => 'InductionLine', // 55095
         'InductionOverallIN' => 'InductionOverallIN', //55108
+        'PeriodicInductionList' => 'PeriodicInductionList',//55101
+        'IndividualHOD' => 'IndividualHOD', // 55106
+        'PeriodHOD' => 'PeriodHOD',//55105
         'HRAPPRAISALMGT' => 'HRAPPRAISALMGT', // 50209 -- Codeunit  
 
          /********************Grievances***************************************/
@@ -498,6 +503,28 @@ return [
         'HrJobRequisitionCard'=>'HrJobRequisitionCard',//55055
         'ApprovedHRJobs'=>'ApprovedHRJobs',//55053
 
+
+
+
+        /********************Training SERVICES***************************************/
+
+        'AcademicTraining' => 'AcademicTraining', //56031
+        'GroupTraining' => 'GroupTraining', //56025
+        'GroupTrainingLine' => 'GroupTrainingLine', //56027 
+        'GroupTrainingCard' => 'GroupTrainingCard', //56026
+        'ProgramTraining' => 'ProgramTraining', //56028
+        'ProgramTrainingLine' => 'ProgramTrainingLine', //56030
+        'TrainingApplicationsList' => 'TrainingApplicationsList', //56003
+        'TrainingApplicationCard' => 'TrainingApplicationCard', //56004
+        'TrainingApplicationsPendingApproval' => 'TrainingApplicationsPendingApproval', //56010
+        'ApprovedTrainingApplications' => 'ApprovedTrainingApplications', // 56011
+        'TrainingCostBreakDown' => 'TrainingCostBreakDown', //56023
+        'TrainingCosts' => 'TrainingCosts', //56034
+        'TRAININGMGT' => 'TRAININGMGT', //50010 --CODEUNIT 
+
+        'TrainingLineManagerList' => 'TrainingLineManagerList',//56043
+        'TrainingHROList' => 'TrainingHROList', // 56044
+        'TrainingClosedList' => 'TrainingClosedList', // 56045
 
 
 

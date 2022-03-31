@@ -31,7 +31,9 @@ public $isNewRecord;
     public function rules()
     {
         return [
-
+            ['Passport_No', 'string'],
+            ['Personal_E_mail', 'email'],
+            [['Phone_Number','Personal_E_mail'], 'required']
         ];
     }
 

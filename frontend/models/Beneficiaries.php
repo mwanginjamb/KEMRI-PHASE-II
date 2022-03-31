@@ -36,7 +36,7 @@ class Beneficiaries extends Model
     public function rules()
     {
         return [
-            [['Full_Names','Relationship','Phone_No','Gender','New_Allocation'], 'required'],
+            [['Full_Names','Relationship','Phone_No','Gender','New_Allocation','Date_of_Birth','ID_Birth_Certificate_No'], 'required'],
             ['Email_Address', 'email'],
         ];
     }

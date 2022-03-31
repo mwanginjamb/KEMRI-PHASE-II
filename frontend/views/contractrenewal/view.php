@@ -235,10 +235,10 @@ $this->params['breadcrumbs'][] = ['label' => 'Contract Renewal Card', 'url' => [
                                                                 <td><b>Grand Name</b></td>  
                                                                 <td><b>Grant Activity</b></td>  
                                                                 <td><b>Grant Type</b></td>  
-                                                                <td><b>Grant Start Date</b></td>  
-                                                                <td><b>Grant End Date</b></td>  
+                                                                <td><b>Contract Start Date</b></td>  
+                                                                <td><b>Contract End Date</b></td>  
                                                                 <td><b>Percentage</b></td>  
-                                                                <td><b>Grant Status</b></td> 
+                                                                <!-- <td><b>Grant Status</b></td>  -->
                                                                 <td>Action</td>
                                                             </tr> 
                                                         </thead>
@@ -257,10 +257,10 @@ $this->params['breadcrumbs'][] = ['label' => 'Contract Renewal Card', 'url' => [
                                                             <td><?= !empty($d->Grant_Name)?$d->Grant_Name:'' ?></td>
                                                             <td><?= !empty($d->Grant_Activity)?$d->Grant_Activity:'' ?></td>
                                                             <td><?= !empty($d->Grant_Type)?$d->Grant_Type:'' ?></td>
-                                                            <td><?= !empty($d->Grant_Start_Date)?$d->Grant_Start_Date:'' ?></td>
-                                                            <td><?= !empty($d->Grant_End_Date)?$d->Grant_End_Date:'' ?></td>
+                                                            <td><?= !empty($d->Contract_Grant_Start_Date)?$d->Contract_Grant_Start_Date:'' ?></td>
+                                                            <td><?= !empty($d->Contract_Grant_End_Date)?$d->Contract_Grant_End_Date:'' ?></td>
                                                             <td><?= !empty($d->Percentage)?$d->Percentage:'' ?></td>
-                                                            <td><?= !empty($d->Grant_Status)?$d->Grant_Status:'' ?></td>
+                                                            <!-- <td><?php !empty($d->Grant_Status)?$d->Grant_Status:'' ?></td> -->
                                                             <td><?=($model->Approval_Status == 'New')? $donorUpdate.' | '.$deletedonor:'' ?></td>
 
                                                         </tr>

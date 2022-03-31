@@ -29,6 +29,9 @@ public $Contract_Line_No;
 public $Line_No;
 public $isNewRecord;
 
+public $Contract_Grant_End_Date;
+public $Contract_Grant_Start_Date;
+
     public function rules()
     {
         return [
@@ -39,7 +42,8 @@ public $isNewRecord;
     public function attributeLabels()
     {
         return [
-
+            'Contract_Grant_End_Date' => 'Contract End Date',
+            'Contract_Grant_Start_Date' => 'Contract Start Date',
         ];
     }
 }

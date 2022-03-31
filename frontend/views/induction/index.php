@@ -83,7 +83,8 @@ $script = <<<JS
                 { title: 'Program' ,data: 'Global_Dimension_1_Code'},
                 { title: 'Department' ,data: 'Global_Dimension_2_Code'},
                 
-                { title: 'Status' ,data: 'Status'},
+                { title: 'Induction Status' ,data: 'Status'},
+                { title: 'Approval Status' ,data: 'Approval_Status'},
                 { title: 'Action', data: 'Action' }
                
             ] ,                              
