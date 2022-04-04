@@ -29,7 +29,7 @@ class GrievanceController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout','signup','index','list','create','update','delete','list-hro','hro'],
+                'only' => ['logout','signup','index','list','create','update','delete','list-hro','hro','view'],
                 'rules' => [
                     [
                         'actions' => ['signup'],
@@ -37,7 +37,7 @@ class GrievanceController extends Controller
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['logout','index','list', 'create', 'update','delete','list-hro','hro' ],
+                        'actions' => ['logout','index','list', 'create', 'update','delete','list-hro','hro','view' ],
                         'allow' => true,
                         'roles' => ['@'],
                     ],

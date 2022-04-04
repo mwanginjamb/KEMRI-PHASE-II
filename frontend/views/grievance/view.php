@@ -187,30 +187,38 @@ $this->params['breadcrumbs'][] = ['label' => 'Grievance Card', 'url' => ['view',
 
                             <?= $form->field($model, 'No')->textInput(['readonly'=> true]) ?>
                             <?= $form->field($model, 'Key')->hiddenInput()->label(false) ?>
-                            <?= $form->field($model, 'Employee_No')->textInput(['readonly'=> true]) ?>
+    
                             <?= $form->field($model, 'Employee_Name')->textInput(['readonly' =>  true]) ?>
                             <?= $form->field($model, 'Grievance_Against')->textInput(['readonly' =>  true, 'disabled'=>true]) ?>
                             <?= $form->field($model, 'Name')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
                             <?= $form->field($model, 'Date_of_grievance')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
+                            <?= $form->field($model, 'Grievance_Type')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
+                            <?= $form->field($model, 'Grievance_Description')->textarea(['readonly'=> true, 'disabled'=>true]) ?>
+                            <?= $form->field($model, 'Status')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
+                            <?= $form->field($model, 'Rejection_Comments')->textarea(['readonly'=> true, 'disabled'=>true]) ?>
+                            
+                            
+                            <p class="parent"><span>+</span>
+                            
+                            
+                            
+                            
+                        </p>
 
-
-                                <p class="parent"><span>+</span>
-
-
-
-
-                                </p>
-
-
-                            </div>
-                            <div class="col-md-6">
-                            <?= $form->field($model, 'Grievance_Type')->textInput(['readonly'=> true, 'disabled'=>true]) ?>        
-                            <?= $form->field($model, 'Grievance_Description')->textarea(['rows' => 2,'readonly'=> true, 'disabled'=>true]) ?>
-                            <?= $form->field($model, 'Witness')->textarea(['rows' => 2,'readonly'=> true, 'disabled'=>true]) ?>        
-                            <?= $form->field($model, 'Witness_Name')->textarea(['rows'=> 2,'readonly'=> true, 'disabled'=>true]) ?>        
-                            <?= $form->field($model, 'Status')->textInput(['readonly'=> true]) ?>
-                            <?= $form->field($model, 'Rejection_Comments')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
-                               
+                        
+                    </div>
+                    <div class="col-md-6">
+                        <?= $form->field($model, 'HRO_Findings')->textInput(['readonly'=> true, 'disabled'=>true]) ?>        
+                        <?= $form->field($model, 'Complaint_Classification')->dropDownList([],['prompt' => 'Select ...']) ?>
+                        
+                        <?= $form->field($model, 'Employee_Comments')->textarea(['rows'=> 2]) ?>
+                        <?= $form->field($model, 'Severity_of_grievance')->dropDownList([],['prompt' => 'Select ...']) ?>
+                        <?= $form->field($model, 'HRM_Emp_Name')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
+                        <?= $form->field($model, 'HRM_Comment')->textarea(['rows'=> 2]) ?>
+                        <?= $form->field($model, 'HRM_Rejection_Comments')->textarea(['rows'=> 2]) ?>
+                        <?= $form->field($model, 'HRM_Findings')->textInput(['readonly'=> true, 'disabled'=>true]) ?>        
+                        <?= $form->field($model, 'HOH_Findings')->textInput(['readonly'=> true, 'disabled'=>true]) ?>        
+                        
                             <p class="parent"><span>+</span>
 
 
