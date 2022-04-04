@@ -166,7 +166,7 @@ $activeStatus = $HroActiveStatus = $HrmActiveStatus = $HOHActiveStatus =  [];
                         <?= Bootstrap4Html::a('<i class="fa fa-plus-square"></i> Add Witness',['add-line'],[
                             'class' => 'add btn btn-outline-info',
                             'data-no' => $model->No,
-                            'data-service' => 'Employee_Induction_Overall_In'
+                            'data-service' => 'GrievanceWitnesses'
                             ]) ?>
                 </div>
             </div>
@@ -175,6 +175,7 @@ $activeStatus = $HroActiveStatus = $HrmActiveStatus = $HOHActiveStatus =  [];
                     <table class="table table-bordered">
                         <thead>
                             <tr>
+                                <td class="text text-bold text-info">Employee No</td>
                                 <td class="text text-bold text-info">Employee Name</td>
                                 <td>Action</td>
                             </tr>
@@ -183,11 +184,12 @@ $activeStatus = $HroActiveStatus = $HrmActiveStatus = $HOHActiveStatus =  [];
                             <?php if(property_exists($document->Grievance_Witnesses,'Grievance_Witnesses')): ?>
                                 <?php foreach($document->Grievance_Witnesses->Grievance_Witnesses as $wit): ?>
                                     <tr>
-                                        <td><?= $wit->Employee_Name ?></td>
+                                        <td  data-key="<?= $wit->Key ?>"  data-name="Employee_No" data-service="GrievanceWitnesses" ondblclick="addDropDown(this,'employees')" data-validate="Employee_Name"><?= !empty($wit->Employee_No)?$wit->Employee_No:'' ?></td>
+                                        <td  class="Employee_Name"><?= !empty($wit->Employee_Name)?$wit->Employee_Name:'' ?></td>
                                         <td><?= Bootstrap4Html::a('<i class="fa fa-trash"></i>',['delete-line'],[
                                                     'class' => 'del btn btn-outline-danger',
-                                                    'data-key' => $model->Key,
-                                                    'data-service' => 'Employee_Induction_Overall_In'
+                                                    'data-key' => $wit->Key,
+                                                    'data-service' => 'GrievanceWitnesses'
                                                     ])  ?>
                                         </td>
                                     </tr>
@@ -307,7 +309,7 @@ $('#grievance-witness_type').change(function(e){
                 console.log(msg);
                 setTimeout(() => {
                     location.reload(true);
-                },200);
+                },50);
             });
         });
     

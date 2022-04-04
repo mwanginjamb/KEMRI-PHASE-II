@@ -479,6 +479,7 @@ return [
 
          'GrievanceList' => 'GrievanceList', //60090
          'GrievanceCard' => 'GrievanceCard', //60091
+         'GrievanceWitnesses' => 'GrievanceWitnesses', //60095
          'HROGrievanceList' => 'HROGrievanceList', //60092
          'ClosedGrievanceList' => 'ClosedGrievanceList', // 60093
          'TypeofComplaints' => 'TypeofComplaints', //55120

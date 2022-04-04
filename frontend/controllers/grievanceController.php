@@ -542,28 +542,19 @@ class GrievanceController extends Controller
     }
 
 
-    /** Updates a single field */
-    public function actionSetfield($field){
-        $service = 'GrievanceCard';
-        $value = Yii::$app->request->post('fieldValue');
-        $result = Yii::$app->navhelper->Commit($service,[$field => $value],Yii::$app->request->post('Key'));
-        Yii::$app->response->format = \yii\web\response::FORMAT_JSON;
-        return $result;
-          
-    }
-
+    
     public function actionAddLine($Service,$Document_No)
     {
         $service = Yii::$app->params['ServiceName'][$Service];
         $data = [
-            'Induction_No' => $Document_No,
+            'Grievance_No' => $Document_No,
             'Line_No' => time()
         ];
-
+        
         // Insert Record
-
+        
         $result = Yii::$app->navhelper->postData($service, $data);
-
+        
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         if(is_object($result))
         {
@@ -574,6 +565,30 @@ class GrievanceController extends Controller
         }else{
             return ['note' => $result];
         }
+    }
+    
+    
+    public function actionDeleteLine($Service, $Key)
+    {
+        $service = Yii::$app->params['ServiceName'][$Service];
+        $result = Yii::$app->navhelper->deleteData($service,Yii::$app->request->get('Key'));
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        if(!is_string($result)){
+            
+            return ['note' => '<div class="alert alert-success">Record Purged Successfully</div>'];
+        }else{
+            return ['note' => '<div class="alert alert-danger">Error Purging Record: '.$result.'</div>' ];
+        }
+    }
+    
+    /** Updates a single field */
+    public function actionSetfield($field){
+        $service = 'GrievanceCard';
+        $value = Yii::$app->request->post('fieldValue');
+        $result = Yii::$app->navhelper->Commit($service,[$field => $value],Yii::$app->request->post('Key'));
+        Yii::$app->response->format = \yii\web\response::FORMAT_JSON;
+        return $result;
+          
     }
 
     public function actionCommit(){
@@ -602,20 +617,6 @@ class GrievanceController extends Controller
     }
 
 
-    
-
-    public function actionDeleteLine($Service, $Key)
-    {
-        $service = Yii::$app->params['ServiceName'][$Service];
-        $result = Yii::$app->navhelper->deleteData($service,Yii::$app->request->get('Key'));
-        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        if(!is_string($result)){
-
-            return ['note' => '<div class="alert alert-success">Record Purged Successfully</div>'];
-        }else{
-            return ['note' => '<div class="alert alert-danger">Error Purging Record: '.$result.'</div>' ];
-        }
-    }
 
     public function actionUpload()
     {
@@ -683,6 +684,13 @@ class GrievanceController extends Controller
         }
     }
 
+    // Employees endpoint
 
+    public function actionEmployees()
+    {
+        $data = Yii::$app->navhelper->dropdown('Employees','No','Full_Name');
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        return $data;
+    }
 
 }

@@ -19,6 +19,8 @@ const Toast = Swal.mixin({
   /** Handle Checkbox state */
   var child = td.children[0];
 
+  
+
   if(child.type == 'checkbox'){
     value = (child.checked)? true: false;
   }
@@ -29,25 +31,41 @@ const Toast = Swal.mixin({
 
   const data = td.dataset;
 
-  console.log(`The Data Set`);
+  console.log(`The Data Set.........................................................`);
   console.table(data);
  
   // Post Changes
   field = document.querySelector(`#${data.validate}`);
   $.post('./commit',{'key':data.key,'name': data.name, 'no': data.no,'filterKey': data.filterField,'service': data.service, 'value': value }).done(function(msg){
     
-    console.log(`Committing Data....`);
+     // Update all key dataset values for the row
+     if(msg.Key)
+     {
+      let parent = td.parentNode;
+      parent.querySelectorAll('[data-key]').forEach(elem => elem.dataset.key = msg.Key);
+     }
+   
+
+
+    console.log(`Committing Data.... Result`);
+    console.table(msg);
+
 
     if(data.validate) // Custom Grid Error Reporting
     {
+      let parent = td.parentNode;
+      console.log(`Parent to be validated ....`);
+      let ClassName =  data.validate;
+      let validatedElement = parent.querySelector('.'+ClassName);
       const DataKey = data.validate;
-      field.innerText = typeof(msg) === 'string'? msg : msg[data.name];
+      validatedElement.innerText = typeof(msg) === 'string'? msg : msg[DataKey];
     }
 
    
     // Toasting The Outcome
     typemsg = typeof msg;
     console.log(typemsg);
+    console.log('');
     if(typeof(msg) === 'string')
     {
       console.log(msg);
@@ -83,7 +101,7 @@ function addInput(elm,type = false, field = false ) {
     input.setAttribute('type', 'text');
   }
 
-  input.setAttribute('value', value);
+  input.setAttribute('placeholder', value);// use placeholder instead of value attribute
 
   if(type === 'checkbox')
   {
@@ -99,16 +117,39 @@ function addInput(elm,type = false, field = false ) {
   input.focus();
 }
 
-async function addDropDown(elm,resource) {
+// Get Drop Down Filters
+
+function extractFilters(elm,ClassName)
+{
+  let parent = elm.parentNode;
+  let filterValue = parent.querySelector('.'+ClassName).innerText;
+  console.log(`Subject Parent Value`);
+  console.log(filterValue);
+  return filterValue;
+}
+
+async function addDropDown(elm,resource,filters={}) {
   if (elm.getElementsByTagName('input').length > 0) return;
 
-  var value = elm.innerHTML;
+ 
+  let processedFilters = null;
+  if(Object.entries(filters).length)
+  {
+    const content = Object.entries(filters);
+    processedFilters = Object.assign(...content.map(([key, val]) => ({[key]: extractFilters(elm,val)})));
+
+    console.log('Extracted Filters.....................');
+    console.log(processedFilters); 
+    console.log(typeof processedFilters);  
+  }
+  
+
+  elm.innerHTML = 'Processing ......';
+
+  const ddContent = await getData(resource,processedFilters);
+  console.log(`DD Content:`);
+  console.log(ddContent);
   elm.innerHTML = '';
-
-  const ddContent = await getData(resource);
-
-  //console.table(ddContent);
-
 
   var select = document.createElement('select');
   const InitialOption = document.createElement('option');
@@ -134,15 +175,19 @@ async function addDropDown(elm,resource) {
 }
 
 
-async function getData(resource)
+async function getData(resource, filters)
 {
+  payload = JSON.stringify({... filters});
   const res = await fetch(`./${resource}`,{
-  headers: new Headers({
-    Origin: 'http://localhost:2026/'
-  })
-});
+    method: 'POST',
+    headers: new Headers({
+      Origin: 'http://localhost:2026/',
+      "Content-Type": 'application/json',
+      //'Content-Type': 'application/x-www-form-urlencoded'
+    }),
+    body: payload
+  });
   const data = await res.json();
-
   return data;
 }
 
@@ -161,10 +206,10 @@ function globalFieldUpdate(entity,controller = false, fieldName, ev, autoPopulat
   const field = fieldName.toLowerCase();
   const formField = '.field-'+model+'-'+fieldName.toLowerCase();
   const keyField ='#'+model+'-key'; 
-  const targetField = '#'+model+'-'.field;
+  const targetField = '#'+model+'-'+field;
   const tget = '#'+model+'-'+field;
 
-  
+  console.log(targetField);
   const fieldValue = ev.target.value;
   const Key = $(keyField).val();
 
@@ -280,7 +325,7 @@ function requestStateUpdater(fieldParentNode, notificationType, msg = '' ) {
 
 // Global Uploader
 
-async function globalUpload(service, entity, fieldName) {
+async function globalUpload(attachmentService, entity, fieldName, documentService = false) {
  
  const model = entity.toLowerCase(); 
   const key = document.querySelector(`#${model}-key`).value;
@@ -288,11 +333,15 @@ async function globalUpload(service, entity, fieldName) {
   let endPoint = './upload/';
   const navPayload = {
     "Key" : key,
-    "Service": service
+    "Service": attachmentService,
+    "documentService": documentService
   }
 
   const formData = new FormData();
   formData.append("attachment", fileInput.files[0]);
+  formData.append("Key", key);
+  formData.append("DocumentService", documentService);
+
 
   console.log(fileInput.files);
 
@@ -303,7 +352,7 @@ async function globalUpload(service, entity, fieldName) {
         method: "POST",
         body: formData,
         headers: new Headers({
-          Origin: 'http://localhost:80/'
+          Origin: 'http://localhost:2026/'
         })
       });
 
@@ -316,7 +365,7 @@ async function globalUpload(service, entity, fieldName) {
 
 
     // Do a Nav Request
-   endPoint = `${endPoint}?Key=${navPayload.Key}&Service=${navPayload.Service}&filePath=${filePath}`
+   endPoint = `${endPoint}?Key=${navPayload.Key}&Service=${navPayload.Service}&filePath=${filePath}&documentService=${navPayload.documentService}`
     const navReq = await  fetch(endPoint,{
       method: "GET",
       headers: new Headers({
