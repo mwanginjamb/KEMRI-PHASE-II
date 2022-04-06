@@ -11,7 +11,7 @@ use yii\bootstrap4\Html as Bootstrap4Html;
 
 $absoluteUrl = \yii\helpers\Url::home(true);
  //Yii::$app->recruitment->printrr(Yii::$app->user->identity->{'Employee No_'});
-$activeStatus = $HroActiveStatus = $HrmActiveStatus = $HOHActiveStatus =  [];
+$activeStatus = $HroActiveStatus = $HRMActiveStatus = $HOHActiveStatus =  [];
 
  if($model->Status !== 'New'){ 
      $activeStatus = ['readonly' =>  true, 'disabled' => true];
@@ -22,7 +22,7 @@ $activeStatus = $HroActiveStatus = $HrmActiveStatus = $HOHActiveStatus =  [];
  }
 
  if($model->Status !== 'HRM'){
-    $HrmActiveStatus = ['readonly' =>  true, 'disabled' => true];
+    $HRMActiveStatus = ['readonly' =>  true, 'disabled' => true];
  }
 
  if($model->Status !== 'HOH'){
@@ -53,15 +53,8 @@ $activeStatus = $HroActiveStatus = $HrmActiveStatus = $HOHActiveStatus =  [];
                             ],
                                 'title' => 'Send Document to HRO for Acceptance'
     
-                            ]):'' ?>
-    
-    
-                           
-
-                           
-    
-    
-                            
+                            ]):'' ?>   
+                             
     </div>
 
 </div>
@@ -98,55 +91,51 @@ $activeStatus = $HroActiveStatus = $HrmActiveStatus = $HOHActiveStatus =  [];
                                             <?= $form->field($model, 'Employee_Name')->textInput(['readonly' =>  true]) ?>
                                             <?= ($model->Status == 'New')?$form->field($model, 'Grievance_Against')->dropdownList($employees,['prompt'=> 'Select ...']):'' ?>
                                             <?= $form->field($model, 'Name')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
-                                            <?= ($model->Status == 'New')?
-                                                $form->field($model, 'Date_of_grievance')->textInput(['type'=> 'date']):
-                                                    $form->field($model, 'Date_of_grievance')->textInput($activeStatus)
-                                                    ?>
-
-
-                                            <?= ($model->Status == 'HRO' && $model->HRO_Emp_No == Yii::$app->user->identity->{'Employee No_'})?
-                                                $form->field($model, 'HRO_Findings')->textarea(['rows'=> 2]):
-                                                    $form->field($model, 'HRO_Findings')->textInput($HroActiveStatus)
-                                                    ?> 
+                                            <?= $form->field($model, 'Date_of_grievance')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
                                             
-                                            <?= $form->field($model, 'Employee_Comments')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
+                                            <?= ($model->Status == 'New' && $model->Employee_No == Yii::$app->user->identity->{'Employee No_'})?
+                                                $form->field($model, 'Grievance_Type')->dropdownList($complaintTypes, ['prompt'=> 'Select ...']):
+                                                $form->field($model, 'Grievance_Type')->textInput($activeStatus)
+                                            ?>
                                             
-                                            <?= $form->field($model, 'attachment')->fileInput(['accept' => 'application/*']) ?>
-                                            
-                                            <?php $form->field($model, 'HRO_Emp_No')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
-                                            <?= $form->field($model, 'HRM_Emp_Name')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
+                                            <?= $form->field($model, 'Grievance_Description')->textarea(array_merge(['rows'=> 2], $activeStatus)) ?>
+                                            <?= $form->field($model, 'Status')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
+                                            <?= $form->field($model, 'Rejection_Comments')->textarea($HroActiveStatus) ?> 
 
                                             
                                         </div>
                                         
                                         <div class="col-md-6">
-                                            <?= ($model->Status == 'New')?
-                                            $form->field($model, 'Grievance_Type')->dropdownList($complaintTypes, ['prompt'=> 'Select ...']):
-                                                $form->field($model, 'Grievance_Type')->textInput($activeStatus)
-                                                ?>        
+                                           
+                                            <?= $form->field($model, 'HRO_Findings')->textarea($HroActiveStatus) ?>     
                                                     
                                             <?= $form->field($model, 'Status')->textInput(['readonly'=> true]) ?>
-                                            <?= $form->field($model, 'Rejection_Comments')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
                                             
                                             <?= ($model->Status == 'HRO' && $model->HRO_Emp_No == Yii::$app->user->identity->{'Employee No_'})?
                                                 $form->field($model, 'Severity_of_grievance')->dropdownList($severity, ['prompt'=> 'Select ...']):
                                                     $form->field($model, 'Severity_of_grievance')->textInput($HroActiveStatus)
-                                                    ?> 
+                                            ?> 
 
+                                            <?= $form->field($model, 'Employee_Comments')->textarea($activeStatus) ?>
                                             <?= ($model->Status == 'HRO' && $model->HRO_Emp_No == Yii::$app->user->identity->{'Employee No_'})?
                                                 $form->field($model, 'Complaint_Classification')->dropdownList($complaintTypes, ['prompt'=> 'Select ...']):
                                                     $form->field($model, 'Complaint_Classification')->textInput($HroActiveStatus)
-                                                    ?> 
+                                            ?> 
 
-                                                <?= (($model->Status == 'HRM' && $model->HRM_Emp_No == Yii::$app->user->identity->{'Employee No_'}))?
-                                                        
-                                                        $model->Status .$form->field($model, 'HRM_Rejection_Comments')->textInput() :
 
-                                                        $form->field($model, 'HRM_Rejection_Comments')->textInput($HrmActiveStatus)
-                                                        
-                                                        ?> 
-                                        </div>
-                                
+                                            
+                                            <?= ($model->Status == 'HRO' && $model->HRO_Emp_No == Yii::$app->user->identity->{'Employee No_'})?
+                                                $form->field($model, 'Severity_of_grievance')->dropdownList($severity, ['prompt'=> 'Select ...']):
+                                                $form->field($model, 'Severity_of_grievance')->textInput($HroActiveStatus)
+                                            ?> 
+                                            <?= $form->field($model, 'HRM_Emp_Name')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
+                                            <?= $form->field($model, 'HRM_Comment')->textarea(array_merge(['rows'=> 2], $HRMActiveStatus)) ?>
+                                            <?= $form->field($model, 'HRM_Rejection_Comments')->textarea(array_merge(['rows'=> 2], $HRMActiveStatus)) ?>
+                                            <?= $form->field($model, 'HRM_Findings')->textInput($HRMActiveStatus) ?>        
+                                            <?= $form->field($model, 'HOH_Findings')->textInput($HOHActiveStatus) ?>
+
+                                          
+                                        </div>                             
 
 
 
@@ -170,6 +159,7 @@ $activeStatus = $HroActiveStatus = $HrmActiveStatus = $HOHActiveStatus =  [];
                             ]) ?>
                 </div>
             </div>
+
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-bordered">
@@ -271,18 +261,55 @@ $('#grievance-attachment').change(function(e){
                 },1000);
 });
 
-$('#grievance-witness_type').change(function(e){
-    let selectedOption = e.target.value;
-    // console.log(selectedOption);
-    if(selectedOption === 'Self')
-    {
-        $('.field-grievance-witness, .field-grievance-witness_name').hide();
-    } else if(selectedOption === 'Employee')
-    {
-        $('.field-grievance-witness, .field-grievance-witness_name').show();
-    }
-    globalFieldUpdate('grievance',false,'Witness_Type', e);
+$('#grievance-hro_findings').change((e) => {
+        globalFieldUpdate('grievance',false,'HRO_Findings', e);
 });
+
+$('#grievance-severity_of_grievance').change((e) => {
+        globalFieldUpdate('grievance',false,'Severity_of_grievance', e);
+});
+
+$('#grievance-employee_comments').change((e) => {
+        globalFieldUpdate('grievance',false,'Employee_Comments', e);
+});
+
+$('#grievance-complaint_classification').change((e) => {
+        globalFieldUpdate('grievance',false,'Complaint_Classification', e);
+});
+
+$('#grievance-severity_of_grievance').change((e) => {
+        globalFieldUpdate('grievance',false,'Severity_of_grievance', e);
+});
+
+
+$('#grievance-hrm_comment').change((e) => {
+        globalFieldUpdate('grievance',false,'HRM_Comment', e);
+});
+
+
+$('#grievance-hrm_rejection_comments').change((e) => {
+        globalFieldUpdate('grievance',false,'HRM_Rejection_Comments', e);
+});
+
+$('#grievance-hrm_findings').change((e) => {
+        globalFieldUpdate('grievance',false,'HRM_Findings', e);
+});
+
+
+$('#grievance-hrm_findings').change((e) => {
+        globalFieldUpdate('grievance',false,'HRM_Findings', e);
+});
+
+$('#grievance-hoh_findings').change((e) => {
+        globalFieldUpdate('grievance',false,'HOH_Findings', e);
+});
+
+
+
+
+
+
+
 
 
 

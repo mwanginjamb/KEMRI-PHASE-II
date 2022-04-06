@@ -14,6 +14,17 @@ $this->params['breadcrumbs'][] = ['label' => 'Training Applications List', 'url'
 $this->params['breadcrumbs'][] = ['label' => 'Training Card', 'url' => ['view','Key'=> $model->Key]];
 /** Status Sessions */
 $absoluteUrl = \yii\helpers\Url::home(true);
+$activeStatus = $HroActiveStatus = $lineManagerStatus = $HOHActiveStatus =  [];
+
+if($model->Status !== 'HRO'){
+    $HroActiveStatus = ['readonly' =>  true, 'disabled' => true];
+ }
+
+ if($model->Status !== 'Line_Manager'){ 
+    $lineManagerStatus = ['readonly' =>  true, 'disabled' => true];
+}
+
+
 ?>
 
 
@@ -82,7 +93,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
             ['
                     class' => 'mx-1 btn btn-app bg-danger rejectgoalsettingbyoverview',
                     'data-no' => $model->Application_No,
-                    'data-action' => $absoluteUrl.'training-approved/reject-hro',
+                    'data-action' => $absoluteUrl.'training-approved/rejection-linemanager',
                     'title' => 'Reject Training Application with Comments'
 
              ]);
@@ -165,15 +176,25 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                             <?= $form->field($model, 'Start_Date')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
                             <?= $form->field($model, 'End_Date')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
                             <?= $form->field($model, 'Period')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
-                            <?= $form->field($model, 'Recomended_Action')->dropdownList([
-                                '_blank_' => '_blank_',
-                                '_x0032__point_Increment' => 'Point Increment',
-                                'Promote_to_Higher_Position' => 'Promote to Higher Position',
-                                'Maintain_Current_Status' => 'Maintain Current Status',
-                            ],['prompt' => 'select ...']) ?>
 
-                            <?= $form->field($model, 'Line_Manager_Comments')->textarea(['rows'=> 2]) ?>
-                            <?= $form->field($model, 'Line_Manager_Rejection_Comment')->textarea(['rows'=> 2]) ?>
+                            
+
+
+
+
+                            <?= ($model->Status == 'Line_Manager')?
+                                                $form->field($model, 'Recomended_Action')->dropdownList([
+                                                    '_blank_' => '_blank_',
+                                                    '_x0032__point_Increment' => 'Point Increment',
+                                                    'Promote_to_Higher_Position' => 'Promote to Higher Position',
+                                                    'Maintain_Current_Status' => 'Maintain Current Status',
+                                                ],['prompt' => 'select ...']) :
+                                                $form->field($model, 'Recomended_Action')->textInput($lineManagerStatus)
+                            ?>
+
+
+                            <?= $form->field($model, 'Line_Manager_Comments')->textarea($lineManagerStatus) ?>
+                            <?= $form->field($model, 'Line_Manager_Rejection_Comment')->textarea(['rows'=> 2,'readonly' =>  true,'disabled' => true]) ?>
                             
                             
                             
@@ -187,23 +208,23 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                         
                     </div>
                     <div class="col-md-6">
-                        <?= $form->field($model, 'Key')->textInput(['readonly'=> true, 'disabled'=>true]) ?>        
+                               
                         <?= $form->field($model, 'Expected_Cost')->textInput(['readonly'=> true, 'disabled'=>true]) ?>        
                         <?= $form->field($model, 'Trainer')->textarea(['rows' => 2,'readonly'=> true, 'disabled'=>true]) ?>
-                        <?= $form->field($model, 'Exceeds_Expected_Trainees')->checkbox([$model->Exceeds_Expected_Trainees]) ?>        
+                        <?php $form->field($model, 'Exceeds_Expected_Trainees')->checkbox([$model->Exceeds_Expected_Trainees]) ?>        
                         <?= $form->field($model, 'Training_Start_Date')->textInput(['readonly'=> true, 'disabled'=>true]) ?>        
                         <?= $form->field($model, 'CPD_Approved_Cost')->textInput(['readonly'=> true]) ?>
                         <?= $form->field($model, 'Total_Cost')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
-                        <?= $form->field($model, 'HRO_No')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
+                        <?php $form->field($model, 'HRO_No')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
                         <?= $form->field($model, 'HRO_Name')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
-                        <?= $form->field($model, 'Line_Manager')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
+                        <?php $form->field($model, 'Line_Manager')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
                         <?= $form->field($model, 'Manager_Name')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
                         <?= $form->field($model, 'Approval_rejection_Comments')->textarea(['rows' => 1 ,'readonly'=> true, 'disabled'=>true]) ?> 
                         <?= $form->field($model, 'Nature_of_Training')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
                         <?= $form->field($model, 'Training_Type')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
                         <?= $form->field($model, 'Training_Category')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
                         
-                        <?= $form->field($model, 'HRO_Comments')->textarea(['rows'=> 2]) ?>
+                        <?= $form->field($model, 'HRO_Comments')->textarea($HroActiveStatus) ?>
                                
                             <p class="parent"><span>+</span>
 

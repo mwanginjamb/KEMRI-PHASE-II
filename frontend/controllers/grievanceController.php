@@ -29,7 +29,7 @@ class GrievanceController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout','signup','index','list','create','update','delete','list-hro','hro','view'],
+                'only' => ['logout','signup','index','list','create','update','delete','list-hro','hro','view','hoh','hrm'],
                 'rules' => [
                     [
                         'actions' => ['signup'],
@@ -37,7 +37,7 @@ class GrievanceController extends Controller
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['logout','index','list', 'create', 'update','delete','list-hro','hro','view' ],
+                        'actions' => ['logout','index','list', 'create', 'update','delete','list-hro','hro','view','hoh','hrm' ],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -51,7 +51,7 @@ class GrievanceController extends Controller
             ],
             'contentNegotiator' =>[
                 'class' => ContentNegotiator::class,
-                'only' => ['list','list-hro'],
+                'only' => ['list','list-hro','list-hrm','list-hoh'],
                 'formatParam' => '_format',
                 'formats' => [
                     'application/json' => Response::FORMAT_JSON,
@@ -71,15 +71,19 @@ class GrievanceController extends Controller
     }
 
     public function actionIndex(){
-
         return $this->render('index');
-
     }
 
     public function actionHro(){
-
         return $this->render('hro');
+    }
 
+    public function actionHrm(){
+        return $this->render('hrm');
+    }
+
+    public function actionHoh(){
+        return $this->render('hoh');
     }
 
     
@@ -283,9 +287,9 @@ class GrievanceController extends Controller
                 $Deletelink = $updateLink = $viewLink = $applyLink = $sendForApproval =  '';
                 $updateLink = ($quali->Status == 'HRO')? Html::a('<i class="fa fa-edit"></i>',['update','Key'=> $quali->Key ],['class'=>' mx-1 update btn btn-outline-info btn-xs', 'title' => 'Update Record']): '';
                 $viewLink = Html::a('<i class="fa fa-eye"></i>',['view','Key'=> $quali->Key ],['class'=>'btn btn-outline-info btn-xs mx-2', 'title' => 'View Document']);
-                $sendForApproval = ($quali->Status == 'New')? Html::a('<i class="fa fa-forward"></i>',['send-to-hro'],[
+                $sendForApproval = ($quali->Status == 'New')? Html::a('<i class="fa fa-forward"></i>',['send-to-hrm'],[
                     'class'=>'btn btn-outline-success btn-xs mx-2',
-                    'title' => 'Send to HRO',
+                    'title' => 'Send to HRM',
                     'data' => [
                         'params' => [
                             'No'=> $quali->No
@@ -313,7 +317,134 @@ class GrievanceController extends Controller
                     'Name' => !empty($quali->Name)?$quali->Name:'',
                     'Grievance_Type' => !empty($quali->Grievance_Type)?$quali->Grievance_Type:'',
                     'Status' => !empty($quali->Status)?$quali->Status:'',
-                    'Action' => $viewLink.$updateLink,
+                    'Action' => $viewLink.$updateLink.$sendForApproval,
+                                      
+                ];
+            
+        }
+        return $result;
+
+    } 
+
+    // HRM LIST
+
+    public function actionListHrm(){
+        $service = Yii::$app->params['ServiceName']['HRMGrievanceList'];
+
+        $filter = [
+            //'HRM_Emp_No' => \Yii::$app->user->identity->{'Employee No_'},
+        ];
+        $records = \Yii::$app->navhelper->getData($service,$filter);
+
+        $result = [];
+        $count = 0;
+        
+            foreach($records as $quali){
+
+                if(empty($quali->Employee_No))
+                {
+                    continue;
+                }
+
+                ++$count;
+                $Deletelink = $updateLink = $viewLink = $applyLink = $sendForApproval =  '';
+                $updateLink = ($quali->Status == 'HRM')? Html::a('<i class="fa fa-edit"></i>',['update','Key'=> $quali->Key ],['class'=>' mx-1 update btn btn-outline-info btn-xs', 'title' => 'Update Record']): '';
+                $viewLink = Html::a('<i class="fa fa-eye"></i>',['view','Key'=> $quali->Key ],['class'=>'btn btn-outline-info btn-xs mx-2', 'title' => 'View Document']);
+                $sendForApproval = ($quali->Status == 'HRM')? Html::a('<i class="fa fa-forward"></i>',['send-to-hoh'],[
+                    'class'=>'btn btn-outline-success btn-xs mx-2',
+                    'title' => 'Send to HOH',
+                    'data' => [
+                        'params' => [
+                            'No'=> $quali->No
+                        ],
+                        'confirm' => 'Are you sure you want to send this document to HOH?',
+                        'method' => 'post'
+                    ]
+                    ]): '';
+                $cancelApproval = ($quali->Status == 'Pending_Approval')? Html::a('<i class="fa fa-times"></i>',['cancelApprovalRequest','No'=> $quali->No ],['class'=>'btn btn-outline-warning btn-xs mx-2', 'title' => 'Cancel Approval Request']): '';
+
+
+                $Deletelink = Html::a('<i class="fa fa-trash"></i>',['delete','Key'=> $quali->Key ],['class'=>'btn btn-outline-danger btn-xs text-danger',
+                    'title' => 'Delete Record.',
+                    'data' => [
+                    'confirm' => 'Are you sure you want to delete this record?',
+                    'method' => 'post',
+                ]]);
+
+               
+                $result['data'][] = [
+                    'index' => $count,
+                    'Employee_No' => !empty($quali->Employee_No)?$quali->Employee_No:'',
+                    'Employee_Name' => !empty($quali->Employee_Name)?$quali->Employee_Name:'',
+                    'Grievance_Against' => !empty($quali->Grievance_Against)?$quali->Grievance_Against:'',
+                    'Name' => !empty($quali->Name)?$quali->Name:'',
+                    'Grievance_Type' => !empty($quali->Grievance_Type)?$quali->Grievance_Type:'',
+                    'Status' => !empty($quali->Status)?$quali->Status:'',
+                    'Action' => $viewLink.$updateLink.$sendForApproval,
+                                      
+                ];
+            
+        }
+        return $result;
+
+    } 
+
+
+    // HOH List
+
+    public function actionListHoh(){
+        $service = Yii::$app->params['ServiceName']['HOHGrievanceList'];
+
+        $filter = [
+            //'HRO_Emp_No' => \Yii::$app->user->identity->{'Employee No_'},
+        ];
+        $records = \Yii::$app->navhelper->getData($service,$filter);
+
+        $result = [];
+        $count = 0;
+        
+            foreach($records as $quali){
+
+                if(empty($quali->Employee_No))
+                {
+                    continue;
+                }
+
+                ++$count;
+                $Deletelink = $updateLink = $viewLink = $applyLink = $sendForApproval =  '';
+                $updateLink = ($quali->Status == 'HOH')? Html::a('<i class="fa fa-edit"></i>',['update','Key'=> $quali->Key ],['class'=>' mx-1 update btn btn-outline-info btn-xs', 'title' => 'Update Record']): '';
+                $viewLink = Html::a('<i class="fa fa-eye"></i>',['view','Key'=> $quali->Key ],['class'=>'btn btn-outline-info btn-xs mx-2', 'title' => 'View Document']);
+                $sendForApproval = ($quali->Status == 'HOH')? Html::a('<i class="fa fa-forward"></i>',['close'],[
+                    'class'=>'btn btn-outline-success btn-xs mx-2',
+                    'title' => 'Close Grievance',
+                    'data' => [
+                        'params' => [
+                            'No'=> $quali->No
+                        ],
+                        'confirm' => 'Are you sure you want to cloe Grievance?',
+                        'method' => 'post'
+                    ]
+                    ]): '';
+                $cancelApproval = ($quali->Status == 'Pending_Approval')? Html::a('<i class="fa fa-times"></i>',['cancelApprovalRequest','No'=> $quali->No ],['class'=>'btn btn-outline-warning btn-xs mx-2', 'title' => 'Cancel Approval Request']): '';
+
+
+                $Deletelink = Html::a('<i class="fa fa-trash"></i>',['delete','Key'=> $quali->Key ],['class'=>'btn btn-outline-danger btn-xs text-danger',
+                    'title' => 'Delete Record.',
+                    'data' => [
+                    'confirm' => 'Are you sure you want to delete this record?',
+                    'method' => 'post',
+                ]]);
+
+               
+                $result['data'][] = [
+                    'index' => $count,
+                    'Employee_No' => !empty($quali->Employee_No)?$quali->Employee_No:'',
+                    'Employee_Name' => !empty($quali->Employee_Name)?$quali->Employee_Name:'',
+                    'Grievance_Against' => !empty($quali->Grievance_Against)?$quali->Grievance_Against:'',
+                    'Name' => !empty($quali->Name)?$quali->Name:'',
+                    'Grievance_Type' => !empty($quali->Grievance_Type)?$quali->Grievance_Type:'',
+                    'Status' => !empty($quali->Status)?$quali->Status:'',
+                    'Action' => $viewLink.$updateLink.$sendForApproval,
                                       
                 ];
             

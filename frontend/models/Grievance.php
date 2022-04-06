@@ -50,13 +50,15 @@ public $attachment;
         return [
             [['attachment'],'file','mimeTypes' => Yii::$app->params['QualificationsMimeTypes']],
             [['attachment'],'file','maxSize' => '5120000'], //50mb
+
         ];
     }
 
     public function attributeLabels()
     {
         return [
-            'attachment' => 'Grievance Attachment (PDFs only)'
+            'attachment' => 'Grievance Attachment (PDFs only)',
+            'Name' => 'Offender Name'
         ];
     }
 

@@ -155,9 +155,6 @@ $this->params['breadcrumbs'][] = ['label' => 'Grievance Card', 'url' => ['view',
                 <div class="card-header">
                     <h3>Grievance Card </h3>
                 </div>
-
-
-
             </div>
         </div>
     </div>
@@ -166,21 +163,10 @@ $this->params['breadcrumbs'][] = ['label' => 'Grievance Card', 'url' => ['view',
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-
-
-
-
                     <h3 class="card-title"> No : <?= $model->No?></h3>
-
-
-
                 </div>
                 <div class="card-body">
-
-
                     <?php $form = ActiveForm::begin(); ?>
-
-
                     <div class="row">
                         <div class=" row col-md-12">
                             <div class="col-md-6">
@@ -220,12 +206,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Grievance Card', 'url' => ['view',
                         <?= $form->field($model, 'HOH_Findings')->textInput(['readonly'=> true, 'disabled'=>true]) ?>        
                         
                             <p class="parent"><span>+</span>
-
-
-
-                                </p>
-
-
+                            </p>
 
                             </div>
                         </div>
@@ -240,6 +221,43 @@ $this->params['breadcrumbs'][] = ['label' => 'Grievance Card', 'url' => ['view',
 
                 </div>
             </div><!--end header card-->
+
+
+
+            <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Witnesses</h3>
+                <div class="card-tools">                     
+                </div>
+            </div>
+
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                               
+                                <td class="text text-bold text-info">Employee Name</td>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if(property_exists($document->Grievance_Witnesses,'Grievance_Witnesses')): ?>
+                                <?php foreach($document->Grievance_Witnesses->Grievance_Witnesses as $wit): ?>
+                                    <tr>
+                                       
+                                        <td  class="Employee_Name"><?= !empty($wit->Employee_Name)?$wit->Employee_Name:'' ?></td>
+                                       
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
 
             <!-- Attachment View -->
             <?php if(is_object($attachment) && $attachment->File_path): ?>

@@ -70,6 +70,7 @@ return [
         'EmployeeExitManagement',
         'HRAPPRAISALMGT',
         'TRAININGMGT',
+        'GRIEVANCEMGT'
 
     ],
     'ServiceName'=>[
@@ -481,9 +482,12 @@ return [
          'GrievanceCard' => 'GrievanceCard', //60091
          'GrievanceWitnesses' => 'GrievanceWitnesses', //60095
          'HROGrievanceList' => 'HROGrievanceList', //60092
+         'HRMGrievanceList' => 'HRMGrievanceList', // 60094
+         'HOHGrievanceList' => 'HOHGrievanceList', // 60096
          'ClosedGrievanceList' => 'ClosedGrievanceList', // 60093
          'TypeofComplaints' => 'TypeofComplaints', //55120
          'OffenceSeverity' => 'OffenceSeverity', // 55123
+         'GRIEVANCEMGT' => 'GRIEVANCEMGT', // 50244
 
         /********************Disciplinary***************************************/
 

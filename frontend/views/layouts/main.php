@@ -1200,6 +1200,8 @@ $employee = (!Yii::$app->user->isGuest && is_array(Yii::$app->user->identity->em
                                         </a>
                                     </li>
 
+                                   
+
                                     <li class="nav-item">
                                         <a href="<?= $absoluteUrl ?>training-approved/closed" class="nav-link <?= Yii::$app->recruitment->currentaction('training-approved','closed')?'active':'' ?>">
                                             <i class="fa fa-chart-line nav-icon"></i>
@@ -1259,6 +1261,20 @@ $employee = (!Yii::$app->user->isGuest && is_array(Yii::$app->user->identity->em
                                         <a href="<?= $absoluteUrl ?>grievance/hro" class="nav-link <?= Yii::$app->recruitment->currentaction('grievance','hro')?'active':'' ?>">
                                             <i class="fa fa-chart-line nav-icon"></i>
                                             <p>HRO List </p>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a href="<?= $absoluteUrl ?>grievance/hrm" class="nav-link <?= Yii::$app->recruitment->currentaction('grievance','hrm')?'active':'' ?>">
+                                            <i class="fa fa-chart-line nav-icon"></i>
+                                            <p>HRM list  </p>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a href="<?= $absoluteUrl ?>grievance/hoh" class="nav-link <?= Yii::$app->recruitment->currentaction('grievance','hoh')?'active':'' ?>">
+                                            <i class="fa fa-chart-line nav-icon"></i>
+                                            <p>HOH list  </p>
                                         </a>
                                     </li>
                                     
