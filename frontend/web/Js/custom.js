@@ -330,6 +330,7 @@ async function globalUpload(attachmentService, entity, fieldName, documentServic
  const model = entity.toLowerCase(); 
   const key = document.querySelector(`#${model}-key`).value;
   const fileInput = document.querySelector(`#${model}-${fieldName}`);
+  console.log(fileInput);
   let endPoint = './upload/';
   const navPayload = {
     "Key" : key,

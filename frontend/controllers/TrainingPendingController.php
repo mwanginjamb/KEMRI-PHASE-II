@@ -156,7 +156,8 @@ class TrainingPendingController extends Controller
 
         return $this->render('view',[
             'model' => $model,
-            'document' =>  $document
+            'document' =>  $document,
+            'attachments' => Yii::$app->navhelper->getData(Yii::$app->params['ServiceName']['DisciplinaryAttachments'],['Document_No' => $model->Application_No])
         ]);
     }
 

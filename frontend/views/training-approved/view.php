@@ -8,6 +8,7 @@
 
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
+use yii\bootstrap4\Html as Bootstrap4Html;
 
 $this->title = 'Training - '.$model->Application_No;
 $this->params['breadcrumbs'][] = ['label' => 'Training Applications List', 'url' => ['index']];
@@ -238,7 +239,18 @@ if($model->Status !== 'HRO'){
                         </div>
                     </div>
 
+                    <?php if($model->Status == 'Approved' && $model->Employee_No == Yii::$app->user->identity->{'Employee No_'}): ?>
+                        <div class="card">
+                            <div class="card-header">
+                                <p class="card-title">Attachments</p>
+                            </div>
+                            <div class="card-body">
+                               <?= $form->field($model, 'attachment_one')->fileInput() ?>
 
+                               <?php $form->field($model, 'attachment_two')->fileInput() ?>
+                            </div>
+                        </div>
+                    <?php endif; ?>
 
 
                     <?php ActiveForm::end(); ?>
@@ -249,6 +261,40 @@ if($model->Status !== 'HRO'){
             </div><!--end header card-->
 
 
+
+
+            
+             <!-- Attachments -->
+        <?php if(is_array($attachments) && count($attachments)):  //Yii::$app->recruitment->printrr($attachments); ?>
+            <div class="card card-info">
+                <div class="card-header">
+                    <h3 class="card-title">Files Attachments</h3>
+                </div>
+                <div class="card-body">
+                    <?php $i = 0; foreach($attachments as $file): ++$i; ?>
+                        
+
+                        <div class="my-2 file border border-info d-flex justify-content-around align-items-center rounded p-3">
+                            <p class="my-auto border rounded border-info bg-info p-2">Attachment <?= $i ?></p>
+                            <?= Bootstrap4Html::a('<i class="fas fa-file"></i> Open',['read'],[
+                                'class' => 'btn btn-info',
+                                'data' => [
+                                    'params' => [
+                                        'path' => $file->File_path,
+                                        'No' => $model->Application_No
+                                    ],
+                                    'method' => 'POST'
+                                ]
+                            ]) ?>
+                        </div>
+
+
+                    <?php endforeach; ?>
+                </div>
+                                
+            </div>
+        <?php endif; ?>
+            <!-- / Attachments -->
            
             <!-- Card Lines -->
 
@@ -374,6 +420,21 @@ if($model->Status !== 'HRO'){
 $script = <<<JS
 
     $(function(){
+
+        $('#employeetraining-attachment_one').change(function(e){
+          globalUpload('DisciplinaryAttachments','EmployeeTraining','attachment_one','TrainingApplicationCard');
+          setTimeout(() => {
+                    //location.reload(true);
+                },1500);
+        });
+
+
+        $('#employeetraining-attachment_two').change(function(e){
+                globalUpload('DisciplinaryAttachments','EmployeeTraining','attachment_two','TrainingApplicationCard');
+                setTimeout(() => {
+                            //location.reload(true);
+                        },1500);
+        });
       
         
      /*Deleting Records*/

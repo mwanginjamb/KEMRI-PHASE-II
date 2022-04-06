@@ -11,11 +11,13 @@ namespace frontend\controllers;
 use frontend\models\EmployeeTraining;
 use frontend\models\Imprestcard;
 use frontend\models\Induction;
+use Mpdf\Gif\FileHeader;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\ContentNegotiator;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
+use yii\helpers\FileHelper;
 use yii\helpers\Html;
 use yii\web\Controller;
 use yii\web\Response;
@@ -59,6 +61,15 @@ class TrainingApprovedController extends Controller
                 ],
             ]
         ];
+    }
+
+    public function beforeAction($action) 
+    { 
+        
+            $this->enableCsrfValidation = false; 
+            return parent::beforeAction($action);
+        
+        
     }
 
     public function actionIndex(){
@@ -165,7 +176,7 @@ class TrainingApprovedController extends Controller
        // Get Document
        if(!empty($No))
        {
-           $document = Yii::$app->navhelper->findOne($service,'No',$No);
+        $document = Yii::$app->navhelper->findOne($service,['Application_No' => $No] );
        }elseif(!empty($Key)){
            $document = Yii::$app->navhelper->readByKey($service,$Key);
        }else{
@@ -178,7 +189,90 @@ class TrainingApprovedController extends Controller
 
         return $this->render('view',[
             'model' => $model,
-            'document' =>  $document
+            'document' =>  $document,
+            'attachments' => Yii::$app->navhelper->getData(Yii::$app->params['ServiceName']['DisciplinaryAttachments'],['Document_No' => $model->Application_No])
+        ]);
+    }
+
+    public function actionUpload()
+    {
+        $targetPath = '';
+        if($_FILES)
+        {
+            list($name, $ext) = explode('.',$_FILES['attachment']['name']);
+            $targetPath = './uploads/'.Yii::$app->security->generateRandomString(5).'.'.$ext; // Upload file
+
+            if(!is_dir(dirname($targetPath))){
+                FileHelper::createDirectory(dirname($targetPath));
+                chmod(dirname($targetPath),0755);
+            }
+        }
+       
+        // Upload
+        if(Yii::$app->request->isPost)
+        {
+            $file = $_FILES['attachment']['tmp_name'];
+            //Return JSON
+            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            if(move_uploaded_file($file,$targetPath))
+            {
+                return [
+                    'status' => 'success',
+                    'message' => 'File Uploaded Successfully',
+                    'filePath' => $targetPath
+                ];
+            }else 
+            {
+                return 'error';
+            }
+        }
+        
+
+        // Update Nav
+        if(Yii::$app->request->isGet) 
+        {
+            $fileName = basename(Yii::$app->request->get('filePath'));
+            
+            $DocumentService = Yii::$app->params['ServiceName'][Yii::$app->request->get('documentService')];
+            $AttachmentService = Yii::$app->params['ServiceName'][Yii::$app->request->get('Service')];
+            $Document = Yii::$app->navhelper->readByKey($DocumentService, Yii::$app->request->get('Key'));
+
+    
+            $data = [];
+            if(is_object($Document) && isset($Document->Key))
+            {
+                $data = [
+                    'Document_No' => $Document->Application_No,
+                    'Name' => $fileName ,
+                    'File_path' => \yii\helpers\Url::home(true).'uploads/'.$fileName,
+                ];
+            }
+           
+            // Update Nav
+            $result = Yii::$app->navhelper->postData($AttachmentService, $data);
+
+            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            if(is_object($result))
+            {
+                return $result;
+            }else {
+                return $result;
+            }
+            
+        }
+    }
+
+
+    public function actionRead()
+    {
+        $path = Yii::$app->request->post('path');
+        $No = Yii::$app->request->post('No');
+        $binary = @file_get_contents($path);
+        $content = chunk_split(base64_encode($binary));
+        return $this->render('read',[
+            'path' => $path,
+            'No' => $No,
+            'content' => $content
         ]);
     }
 
