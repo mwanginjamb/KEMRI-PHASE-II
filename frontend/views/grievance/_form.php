@@ -97,6 +97,11 @@ $activeStatus = $HroActiveStatus = $HRMActiveStatus = $HOHActiveStatus =  [];
                                                 $form->field($model, 'Grievance_Type')->dropdownList($complaintTypes, ['prompt'=> 'Select ...']):
                                                 $form->field($model, 'Grievance_Type')->textInput($activeStatus)
                                             ?>
+
+                                            <?= ($model->Status == 'New' && $model->Employee_No == Yii::$app->user->identity->{'Employee No_'})?
+                                                $form->field($model, 'attachment')->fileInput(): ''
+                                                
+                                            ?>
                                             
                                             <?= $form->field($model, 'Grievance_Description')->textarea(array_merge(['rows'=> 2], $activeStatus)) ?>
                                             <?= $form->field($model, 'Status')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
