@@ -7,12 +7,16 @@
  */
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap4\ActiveForm;
+use yii\bootstrap4\Html as Bootstrap4Html;
 
-$this->title = 'Induction - '.$model->No;
-$this->params['breadcrumbs'][] = ['label' => 'Induction List', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => 'Induction Card', 'url' => ['view','No'=> $model->No]];
+$this->title = 'Training - '.$model->Group_No;
+$this->params['breadcrumbs'][] = ['label' => 'Program Training Applications List', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Training Card', 'url' => ['view','Key'=> $model->Key]];
 /** Status Sessions */
+$absoluteUrl = \yii\helpers\Url::home(true);
+
+
 
 ?>
 
@@ -34,45 +38,34 @@ $this->params['breadcrumbs'][] = ['label' => 'Induction Card', 'url' => ['view',
 <div class="row actions">
     <div class="col-md-4">
 
-        <?= ($model->Status == 'Inductee')?Html::a('<i class="fas fa-paper-plane"></i> Send Approval Req',['send-for-approval'],['class' => 'btn btn-app submitforapproval',
+        <?= ($model->Status == 'New')?Bootstrap4Html::a('<i class="fas fa-check"></i> Apply',['apply'],['class' => 'btn btn-app ',
             'data' => [
-                'confirm' => 'Are you sure you want to send imprest request for approval?',
+                'confirm' => 'Are you sure you want to apply for this training?',
                 'params'=>[
-                    'No'=> $model->No
+                    'groupNoCode' => $model->Group_No ,
+                    'empNo' => $model->Requester
                 ],
-                'method' => 'get',
+                'method' => 'post',
         ],
-            'title' => 'Submit for Approval'
+            'title' => 'Apply Training?'
 
         ]):'' ?>
 
 
     </div>
-
-    <?= ($model->Status == 'Inductor' && $model->Action_ID == Yii::$app->user->identity->{'Employee No_'})?Html::a('<i class="fas fa-check"></i> Approve.',['approve-induction'],['class' => 'btn btn-app bg-success mx-1',
-                                'data' => [
-                                'confirm' => 'Are you sure you want to approve this document?',
-                                'params'=>[
-                                    'No'=> $model->No,
-                                ],
-                                'method' => 'get',
-                            ],
-                                'title' => 'Approve Document.'
-    
-                            ]):'' ?>
 </div>
+
+   
 
     <div class="row">
         <div class="col-md-12">
-            <div class="card-info">
+            <div class="card card-info">
                 <div class="card-header">
-                    <h3>Induction Card </h3>
+                    <h3 class="card-title">Program Training Card </h3>
                 </div>
-
-
-
             </div>
         </div>
+        
     </div>
 
     <div class="row">
@@ -83,7 +76,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Induction Card', 'url' => ['view',
 
 
 
-                    <h3 class="card-title">Induction No : <?= $model->No?></h3>
+                    <h3 class="card-title">Training No : <?= $model->Group_No?></h3>
 
 
 
@@ -98,45 +91,41 @@ $this->params['breadcrumbs'][] = ['label' => 'Induction Card', 'url' => ['view',
                         <div class=" row col-md-12">
                             <div class="col-md-6">
 
-                            <?= $form->field($model, 'No')->textInput(['readonly'=> true]) ?>
+                            <?= $form->field($model, 'Requester_Name')->textInput(['readonly'=> true]) ?>
                             <?= $form->field($model, 'Key')->hiddenInput()->label(false) ?>
-                            <?= $form->field($model, 'Employee_No')->textInput(['readonly'=> true]) ?>
-                            <?= $form->field($model, 'Employee_Name')->textInput(['readonly' =>  true]) ?>
-                            <?= $form->field($model, 'Global_Dimension_1_Code')->textInput(['readonly' =>  true, 'disabled'=>true]) ?>
-                            <?= $form->field($model, 'Global_Dimension_2_Code')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
-                            <?= $form->field($model, 'Global_Dimension_3_Code')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
-
-
-                                <p class="parent"><span>+</span>
-
-
-
-
-                                </p>
-
-
-                            </div>
-                            <div class="col-md-6">
-                            <?= $form->field($model, 'Status')->textInput(['readonly'=> true, 'disabled'=>true]) ?>        
-                            <?= $form->field($model, 'CEO_Comments')->textarea(['rows' => 2,'readonly'=> true, 'disabled'=>true]) ?>
-                            <?= $form->field($model, 'HOO_Comments')->textarea(['rows' => 2,'readonly'=> true, 'disabled'=>true]) ?>        
-                            <?= $form->field($model, 'HOF_Comments')->textarea(['rows'=> 2,'readonly'=> true, 'disabled'=>true]) ?>        
-                            <?= $form->field($model, 'Action_Section')->textInput(['readonly'=> true]) ?>
-                            <?= $form->field($model, 'Action_ID')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
+                            <?= $form->field($model, 'Target_Group')->textInput(['readonly'=> true]) ?>
+                            <?= $form->field($model, 'Total_No_of_Traininees')->textInput(['readonly' =>  true]) ?>
+                            <?= $form->field($model, 'Trainer')->textInput(['readonly' =>  true, 'disabled'=>true]) ?>
+                            <?= $form->field($model, 'Nature_of_training')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
+                            <?= $form->field($model, 'Training_Type')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
+                                                        
+                            
+                            <p class="parent"><span>+</span>                         
+                            
+                            
+                            </p>
+                        
+                        
+                    </div>
+                    <div class="col-md-6">
                                
-                            <p class="parent"><span>+</span>
+                        <?= $form->field($model, 'Training_Category')->textInput(['readonly'=> true, 'disabled'=>true]) ?>        
+                            
+                        <?= $form->field($model, 'Training_Need_Description')->textInput(['readonly'=> true, 'disabled'=>true]) ?>        
+                        <?= $form->field($model, 'Expected_Start_Date')->textInput(['readonly'=> true]) ?>
+                        <?= $form->field($model, 'Expected_End_Date')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
+                        <?= $form->field($model, 'Institution')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
+                        <?= $form->field($model, 'Venue')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
+                        
+                        <p class="parent"><span>+</span>
 
-
-
-                                </p>
+                        </p>
 
 
 
                             </div>
                         </div>
                     </div>
-
-
 
 
                     <?php ActiveForm::end(); ?>
@@ -146,109 +135,70 @@ $this->params['breadcrumbs'][] = ['label' => 'Induction Card', 'url' => ['view',
                 </div>
             </div><!--end header card-->
 
-
            
             <!-- Card Lines -->
 
             <div class="card">
             <div class="card-header">
                 <div class="card-title">
-                                    <h3>Employee Induction Lines</h3>
+                                    <h3>Program Training Lines</h3>
                 </div>
-                <div class="card-tools">
-                        <?php Html::a('<i class="fa fa-plus-square"></i> New Induction Line',['add-line'],[
-                            'class' => 'add btn btn-outline-info',
-                            'data-no' => $model->No,
-                            'data-service' => 'Employee_Induction_Overall_In'
-                            ]) ?>
-                </div>
+               
             </div>
 
             <div class="card-body">
-                <?php if(property_exists($document->Employee_Induction_Overall_In,'Employee_Induction_Overall_In')){ //show Lines ?>
+                <?php if(property_exists($document->Program_Training_Line,'Program_Training_Line')){ //show Lines ?>
 
                     <div class="table-responsive">
                         <table class="table table-bordered">
                             <thead>
-                            <tr>
-                                <td></td>
-                                <!-- <td class="text-bold">Induction_No</td> -->
-                                <td class="text-bold">Section</td>
+                            <tr>                               
+                               
+                                <td class="text-bold">Group No</td>
+                                <td class="text-bold">Employee Name</td>
+                                <td class="text-bold">Trainer</td>
+                                <td class="text-bold">Nature of training</td>
+                                <td class="text-bold">Training Type</td>
+                                <td class="text-bold">Training Category</td>
+                                <td class="text-bold">Training Need</td>
+                                <td class="text-bold">Training Need Description</td>
+                                <td class="text-bold">Institution</td>
+                                <td class="text-bold">Venue</td>
+                                <td class="text-bold">Approved Amount</td>
                                 <td class="text-bold">Expected Start Date</td>
                                 <td class="text-bold">Expected End Date</td>
-                                <td class="text-bold">Expected Start Time</td>
-                                <td class="text-bold">Expected End Time</td>
-                                <td class="text-bold">Attended</td>
-                                
-                                <td class="text-bold">Reason for Failure</td>
-                               
-                                <td class="text-bold">Employee comments</td>
-                                <td class="text-bold">Inductor Comments</td>
-                               
-                                <!-- <td class="text-bold">Action</td> -->
-                                
+                                <td class="text-bold">Status</td>                                                                                         
+                                 
                             </tr>
                             </thead>
                             <tbody>
-                            <?php
-                           
+                            <?php                          
 
-                            foreach($document->Employee_Induction_Overall_In->Employee_Induction_Overall_In as $obj):
-                                
-                                $deleteLink = Html::a('<i class="fa fa-trash"></i>',['delete-line' ],[
-                                    'class'=>'del btn btn-outline-danger btn-xs',
-                                    'data-key' => $obj->Key,
-                                    'data-service' => 'InductionOverallIN'
-                                ]);
+                            foreach($document->Program_Training_Line->Program_Training_Line as $obj):
+                                  
                                 ?>
                                 <tr class="parent">
-                                    <td><span>+</span></td>
+                            
+                                    <td><?= !empty($obj->Group_No)?$obj->Group_No:'' ?></td>
+                                    <td><?= !empty($obj->Employee_Name)?$obj->Employee_Name:'' ?></td>
+                                    <td><?= !empty($obj->Trainer)?$obj->Trainer:'' ?></td>
+                                    <td><?= !empty($obj->Nature_of_training)?$obj->Nature_of_training:'' ?></td>
+                                    <td><?= !empty($obj->Training_Type)?$obj->Training_Type:'' ?></td>
+                                    <td><?= !empty($obj->Training_Category)?$obj->Training_Category:'' ?></td>
+                                    <td><?= !empty($obj->Training_Need)?$obj->Training_Need:'' ?></td>
+                                    <td><?= !empty($obj->Training_Need_Description)?$obj->Training_Need_Description:'' ?></td>
+                                    <td><?= !empty($obj->Institution)?$obj->Institution:'' ?></td>
+                                    <td><?= !empty($obj->Venue)?$obj->Venue:'' ?></td>
+                                    <td><?= !empty($obj->Approved_Amount)? Yii::$app->formatter->asDecimal($obj->Approved_Amount):'' ?></td>
+                                    <td><?= !empty($obj->Expected_Start_Date)?$obj->Expected_Start_Date:'' ?></td>
+                                    <td><?= !empty($obj->Expected_End_Date)?$obj->Expected_End_Date:'' ?></td>
+                                    <td><?= !empty($obj->Status)?$obj->Status:'' ?></td>
                                     
-                                    <td data-key="<?= $obj->Key ?>" ><?= !empty($obj->Section)?$obj->Section:'' ?></td>
-                                    <td data-key="<?= $obj->Key ?>" ><?= !empty($obj->Expected_Start_Date)?$obj->Expected_Start_Date:'' ?></td>
-                                    <td data-key="<?= $obj->Key ?>" ><?= !empty($obj->Expected_End_Date)?$obj->Expected_End_Date:'' ?></td>
-                                    <td data-key="<?= $obj->Key ?>" ><?= !empty($obj->Expected_Start_Time)?Yii::$app->formatter->asTime($obj->Expected_Start_Time):'' ?></td>
-                                    <td data-key="<?= $obj->Key ?>" ><?= !empty($obj->Expected_End_Time)?Yii::$app->formatter->asTime($obj->Expected_End_Time):'' ?></td>
-                                    <td data-key="<?= $obj->Key ?>" ><?= !empty($obj->Attended)?$obj->Attended:'' ?></td>
-                                    <td data-key="<?= $obj->Key ?>" ><?= !empty($obj->Reason_for_Failure)?$obj->Reason_for_Failure:'' ?></td>
-                                    <td data-key="<?= $obj->Key ?>" ><?= !empty($obj->Employee_comments)?$obj->Employee_comments:'' ?></td>
-                                    <td data-key="<?= $obj->Key ?>" ><?= !empty($obj->Inductor_Comments)?$obj->Inductor_Comments:'' ?></td>
                                     
                                     
-                                    <!-- <td><?= $deleteLink ?></td> -->
+                    
                                 </tr>
-                                <tr class="child">
-                                    <td colspan="11" >
-                                        <div class="table-responsive">
-                                            <table class="table table-hover ">
-                                                <thead>
-                                                    <tr>
-                                                        <td>#</td>
-                                                        <td class="text-bold">Induction Item</td>   
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php 
-                                                    
-                                                    //print_r($model->getLines($obj->Line_No)); 
-                                                    $counter = 0;                                               
-                                                    if(is_array($model->getLines($obj->Line_No))): 
-                                                        foreach($model->getLines($obj->Line_No) as $ln):
-                                                            $counter++;
-                                                        ?>
-
-                                                        <tr>
-                                                            <td><?= $counter ?></td>
-                                                            <td><?= $ln->Induction_Item ?></td>
-                                                        </tr>
-                                                        
-                                                    <?php endforeach;
-                                                 endif; ?>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </td>
-                                </tr>
+                               
                             <?php endforeach; ?>
                             </tbody>
                         </table>
@@ -284,7 +234,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Induction Card', 'url' => ['view',
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
                     </button>
-                    <h4 class="modal-title" id="myModalLabel" style="position: absolute">Imprest Management</h4>
+                    <h4 class="modal-title" id="myModalLabel" style="position: absolute">Training Management</h4>
                 </div>
                 <div class="modal-body">
 
@@ -298,12 +248,45 @@ $this->params['breadcrumbs'][] = ['label' => 'Induction Card', 'url' => ['view',
         </div>
     </div>
 
+    <!-- Training Application Rejection comment form -->
 
+    <div id="rejgoalsbyoverview" style="display: none">
+
+        <?= Html::beginForm(['training-approved/rejection-linemanager'],'post',['id'=>'reject-form']) ?>
+
+        <?= Html::textarea('comment','',['placeholder'=>'Rejection Comment','row'=> 4,'class'=>'form-control','required'=>true])?>
+
+        <?= Html::input('hidden','applicationNo','',['class'=> 'form-control']); ?>
+       
+
+
+        <?= Html::submitButton('submit',['class' => 'btn btn-warning','style'=>'margin-top: 10px']) ?>
+
+        <?= Html::endForm() ?>
+    </div>
+
+    <!-- End Rejection Comment -->
+    <input type="hidden" name="absolute" value="<?= $absoluteUrl ?>">
 <?php
 
 $script = <<<JS
 
     $(function(){
+
+        $('#employeetraining-attachment_one').change(function(e){
+          globalUpload('DisciplinaryAttachments','EmployeeTraining','attachment_one','TrainingApplicationCard');
+          setTimeout(() => {
+                    //location.reload(true);
+                },1500);
+        });
+
+
+        $('#employeetraining-attachment_two').change(function(e){
+                globalUpload('DisciplinaryAttachments','EmployeeTraining','attachment_two','TrainingApplicationCard');
+                setTimeout(() => {
+                            //location.reload(true);
+                        },1500);
+        });
       
         
      /*Deleting Records*/
@@ -322,75 +305,7 @@ $script = <<<JS
                     .html(msg.note);
          },'json');
      });
-      
-    
-    /*Evaluate KRA*/
-        $('.evalkra').on('click', function(e){
-             e.preventDefault();
-            var url = $(this).attr('href');
-            console.log('clicking...');
-            $('.modal').modal('show')
-                            .find('.modal-body')
-                            .load(url); 
-
-        });
-        
-        
-      //Add a training plan
-    
-     $('.add-objective, .update-objective').on('click',function(e){
-        e.preventDefault();
-        var url = $(this).attr('href');
-        console.log('clicking...');
-        $('.modal').modal('show')
-                        .find('.modal-body')
-                        .load(url); 
-
-     });
-     
-     
-     //Update a training plan
-    
-     $('.update-trainingplan').on('click',function(e){
-        e.preventDefault();
-        var url = $(this).attr('href');
-        console.log('clicking...');
-        $('.modal').modal('show')
-                        .find('.modal-body')
-                        .load(url); 
-
-     });
-     
-     
-     //Update/ Evalute Employeeappraisal behaviour -- evalbehaviour
-     
-      $('.evalbehaviour').on('click',function(e){
-        e.preventDefault();
-        var url = $(this).attr('href');
-        console.log('clicking...');
-        $('.modal').modal('show')
-                        .find('.modal-body')
-                        .load(url); 
-
-     });
-      
-      /*Add learning assessment competence-----> add-learning-assessment */
-      
-      
-      $('.add-learning-assessment').on('click',function(e){
-        e.preventDefault();
-        var url = $(this).attr('href');
-        console.log('clicking...');
-        $('.modal').modal('show')
-                        .find('.modal-body')
-                        .load(url); 
-
-     });
-      
-      
-     
-      
-      
+       
       
     
     /*Handle modal dismissal event  */
@@ -411,7 +326,7 @@ $script = <<<JS
     
     /*Divs parenting*/
     
-     $('p.parent').find('span').text('+');
+    $('p.parent').find('span').text('+');
     $('p.parent').find('span').css({"color":"red", "font-weight":"bolder"});    
     $('p.parent').nextUntil('p.parent').slideUp(1, function(){});    
     $('p.parent').click(function(){
@@ -419,91 +334,70 @@ $script = <<<JS
             $(this).nextUntil('p.parent').slideToggle(100, function(){});
      });
     
-        //Add Career Development Plan
+       
+         
+    // Reject Action
+
+    $('.rejectgoalsettingbyoverview').on('click', function(e){
+        e.preventDefault();
+        const form = $('#rejgoalsbyoverview').html(); 
+        const applicationNo = $(this).data().no;
+        const action = $(this).data().action;
         
-        $('.add-cdp').on('click',function(e){
-            e.preventDefault();
-            var url = $(this).attr('href');
+        console.log('Application No: '+applicationNo);
+        console.table($(this).data());
+        
+        //Display the rejection comment form
+        $('.modal').modal('show')
+                        .find('.modal-body')
+                        .append(form);
+        
+        //populate relevant input field with code unit required params
+                
+        $('input[name=applicationNo]').val(applicationNo);
+       
+        
+        //Submit Rejection form and get results in json    
+        $('form#reject-form').on('submit', function(e){
+            e.preventDefault()
+            const data = $(this).serialize();
+            const url = action;
+
            
-            
-            console.log('clicking...');
-            $('.modal').modal('show')
-                            .find('.modal-body')
-                            .load(url); 
-            
-         });//End Adding career development plan
-         
-         /*Add Career development Strength*/
-         
-         
-        $('.add-cds').on('click',function(e){
-            e.preventDefault();
-            var url = $(this).attr('href');
-            
-            $('.modal').modal('show')
-                            .find('.modal-body')
-                            .load(url); 
-            
-         });
-         
-         /*End Add Career development Strength*/
-         
-         
-         /* Add further development Areas */
-         
-            $('.add-fda').on('click',function(e){
-            e.preventDefault();
-            var url = $(this).attr('href');
-                       
-            console.log('clicking...');
-            $('.modal').modal('show')
-                            .find('.modal-body')
-                            .load(url); 
-            
-         });
-         
-         /* End Add further development Areas */
-         
-         /*Add Weakness Development Plan*/
-             $('.add-wdp').on('click',function(e){
-            e.preventDefault();
-            var url = $(this).attr('href');
-                       
-            console.log('clicking...');
-            $('.modal').modal('show')
-                            .find('.modal-body')
-                            .load(url); 
-            
-         });
-         /*End Add Weakness Development Plan*/
-
-         //Change Action taken
-
-         $('select#probation-action_taken').on('change',(e) => {
-
-            const key = $('input[id=Key]').val();
-            const Employee_No = $('input[id=Employee_No]').val();
-            const Appraisal_No = $('input[id=Appraisal_No]').val();
-            const Action_Taken = $('#probation-action_taken option:selected').val();
-           
-              
-
-            /* var data = {
-                "Action_Taken": Action_Taken,
-                "Appraisal_No": Appraisal_No,
-                "Employee_No": Employee_No,
-                "Key": key
-
-             } 
-            */
-            $.get('./takeaction', {"Key":key,"Appraisal_No":Appraisal_No, "Action_Taken": Action_Taken,"Employee_No": Employee_No}).done(function(msg){
-                 $('.modal').modal('show')
+            $('form#reject-form').html('<p class="alert alert-info">Processing ....</p>');
+            $.post(url,data).done(function(msg){
+                    $('.modal').modal('show')
                     .find('.modal-body')
                     .html(msg.note);
-                });
+        
+                },'json');
+        });
+        
+        
+    });
+    
+    // End Reject Action
+         
+         
+    // Commit Approval Comments fields
+         
+    $('#employeetraining-recomended_action').change((e) => {
+        globalFieldUpdate('employeetraining','training-approved','Recomended_Action', e);
+    });
 
+    $('#employeetraining-line_manager_comments').change((e) => {
+        globalFieldUpdate('employeetraining','training-approved','Line_Manager_Comments', e);
+    });
 
-            });
+    $('#employeetraining-line_manager_rejection_comment').change((e) => {
+        globalFieldUpdate('employeetraining','training-approved','Line_Manager_Comments', e);
+    });
+
+    $('#employeetraining-hro_comments').change((e) => {
+        globalFieldUpdate('employeetraining','training-approved','HRO_Comments', e);
+    });
+
+  
     
         
     });//end jquery
@@ -553,4 +447,4 @@ $style = <<<CSS
     }
 CSS;
 
-$this->registerCss($style);
+//$this->registerCss($style);

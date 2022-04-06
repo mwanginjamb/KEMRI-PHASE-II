@@ -518,6 +518,7 @@ return [
         'GroupTrainingLine' => 'GroupTrainingLine', //56027 
         'GroupTrainingCard' => 'GroupTrainingCard', //56026
         'ProgramTraining' => 'ProgramTraining', //56028
+        'ProgramTrainingCard' => 'ProgramTrainingCard', //56029 
         'ProgramTrainingLine' => 'ProgramTrainingLine', //56030
         'TrainingApplicationsList' => 'TrainingApplicationsList', //56003
         'TrainingApplicationCard' => 'TrainingApplicationCard', //56004

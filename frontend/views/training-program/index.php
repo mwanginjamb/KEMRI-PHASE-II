@@ -70,18 +70,15 @@ $script = <<<JS
             paging: true,
             columns: [
                
-                { title: 'Group_No' ,data: 'Group_No'},
-                { title: 'Employee No' ,data: 'Employee_No'},
-                { title: 'Employee Name' ,data: 'Employee_Name'},
-                { title: 'Approved Amount' ,data: 'Approved_Amount'},
+                { title: 'Group No' ,data: 'Group_No'},
+                { title: 'Target Group' ,data: 'Target_Group'},
+                { title: 'Total No of Traininees' ,data: 'Total_No_of_Traininees'},
                 { title: 'Trainer' ,data: 'Trainer'},
                 { title: 'Nature of training' ,data: 'Nature_of_training'},
-                { title: 'Training Category' ,data: 'Training_Category'},     
+                { title: 'Training Type' ,data: 'Training_Type'},
+                { title: 'Training Need' ,data: 'Training_Need'},     
                 { title: 'Training Need Description' ,data: 'Training_Need_Description'},     
-                { title: 'Institution' ,data: 'Institution'},     
-                { title: 'Venue' ,data: 'Venue'},     
-                { title: 'Expected Start Date' ,data: 'Expected_Start_Date'},     
-                { title: 'Expected End Date' ,data: 'Expected_End_Date'},     
+                { title: 'Requester Name' ,data: 'Requester_Name'},         
                 { title: 'Status' ,data: 'Status'},     
                   
                 { title: 'Action', data: 'Action' }

@@ -29124,3 +29124,646 @@ $_SERVER = [
     'DB_USER' => 'ess'
     'DB_PWD' => 'ess123'
 ]
+2022-04-06 21:05:02 [::1][KWTRP\SVC-HRMCN03][1vbcp6a4omnlt4kkt1g0i6g8lv][error][yii\base\ErrorException:8] yii\base\ErrorException: Undefined index: TrainingApplicationCard in C:\inetpub\wwwroot\KEMRI-PHASE-SVC-03\common\Library\Navhelper.php:116
+Stack trace:
+#0 C:\inetpub\wwwroot\KEMRI-PHASE-SVC-03\common\Library\Navhelper.php(116): yii\base\ErrorHandler->handleError()
+#1 C:\inetpub\wwwroot\KEMRI-PHASE-SVC-03\frontend\controllers\TrainingProgramController.php(148): common\library\Navhelper->readByKey()
+#2 [internal function]: frontend\controllers\TrainingProgramController->actionView()
+#3 C:\inetpub\wwwroot\KEMRI-PHASE-SVC-03\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array()
+#4 C:\inetpub\wwwroot\KEMRI-PHASE-SVC-03\vendor\yiisoft\yii2\base\Controller.php(181): yii\base\InlineAction->runWithParams()
+#5 C:\inetpub\wwwroot\KEMRI-PHASE-SVC-03\vendor\yiisoft\yii2\base\Module.php(534): yii\base\Controller->runAction()
+#6 C:\inetpub\wwwroot\KEMRI-PHASE-SVC-03\vendor\yiisoft\yii2\web\Application.php(104): yii\base\Module->runAction()
+#7 C:\inetpub\wwwroot\KEMRI-PHASE-SVC-03\vendor\yiisoft\yii2\base\Application.php(392): yii\web\Application->handleRequest()
+#8 C:\inetpub\wwwroot\KEMRI-PHASE-SVC-03\frontend\web\index.php(17): yii\base\Application->run()
+#9 {main}
+2022-04-06 21:05:01 [::1][KWTRP\SVC-HRMCN03][1vbcp6a4omnlt4kkt1g0i6g8lv][info][application] $_GET = [
+    'Key' => '32;59oAAAJ7/1QAUgBOAEcAMAAwADAAMAAz8;146638090;'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    'advanced-frontend' => '1vbcp6a4omnlt4kkt1g0i6g8lv'
+    '_csrf-frontend' => '0794dd69a8cf7fae134edc0bf7490fe794c32e1cac01da8c65acb64e64b452e7a:2:{i:0;s:14:\"_csrf-frontend\";i:1;s:32:\"25R9NQRnkAmvzN4UMRB_LK_mBYj0b1tD\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__returnUrl' => 'http://localhost:1021/training-program'
+    'IdentityPassword' => '@francis123'
+    '__id' => 'KWTRP\\SVC-HRMCN03'
+    '__expire' => 1649282701
+]
+
+$_SERVER = [
+    '_FCGI_X_PIPE_' => '\\\\.\\pipe\\IISFCGI-c423b261-f88c-46b9-a02d-b8b870a0acd2'
+    'ALLUSERSPROFILE' => 'C:\\ProgramData'
+    'APPDATA' => 'C:\\Windows\\system32\\config\\systemprofile\\AppData\\Roaming'
+    'APP_POOL_CONFIG' => 'C:\\inetpub\\temp\\apppools\\FrancisDev\\FrancisDev.config'
+    'APP_POOL_ID' => 'FrancisDev'
+    'CommonProgramFiles' => 'C:\\Program Files\\Common Files'
+    'CommonProgramFiles(x86)' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramW6432' => 'C:\\Program Files\\Common Files'
+    'COMPUTERNAME' => 'KEKLF-HRM52'
+    'ComSpec' => 'C:\\Windows\\system32\\cmd.exe'
+    'DriverData' => 'C:\\Windows\\System32\\Drivers\\DriverData'
+    'LOCALAPPDATA' => 'C:\\Windows\\system32\\config\\systemprofile\\AppData\\Local'
+    'NUMBER_OF_PROCESSORS' => '4'
+    'OS' => 'Windows_NT'
+    'Path' => 'C:\\Program Files\\PHP\\v7.2;C:\\Windows\\system32\\inetsrv;C:\\Program Files\\iis express\\PHP\\v7.2;C:\\Windows\\system32\\inetsrv;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Windows\\System32\\OpenSSH\\;C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\130\\Tools\\Binn\\;C:\\Program Files (x86)\\Microsoft SQL Server\\130\\Tools\\Binn\\;C:\\Program Files\\Microsoft SQL Server\\130\\Tools\\Binn\\;C:\\Program Files\\Microsoft SQL Server\\130\\DTS\\Binn\\;C:\\Program Files\\dotnet\\;C:\\Program Files (x86)\\dotnet\\;C:\\php-7.4;C:\\composer;C:\\Program Files\\Git\\cmd;C:\\Program Files\\Microsoft\\Web Platform Installer\\;C:\\Program Files (x86)\\GnuWin32\\bin;C:\\Program Files\\nodejs\\;C:\\Users\\svc-hrmcn04\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\svc-hrmcn04\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;;C:\\Windows\\system32\\config\\systemprofile\\AppData\\Local\\Microsoft\\WindowsApps'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'PROCESSOR_ARCHITECTURE' => 'AMD64'
+    'PROCESSOR_IDENTIFIER' => 'Intel64 Family 6 Model 62 Stepping 4, GenuineIntel'
+    'PROCESSOR_LEVEL' => '6'
+    'PROCESSOR_REVISION' => '3e04'
+    'ProgramData' => 'C:\\ProgramData'
+    'ProgramFiles' => 'C:\\Program Files'
+    'ProgramFiles(x86)' => 'C:\\Program Files (x86)'
+    'ProgramW6432' => 'C:\\Program Files'
+    'PSModulePath' => 'C:\\Program Files\\WindowsPowerShell\\Modules;C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\Modules;C:\\Program Files (x86)\\Microsoft SQL Server\\130\\Tools\\PowerShell\\Modules\\;C:\\Program Files\\Microsoft Dynamics 365 Business Central\\140\\Web Client\\Modules'
+    'PUBLIC' => 'C:\\Users\\Public'
+    'SystemDrive' => 'C:'
+    'SystemRoot' => 'C:\\Windows'
+    'TEMP' => 'C:\\Windows\\TEMP'
+    'TMP' => 'C:\\Windows\\TEMP'
+    'UATDATA' => 'C:\\Windows\\CCM\\UATData\\D9F8C395-CAB8-491d-B8AC-179A1FE1BE77'
+    'USERDOMAIN' => 'KWTRP'
+    'USERNAME' => 'KEKLF-HRM52$'
+    'USERPROFILE' => 'C:\\Windows\\system32\\config\\systemprofile'
+    'windir' => 'C:\\Windows'
+    'ORIG_PATH_INFO' => '/index.php'
+    'URL' => '/index.php'
+    'SERVER_SOFTWARE' => 'Microsoft-IIS/10.0'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'SERVER_PORT_SECURE' => '0'
+    'SERVER_PORT' => '1021'
+    'SERVER_NAME' => 'localhost'
+    'SCRIPT_NAME' => '/index.php'
+    'SCRIPT_FILENAME' => 'C:\\inetpub\\wwwroot\\KEMRI-PHASE-SVC-03\\frontend\\web\\index.php'
+    'REQUEST_URI' => '/training-program/view?Key=32%3B59oAAAJ7%2F1QAUgBOAEcAMAAwADAAMAAz8%3B146638090%3B'
+    'REQUEST_METHOD' => 'GET'
+    'REMOTE_USER' => ''
+    'REMOTE_PORT' => '63672'
+    'REMOTE_HOST' => '::1'
+    'REMOTE_ADDR' => '::1'
+    'QUERY_STRING' => 'Key=32%3B59oAAAJ7%2F1QAUgBOAEcAMAAwADAAMAAz8%3B146638090%3B'
+    'PATH_TRANSLATED' => 'C:\\inetpub\\wwwroot\\KEMRI-PHASE-SVC-03\\frontend\\web\\index.php'
+    'LOGON_USER' => ''
+    'LOCAL_ADDR' => '::1'
+    'INSTANCE_META_PATH' => '/LM/W3SVC/9'
+    'INSTANCE_NAME' => 'FRANCISDEV'
+    'INSTANCE_ID' => '9'
+    'HTTPS_SERVER_SUBJECT' => ''
+    'HTTPS_SERVER_ISSUER' => ''
+    'HTTPS_SECRETKEYSIZE' => ''
+    'HTTPS_KEYSIZE' => ''
+    'HTTPS' => 'off'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'DOCUMENT_ROOT' => 'C:\\inetpub\\wwwroot\\KEMRI-PHASE-SVC-03\\frontend\\web'
+    'CONTENT_TYPE' => ''
+    'CONTENT_LENGTH' => '0'
+    'CERT_SUBJECT' => ''
+    'CERT_SERIALNUMBER' => ''
+    'CERT_ISSUER' => ''
+    'CERT_FLAGS' => ''
+    'CERT_COOKIE' => ''
+    'AUTH_USER' => ''
+    'AUTH_PASSWORD' => ''
+    'AUTH_TYPE' => ''
+    'APPL_PHYSICAL_PATH' => 'C:\\inetpub\\wwwroot\\KEMRI-PHASE-SVC-03\\frontend\\web\\'
+    'APPL_MD_PATH' => '/LM/W3SVC/9/ROOT'
+    'IIS_UrlRewriteModule' => '7.1.1952.0'
+    'WEBSOCKET_VERSION' => '13'
+    'UNENCODED_URL' => '/training-program/view?Key=32%3B59oAAAJ7%2F1QAUgBOAEcAMAAwADAAMAAz8%3B146638090%3B'
+    'IIS_WasUrlRewritten' => '1'
+    'HTTP_X_ORIGINAL_URL' => '/training-program/view?Key=32%3B59oAAAJ7%2F1QAUgBOAEcAMAAwADAAMAAz8%3B146638090%3B'
+    'HTTP_SEC_FETCH_DEST' => 'document'
+    'HTTP_SEC_FETCH_USER' => '?1'
+    'HTTP_SEC_FETCH_MODE' => 'navigate'
+    'HTTP_SEC_FETCH_SITE' => 'same-origin'
+    'HTTP_SEC_GPC' => '1'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.79 Safari/537.36'
+    'HTTP_REFERER' => 'http://localhost:1021/training-program'
+    'HTTP_HOST' => 'localhost:1021'
+    'HTTP_COOKIE' => 'advanced-frontend=1vbcp6a4omnlt4kkt1g0i6g8lv; _csrf-frontend=0794dd69a8cf7fae134edc0bf7490fe794c32e1cac01da8c65acb64e64b452e7a%3A2%3A%7Bi%3A0%3Bs%3A14%3A%22_csrf-frontend%22%3Bi%3A1%3Bs%3A32%3A%2225R9NQRnkAmvzN4UMRB_LK_mBYj0b1tD%22%3B%7D'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-US,en;q=0.9'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, br'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_CONTENT_LENGTH' => '0'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'FCGI_ROLE' => 'RESPONDER'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1649279101.638
+    'REQUEST_TIME' => 1649279101
+    'NAV_USERNAME' => 'SVC-HRMISADMIN'
+    'NAV_PASSWORD' => 'j$8f!M9X(Wv2ZJ/='
+    'NAV_SERVER' => 'keklf-hrm52'
+    'WS_PORT' => '7047'
+    'NAV_INSTANCE' => 'BC140'
+    'NAV_COMPANY' => 'KWTRP%20LIVE'
+    'NAV_DB_PREFIX' => 'KWTRP LIVE$'
+    'FMS_SERVER' => 'keklf-fin05.kwtrp.org'
+    'FMS_WS_PORT' => '7047'
+    'FMS_INSTANCE' => 'FmsLIVE'
+    'FMS_COMPANY' => 'KEMRI%20Wellcome%20Trust'
+    'AD_PREFIX' => 'KWTRP'
+    'AD_SERVER' => 'KEKLF-ADS03'
+    'GENRAL_TITLE' => 'Employee - Self Service'
+    'WELCOME_TEXT' => 'KEMRI WELLCOME TRUST ESS - FR DEV'
+    'CLIENT_COMPANY' => 'KEMRI WELLCOME TRUST'
+    'DEMO_COMPANY' => 'IANSOFT LTD'
+    'VENDOR_COMPANY' => 'IANSOFT TECHNOLOGIES LTD'
+    'POWERED' => 'Iansoft Ltd'
+    'DB_INSTANCE' => 'KEKLF-SQL55\\POWERPIVOT'
+    'DB_NAME' => 'KEMRI_HRMIS_UAT'
+    'DB_USER' => 'ess'
+    'DB_PWD' => 'ess123'
+]
+2022-04-06 21:38:55 [::1][KWTRP\SVC-HRMCN03][1vbcp6a4omnlt4kkt1g0i6g8lv][error][yii\base\UnknownPropertyException] yii\base\UnknownPropertyException: Getting unknown property: frontend\models\ProgramTraining::Status in C:\inetpub\wwwroot\KEMRI-PHASE-SVC-03\vendor\yiisoft\yii2\base\Component.php:155
+Stack trace:
+#0 C:\inetpub\wwwroot\KEMRI-PHASE-SVC-03\frontend\views\training-program\view.php(20): yii\base\Component->__get()
+#1 C:\inetpub\wwwroot\KEMRI-PHASE-SVC-03\vendor\yiisoft\yii2\base\View.php(348): require('C:\\inetpub\\wwwr...')
+#2 C:\inetpub\wwwroot\KEMRI-PHASE-SVC-03\vendor\yiisoft\yii2\base\View.php(257): yii\base\View->renderPhpFile()
+#3 C:\inetpub\wwwroot\KEMRI-PHASE-SVC-03\vendor\yiisoft\yii2\base\View.php(156): yii\base\View->renderFile()
+#4 C:\inetpub\wwwroot\KEMRI-PHASE-SVC-03\vendor\yiisoft\yii2\base\Controller.php(410): yii\base\View->render()
+#5 C:\inetpub\wwwroot\KEMRI-PHASE-SVC-03\frontend\controllers\TrainingProgramController.php(159): yii\base\Controller->render()
+#6 [internal function]: frontend\controllers\TrainingProgramController->actionView()
+#7 C:\inetpub\wwwroot\KEMRI-PHASE-SVC-03\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array()
+#8 C:\inetpub\wwwroot\KEMRI-PHASE-SVC-03\vendor\yiisoft\yii2\base\Controller.php(181): yii\base\InlineAction->runWithParams()
+#9 C:\inetpub\wwwroot\KEMRI-PHASE-SVC-03\vendor\yiisoft\yii2\base\Module.php(534): yii\base\Controller->runAction()
+#10 C:\inetpub\wwwroot\KEMRI-PHASE-SVC-03\vendor\yiisoft\yii2\web\Application.php(104): yii\base\Module->runAction()
+#11 C:\inetpub\wwwroot\KEMRI-PHASE-SVC-03\vendor\yiisoft\yii2\base\Application.php(392): yii\web\Application->handleRequest()
+#12 C:\inetpub\wwwroot\KEMRI-PHASE-SVC-03\frontend\web\index.php(17): yii\base\Application->run()
+#13 {main}
+2022-04-06 21:38:54 [::1][KWTRP\SVC-HRMCN03][1vbcp6a4omnlt4kkt1g0i6g8lv][info][application] $_GET = [
+    'Key' => '32;59oAAAJ7/1QAUgBOAEcAMAAwADAAMAAz8;146638090;'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    'advanced-frontend' => '1vbcp6a4omnlt4kkt1g0i6g8lv'
+    '_csrf-frontend' => '0794dd69a8cf7fae134edc0bf7490fe794c32e1cac01da8c65acb64e64b452e7a:2:{i:0;s:14:\"_csrf-frontend\";i:1;s:32:\"25R9NQRnkAmvzN4UMRB_LK_mBYj0b1tD\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__returnUrl' => 'http://localhost:1021/training-program'
+    'IdentityPassword' => '@francis123'
+    '__id' => 'KWTRP\\SVC-HRMCN03'
+    '__expire' => 1649284735
+]
+
+$_SERVER = [
+    '_FCGI_X_PIPE_' => '\\\\.\\pipe\\IISFCGI-6cdda524-29fd-4ac3-ab8c-fc8dbafd9e9d'
+    'ALLUSERSPROFILE' => 'C:\\ProgramData'
+    'APPDATA' => 'C:\\Windows\\system32\\config\\systemprofile\\AppData\\Roaming'
+    'APP_POOL_CONFIG' => 'C:\\inetpub\\temp\\apppools\\FrancisDev\\FrancisDev.config'
+    'APP_POOL_ID' => 'FrancisDev'
+    'CommonProgramFiles' => 'C:\\Program Files\\Common Files'
+    'CommonProgramFiles(x86)' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramW6432' => 'C:\\Program Files\\Common Files'
+    'COMPUTERNAME' => 'KEKLF-HRM52'
+    'ComSpec' => 'C:\\Windows\\system32\\cmd.exe'
+    'DriverData' => 'C:\\Windows\\System32\\Drivers\\DriverData'
+    'LOCALAPPDATA' => 'C:\\Windows\\system32\\config\\systemprofile\\AppData\\Local'
+    'NUMBER_OF_PROCESSORS' => '4'
+    'OS' => 'Windows_NT'
+    'Path' => 'C:\\Program Files\\PHP\\v7.2;C:\\Windows\\system32\\inetsrv;C:\\Program Files\\iis express\\PHP\\v7.2;C:\\Windows\\system32\\inetsrv;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Windows\\System32\\OpenSSH\\;C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\130\\Tools\\Binn\\;C:\\Program Files (x86)\\Microsoft SQL Server\\130\\Tools\\Binn\\;C:\\Program Files\\Microsoft SQL Server\\130\\Tools\\Binn\\;C:\\Program Files\\Microsoft SQL Server\\130\\DTS\\Binn\\;C:\\Program Files\\dotnet\\;C:\\Program Files (x86)\\dotnet\\;C:\\php-7.4;C:\\composer;C:\\Program Files\\Git\\cmd;C:\\Program Files\\Microsoft\\Web Platform Installer\\;C:\\Program Files (x86)\\GnuWin32\\bin;C:\\Program Files\\nodejs\\;C:\\Users\\svc-hrmcn04\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\svc-hrmcn04\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;;C:\\Windows\\system32\\config\\systemprofile\\AppData\\Local\\Microsoft\\WindowsApps'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'PROCESSOR_ARCHITECTURE' => 'AMD64'
+    'PROCESSOR_IDENTIFIER' => 'Intel64 Family 6 Model 62 Stepping 4, GenuineIntel'
+    'PROCESSOR_LEVEL' => '6'
+    'PROCESSOR_REVISION' => '3e04'
+    'ProgramData' => 'C:\\ProgramData'
+    'ProgramFiles' => 'C:\\Program Files'
+    'ProgramFiles(x86)' => 'C:\\Program Files (x86)'
+    'ProgramW6432' => 'C:\\Program Files'
+    'PSModulePath' => 'C:\\Program Files\\WindowsPowerShell\\Modules;C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\Modules;C:\\Program Files (x86)\\Microsoft SQL Server\\130\\Tools\\PowerShell\\Modules\\;C:\\Program Files\\Microsoft Dynamics 365 Business Central\\140\\Web Client\\Modules'
+    'PUBLIC' => 'C:\\Users\\Public'
+    'SystemDrive' => 'C:'
+    'SystemRoot' => 'C:\\Windows'
+    'TEMP' => 'C:\\Windows\\TEMP'
+    'TMP' => 'C:\\Windows\\TEMP'
+    'UATDATA' => 'C:\\Windows\\CCM\\UATData\\D9F8C395-CAB8-491d-B8AC-179A1FE1BE77'
+    'USERDOMAIN' => 'KWTRP'
+    'USERNAME' => 'KEKLF-HRM52$'
+    'USERPROFILE' => 'C:\\Windows\\system32\\config\\systemprofile'
+    'windir' => 'C:\\Windows'
+    'ORIG_PATH_INFO' => '/index.php'
+    'URL' => '/index.php'
+    'SERVER_SOFTWARE' => 'Microsoft-IIS/10.0'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'SERVER_PORT_SECURE' => '0'
+    'SERVER_PORT' => '1021'
+    'SERVER_NAME' => 'localhost'
+    'SCRIPT_NAME' => '/index.php'
+    'SCRIPT_FILENAME' => 'C:\\inetpub\\wwwroot\\KEMRI-PHASE-SVC-03\\frontend\\web\\index.php'
+    'REQUEST_URI' => '/training-program/view?Key=32%3B59oAAAJ7%2F1QAUgBOAEcAMAAwADAAMAAz8%3B146638090%3B'
+    'REQUEST_METHOD' => 'GET'
+    'REMOTE_USER' => ''
+    'REMOTE_PORT' => '63622'
+    'REMOTE_HOST' => '::1'
+    'REMOTE_ADDR' => '::1'
+    'QUERY_STRING' => 'Key=32%3B59oAAAJ7%2F1QAUgBOAEcAMAAwADAAMAAz8%3B146638090%3B'
+    'PATH_TRANSLATED' => 'C:\\inetpub\\wwwroot\\KEMRI-PHASE-SVC-03\\frontend\\web\\index.php'
+    'LOGON_USER' => ''
+    'LOCAL_ADDR' => '::1'
+    'INSTANCE_META_PATH' => '/LM/W3SVC/9'
+    'INSTANCE_NAME' => 'FRANCISDEV'
+    'INSTANCE_ID' => '9'
+    'HTTPS_SERVER_SUBJECT' => ''
+    'HTTPS_SERVER_ISSUER' => ''
+    'HTTPS_SECRETKEYSIZE' => ''
+    'HTTPS_KEYSIZE' => ''
+    'HTTPS' => 'off'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'DOCUMENT_ROOT' => 'C:\\inetpub\\wwwroot\\KEMRI-PHASE-SVC-03\\frontend\\web'
+    'CONTENT_TYPE' => ''
+    'CONTENT_LENGTH' => '0'
+    'CERT_SUBJECT' => ''
+    'CERT_SERIALNUMBER' => ''
+    'CERT_ISSUER' => ''
+    'CERT_FLAGS' => ''
+    'CERT_COOKIE' => ''
+    'AUTH_USER' => ''
+    'AUTH_PASSWORD' => ''
+    'AUTH_TYPE' => ''
+    'APPL_PHYSICAL_PATH' => 'C:\\inetpub\\wwwroot\\KEMRI-PHASE-SVC-03\\frontend\\web\\'
+    'APPL_MD_PATH' => '/LM/W3SVC/9/ROOT'
+    'IIS_UrlRewriteModule' => '7.1.1952.0'
+    'WEBSOCKET_VERSION' => '13'
+    'UNENCODED_URL' => '/training-program/view?Key=32%3B59oAAAJ7%2F1QAUgBOAEcAMAAwADAAMAAz8%3B146638090%3B'
+    'IIS_WasUrlRewritten' => '1'
+    'HTTP_X_ORIGINAL_URL' => '/training-program/view?Key=32%3B59oAAAJ7%2F1QAUgBOAEcAMAAwADAAMAAz8%3B146638090%3B'
+    'HTTP_SEC_FETCH_DEST' => 'document'
+    'HTTP_SEC_FETCH_USER' => '?1'
+    'HTTP_SEC_FETCH_MODE' => 'navigate'
+    'HTTP_SEC_FETCH_SITE' => 'same-origin'
+    'HTTP_SEC_GPC' => '1'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.79 Safari/537.36'
+    'HTTP_REFERER' => 'http://localhost:1021/training-program'
+    'HTTP_HOST' => 'localhost:1021'
+    'HTTP_COOKIE' => 'advanced-frontend=1vbcp6a4omnlt4kkt1g0i6g8lv; _csrf-frontend=0794dd69a8cf7fae134edc0bf7490fe794c32e1cac01da8c65acb64e64b452e7a%3A2%3A%7Bi%3A0%3Bs%3A14%3A%22_csrf-frontend%22%3Bi%3A1%3Bs%3A32%3A%2225R9NQRnkAmvzN4UMRB_LK_mBYj0b1tD%22%3B%7D'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-US,en;q=0.9'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, br'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_CONTENT_LENGTH' => '0'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'FCGI_ROLE' => 'RESPONDER'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1649281134.7476
+    'REQUEST_TIME' => 1649281134
+    'NAV_USERNAME' => 'SVC-HRMISADMIN'
+    'NAV_PASSWORD' => 'j$8f!M9X(Wv2ZJ/='
+    'NAV_SERVER' => 'keklf-hrm52'
+    'WS_PORT' => '7047'
+    'NAV_INSTANCE' => 'BC140'
+    'NAV_COMPANY' => 'KWTRP%20LIVE'
+    'NAV_DB_PREFIX' => 'KWTRP LIVE$'
+    'FMS_SERVER' => 'keklf-fin05.kwtrp.org'
+    'FMS_WS_PORT' => '7047'
+    'FMS_INSTANCE' => 'FmsLIVE'
+    'FMS_COMPANY' => 'KEMRI%20Wellcome%20Trust'
+    'AD_PREFIX' => 'KWTRP'
+    'AD_SERVER' => 'KEKLF-ADS03'
+    'GENRAL_TITLE' => 'Employee - Self Service'
+    'WELCOME_TEXT' => 'KEMRI WELLCOME TRUST ESS - FR DEV'
+    'CLIENT_COMPANY' => 'KEMRI WELLCOME TRUST'
+    'DEMO_COMPANY' => 'IANSOFT LTD'
+    'VENDOR_COMPANY' => 'IANSOFT TECHNOLOGIES LTD'
+    'POWERED' => 'Iansoft Ltd'
+    'DB_INSTANCE' => 'KEKLF-SQL55\\POWERPIVOT'
+    'DB_NAME' => 'KEMRI_HRMIS_UAT'
+    'DB_USER' => 'ess'
+    'DB_PWD' => 'ess123'
+]
+2022-04-06 21:39:37 [::1][KWTRP\SVC-HRMCN03][1vbcp6a4omnlt4kkt1g0i6g8lv][error][yii\base\UnknownPropertyException] yii\base\UnknownPropertyException: Getting unknown property: frontend\models\ProgramTraining::Status in C:\inetpub\wwwroot\KEMRI-PHASE-SVC-03\vendor\yiisoft\yii2\base\Component.php:155
+Stack trace:
+#0 C:\inetpub\wwwroot\KEMRI-PHASE-SVC-03\frontend\views\training-program\view.php(41): yii\base\Component->__get()
+#1 C:\inetpub\wwwroot\KEMRI-PHASE-SVC-03\vendor\yiisoft\yii2\base\View.php(348): require('C:\\inetpub\\wwwr...')
+#2 C:\inetpub\wwwroot\KEMRI-PHASE-SVC-03\vendor\yiisoft\yii2\base\View.php(257): yii\base\View->renderPhpFile()
+#3 C:\inetpub\wwwroot\KEMRI-PHASE-SVC-03\vendor\yiisoft\yii2\base\View.php(156): yii\base\View->renderFile()
+#4 C:\inetpub\wwwroot\KEMRI-PHASE-SVC-03\vendor\yiisoft\yii2\base\Controller.php(410): yii\base\View->render()
+#5 C:\inetpub\wwwroot\KEMRI-PHASE-SVC-03\frontend\controllers\TrainingProgramController.php(159): yii\base\Controller->render()
+#6 [internal function]: frontend\controllers\TrainingProgramController->actionView()
+#7 C:\inetpub\wwwroot\KEMRI-PHASE-SVC-03\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array()
+#8 C:\inetpub\wwwroot\KEMRI-PHASE-SVC-03\vendor\yiisoft\yii2\base\Controller.php(181): yii\base\InlineAction->runWithParams()
+#9 C:\inetpub\wwwroot\KEMRI-PHASE-SVC-03\vendor\yiisoft\yii2\base\Module.php(534): yii\base\Controller->runAction()
+#10 C:\inetpub\wwwroot\KEMRI-PHASE-SVC-03\vendor\yiisoft\yii2\web\Application.php(104): yii\base\Module->runAction()
+#11 C:\inetpub\wwwroot\KEMRI-PHASE-SVC-03\vendor\yiisoft\yii2\base\Application.php(392): yii\web\Application->handleRequest()
+#12 C:\inetpub\wwwroot\KEMRI-PHASE-SVC-03\frontend\web\index.php(17): yii\base\Application->run()
+#13 {main}
+2022-04-06 21:39:36 [::1][KWTRP\SVC-HRMCN03][1vbcp6a4omnlt4kkt1g0i6g8lv][info][application] $_GET = [
+    'Key' => '32;59oAAAJ7/1QAUgBOAEcAMAAwADAAMAAz8;146638090;'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    'advanced-frontend' => '1vbcp6a4omnlt4kkt1g0i6g8lv'
+    '_csrf-frontend' => '0794dd69a8cf7fae134edc0bf7490fe794c32e1cac01da8c65acb64e64b452e7a:2:{i:0;s:14:\"_csrf-frontend\";i:1;s:32:\"25R9NQRnkAmvzN4UMRB_LK_mBYj0b1tD\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__returnUrl' => 'http://localhost:1021/training-program'
+    'IdentityPassword' => '@francis123'
+    '__id' => 'KWTRP\\SVC-HRMCN03'
+    '__expire' => 1649284776
+]
+
+$_SERVER = [
+    '_FCGI_X_PIPE_' => '\\\\.\\pipe\\IISFCGI-6cdda524-29fd-4ac3-ab8c-fc8dbafd9e9d'
+    'ALLUSERSPROFILE' => 'C:\\ProgramData'
+    'APPDATA' => 'C:\\Windows\\system32\\config\\systemprofile\\AppData\\Roaming'
+    'APP_POOL_CONFIG' => 'C:\\inetpub\\temp\\apppools\\FrancisDev\\FrancisDev.config'
+    'APP_POOL_ID' => 'FrancisDev'
+    'CommonProgramFiles' => 'C:\\Program Files\\Common Files'
+    'CommonProgramFiles(x86)' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramW6432' => 'C:\\Program Files\\Common Files'
+    'COMPUTERNAME' => 'KEKLF-HRM52'
+    'ComSpec' => 'C:\\Windows\\system32\\cmd.exe'
+    'DriverData' => 'C:\\Windows\\System32\\Drivers\\DriverData'
+    'LOCALAPPDATA' => 'C:\\Windows\\system32\\config\\systemprofile\\AppData\\Local'
+    'NUMBER_OF_PROCESSORS' => '4'
+    'OS' => 'Windows_NT'
+    'Path' => 'C:\\Program Files\\PHP\\v7.2;C:\\Windows\\system32\\inetsrv;C:\\Program Files\\iis express\\PHP\\v7.2;C:\\Windows\\system32\\inetsrv;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Windows\\System32\\OpenSSH\\;C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\130\\Tools\\Binn\\;C:\\Program Files (x86)\\Microsoft SQL Server\\130\\Tools\\Binn\\;C:\\Program Files\\Microsoft SQL Server\\130\\Tools\\Binn\\;C:\\Program Files\\Microsoft SQL Server\\130\\DTS\\Binn\\;C:\\Program Files\\dotnet\\;C:\\Program Files (x86)\\dotnet\\;C:\\php-7.4;C:\\composer;C:\\Program Files\\Git\\cmd;C:\\Program Files\\Microsoft\\Web Platform Installer\\;C:\\Program Files (x86)\\GnuWin32\\bin;C:\\Program Files\\nodejs\\;C:\\Users\\svc-hrmcn04\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\svc-hrmcn04\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;;C:\\Windows\\system32\\config\\systemprofile\\AppData\\Local\\Microsoft\\WindowsApps'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'PROCESSOR_ARCHITECTURE' => 'AMD64'
+    'PROCESSOR_IDENTIFIER' => 'Intel64 Family 6 Model 62 Stepping 4, GenuineIntel'
+    'PROCESSOR_LEVEL' => '6'
+    'PROCESSOR_REVISION' => '3e04'
+    'ProgramData' => 'C:\\ProgramData'
+    'ProgramFiles' => 'C:\\Program Files'
+    'ProgramFiles(x86)' => 'C:\\Program Files (x86)'
+    'ProgramW6432' => 'C:\\Program Files'
+    'PSModulePath' => 'C:\\Program Files\\WindowsPowerShell\\Modules;C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\Modules;C:\\Program Files (x86)\\Microsoft SQL Server\\130\\Tools\\PowerShell\\Modules\\;C:\\Program Files\\Microsoft Dynamics 365 Business Central\\140\\Web Client\\Modules'
+    'PUBLIC' => 'C:\\Users\\Public'
+    'SystemDrive' => 'C:'
+    'SystemRoot' => 'C:\\Windows'
+    'TEMP' => 'C:\\Windows\\TEMP'
+    'TMP' => 'C:\\Windows\\TEMP'
+    'UATDATA' => 'C:\\Windows\\CCM\\UATData\\D9F8C395-CAB8-491d-B8AC-179A1FE1BE77'
+    'USERDOMAIN' => 'KWTRP'
+    'USERNAME' => 'KEKLF-HRM52$'
+    'USERPROFILE' => 'C:\\Windows\\system32\\config\\systemprofile'
+    'windir' => 'C:\\Windows'
+    'ORIG_PATH_INFO' => '/index.php'
+    'URL' => '/index.php'
+    'SERVER_SOFTWARE' => 'Microsoft-IIS/10.0'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'SERVER_PORT_SECURE' => '0'
+    'SERVER_PORT' => '1021'
+    'SERVER_NAME' => 'localhost'
+    'SCRIPT_NAME' => '/index.php'
+    'SCRIPT_FILENAME' => 'C:\\inetpub\\wwwroot\\KEMRI-PHASE-SVC-03\\frontend\\web\\index.php'
+    'REQUEST_URI' => '/training-program/view?Key=32%3B59oAAAJ7%2F1QAUgBOAEcAMAAwADAAMAAz8%3B146638090%3B'
+    'REQUEST_METHOD' => 'GET'
+    'REMOTE_USER' => ''
+    'REMOTE_PORT' => '63622'
+    'REMOTE_HOST' => '::1'
+    'REMOTE_ADDR' => '::1'
+    'QUERY_STRING' => 'Key=32%3B59oAAAJ7%2F1QAUgBOAEcAMAAwADAAMAAz8%3B146638090%3B'
+    'PATH_TRANSLATED' => 'C:\\inetpub\\wwwroot\\KEMRI-PHASE-SVC-03\\frontend\\web\\index.php'
+    'LOGON_USER' => ''
+    'LOCAL_ADDR' => '::1'
+    'INSTANCE_META_PATH' => '/LM/W3SVC/9'
+    'INSTANCE_NAME' => 'FRANCISDEV'
+    'INSTANCE_ID' => '9'
+    'HTTPS_SERVER_SUBJECT' => ''
+    'HTTPS_SERVER_ISSUER' => ''
+    'HTTPS_SECRETKEYSIZE' => ''
+    'HTTPS_KEYSIZE' => ''
+    'HTTPS' => 'off'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'DOCUMENT_ROOT' => 'C:\\inetpub\\wwwroot\\KEMRI-PHASE-SVC-03\\frontend\\web'
+    'CONTENT_TYPE' => ''
+    'CONTENT_LENGTH' => '0'
+    'CERT_SUBJECT' => ''
+    'CERT_SERIALNUMBER' => ''
+    'CERT_ISSUER' => ''
+    'CERT_FLAGS' => ''
+    'CERT_COOKIE' => ''
+    'AUTH_USER' => ''
+    'AUTH_PASSWORD' => ''
+    'AUTH_TYPE' => ''
+    'APPL_PHYSICAL_PATH' => 'C:\\inetpub\\wwwroot\\KEMRI-PHASE-SVC-03\\frontend\\web\\'
+    'APPL_MD_PATH' => '/LM/W3SVC/9/ROOT'
+    'IIS_UrlRewriteModule' => '7.1.1952.0'
+    'WEBSOCKET_VERSION' => '13'
+    'UNENCODED_URL' => '/training-program/view?Key=32%3B59oAAAJ7%2F1QAUgBOAEcAMAAwADAAMAAz8%3B146638090%3B'
+    'IIS_WasUrlRewritten' => '1'
+    'HTTP_X_ORIGINAL_URL' => '/training-program/view?Key=32%3B59oAAAJ7%2F1QAUgBOAEcAMAAwADAAMAAz8%3B146638090%3B'
+    'HTTP_SEC_FETCH_DEST' => 'document'
+    'HTTP_SEC_FETCH_USER' => '?1'
+    'HTTP_SEC_FETCH_MODE' => 'navigate'
+    'HTTP_SEC_FETCH_SITE' => 'same-origin'
+    'HTTP_SEC_GPC' => '1'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.79 Safari/537.36'
+    'HTTP_REFERER' => 'http://localhost:1021/training-program'
+    'HTTP_HOST' => 'localhost:1021'
+    'HTTP_COOKIE' => 'advanced-frontend=1vbcp6a4omnlt4kkt1g0i6g8lv; _csrf-frontend=0794dd69a8cf7fae134edc0bf7490fe794c32e1cac01da8c65acb64e64b452e7a%3A2%3A%7Bi%3A0%3Bs%3A14%3A%22_csrf-frontend%22%3Bi%3A1%3Bs%3A32%3A%2225R9NQRnkAmvzN4UMRB_LK_mBYj0b1tD%22%3B%7D'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-US,en;q=0.9'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, br'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_CONTENT_LENGTH' => '0'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'FCGI_ROLE' => 'RESPONDER'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1649281176.5718
+    'REQUEST_TIME' => 1649281176
+    'NAV_USERNAME' => 'SVC-HRMISADMIN'
+    'NAV_PASSWORD' => 'j$8f!M9X(Wv2ZJ/='
+    'NAV_SERVER' => 'keklf-hrm52'
+    'WS_PORT' => '7047'
+    'NAV_INSTANCE' => 'BC140'
+    'NAV_COMPANY' => 'KWTRP%20LIVE'
+    'NAV_DB_PREFIX' => 'KWTRP LIVE$'
+    'FMS_SERVER' => 'keklf-fin05.kwtrp.org'
+    'FMS_WS_PORT' => '7047'
+    'FMS_INSTANCE' => 'FmsLIVE'
+    'FMS_COMPANY' => 'KEMRI%20Wellcome%20Trust'
+    'AD_PREFIX' => 'KWTRP'
+    'AD_SERVER' => 'KEKLF-ADS03'
+    'GENRAL_TITLE' => 'Employee - Self Service'
+    'WELCOME_TEXT' => 'KEMRI WELLCOME TRUST ESS - FR DEV'
+    'CLIENT_COMPANY' => 'KEMRI WELLCOME TRUST'
+    'DEMO_COMPANY' => 'IANSOFT LTD'
+    'VENDOR_COMPANY' => 'IANSOFT TECHNOLOGIES LTD'
+    'POWERED' => 'Iansoft Ltd'
+    'DB_INSTANCE' => 'KEKLF-SQL55\\POWERPIVOT'
+    'DB_NAME' => 'KEMRI_HRMIS_UAT'
+    'DB_USER' => 'ess'
+    'DB_PWD' => 'ess123'
+]
+2022-04-06 21:40:58 [::1][KWTRP\SVC-HRMCN03][1vbcp6a4omnlt4kkt1g0i6g8lv][error][yii\base\UnknownPropertyException] yii\base\UnknownPropertyException: Setting unknown property: frontend\models\ProgramTraining::Status in C:\inetpub\wwwroot\KEMRI-PHASE-SVC-03\vendor\yiisoft\yii2\base\Component.php:210
+Stack trace:
+#0 C:\inetpub\wwwroot\KEMRI-PHASE-SVC-03\common\Library\Navhelper.php(1501): yii\base\Component->__set()
+#1 C:\inetpub\wwwroot\KEMRI-PHASE-SVC-03\frontend\controllers\TrainingProgramController.php(155): common\library\Navhelper->loadmodel()
+#2 [internal function]: frontend\controllers\TrainingProgramController->actionView()
+#3 C:\inetpub\wwwroot\KEMRI-PHASE-SVC-03\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array()
+#4 C:\inetpub\wwwroot\KEMRI-PHASE-SVC-03\vendor\yiisoft\yii2\base\Controller.php(181): yii\base\InlineAction->runWithParams()
+#5 C:\inetpub\wwwroot\KEMRI-PHASE-SVC-03\vendor\yiisoft\yii2\base\Module.php(534): yii\base\Controller->runAction()
+#6 C:\inetpub\wwwroot\KEMRI-PHASE-SVC-03\vendor\yiisoft\yii2\web\Application.php(104): yii\base\Module->runAction()
+#7 C:\inetpub\wwwroot\KEMRI-PHASE-SVC-03\vendor\yiisoft\yii2\base\Application.php(392): yii\web\Application->handleRequest()
+#8 C:\inetpub\wwwroot\KEMRI-PHASE-SVC-03\frontend\web\index.php(17): yii\base\Application->run()
+#9 {main}
+2022-04-06 21:40:57 [::1][KWTRP\SVC-HRMCN03][1vbcp6a4omnlt4kkt1g0i6g8lv][info][application] $_GET = [
+    'Key' => '32;59oAAAJ7/1QAUgBOAEcAMAAwADAAMAAz8;146638090;'
+]
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    'advanced-frontend' => '1vbcp6a4omnlt4kkt1g0i6g8lv'
+    '_csrf-frontend' => '0794dd69a8cf7fae134edc0bf7490fe794c32e1cac01da8c65acb64e64b452e7a:2:{i:0;s:14:\"_csrf-frontend\";i:1;s:32:\"25R9NQRnkAmvzN4UMRB_LK_mBYj0b1tD\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__returnUrl' => 'http://localhost:1021/training-program'
+    'IdentityPassword' => '@francis123'
+    '__id' => 'KWTRP\\SVC-HRMCN03'
+    '__expire' => 1649284857
+]
+
+$_SERVER = [
+    '_FCGI_X_PIPE_' => '\\\\.\\pipe\\IISFCGI-6cdda524-29fd-4ac3-ab8c-fc8dbafd9e9d'
+    'ALLUSERSPROFILE' => 'C:\\ProgramData'
+    'APPDATA' => 'C:\\Windows\\system32\\config\\systemprofile\\AppData\\Roaming'
+    'APP_POOL_CONFIG' => 'C:\\inetpub\\temp\\apppools\\FrancisDev\\FrancisDev.config'
+    'APP_POOL_ID' => 'FrancisDev'
+    'CommonProgramFiles' => 'C:\\Program Files\\Common Files'
+    'CommonProgramFiles(x86)' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramW6432' => 'C:\\Program Files\\Common Files'
+    'COMPUTERNAME' => 'KEKLF-HRM52'
+    'ComSpec' => 'C:\\Windows\\system32\\cmd.exe'
+    'DriverData' => 'C:\\Windows\\System32\\Drivers\\DriverData'
+    'LOCALAPPDATA' => 'C:\\Windows\\system32\\config\\systemprofile\\AppData\\Local'
+    'NUMBER_OF_PROCESSORS' => '4'
+    'OS' => 'Windows_NT'
+    'Path' => 'C:\\Program Files\\PHP\\v7.2;C:\\Windows\\system32\\inetsrv;C:\\Program Files\\iis express\\PHP\\v7.2;C:\\Windows\\system32\\inetsrv;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Windows\\System32\\OpenSSH\\;C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\130\\Tools\\Binn\\;C:\\Program Files (x86)\\Microsoft SQL Server\\130\\Tools\\Binn\\;C:\\Program Files\\Microsoft SQL Server\\130\\Tools\\Binn\\;C:\\Program Files\\Microsoft SQL Server\\130\\DTS\\Binn\\;C:\\Program Files\\dotnet\\;C:\\Program Files (x86)\\dotnet\\;C:\\php-7.4;C:\\composer;C:\\Program Files\\Git\\cmd;C:\\Program Files\\Microsoft\\Web Platform Installer\\;C:\\Program Files (x86)\\GnuWin32\\bin;C:\\Program Files\\nodejs\\;C:\\Users\\svc-hrmcn04\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\svc-hrmcn04\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;;C:\\Windows\\system32\\config\\systemprofile\\AppData\\Local\\Microsoft\\WindowsApps'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'PROCESSOR_ARCHITECTURE' => 'AMD64'
+    'PROCESSOR_IDENTIFIER' => 'Intel64 Family 6 Model 62 Stepping 4, GenuineIntel'
+    'PROCESSOR_LEVEL' => '6'
+    'PROCESSOR_REVISION' => '3e04'
+    'ProgramData' => 'C:\\ProgramData'
+    'ProgramFiles' => 'C:\\Program Files'
+    'ProgramFiles(x86)' => 'C:\\Program Files (x86)'
+    'ProgramW6432' => 'C:\\Program Files'
+    'PSModulePath' => 'C:\\Program Files\\WindowsPowerShell\\Modules;C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\Modules;C:\\Program Files (x86)\\Microsoft SQL Server\\130\\Tools\\PowerShell\\Modules\\;C:\\Program Files\\Microsoft Dynamics 365 Business Central\\140\\Web Client\\Modules'
+    'PUBLIC' => 'C:\\Users\\Public'
+    'SystemDrive' => 'C:'
+    'SystemRoot' => 'C:\\Windows'
+    'TEMP' => 'C:\\Windows\\TEMP'
+    'TMP' => 'C:\\Windows\\TEMP'
+    'UATDATA' => 'C:\\Windows\\CCM\\UATData\\D9F8C395-CAB8-491d-B8AC-179A1FE1BE77'
+    'USERDOMAIN' => 'KWTRP'
+    'USERNAME' => 'KEKLF-HRM52$'
+    'USERPROFILE' => 'C:\\Windows\\system32\\config\\systemprofile'
+    'windir' => 'C:\\Windows'
+    'ORIG_PATH_INFO' => '/index.php'
+    'URL' => '/index.php'
+    'SERVER_SOFTWARE' => 'Microsoft-IIS/10.0'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'SERVER_PORT_SECURE' => '0'
+    'SERVER_PORT' => '1021'
+    'SERVER_NAME' => 'localhost'
+    'SCRIPT_NAME' => '/index.php'
+    'SCRIPT_FILENAME' => 'C:\\inetpub\\wwwroot\\KEMRI-PHASE-SVC-03\\frontend\\web\\index.php'
+    'REQUEST_URI' => '/training-program/view?Key=32%3B59oAAAJ7%2F1QAUgBOAEcAMAAwADAAMAAz8%3B146638090%3B'
+    'REQUEST_METHOD' => 'GET'
+    'REMOTE_USER' => ''
+    'REMOTE_PORT' => '63622'
+    'REMOTE_HOST' => '::1'
+    'REMOTE_ADDR' => '::1'
+    'QUERY_STRING' => 'Key=32%3B59oAAAJ7%2F1QAUgBOAEcAMAAwADAAMAAz8%3B146638090%3B'
+    'PATH_TRANSLATED' => 'C:\\inetpub\\wwwroot\\KEMRI-PHASE-SVC-03\\frontend\\web\\index.php'
+    'LOGON_USER' => ''
+    'LOCAL_ADDR' => '::1'
+    'INSTANCE_META_PATH' => '/LM/W3SVC/9'
+    'INSTANCE_NAME' => 'FRANCISDEV'
+    'INSTANCE_ID' => '9'
+    'HTTPS_SERVER_SUBJECT' => ''
+    'HTTPS_SERVER_ISSUER' => ''
+    'HTTPS_SECRETKEYSIZE' => ''
+    'HTTPS_KEYSIZE' => ''
+    'HTTPS' => 'off'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'DOCUMENT_ROOT' => 'C:\\inetpub\\wwwroot\\KEMRI-PHASE-SVC-03\\frontend\\web'
+    'CONTENT_TYPE' => ''
+    'CONTENT_LENGTH' => '0'
+    'CERT_SUBJECT' => ''
+    'CERT_SERIALNUMBER' => ''
+    'CERT_ISSUER' => ''
+    'CERT_FLAGS' => ''
+    'CERT_COOKIE' => ''
+    'AUTH_USER' => ''
+    'AUTH_PASSWORD' => ''
+    'AUTH_TYPE' => ''
+    'APPL_PHYSICAL_PATH' => 'C:\\inetpub\\wwwroot\\KEMRI-PHASE-SVC-03\\frontend\\web\\'
+    'APPL_MD_PATH' => '/LM/W3SVC/9/ROOT'
+    'IIS_UrlRewriteModule' => '7.1.1952.0'
+    'WEBSOCKET_VERSION' => '13'
+    'UNENCODED_URL' => '/training-program/view?Key=32%3B59oAAAJ7%2F1QAUgBOAEcAMAAwADAAMAAz8%3B146638090%3B'
+    'IIS_WasUrlRewritten' => '1'
+    'HTTP_X_ORIGINAL_URL' => '/training-program/view?Key=32%3B59oAAAJ7%2F1QAUgBOAEcAMAAwADAAMAAz8%3B146638090%3B'
+    'HTTP_SEC_FETCH_DEST' => 'document'
+    'HTTP_SEC_FETCH_USER' => '?1'
+    'HTTP_SEC_FETCH_MODE' => 'navigate'
+    'HTTP_SEC_FETCH_SITE' => 'same-origin'
+    'HTTP_SEC_GPC' => '1'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.79 Safari/537.36'
+    'HTTP_REFERER' => 'http://localhost:1021/training-program'
+    'HTTP_HOST' => 'localhost:1021'
+    'HTTP_COOKIE' => 'advanced-frontend=1vbcp6a4omnlt4kkt1g0i6g8lv; _csrf-frontend=0794dd69a8cf7fae134edc0bf7490fe794c32e1cac01da8c65acb64e64b452e7a%3A2%3A%7Bi%3A0%3Bs%3A14%3A%22_csrf-frontend%22%3Bi%3A1%3Bs%3A32%3A%2225R9NQRnkAmvzN4UMRB_LK_mBYj0b1tD%22%3B%7D'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-US,en;q=0.9'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, br'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_CONTENT_LENGTH' => '0'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'FCGI_ROLE' => 'RESPONDER'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1649281257.2519
+    'REQUEST_TIME' => 1649281257
+    'NAV_USERNAME' => 'SVC-HRMISADMIN'
+    'NAV_PASSWORD' => 'j$8f!M9X(Wv2ZJ/='
+    'NAV_SERVER' => 'keklf-hrm52'
+    'WS_PORT' => '7047'
+    'NAV_INSTANCE' => 'BC140'
+    'NAV_COMPANY' => 'KWTRP%20LIVE'
+    'NAV_DB_PREFIX' => 'KWTRP LIVE$'
+    'FMS_SERVER' => 'keklf-fin05.kwtrp.org'
+    'FMS_WS_PORT' => '7047'
+    'FMS_INSTANCE' => 'FmsLIVE'
+    'FMS_COMPANY' => 'KEMRI%20Wellcome%20Trust'
+    'AD_PREFIX' => 'KWTRP'
+    'AD_SERVER' => 'KEKLF-ADS03'
+    'GENRAL_TITLE' => 'Employee - Self Service'
+    'WELCOME_TEXT' => 'KEMRI WELLCOME TRUST ESS - FR DEV'
+    'CLIENT_COMPANY' => 'KEMRI WELLCOME TRUST'
+    'DEMO_COMPANY' => 'IANSOFT LTD'
+    'VENDOR_COMPANY' => 'IANSOFT TECHNOLOGIES LTD'
+    'POWERED' => 'Iansoft Ltd'
+    'DB_INSTANCE' => 'KEKLF-SQL55\\POWERPIVOT'
+    'DB_NAME' => 'KEMRI_HRMIS_UAT'
+    'DB_USER' => 'ess'
+    'DB_PWD' => 'ess123'
+]
