@@ -173,7 +173,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                             <?php
                            
 
-                            foreach($document->Employee_Induction_Overall_In->Employee_Induction_Overall_In as $obj):
+                            foreach($model->getOverallLines($model->No) as $obj):
                                 
                                 $deleteLink = Html::a('<i class="fa fa-trash"></i>',['delete-line' ],[
                                     'class'=>'del btn btn-outline-danger btn-xs',

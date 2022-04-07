@@ -65,6 +65,20 @@ public $isNewRecord;
         return ucwords($result['return_value']);
     }
 
+    // Get Overall Lines
+
+    public function getOverallLines($No)
+    {
+            $filter = [
+                'Section' => $this->Action_Section,
+                'Induction_No' => $this->No
+            ];
+            $service = Yii::$app->params['ServiceName']['InductionOverallIN'];
+            $lines = Yii::$app->navhelper->getData($service, $filter);
+
+            return $lines;
+    }
+
     // Get Induction Items -  nested inside Overall Items
     public function getLines($Overall_Line_No)
     {
