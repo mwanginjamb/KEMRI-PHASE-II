@@ -70,7 +70,8 @@ return [
         'EmployeeExitManagement',
         'HRAPPRAISALMGT',
         'TRAININGMGT',
-        'GRIEVANCEMGT'
+        'GRIEVANCEMGT',
+        'HRInductionMgt',
 
     ],
     'ServiceName'=>[
@@ -474,7 +475,7 @@ return [
         'PeriodicInductionList' => 'PeriodicInductionList',//55101
         'IndividualHOD' => 'IndividualHOD', // 55106
         'PeriodHOD' => 'PeriodHOD',//55105
-        'HRAPPRAISALMGT' => 'HRAPPRAISALMGT', // 50209 -- Codeunit  
+        'HRInductionMgt' => 'HRInductionMgt', // 50008 -- Codeunit  
 
          /********************Grievances***************************************/
 

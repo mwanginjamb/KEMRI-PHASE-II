@@ -336,7 +336,7 @@ class InductionController extends Controller
 
     public function actionNextSection()
     {
-        $service = Yii::$app->params['ServiceName']['HRAPPRAISALMGT'];
+        $service = Yii::$app->params['ServiceName']['HRInductionMgt'];
         $No = Yii::$app->request->post('No');
         $Key = Yii::$app->request->post('Key');
 

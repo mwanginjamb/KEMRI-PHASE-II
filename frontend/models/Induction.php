@@ -56,7 +56,7 @@ public $isNewRecord;
 
     public function getnextSection()
     {
-        $service = Yii::$app->params['ServiceName']['HRAPPRAISALMGT'];
+        $service = Yii::$app->params['ServiceName']['HRInductionMgt'];
         $data = [
             'inductionNo' => $this->No
         ];
