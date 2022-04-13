@@ -475,6 +475,8 @@ return [
         'PeriodicInductionList' => 'PeriodicInductionList',//55101
         'IndividualHOD' => 'IndividualHOD', // 55106
         'PeriodHOD' => 'PeriodHOD',//55105
+        'EmployeeInductionQuestions' => 'EmployeeInductionQuestions', //55111
+        'InductionChoices' => 'InductionChoices', // 56025
         'HRInductionMgt' => 'HRInductionMgt', // 50008 -- Codeunit  
 
          /********************Grievances***************************************/
