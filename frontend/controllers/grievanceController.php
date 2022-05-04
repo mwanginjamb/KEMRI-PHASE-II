@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: HP ELITEBOOK 840 G5
@@ -29,7 +30,7 @@ class GrievanceController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout','signup','index','list','create','update','delete','list-hro','hro','view','hoh','hrm'],
+                'only' => ['logout', 'signup', 'index', 'list', 'create', 'update', 'delete', 'list-hro', 'hro', 'view', 'hoh', 'hrm'],
                 'rules' => [
                     [
                         'actions' => ['signup'],
@@ -37,7 +38,7 @@ class GrievanceController extends Controller
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['logout','index','list', 'create', 'update','delete','list-hro','hro','view','hoh','hrm' ],
+                        'actions' => ['logout', 'index', 'list', 'create', 'update', 'delete', 'list-hro', 'hro', 'view', 'hoh', 'hrm'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -49,9 +50,9 @@ class GrievanceController extends Controller
                     'logout' => ['post'],
                 ],
             ],
-            'contentNegotiator' =>[
+            'contentNegotiator' => [
                 'class' => ContentNegotiator::class,
-                'only' => ['list','list-hro','list-hrm','list-hoh'],
+                'only' => ['list', 'list-hro', 'list-hrm', 'list-hoh'],
                 'formatParam' => '_format',
                 'formats' => [
                     'application/json' => Response::FORMAT_JSON,
@@ -61,69 +62,71 @@ class GrievanceController extends Controller
         ];
     }
 
-    public function beforeAction($action) 
-    { 
-        
-            $this->enableCsrfValidation = false; 
-            return parent::beforeAction($action);
-        
-        
+    public function beforeAction($action)
+    {
+
+        $this->enableCsrfValidation = false;
+        return parent::beforeAction($action);
     }
 
-    public function actionIndex(){
+    public function actionIndex()
+    {
         return $this->render('index');
     }
 
-    public function actionHro(){
+    public function actionHro()
+    {
         return $this->render('hro');
     }
 
-    public function actionHrm(){
+    public function actionHrm()
+    {
         return $this->render('hrm');
     }
 
-    public function actionHoh(){
+    public function actionHoh()
+    {
         return $this->render('hoh');
     }
 
-    
- 
 
 
-    public function actionCreate(){
+
+
+    public function actionCreate()
+    {
 
         $model = new Grievance();
         $service = Yii::$app->params['ServiceName']['GrievanceCard'];
-       
+
         // Once Initial Request is Made Redirect to Update Page
 
-            $model->Employee_No = Yii::$app->user->identity->{'Employee No_'};
-            $model->Date_of_grievance = date('Y-m-d');
-            $request = Yii::$app->navhelper->postData($service,$model);
-            if(is_object($request)){
-                return $this->redirect(['update','Key' => $request->Key]);
-            }else{ // error situation
-                Yii::$app->session->setFlash('error',$request, true);
-                return $this->redirect(['index']);
-            }
-       
+        $model->Employee_No = Yii::$app->user->identity->{'Employee No_'};
+        $model->Date_of_grievance = date('Y-m-d');
+        $request = Yii::$app->navhelper->postData($service, $model);
+        if (is_object($request)) {
+            return $this->redirect(['update', 'Key' => $request->Key]);
+        } else { // error situation
+            Yii::$app->session->setFlash('error', $request, true);
+            return $this->redirect(['index']);
+        }
     }
 
-    
 
-    public function actionUpdate($No = '', $Key = ''){
+
+    public function actionUpdate($No = '', $Key = '')
+    {
         $model = new Grievance();
         $service = Yii::$app->params['ServiceName']['GrievanceCard'];
         $AttachmentService = Yii::$app->params['ServiceName']['DisciplinaryAttachments'];
         $model->isNewRecord = false;
 
         // Get Document
-        if(!empty($No))
-        {
-            $document = Yii::$app->navhelper->findOne($service,['No' => $No]);    
-        }elseif(!empty($Key)){
-            $document = Yii::$app->navhelper->readByKey($service,$Key);    
-        }else{
+        if (!empty($No)) {
+            $document = Yii::$app->navhelper->findOne($service, ['No' => $No]);
+        } elseif (!empty($Key)) {
+            $document = Yii::$app->navhelper->readByKey($service, $Key);
+        } else {
             //Yii::$app->session->setFlash('error', 'We are unable to fetch a document to update', true);
             return Yii::$app->redirect(['index']);
         }
@@ -133,345 +136,346 @@ class GrievanceController extends Controller
         ];
         $attachment = Yii::$app->navhelper->getData($AttachmentService, $args);
 
-        if(is_object($document)){
+        if (is_object($document)) {
             //load nav result to model
-            $model = Yii::$app->navhelper->loadmodel($document,$model) ;//$this->loadtomodeEmployee_Nol($result[0],$Expmodel);
-        }else{
+            $model = Yii::$app->navhelper->loadmodel($document, $model); //$this->loadtomodeEmployee_Nol($result[0],$Expmodel);
+        } else {
             Yii::$app->session->setFlash('error', $document, true);
             return Yii::$app->redirect(['index']);
         }
 
 
-    
-        return $this->render('update',[
+
+        return $this->render('update', [
             'model' => $model,
             'document' => $document,
-            'employees' =>  Yii::$app->navhelper->dropdown('Employees','No','Full_Name'),
-            'complaintTypes' =>  Yii::$app->navhelper->dropdown('TypeofComplaints','Complaint','Complaint'),
-            'severity' => Yii::$app->navhelper->dropdown('OffenceSeverity','Severity','Severity'),
-            'attachment' => is_array($attachment)?$attachment[0]:[],
+            'employees' =>  Yii::$app->navhelper->dropdown('Employees', 'No', 'Full_Name'),
+            'complaintTypes' =>  Yii::$app->navhelper->dropdown('TypeofComplaints', 'Complaint', 'Complaint'),
+            'severity' => Yii::$app->navhelper->dropdown('OffenceSeverity', 'Severity', 'Severity'),
+            'attachment' => is_array($attachment) ? $attachment[0] : [],
         ]);
     }
 
-    public function actionDelete(){
+    public function actionDelete()
+    {
         $service = Yii::$app->params['ServiceName']['AcademicTraining'];
-        $result = Yii::$app->navhelper->deleteData($service,Yii::$app->request->get('Key'));
+        $result = Yii::$app->navhelper->deleteData($service, Yii::$app->request->get('Key'));
         // Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        if(!is_string($result)){
+        if (!is_string($result)) {
 
-            Yii::$app->session->setFlash('success','Record Purged Successfully.');
+            Yii::$app->session->setFlash('success', 'Record Purged Successfully.');
             return $this->redirect(['index']);
-        }else{
-            
-            Yii::$app->session->setFlash('error','Error Purging Record: '.$result);
+        } else {
+
+            Yii::$app->session->setFlash('error', 'Error Purging Record: ' . $result);
             return $this->redirect(['index']);
         }
     }
 
-    public function actionView($No = '', $Key = ''){
+    public function actionView($No = '', $Key = '')
+    {
         $service = Yii::$app->params['ServiceName']['GrievanceCard'];
         $AttachmentService = Yii::$app->params['ServiceName']['DisciplinaryAttachments'];
         $model = new Grievance();
 
-       // Get Document
-       if(!empty($No))
-       {
-           $document = Yii::$app->navhelper->findOne($service,['No' => $No]);
-       }elseif(!empty($Key)){
-           $document = Yii::$app->navhelper->readByKey($service,$Key);
-       }else{
-          // Yii::$app->session->setFlash('error', 'We are unable to fetch the document', true);
-           return $this->redirect(['index']);
-       }
+        // Get Document
+        if (!empty($No)) {
+            $document = Yii::$app->navhelper->findOne($service, ['No' => $No]);
+        } elseif (!empty($Key)) {
+            $document = Yii::$app->navhelper->readByKey($service, $Key);
+        } else {
+            // Yii::$app->session->setFlash('error', 'We are unable to fetch the document', true);
+            return $this->redirect(['index']);
+        }
 
-       // Read Attachment or Check if it exists
+        // Read Attachment or Check if it exists
 
-       $args = [
-           'Document_No' => $document->No
-       ];
-       $attachment = Yii::$app->navhelper->getData($AttachmentService, $args);
+        $args = [
+            'Document_No' => $document->No
+        ];
+        $attachment = Yii::$app->navhelper->getData($AttachmentService, $args);
 
-       //Yii::$app->recruitment->printrr($attachment);
+        //Yii::$app->recruitment->printrr($attachment);
 
         //load nav result to model
         $model = Yii::$app->navhelper->loadmodel($document, $model);
 
-        return $this->render('view',[
+        return $this->render('view', [
             'model' => $model,
             'document' =>  $document,
-            'attachment' => is_array($attachment)?$attachment[0]:[],
+            'attachment' => is_array($attachment) ? $attachment[0] : [],
         ]);
     }
 
 
-    public function actionList(){
+    public function actionList()
+    {
         $service = Yii::$app->params['ServiceName']['GrievanceList'];
 
         $filter = [
             'Employee_No' => \Yii::$app->user->identity->{'Employee No_'},
         ];
-        $records = \Yii::$app->navhelper->getData($service,$filter);
+        $records = \Yii::$app->navhelper->getData($service, $filter);
 
         $result = [];
         $count = 0;
-        
-            foreach($records as $quali){
 
-                if(empty($quali->Employee_No))
-                {
-                    continue;
-                }
+        foreach ($records as $quali) {
 
-                ++$count;
-                $Deletelink = $updateLink = $viewLink = $applyLink = $sendForApproval =  '';
-                $updateLink = ($quali->Status == 'New')? Html::a('<i class="fa fa-edit"></i>',['update','Key'=> $quali->Key ],['class'=>' mx-1 update btn btn-outline-info btn-xs', 'title' => 'Update Record']): '';
-                $viewLink = Html::a('<i class="fa fa-eye"></i>',['view','Key'=> $quali->Key ],['class'=>'btn btn-outline-info btn-xs mx-2', 'title' => 'View Document']);
-                $sendForApproval = ($quali->Status == 'New')? Html::a('<i class="fa fa-forward"></i>',['send-to-hro'],[
-                    'class'=>'btn btn-outline-success btn-xs mx-2',
-                    'title' => 'Send to HRO',
-                    'data' => [
-                        'params' => [
-                            'No'=> $quali->No
-                        ],
-                        'confirm' => 'Are you sure you want to send this request for approval?',
-                        'method' => 'post'
-                    ]
-                    ]): '';
-                $cancelApproval = ($quali->Status == 'Pending_Approval')? Html::a('<i class="fa fa-times"></i>',['cancelApprovalRequest','No'=> $quali->No ],['class'=>'btn btn-outline-warning btn-xs mx-2', 'title' => 'Cancel Approval Request']): '';
+            if (empty($quali->Employee_No)) {
+                continue;
+            }
+
+            ++$count;
+            $Deletelink = $updateLink = $viewLink = $applyLink = $sendForApproval =  '';
+            $updateLink = ($quali->Status == 'New') ? Html::a('<i class="fa fa-edit"></i>', ['update', 'Key' => $quali->Key], ['class' => ' mx-1 update btn btn-outline-info btn-xs', 'title' => 'Update Record']) : '';
+            $viewLink = Html::a('<i class="fa fa-eye"></i>', ['view', 'Key' => $quali->Key], ['class' => 'btn btn-outline-info btn-xs mx-2', 'title' => 'View Document']);
+            $sendForApproval = ($quali->Status == 'New') ? Html::a('<i class="fa fa-forward"></i>', ['send-to-hro'], [
+                'class' => 'btn btn-outline-success btn-xs mx-2',
+                'title' => 'Send to HRO',
+                'data' => [
+                    'params' => [
+                        'No' => $quali->No
+                    ],
+                    'confirm' => 'Are you sure you want to send this request for approval?',
+                    'method' => 'post'
+                ]
+            ]) : '';
+            $cancelApproval = ($quali->Status == 'Pending_Approval') ? Html::a('<i class="fa fa-times"></i>', ['cancelApprovalRequest', 'No' => $quali->No], ['class' => 'btn btn-outline-warning btn-xs mx-2', 'title' => 'Cancel Approval Request']) : '';
 
 
-                $Deletelink = Html::a('<i class="fa fa-trash"></i>',['delete','Key'=> $quali->Key ],['class'=>'btn btn-outline-danger btn-xs text-danger',
-                    'title' => 'Delete Record.',
-                    'data' => [
+            $Deletelink = Html::a('<i class="fa fa-trash"></i>', ['delete', 'Key' => $quali->Key], [
+                'class' => 'btn btn-outline-danger btn-xs text-danger',
+                'title' => 'Delete Record.',
+                'data' => [
                     'confirm' => 'Are you sure you want to delete this record?',
                     'method' => 'post',
-                ]]);
+                ]
+            ]);
 
-               
-                $result['data'][] = [
-                    'index' => $count,
-                    'Employee_No' => !empty($quali->Employee_No)?$quali->Employee_No:'',
-                    'Employee_Name' => !empty($quali->Employee_Name)?$quali->Employee_Name:'',
-                    'Grievance_Against' => !empty($quali->Grievance_Against)?$quali->Grievance_Against:'',
-                    'Name' => !empty($quali->Name)?$quali->Name:'',
-                    'Grievance_Type' => !empty($quali->Grievance_Type)?$quali->Grievance_Type:'',
-                    'Status' => !empty($quali->Status)?$quali->Status:'',
-                    'Action' => $viewLink. $updateLink.$sendForApproval ,
-                                      
-                ];
-            
+
+            $result['data'][] = [
+                'index' => $count,
+                'Employee_No' => !empty($quali->Employee_No) ? $quali->Employee_No : '',
+                'Employee_Name' => !empty($quali->Employee_Name) ? $quali->Employee_Name : '',
+                'Grievance_Against' => !empty($quali->Grievance_Against) ? $quali->Grievance_Against : '',
+                'Name' => !empty($quali->Name) ? $quali->Name : '',
+                'Grievance_Type' => !empty($quali->Grievance_Type) ? $quali->Grievance_Type : '',
+                'Status' => !empty($quali->Status) ? $quali->Status : '',
+                'Action' => $viewLink . $updateLink . $sendForApproval,
+
+            ];
         }
         return $result;
+    }
 
-    } 
-
-    public function actionListHro(){
+    public function actionListHro()
+    {
         $service = Yii::$app->params['ServiceName']['HROGrievanceList'];
 
         $filter = [
             //'HRO_Emp_No' => \Yii::$app->user->identity->{'Employee No_'},
         ];
-        $records = \Yii::$app->navhelper->getData($service,$filter);
+        $records = \Yii::$app->navhelper->getData($service, $filter);
 
         $result = [];
         $count = 0;
-        
-            foreach($records as $quali){
 
-                if(empty($quali->Employee_No))
-                {
-                    continue;
-                }
+        foreach ($records as $quali) {
 
-                ++$count;
-                $Deletelink = $updateLink = $viewLink = $applyLink = $sendForApproval =  '';
-                $updateLink = ($quali->Status == 'HRO')? Html::a('<i class="fa fa-edit"></i>',['update','Key'=> $quali->Key ],['class'=>' mx-1 update btn btn-outline-info btn-xs', 'title' => 'Update Record']): '';
-                $viewLink = Html::a('<i class="fa fa-eye"></i>',['view','Key'=> $quali->Key ],['class'=>'btn btn-outline-info btn-xs mx-2', 'title' => 'View Document']);
-                $sendForApproval = ($quali->Status == 'New')? Html::a('<i class="fa fa-forward"></i>',['send-to-hrm'],[
-                    'class'=>'btn btn-outline-success btn-xs mx-2',
-                    'title' => 'Send to HRM',
-                    'data' => [
-                        'params' => [
-                            'No'=> $quali->No
-                        ],
-                        'confirm' => 'Are you sure you want to send this request for approval?',
-                        'method' => 'post'
-                    ]
-                    ]): '';
-                $cancelApproval = ($quali->Status == 'Pending_Approval')? Html::a('<i class="fa fa-times"></i>',['cancelApprovalRequest','No'=> $quali->No ],['class'=>'btn btn-outline-warning btn-xs mx-2', 'title' => 'Cancel Approval Request']): '';
+            if (empty($quali->Employee_No)) {
+                continue;
+            }
+
+            ++$count;
+            $Deletelink = $updateLink = $viewLink = $applyLink = $sendForApproval =  '';
+            $updateLink = ($quali->Status == 'HRO') ? Html::a('<i class="fa fa-edit"></i>', ['update', 'Key' => $quali->Key], ['class' => ' mx-1 update btn btn-outline-info btn-xs', 'title' => 'Update Record']) : '';
+            $viewLink = Html::a('<i class="fa fa-eye"></i>', ['view', 'Key' => $quali->Key], ['class' => 'btn btn-outline-info btn-xs mx-2', 'title' => 'View Document']);
+            $sendForApproval = ($quali->Status == 'HRO') ? Html::a('<i class="fa fa-forward"></i>', ['send-to-hrm'], [
+                'class' => 'btn btn-outline-success btn-xs mx-2',
+                'title' => 'Send to HRM',
+                'data' => [
+                    'params' => [
+                        'No' => $quali->No
+                    ],
+                    'confirm' => 'Are you sure you want to send this request for approval?',
+                    'method' => 'post'
+                ]
+            ]) : '';
+            $cancelApproval = ($quali->Status == 'Pending_Approval') ? Html::a('<i class="fa fa-times"></i>', ['cancelApprovalRequest', 'No' => $quali->No], ['class' => 'btn btn-outline-warning btn-xs mx-2', 'title' => 'Cancel Approval Request']) : '';
 
 
-                $Deletelink = Html::a('<i class="fa fa-trash"></i>',['delete','Key'=> $quali->Key ],['class'=>'btn btn-outline-danger btn-xs text-danger',
-                    'title' => 'Delete Record.',
-                    'data' => [
+            $Deletelink = Html::a('<i class="fa fa-trash"></i>', ['delete', 'Key' => $quali->Key], [
+                'class' => 'btn btn-outline-danger btn-xs text-danger',
+                'title' => 'Delete Record.',
+                'data' => [
                     'confirm' => 'Are you sure you want to delete this record?',
                     'method' => 'post',
-                ]]);
+                ]
+            ]);
 
-               
-                $result['data'][] = [
-                    'index' => $count,
-                    'Employee_No' => !empty($quali->Employee_No)?$quali->Employee_No:'',
-                    'Employee_Name' => !empty($quali->Employee_Name)?$quali->Employee_Name:'',
-                    'Grievance_Against' => !empty($quali->Grievance_Against)?$quali->Grievance_Against:'',
-                    'Name' => !empty($quali->Name)?$quali->Name:'',
-                    'Grievance_Type' => !empty($quali->Grievance_Type)?$quali->Grievance_Type:'',
-                    'Status' => !empty($quali->Status)?$quali->Status:'',
-                    'Action' => $viewLink.$updateLink.$sendForApproval,
-                                      
-                ];
-            
+
+            $result['data'][] = [
+                'index' => $count,
+                'Employee_No' => !empty($quali->Employee_No) ? $quali->Employee_No : '',
+                'Employee_Name' => !empty($quali->Employee_Name) ? $quali->Employee_Name : '',
+                'Grievance_Against' => !empty($quali->Grievance_Against) ? $quali->Grievance_Against : '',
+                'Name' => !empty($quali->Name) ? $quali->Name : '',
+                'Grievance_Type' => !empty($quali->Grievance_Type) ? $quali->Grievance_Type : '',
+                'Status' => !empty($quali->Status) ? $quali->Status : '',
+                'Action' => $viewLink . $updateLink . $sendForApproval,
+
+            ];
         }
         return $result;
-
-    } 
+    }
 
     // HRM LIST
 
-    public function actionListHrm(){
+    public function actionListHrm()
+    {
         $service = Yii::$app->params['ServiceName']['HRMGrievanceList'];
 
         $filter = [
             //'HRM_Emp_No' => \Yii::$app->user->identity->{'Employee No_'},
         ];
-        $records = \Yii::$app->navhelper->getData($service,$filter);
+        $records = \Yii::$app->navhelper->getData($service, $filter);
 
         $result = [];
         $count = 0;
-        
-            foreach($records as $quali){
 
-                if(empty($quali->Employee_No))
-                {
-                    continue;
-                }
+        foreach ($records as $quali) {
 
-                ++$count;
-                $Deletelink = $updateLink = $viewLink = $applyLink = $sendForApproval =  '';
-                $updateLink = ($quali->Status == 'HRM')? Html::a('<i class="fa fa-edit"></i>',['update','Key'=> $quali->Key ],['class'=>' mx-1 update btn btn-outline-info btn-xs', 'title' => 'Update Record']): '';
-                $viewLink = Html::a('<i class="fa fa-eye"></i>',['view','Key'=> $quali->Key ],['class'=>'btn btn-outline-info btn-xs mx-2', 'title' => 'View Document']);
-                $sendForApproval = ($quali->Status == 'HRM')? Html::a('<i class="fa fa-forward"></i>',['send-to-hoh'],[
-                    'class'=>'btn btn-outline-success btn-xs mx-2',
-                    'title' => 'Send to HOH',
-                    'data' => [
-                        'params' => [
-                            'No'=> $quali->No
-                        ],
-                        'confirm' => 'Are you sure you want to send this document to HOH?',
-                        'method' => 'post'
-                    ]
-                    ]): '';
-                $cancelApproval = ($quali->Status == 'Pending_Approval')? Html::a('<i class="fa fa-times"></i>',['cancelApprovalRequest','No'=> $quali->No ],['class'=>'btn btn-outline-warning btn-xs mx-2', 'title' => 'Cancel Approval Request']): '';
+            if (empty($quali->Employee_No)) {
+                continue;
+            }
+
+            ++$count;
+            $Deletelink = $updateLink = $viewLink = $applyLink = $sendForApproval =  '';
+            $updateLink = ($quali->Status == 'HRM') ? Html::a('<i class="fa fa-edit"></i>', ['update', 'Key' => $quali->Key], ['class' => ' mx-1 update btn btn-outline-info btn-xs', 'title' => 'Update Record']) : '';
+            $viewLink = Html::a('<i class="fa fa-eye"></i>', ['view', 'Key' => $quali->Key], ['class' => 'btn btn-outline-info btn-xs mx-2', 'title' => 'View Document']);
+            $sendForApproval = ($quali->Status == 'HRM') ? Html::a('<i class="fa fa-forward"></i>', ['send-to-hoh'], [
+                'class' => 'btn btn-outline-success btn-xs mx-2',
+                'title' => 'Send to HOH',
+                'data' => [
+                    'params' => [
+                        'No' => $quali->No
+                    ],
+                    'confirm' => 'Are you sure you want to send this document to HOH?',
+                    'method' => 'post'
+                ]
+            ]) : '';
+            $cancelApproval = ($quali->Status == 'Pending_Approval') ? Html::a('<i class="fa fa-times"></i>', ['cancelApprovalRequest', 'No' => $quali->No], ['class' => 'btn btn-outline-warning btn-xs mx-2', 'title' => 'Cancel Approval Request']) : '';
 
 
-                $Deletelink = Html::a('<i class="fa fa-trash"></i>',['delete','Key'=> $quali->Key ],['class'=>'btn btn-outline-danger btn-xs text-danger',
-                    'title' => 'Delete Record.',
-                    'data' => [
+            $Deletelink = Html::a('<i class="fa fa-trash"></i>', ['delete', 'Key' => $quali->Key], [
+                'class' => 'btn btn-outline-danger btn-xs text-danger',
+                'title' => 'Delete Record.',
+                'data' => [
                     'confirm' => 'Are you sure you want to delete this record?',
                     'method' => 'post',
-                ]]);
+                ]
+            ]);
 
-               
-                $result['data'][] = [
-                    'index' => $count,
-                    'Employee_No' => !empty($quali->Employee_No)?$quali->Employee_No:'',
-                    'Employee_Name' => !empty($quali->Employee_Name)?$quali->Employee_Name:'',
-                    'Grievance_Against' => !empty($quali->Grievance_Against)?$quali->Grievance_Against:'',
-                    'Name' => !empty($quali->Name)?$quali->Name:'',
-                    'Grievance_Type' => !empty($quali->Grievance_Type)?$quali->Grievance_Type:'',
-                    'Status' => !empty($quali->Status)?$quali->Status:'',
-                    'Action' => $viewLink.$updateLink.$sendForApproval,
-                                      
-                ];
-            
+
+            $result['data'][] = [
+                'index' => $count,
+                'Employee_No' => !empty($quali->Employee_No) ? $quali->Employee_No : '',
+                'Employee_Name' => !empty($quali->Employee_Name) ? $quali->Employee_Name : '',
+                'Grievance_Against' => !empty($quali->Grievance_Against) ? $quali->Grievance_Against : '',
+                'Name' => !empty($quali->Name) ? $quali->Name : '',
+                'Grievance_Type' => !empty($quali->Grievance_Type) ? $quali->Grievance_Type : '',
+                'Status' => !empty($quali->Status) ? $quali->Status : '',
+                'Action' => $viewLink . $updateLink . $sendForApproval,
+
+            ];
         }
         return $result;
-
-    } 
+    }
 
 
     // HOH List
 
-    public function actionListHoh(){
+    public function actionListHoh()
+    {
         $service = Yii::$app->params['ServiceName']['HOHGrievanceList'];
 
         $filter = [
             //'HRO_Emp_No' => \Yii::$app->user->identity->{'Employee No_'},
         ];
-        $records = \Yii::$app->navhelper->getData($service,$filter);
+        $records = \Yii::$app->navhelper->getData($service, $filter);
 
         $result = [];
         $count = 0;
-        
-            foreach($records as $quali){
 
-                if(empty($quali->Employee_No))
-                {
-                    continue;
-                }
+        foreach ($records as $quali) {
 
-                ++$count;
-                $Deletelink = $updateLink = $viewLink = $applyLink = $sendForApproval =  '';
-                $updateLink = ($quali->Status == 'HOH')? Html::a('<i class="fa fa-edit"></i>',['update','Key'=> $quali->Key ],['class'=>' mx-1 update btn btn-outline-info btn-xs', 'title' => 'Update Record']): '';
-                $viewLink = Html::a('<i class="fa fa-eye"></i>',['view','Key'=> $quali->Key ],['class'=>'btn btn-outline-info btn-xs mx-2', 'title' => 'View Document']);
-                $sendForApproval = ($quali->Status == 'HOH')? Html::a('<i class="fa fa-forward"></i>',['close'],[
-                    'class'=>'btn btn-outline-success btn-xs mx-2',
-                    'title' => 'Close Grievance',
-                    'data' => [
-                        'params' => [
-                            'No'=> $quali->No
-                        ],
-                        'confirm' => 'Are you sure you want to cloe Grievance?',
-                        'method' => 'post'
-                    ]
-                    ]): '';
-                $cancelApproval = ($quali->Status == 'Pending_Approval')? Html::a('<i class="fa fa-times"></i>',['cancelApprovalRequest','No'=> $quali->No ],['class'=>'btn btn-outline-warning btn-xs mx-2', 'title' => 'Cancel Approval Request']): '';
+            if (empty($quali->Employee_No)) {
+                continue;
+            }
+
+            ++$count;
+            $Deletelink = $updateLink = $viewLink = $applyLink = $sendForApproval =  '';
+            $updateLink = ($quali->Status == 'HOH') ? Html::a('<i class="fa fa-edit"></i>', ['update', 'Key' => $quali->Key], ['class' => ' mx-1 update btn btn-outline-info btn-xs', 'title' => 'Update Record']) : '';
+            $viewLink = Html::a('<i class="fa fa-eye"></i>', ['view', 'Key' => $quali->Key], ['class' => 'btn btn-outline-info btn-xs mx-2', 'title' => 'View Document']);
+            $sendForApproval = ($quali->Status == 'HOH') ? Html::a('<i class="fa fa-forward"></i>', ['close'], [
+                'class' => 'btn btn-outline-success btn-xs mx-2',
+                'title' => 'Close Grievance',
+                'data' => [
+                    'params' => [
+                        'No' => $quali->No
+                    ],
+                    'confirm' => 'Are you sure you want to cloe Grievance?',
+                    'method' => 'post'
+                ]
+            ]) : '';
+            $cancelApproval = ($quali->Status == 'Pending_Approval') ? Html::a('<i class="fa fa-times"></i>', ['cancelApprovalRequest', 'No' => $quali->No], ['class' => 'btn btn-outline-warning btn-xs mx-2', 'title' => 'Cancel Approval Request']) : '';
 
 
-                $Deletelink = Html::a('<i class="fa fa-trash"></i>',['delete','Key'=> $quali->Key ],['class'=>'btn btn-outline-danger btn-xs text-danger',
-                    'title' => 'Delete Record.',
-                    'data' => [
+            $Deletelink = Html::a('<i class="fa fa-trash"></i>', ['delete', 'Key' => $quali->Key], [
+                'class' => 'btn btn-outline-danger btn-xs text-danger',
+                'title' => 'Delete Record.',
+                'data' => [
                     'confirm' => 'Are you sure you want to delete this record?',
                     'method' => 'post',
-                ]]);
+                ]
+            ]);
 
-               
-                $result['data'][] = [
-                    'index' => $count,
-                    'Employee_No' => !empty($quali->Employee_No)?$quali->Employee_No:'',
-                    'Employee_Name' => !empty($quali->Employee_Name)?$quali->Employee_Name:'',
-                    'Grievance_Against' => !empty($quali->Grievance_Against)?$quali->Grievance_Against:'',
-                    'Name' => !empty($quali->Name)?$quali->Name:'',
-                    'Grievance_Type' => !empty($quali->Grievance_Type)?$quali->Grievance_Type:'',
-                    'Status' => !empty($quali->Status)?$quali->Status:'',
-                    'Action' => $viewLink.$updateLink.$sendForApproval,
-                                      
-                ];
-            
+
+            $result['data'][] = [
+                'index' => $count,
+                'Employee_No' => !empty($quali->Employee_No) ? $quali->Employee_No : '',
+                'Employee_Name' => !empty($quali->Employee_Name) ? $quali->Employee_Name : '',
+                'Grievance_Against' => !empty($quali->Grievance_Against) ? $quali->Grievance_Against : '',
+                'Name' => !empty($quali->Name) ? $quali->Name : '',
+                'Grievance_Type' => !empty($quali->Grievance_Type) ? $quali->Grievance_Type : '',
+                'Status' => !empty($quali->Status) ? $quali->Status : '',
+                'Action' => $viewLink . $updateLink . $sendForApproval,
+
+            ];
         }
         return $result;
+    }
 
-    } 
 
-    
 
 
     public function actionAttended()
     {
 
         $status = [
-            ['Code' => '_blank_','Desc' => '_blank_'],
-            ['Code' => 'Yes' ,'Desc' =>'Yes'],
-            ['Code' => 'No' ,'Desc' => 'No'],
+            ['Code' => '_blank_', 'Desc' => '_blank_'],
+            ['Code' => 'Yes', 'Desc' => 'Yes'],
+            ['Code' => 'No', 'Desc' => 'No'],
         ];
 
-        $data =  ArrayHelper::map($status,'Code','Desc');
+        $data =  ArrayHelper::map($status, 'Code', 'Desc');
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         return $data;
     }
 
 
-    
+
 
 
     /* Call Approval Workflow Methods */
@@ -487,16 +491,15 @@ class GrievanceController extends Controller
             'sendMail' => 1,
         ];
 
-        $result = Yii::$app->navhelper->Codeunit($service,$data,'IanSendTrainingForApproval');
+        $result = Yii::$app->navhelper->Codeunit($service, $data, 'IanSendTrainingForApproval');
 
-        if(!is_string($result)){
+        if (!is_string($result)) {
             Yii::$app->session->setFlash('success', 'Document sent for approval Successfully.', true);
             return $this->redirect(['index']);
-        }else{
+        } else {
 
-            Yii::$app->session->setFlash('error', 'Error  : '. $result);
+            Yii::$app->session->setFlash('error', 'Error  : ' . $result);
             return $this->redirect(['index']);
-
         }
     }
     /*Cancel Approval Request */
@@ -511,19 +514,94 @@ class GrievanceController extends Controller
             'urLToSend' => Yii::$app->urlManager->createAbsoluteUrl(['grievance/view', 'No' => $No]),
         ];
 
-       // Yii::$app->recruitment->printrr($data);
+        // Yii::$app->recruitment->printrr($data);
 
 
-        $result = Yii::$app->navhelper->Codeunit($service,$data,'IanSendGrievanceForAcceptance');
+        $result = Yii::$app->navhelper->Codeunit($service, $data, 'IanSendGrievanceForAcceptance');
 
-        if(!is_string($result)){
+        if (!is_string($result)) {
             Yii::$app->session->setFlash('success', 'Document sent Successfully.', true);
             return $this->redirect(['index']);
-        }else{
+        } else {
 
-            Yii::$app->session->setFlash('error', 'Error.  : '. $result);
+            Yii::$app->session->setFlash('error', 'Error.  : ' . $result);
             return $this->redirect(['index']);
+        }
+    }
 
+    // TO HRM
+
+    public function actionSendToHrm()
+    {
+        $No = Yii::$app->request->post('No');
+        $service = Yii::$app->params['ServiceName']['GRIEVANCEMGT'];
+
+        $data = [
+            'grievanceNo' => $No,
+            'urlTosend' => Yii::$app->urlManager->createAbsoluteUrl(['grievance/view', 'No' => $No]),
+        ];
+
+        // Yii::$app->recruitment->printrr($data);
+
+
+        $result = Yii::$app->navhelper->Codeunit($service, $data, 'IanSendGrievanceToHRM');
+
+        if (!is_string($result)) {
+            Yii::$app->session->setFlash('success', 'Document sent Successfully.', true);
+            return $this->redirect(['hro']);
+        } else {
+
+            Yii::$app->session->setFlash('error', 'Error.  : ' . $result);
+            return $this->redirect(['hro']);
+        }
+    }
+
+    // To HoH
+
+    public function actionSendToHoh()
+    {
+        $No = Yii::$app->request->post('No');
+        $service = Yii::$app->params['ServiceName']['GRIEVANCEMGT'];
+
+        $data = [
+            'grievanceNo' => $No,
+            'urlToSend' => Yii::$app->urlManager->createAbsoluteUrl(['grievance/view', 'No' => $No]),
+        ];
+
+        // Yii::$app->recruitment->printrr($data);
+
+
+        $result = Yii::$app->navhelper->Codeunit($service, $data, 'IanSendGrievanceToHOH');
+
+        if (!is_string($result)) {
+            Yii::$app->session->setFlash('success', 'Document sent Successfully.', true);
+            return $this->redirect(['hrm']);
+        } else {
+
+            Yii::$app->session->setFlash('error', 'Error.  : ' . $result);
+            return $this->redirect(['hrm']);
+        }
+    }
+
+    public function actionBackToHrm()
+    {
+        $No = Yii::$app->request->post('No');
+        $service = Yii::$app->params['ServiceName']['GRIEVANCEMGT'];
+
+        $data = [
+            'grievanceNo' => $No,
+            'urlToSend' => Yii::$app->urlManager->createAbsoluteUrl(['grievance/view', 'No' => $No]),
+        ];
+
+        $result = Yii::$app->navhelper->Codeunit($service, $data, 'IanSendGrievanceBackToHRM');
+
+        if (!is_string($result)) {
+            Yii::$app->session->setFlash('success', 'Document sent Successfully.', true);
+            return $this->redirect(['hoh']);
+        } else {
+
+            Yii::$app->session->setFlash('error', 'Error.  : ' . $result);
+            return $this->redirect(['hoh']);
         }
     }
 
@@ -539,19 +617,18 @@ class GrievanceController extends Controller
             //'urLToSend' => Yii::$app->urlManager->createAbsoluteUrl(['grievance/view', 'No' => $No]),
         ];
 
-       // Yii::$app->recruitment->printrr($data);
+        // Yii::$app->recruitment->printrr($data);
 
 
-        $result = Yii::$app->navhelper->Codeunit($service,$data,'IanAcceptGrievance');
+        $result = Yii::$app->navhelper->Codeunit($service, $data, 'IanAcceptGrievance');
 
-        if(!is_string($result)){
+        if (!is_string($result)) {
             Yii::$app->session->setFlash('success', 'Grievance Accepted Successfully.', true);
             return $this->redirect(['hro']);
-        }else{
+        } else {
 
-            Yii::$app->session->setFlash('error', 'Error.  : '. $result);
+            Yii::$app->session->setFlash('error', 'Error.  : ' . $result);
             return $this->redirect(['hro']);
-
         }
     }
 
@@ -569,19 +646,18 @@ class GrievanceController extends Controller
             'rejectionComment' => 'REJECTED'
         ];
 
-       // Yii::$app->recruitment->printrr($data);
+        // Yii::$app->recruitment->printrr($data);
 
 
-        $result = Yii::$app->navhelper->Codeunit($service,$data,'IanRejectGrievance');
+        $result = Yii::$app->navhelper->Codeunit($service, $data, 'IanRejectGrievance');
 
-        if(!is_string($result)){
+        if (!is_string($result)) {
             Yii::$app->session->setFlash('success', 'Grievance Rejected Successfully.', true);
             return $this->redirect(['hro']);
-        }else{
+        } else {
 
-            Yii::$app->session->setFlash('error', 'Error.  : '. $result);
+            Yii::$app->session->setFlash('error', 'Error.  : ' . $result);
             return $this->redirect(['hro']);
-
         }
     }
 
@@ -598,19 +674,18 @@ class GrievanceController extends Controller
             'withdrawalReason' => 'Withdtwan'
         ];
 
-       // Yii::$app->recruitment->printrr($data);
+        // Yii::$app->recruitment->printrr($data);
 
 
-        $result = Yii::$app->navhelper->Codeunit($service,$data,'IanWithdrawGrievance');
+        $result = Yii::$app->navhelper->Codeunit($service, $data, 'IanWithdrawGrievance');
 
-        if(!is_string($result)){
+        if (!is_string($result)) {
             Yii::$app->session->setFlash('success', 'Grievance Rejected Successfully.', true);
             return $this->redirect(['index']);
-        }else{
+        } else {
 
-            Yii::$app->session->setFlash('error', 'Error.  : '. $result);
+            Yii::$app->session->setFlash('error', 'Error.  : ' . $result);
             return $this->redirect(['index']);
-
         }
     }
 
@@ -625,23 +700,22 @@ class GrievanceController extends Controller
 
         $data = [
             'grievanceNo' => $No,
-           // 'urLToSend' => Yii::$app->urlManager->createAbsoluteUrl(['grievance/view', 'No' => $No]),
-           // 'rejectionComment' => 'REJECTED'
+            // 'urLToSend' => Yii::$app->urlManager->createAbsoluteUrl(['grievance/view', 'No' => $No]),
+            // 'rejectionComment' => 'REJECTED'
         ];
 
-       // Yii::$app->recruitment->printrr($data);
+        // Yii::$app->recruitment->printrr($data);
 
 
-        $result = Yii::$app->navhelper->Codeunit($service,$data,'IanConvertGrievanceToDisciplinary');
+        $result = Yii::$app->navhelper->Codeunit($service, $data, 'IanConvertGrievanceToDisciplinary');
 
-        if(!is_string($result)){
+        if (!is_string($result)) {
             Yii::$app->session->setFlash('success', 'Grievance converted to disciplinary case Successfully.', true);
             return $this->redirect(['hro']);
-        }else{
+        } else {
 
-            Yii::$app->session->setFlash('error', 'Error.  : '. $result);
+            Yii::$app->session->setFlash('error', 'Error.  : ' . $result);
             return $this->redirect(['hro']);
-
         }
     }
 
@@ -656,73 +730,72 @@ class GrievanceController extends Controller
             'grievanceNo' => $No
         ];
 
-       // Yii::$app->recruitment->printrr($data);
+        // Yii::$app->recruitment->printrr($data);
 
 
-        $result = Yii::$app->navhelper->Codeunit($service,$data,'IanCloseGrievance');
+        $result = Yii::$app->navhelper->Codeunit($service, $data, 'IanCloseGrievance');
 
-        if(!is_string($result)){
+        if (!is_string($result)) {
             Yii::$app->session->setFlash('success', 'Grievance closed Successfully.', true);
             return $this->redirect(['hro']);
-        }else{
+        } else {
 
-            Yii::$app->session->setFlash('error', 'Error.  : '. $result);
+            Yii::$app->session->setFlash('error', 'Error.  : ' . $result);
             return $this->redirect(['hro']);
-
         }
     }
 
 
-    
-    public function actionAddLine($Service,$Document_No)
+
+    public function actionAddLine($Service, $Document_No)
     {
         $service = Yii::$app->params['ServiceName'][$Service];
         $data = [
             'Grievance_No' => $Document_No,
             'Line_No' => time()
         ];
-        
+
         // Insert Record
-        
+
         $result = Yii::$app->navhelper->postData($service, $data);
-        
+
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        if(is_object($result))
-        {
+        if (is_object($result)) {
             return [
                 'note' => 'Record Created Successfully.',
                 'result' => $result
             ];
-        }else{
+        } else {
             return ['note' => $result];
         }
     }
-    
-    
+
+
     public function actionDeleteLine($Service, $Key)
     {
         $service = Yii::$app->params['ServiceName'][$Service];
-        $result = Yii::$app->navhelper->deleteData($service,Yii::$app->request->get('Key'));
+        $result = Yii::$app->navhelper->deleteData($service, Yii::$app->request->get('Key'));
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        if(!is_string($result)){
-            
+        if (!is_string($result)) {
+
             return ['note' => '<div class="alert alert-success">Record Purged Successfully</div>'];
-        }else{
-            return ['note' => '<div class="alert alert-danger">Error Purging Record: '.$result.'</div>' ];
+        } else {
+            return ['note' => '<div class="alert alert-danger">Error Purging Record: ' . $result . '</div>'];
         }
     }
-    
+
     /** Updates a single field */
-    public function actionSetfield($field){
+    public function actionSetfield($field)
+    {
         $service = 'GrievanceCard';
         $value = Yii::$app->request->post('fieldValue');
-        $result = Yii::$app->navhelper->Commit($service,[$field => $value],Yii::$app->request->post('Key'));
+        $result = Yii::$app->navhelper->Commit($service, [$field => $value], Yii::$app->request->post('Key'));
         Yii::$app->response->format = \yii\web\response::FORMAT_JSON;
         return $result;
-          
     }
 
-    public function actionCommit(){
+    public function actionCommit()
+    {
         $commitService = Yii::$app->request->post('service');
         $key = Yii::$app->request->post('key');
         $name = Yii::$app->request->post('name');
@@ -731,20 +804,19 @@ class GrievanceController extends Controller
         $service = Yii::$app->params['ServiceName'][$commitService];
         $request = Yii::$app->navhelper->readByKey($service, $key);
         $data = [];
-        if(is_object($request)){
+        if (is_object($request)) {
             $data = [
                 'Key' => $request->Key,
                 $name => $value
             ];
-        }else{
+        } else {
             Yii::$app->response->format = \yii\web\response::FORMAT_JSON;
             return ['error' => $request];
         }
 
-        $result = Yii::$app->navhelper->updateData($service,$data);
+        $result = Yii::$app->navhelper->updateData($service, $data);
         Yii::$app->response->format = \yii\web\response::FORMAT_JSON;
         return $result;
-
     }
 
 
@@ -752,66 +824,58 @@ class GrievanceController extends Controller
     public function actionUpload()
     {
         $targetPath = '';
-        if($_FILES)
-        {
-            $targetPath = './uploads/'.Yii::$app->security->generateRandomString(5).$_FILES['attachment']['name']; // Upload file
+        if ($_FILES) {
+            $targetPath = './uploads/' . Yii::$app->security->generateRandomString(5) . $_FILES['attachment']['name']; // Upload file
 
-            if(!is_dir(dirname($targetPath))){
+            if (!is_dir(dirname($targetPath))) {
                 FileHelper::createDirectory(dirname($targetPath));
-                chmod(dirname($targetPath),0755);
+                chmod(dirname($targetPath), 0755);
             }
         }
-       
+
         // Upload
-        if(Yii::$app->request->isPost)
-        {
+        if (Yii::$app->request->isPost) {
             $file = $_FILES['attachment']['tmp_name'];
             //Return JSON
             Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-            if(move_uploaded_file($file,$targetPath))
-            {
+            if (move_uploaded_file($file, $targetPath)) {
                 return [
                     'status' => 'success',
                     'message' => 'File Uploaded Successfully',
                     'filePath' => $targetPath
                 ];
-            }else 
-            {
+            } else {
                 return 'error';
             }
         }
-        
+
 
         // Update Nav
-        if(Yii::$app->request->isGet) 
-        {
+        if (Yii::$app->request->isGet) {
             $fileName = basename(Yii::$app->request->get('filePath'));
-            
+
             $DocumentService = Yii::$app->params['ServiceName']['GrievanceCard'];
             $AttachmentService = Yii::$app->params['ServiceName'][Yii::$app->request->get('Service')];
             $Document = Yii::$app->navhelper->readByKey($DocumentService, Yii::$app->request->get('Key'));
 
             $data = [];
-            if(is_object($Document) && isset($Document->No))
-            {
+            if (is_object($Document) && isset($Document->No)) {
                 $data = [
                     'Document_No' => $Document->No,
-                    'Name' => $fileName ,
-                    'File_path' => \yii\helpers\Url::home(true).'uploads/'.$fileName,
+                    'Name' => $fileName,
+                    'File_path' => \yii\helpers\Url::home(true) . 'uploads/' . $fileName,
                 ];
             }
-           
+
             // Update Nav
             $result = Yii::$app->navhelper->postData($AttachmentService, $data);
 
             Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-            if(is_object($result))
-            {
+            if (is_object($result)) {
                 return $result;
-            }else {
+            } else {
                 return $result;
             }
-            
         }
     }
 
@@ -819,9 +883,8 @@ class GrievanceController extends Controller
 
     public function actionEmployees()
     {
-        $data = Yii::$app->navhelper->dropdown('Employees','No','Full_Name');
+        $data = Yii::$app->navhelper->dropdown('Employees', 'No', 'Full_Name');
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         return $data;
     }
-
 }
