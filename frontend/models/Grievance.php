@@ -58,7 +58,8 @@ public $attachment;
     {
         return [
             'attachment' => 'Grievance Attachment (PDFs only)',
-            'Name' => 'Offender Name'
+            'Name' => 'Offender Name',
+            'Rejection_Comments' => 'Withdrawal Reasons'
         ];
     }
 

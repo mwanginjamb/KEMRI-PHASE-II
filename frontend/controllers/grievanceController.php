@@ -52,7 +52,7 @@ class GrievanceController extends Controller
             ],
             'contentNegotiator' => [
                 'class' => ContentNegotiator::class,
-                'only' => ['list', 'list-hro', 'list-hrm', 'list-hoh'],
+                'only' => ['list', 'list-hro', 'list-hrm', 'list-hoh', 'list-closed'],
                 'formatParam' => '_format',
                 'formats' => [
                     'application/json' => Response::FORMAT_JSON,
@@ -87,6 +87,11 @@ class GrievanceController extends Controller
     public function actionHoh()
     {
         return $this->render('hoh');
+    }
+
+    public function actionClosed()
+    {
+        return $this->render('closed');
     }
 
 
@@ -457,6 +462,43 @@ class GrievanceController extends Controller
         return $result;
     }
 
+    public function actionListClosed()
+    {
+        $service = Yii::$app->params['ServiceName']['ClosedGrievanceList'];
+
+        $filter = [
+            'Employee_No' => \Yii::$app->user->identity->{'Employee No_'},
+        ];
+        $records = \Yii::$app->navhelper->getData($service, $filter);
+
+        $result = [];
+        $count = 0;
+
+        foreach ($records as $quali) {
+
+            if (empty($quali->Employee_No)) {
+                continue;
+            }
+
+            ++$count;
+            $Deletelink = $updateLink = $viewLink = $applyLink = $sendForApproval =  '';
+            // $updateLink = ($quali->Status == 'HOH') ? Html::a('<i class="fa fa-edit"></i>', ['update', 'Key' => $quali->Key], ['class' => ' mx-1 update btn btn-outline-info btn-xs', 'title' => 'Update Record']) : '';
+            $viewLink = Html::a('<i class="fa fa-eye"></i>', ['view', 'Key' => $quali->Key], ['class' => 'btn btn-outline-info btn-xs mx-2', 'title' => 'View Document']);
+
+            $result['data'][] = [
+                'index' => $count,
+                'Employee_No' => !empty($quali->Employee_No) ? $quali->Employee_No : '',
+                'Employee_Name' => !empty($quali->Employee_Name) ? $quali->Employee_Name : '',
+                'Grievance_Against' => !empty($quali->Grievance_Against) ? $quali->Grievance_Against : '',
+                'Name' => !empty($quali->Name) ? $quali->Name : '',
+                'Grievance_Type' => !empty($quali->Grievance_Type) ? $quali->Grievance_Type : '',
+                'Status' => !empty($quali->Status) ? $quali->Status : '',
+                'Action' => $viewLink . $updateLink . $sendForApproval,
+            ];
+        }
+        return $result;
+    }
+
 
 
 
@@ -671,7 +713,7 @@ class GrievanceController extends Controller
         $data = [
             'grievanceNo' => $No,
             'urLToSend' => Yii::$app->urlManager->createAbsoluteUrl(['grievance/view', 'No' => $No]),
-            'withdrawalReason' => 'Withdtwan'
+            'withdrawalReason' => 'Withdrawn'
         ];
 
         // Yii::$app->recruitment->printrr($data);
@@ -681,6 +723,29 @@ class GrievanceController extends Controller
 
         if (!is_string($result)) {
             Yii::$app->session->setFlash('success', 'Grievance Rejected Successfully.', true);
+            return $this->redirect(['index']);
+        } else {
+
+            Yii::$app->session->setFlash('error', 'Error.  : ' . $result);
+            return $this->redirect(['index']);
+        }
+    }
+
+    public function actionAcceptWithdrawal()
+    {
+        $No = Yii::$app->request->post('No');
+        $service = Yii::$app->params['ServiceName']['GRIEVANCEMGT'];
+
+        $data = [
+            'grievanceNo' => $No,
+            'urLToSend' => Yii::$app->urlManager->createAbsoluteUrl(['grievance/view', 'No' => $No]),
+            'rejectionComment' => ''
+        ];
+
+        $result = Yii::$app->navhelper->Codeunit($service, $data, 'IanAcceptGrievanceWithdrawal');
+
+        if (!is_string($result)) {
+            Yii::$app->session->setFlash('success', 'Grievance Withdrawal Accepted Successfully.', true);
             return $this->redirect(['index']);
         } else {
 
@@ -711,11 +776,11 @@ class GrievanceController extends Controller
 
         if (!is_string($result)) {
             Yii::$app->session->setFlash('success', 'Grievance converted to disciplinary case Successfully.', true);
-            return $this->redirect(['hro']);
+            return $this->redirect(['hoh']);
         } else {
 
             Yii::$app->session->setFlash('error', 'Error.  : ' . $result);
-            return $this->redirect(['hro']);
+            return $this->redirect(['hoh']);
         }
     }
 

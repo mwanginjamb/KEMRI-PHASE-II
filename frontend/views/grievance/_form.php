@@ -13,14 +13,18 @@ use yii\bootstrap4\Html as Bootstrap4Html;
 
 $absoluteUrl = \yii\helpers\Url::home(true);
 //Yii::$app->recruitment->printrr(Yii::$app->user->identity->{'Employee No_'});
-$activeStatus = $HroActiveStatus = $HRMActiveStatus = $HOHActiveStatus =  [];
+$activeStatus = $HroActiveStatus = $HRMActiveStatus = $HOHActiveStatus =  $HroAcceptedStatus = [];
 
-if ($model->Status !== 'New') {
+if ($model->Status !== 'New' && $model->Status !== 'Awaiting_Consent') {
     $activeStatus = ['readonly' =>  true, 'disabled' => true];
 }
 
 if ($model->Status !== 'HRO') {
     $HroActiveStatus = ['readonly' =>  true, 'disabled' => true];
+}
+
+if ($model->Status !== 'Accepted') {
+    $HroAcceptedStatus = ['readonly' =>  true, 'disabled' => true];
 }
 
 if ($model->Status !== 'HRM') {
@@ -104,7 +108,7 @@ if ($model->Status !== 'HOH') {
 
                         <div class="col-md-6">
 
-                            <?= $form->field($model, 'HRO_Findings')->textarea($HroActiveStatus) ?>
+                            <?= $form->field($model, 'HRO_Findings')->textarea($HroAcceptedStatus) ?>
 
                             <?= $form->field($model, 'Status')->textInput(['readonly' => true]) ?>
 
@@ -126,7 +130,7 @@ if ($model->Status !== 'HOH') {
                             <?= $form->field($model, 'HRM_Comment')->textarea(array_merge(['rows' => 2], $HRMActiveStatus)) ?>
                             <?= $form->field($model, 'HRM_Rejection_Comments')->textarea(array_merge(['rows' => 2], $HRMActiveStatus)) ?>
                             <?= $form->field($model, 'HRM_Findings')->textInput($HRMActiveStatus) ?>
-                            <?= $form->field($model, 'HOH_Findings')->textInput($HOHActiveStatus) ?>
+                            <?= $form->field($model, 'HOH_Findings')->textarea($HOHActiveStatus) ?>
 
 
                         </div>
@@ -146,11 +150,11 @@ if ($model->Status !== 'HOH') {
             <div class="card-header">
                 <h3 class="card-title">Witnesses</h3>
                 <div class="card-tools">
-                    <?= Bootstrap4Html::a('<i class="fa fa-plus-square"></i> Add Witness', ['add-line'], [
+                    <?= ($model->Status == 'New') ? Bootstrap4Html::a('<i class="fa fa-plus-square"></i> Add Witness', ['add-line'], [
                         'class' => 'add btn btn-outline-info',
                         'data-no' => $model->No,
                         'data-service' => 'GrievanceWitnesses'
-                    ]) ?>
+                    ]) : '' ?>
                 </div>
             </div>
 
@@ -170,11 +174,11 @@ if ($model->Status !== 'HOH') {
                                     <tr>
                                         <td data-key="<?= $wit->Key ?>" data-name="Employee_No" data-service="GrievanceWitnesses" ondblclick="addDropDown(this,'employees')" data-validate="Employee_Name"><?= !empty($wit->Employee_No) ? $wit->Employee_No : '' ?></td>
                                         <td class="Employee_Name"><?= !empty($wit->Employee_Name) ? $wit->Employee_Name : '' ?></td>
-                                        <td><?= Bootstrap4Html::a('<i class="fa fa-trash"></i>', ['delete-line'], [
+                                        <td><?= ($model->Status == 'New') ? Bootstrap4Html::a('<i class="fa fa-trash"></i>', ['delete-line'], [
                                                 'class' => 'del btn btn-outline-danger',
                                                 'data-key' => $wit->Key,
                                                 'data-service' => 'GrievanceWitnesses'
-                                            ])  ?>
+                                            ]) : ''  ?>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
