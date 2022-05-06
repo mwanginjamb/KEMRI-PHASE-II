@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: HP ELITEBOOK 840 G5
@@ -9,155 +10,142 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-$this->title = 'Induction - '.$model->No;
+$this->title = 'Induction - ' . $model->No;
 $this->params['breadcrumbs'][] = ['label' => 'Disciplinary Cases List', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => 'Case Card', 'url' => ['view','No'=> $model->No]];
+$this->params['breadcrumbs'][] = ['label' => 'Case Card', 'url' => ['view', 'No' => $model->No]];
 /** Status Sessions */
 
 ?>
 
 
 <?php
-                    if(Yii::$app->session->hasFlash('success')){
-                        print ' <div class="alert alert-success alert-dismissable">
+if (Yii::$app->session->hasFlash('success')) {
+    print ' <div class="alert alert-success alert-dismissable">
                                  ';
-                        echo Yii::$app->session->getFlash('success');
-                        print '</div>';
-                    }else if(Yii::$app->session->hasFlash('error')){
-                        print ' <div class="alert alert-danger alert-dismissable">
+    echo Yii::$app->session->getFlash('success');
+    print '</div>';
+} else if (Yii::$app->session->hasFlash('error')) {
+    print ' <div class="alert alert-danger alert-dismissable">
                                  ';
-                        echo Yii::$app->session->getFlash('error');
-                        print '</div>';
-                    }
+    echo Yii::$app->session->getFlash('error');
+    print '</div>';
+}
 ?>
 
 <div class="row actions">
-    <div class="col-md-4">
 
-        <?= ($model->Status == 'Inductee')?Html::a('<i class="fas fa-paper-plane"></i> Send Approval Req',['send-for-approval'],['class' => 'btn btn-app submitforapproval',
-            'data' => [
-                'confirm' => 'Are you sure you want to send imprest request for approval?',
-                'params'=>[
-                    'No'=> $model->No
-                ],
-                'method' => 'get',
+
+    <?= ($model->Status == 'New') ? Html::a('<i class="fas fa-times"></i> Close Case', ['close-case'], [
+        'class' => 'btn btn-app bg-success mx-1',
+        'data' => [
+            'confirm' => 'Are you sure you want to close this case?',
+            'params' => [
+                'No' => $model->No,
+            ],
+            'method' => 'get',
         ],
-            'title' => 'Submit for Approval'
+        'title' => 'Close Disciplinary Case.'
 
-        ]):'' ?>
-
-
-    </div>
-
-    <?= ($model->HRO_Emp_No !== Yii::$app->user->identity->{'Employee No_'})?Html::a('<i class="fas fa-times"></i> Close Case',['close-case'],['class' => 'btn btn-app bg-success mx-1',
-                                'data' => [
-                                'confirm' => 'Are you sure you want to close this case?',
-                                'params'=>[
-                                    'No'=> $model->No,
-                                ],
-                                'method' => 'get',
-                            ],
-                                'title' => 'Close Disciplinary Case.'
-    
-                            ]):'' ?>
+    ]) : '' ?>
 </div>
 
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card-info">
-                <div class="card-header">
-                    <h3>Disciplinary Case Card </h3>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card-info">
+            <div class="card-header">
+                <h3>Disciplinary Case Card </h3>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+
+
+
+
+                <h3 class="card-title">Case No : <?= $model->No ?></h3>
+
+
+
+            </div>
+            <div class="card-body">
+
+
+                <?php $form = ActiveForm::begin(); ?>
+
+
+                <div class="row">
+                    <div class=" row col-md-12">
+                        <div class="col-md-6">
+
+                            <?= $form->field($model, 'No')->textInput(['readonly' => true]) ?>
+                            <?= $form->field($model, 'Key')->hiddenInput()->label(false) ?>
+                            <?= $form->field($model, 'Employee_No')->textInput(['readonly' => true]) ?>
+                            <?= $form->field($model, 'Employee_Name')->textInput(['readonly' =>  true]) ?>
+                            <?= $form->field($model, 'Global_Dimension_1_Code')->textInput(['readonly' =>  true, 'disabled' => true]) ?>
+                            <?= $form->field($model, 'Global_Dimension_2_Code')->textInput(['readonly' => true, 'disabled' => true]) ?>
+                            <?= $form->field($model, 'Offender')->textInput(['readonly' => true, 'disabled' => true]) ?>
+                            <?= $form->field($model, 'Name_of_Offender')->textInput(['readonly' => true, 'disabled' => true]) ?>
+                            <?= $form->field($model, 'Type_of_Offense')->textInput(['readonly' => true, 'disabled' => true]) ?>
+
+
+                            <p class="parent"><span>+</span>
+
+
+
+
+                            </p>
+
+
+                        </div>
+                        <div class="col-md-6">
+                            <?= $form->field($model, 'Offense_Description')->textInput(['readonly' => true, 'disabled' => true]) ?>
+                            <?= $form->field($model, 'Witness')->textarea(['rows' => 2, 'readonly' => true, 'disabled' => true]) ?>
+                            <?= $form->field($model, 'Witness_Name')->textarea(['rows' => 2, 'readonly' => true, 'disabled' => true]) ?>
+                            <?= $form->field($model, 'Policy_Violated')->textarea(['rows' => 2, 'readonly' => true, 'disabled' => true]) ?>
+                            <?= $form->field($model, 'Disciplinary_Findings')->textInput(['readonly' => true]) ?>
+                            <?= $form->field($model, 'Verdict')->textInput(['readonly' => true, 'disabled' => true]) ?>
+                            <?= $form->field($model, 'Surcharge_Employee')->textInput(['readonly' => true, 'disabled' => true]) ?>
+                            <?= $form->field($model, 'Amount')->textInput(['readonly' => true, 'disabled' => true]) ?>
+                            <?= $form->field($model, 'Status')->textInput(['readonly' => true, 'disabled' => true]) ?>
+
+                            <p class="parent"><span>+</span>
+
+
+
+                            </p>
+
+
+
+                        </div>
+                    </div>
                 </div>
+
+
+
+
+                <?php ActiveForm::end(); ?>
 
 
 
             </div>
         </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">
+        <!--end header card-->
 
 
 
 
-                    <h3 class="card-title">Case No : <?= $model->No?></h3>
-
-
-
-                </div>
-                <div class="card-body">
-
-
-                    <?php $form = ActiveForm::begin(); ?>
-
-
-                    <div class="row">
-                        <div class=" row col-md-12">
-                            <div class="col-md-6">
-
-                            <?= $form->field($model, 'No')->textInput(['readonly'=> true]) ?>
-                            <?= $form->field($model, 'Key')->hiddenInput()->label(false) ?>
-                            <?= $form->field($model, 'Employee_No')->textInput(['readonly'=> true]) ?>
-                            <?= $form->field($model, 'Employee_Name')->textInput(['readonly' =>  true]) ?>
-                            <?= $form->field($model, 'Global_Dimension_1_Code')->textInput(['readonly' =>  true, 'disabled'=>true]) ?>
-                            <?= $form->field($model, 'Global_Dimension_2_Code')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
-                            <?= $form->field($model, 'Offender')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
-                            <?= $form->field($model, 'Name_of_Offender')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
-                            <?= $form->field($model, 'Type_of_Offense')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
-
-
-                                <p class="parent"><span>+</span>
 
 
 
 
-                                </p>
-
-
-                            </div>
-                            <div class="col-md-6">
-                            <?= $form->field($model, 'Offense_Description')->textInput(['readonly'=> true, 'disabled'=>true]) ?>        
-                            <?= $form->field($model, 'Witness')->textarea(['rows' => 2,'readonly'=> true, 'disabled'=>true]) ?>
-                            <?= $form->field($model, 'Witness_Name')->textarea(['rows' => 2,'readonly'=> true, 'disabled'=>true]) ?>        
-                            <?= $form->field($model, 'Policy_Violated')->textarea(['rows'=> 2,'readonly'=> true, 'disabled'=>true]) ?>        
-                            <?= $form->field($model, 'Disciplinary_Findings')->textInput(['readonly'=> true]) ?>
-                            <?= $form->field($model, 'Verdict')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
-                            <?= $form->field($model, 'Surcharge_Employee')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
-                            <?= $form->field($model, 'Amount')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
-                            <?= $form->field($model, 'Status')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
-                               
-                            <p class="parent"><span>+</span>
-
-
-
-                                </p>
-
-
-
-                            </div>
-                        </div>
-                    </div>
-
-
-
-
-                    <?php ActiveForm::end(); ?>
-
-
-
-                </div>
-            </div><!--end header card-->
-
-
-           
-           
-
-
-
-            
 
 
 
@@ -193,9 +181,9 @@ $this->params['breadcrumbs'][] = ['label' => 'Case Card', 'url' => ['view','No'=
     </div>
 
 
-<?php
+    <?php
 
-$script = <<<JS
+    $script = <<<JS
 
     $(function(){
       
@@ -407,9 +395,9 @@ $script = <<<JS
         
 JS;
 
-$this->registerJs($script);
+    $this->registerJs($script);
 
-$style = <<<CSS
+    $style = <<<CSS
     p span {
         margin-right: 50%;
         font-weight: bold;
@@ -447,4 +435,4 @@ $style = <<<CSS
     }
 CSS;
 
-$this->registerCss($style);
+    $this->registerCss($style);

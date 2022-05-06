@@ -70,6 +70,8 @@ return [
         'EmployeeExitManagement',
         'HRAPPRAISALMGT',
         'TRAININGMGT',
+        'GRIEVANCEMGT',
+        'HRInductionMgt',
 
     ],
     'ServiceName'=>[
@@ -473,16 +475,22 @@ return [
         'PeriodicInductionList' => 'PeriodicInductionList',//55101
         'IndividualHOD' => 'IndividualHOD', // 55106
         'PeriodHOD' => 'PeriodHOD',//55105
-        'HRAPPRAISALMGT' => 'HRAPPRAISALMGT', // 50209 -- Codeunit  
+        'EmployeeInductionQuestions' => 'EmployeeInductionQuestions', //55111
+        'InductionChoices' => 'InductionChoices', // 56025
+        'HRInductionMgt' => 'HRInductionMgt', // 50008 -- Codeunit  
 
          /********************Grievances***************************************/
 
          'GrievanceList' => 'GrievanceList', //60090
          'GrievanceCard' => 'GrievanceCard', //60091
+         'GrievanceWitnesses' => 'GrievanceWitnesses', //60095
          'HROGrievanceList' => 'HROGrievanceList', //60092
+         'HRMGrievanceList' => 'HRMGrievanceList', // 60094
+         'HOHGrievanceList' => 'HOHGrievanceList', // 60096
          'ClosedGrievanceList' => 'ClosedGrievanceList', // 60093
          'TypeofComplaints' => 'TypeofComplaints', //55120
          'OffenceSeverity' => 'OffenceSeverity', // 55123
+         'GRIEVANCEMGT' => 'GRIEVANCEMGT', // 50244
 
         /********************Disciplinary***************************************/
 
@@ -513,6 +521,7 @@ return [
         'GroupTrainingLine' => 'GroupTrainingLine', //56027 
         'GroupTrainingCard' => 'GroupTrainingCard', //56026
         'ProgramTraining' => 'ProgramTraining', //56028
+        'ProgramTrainingCard' => 'ProgramTrainingCard', //56029 
         'ProgramTrainingLine' => 'ProgramTrainingLine', //56030
         'TrainingApplicationsList' => 'TrainingApplicationsList', //56003
         'TrainingApplicationCard' => 'TrainingApplicationCard', //56004

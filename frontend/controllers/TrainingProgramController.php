@@ -10,6 +10,7 @@ namespace frontend\controllers;
 
 use frontend\models\Imprestcard;
 use frontend\models\Induction;
+use frontend\models\ProgramTraining;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\ContentNegotiator;
@@ -136,20 +137,20 @@ class TrainingProgramController extends Controller
     }
 
     public function actionView($No = '', $Key = ''){
-        $service = Yii::$app->params['ServiceName']['InductionCard'];
-        $model = new Induction();
+        $service = Yii::$app->params['ServiceName']['ProgramTrainingCard'];
+        $model = new ProgramTraining();
 
        // Get Document
        if(!empty($No))
        {
-           $document = Yii::$app->navhelper->findOne($service,'No',$No);
+        $document = Yii::$app->navhelper->findOne($service,['Application_No' => $No] );
        }elseif(!empty($Key)){
-           $document = Yii::$app->navhelper->readByKey($service,$Key);
+        $document = Yii::$app->navhelper->readByKey($service,$Key);
        }else{
           // Yii::$app->session->setFlash('error', 'We are unable to fetch the document', true);
            return $this->redirect(['index']);
        }
-
+      // Yii::$app->recruitment->printrr($document);
         //load nav result to model
         $model = Yii::$app->navhelper->loadmodel($document, $model);
 
@@ -161,10 +162,10 @@ class TrainingProgramController extends Controller
 
 
     public function actionList(){
-        $service = Yii::$app->params['ServiceName']['ProgramTrainingLine'];
+        $service = Yii::$app->params['ServiceName']['ProgramTraining'];
 
         $filter = [
-            //'Employee_No' => \Yii::$app->user->identity->{'Employee No_'},
+            //'Requester' => \Yii::$app->user->identity->{'Employee No_'},
         ];
         $records = \Yii::$app->navhelper->getData($service,$filter);
 
@@ -181,7 +182,7 @@ class TrainingProgramController extends Controller
                 ++$count;
                 $Deletelink = $updateLink = $viewLink =  '';
                 $updateLink = Html::a('<i class="fa fa-edit"></i>',['update','Key'=> $quali->Key ],['class'=>'update btn btn-outline-info btn-xs', 'title' => 'Update Record']);
-               
+                $viewLink = Html::a('<i class="fa fa-eye"></i>',['view','Key'=> $quali->Key ],['class'=>'btn btn-outline-info btn-xs mx-2', 'title' => 'View Document']);
                 $ApplyLink = ($quali->Status == 'New')?
                 Html::a('<i class="fa fa-check mx-1"></i> Apply',['apply'],[
                     'class'=>'apply btn btn-outline-info btn-xs mx-2',
@@ -189,7 +190,7 @@ class TrainingProgramController extends Controller
                     'data' => [
                         'params' => [
                             'groupNoCode' => $quali->Group_No ,
-                            'empNo' => $quali->Employee_No
+                            'empNo' => $quali->Requester
                         ],
                         'confirm' => 'Are you sure you want to apply ?',
                         'method' => 'post'
@@ -207,19 +208,17 @@ class TrainingProgramController extends Controller
                 $result['data'][] = [
                    
                     'Group_No' => !empty($quali->Group_No)?$quali->Group_No:'',
-                    'Employee_No' => !empty($quali->Employee_No)?$quali->Employee_No:'',
-                    'Employee_Name' => !empty($quali->Employee_Name)?$quali->Employee_Name:'',
-                    'Approved_Amount' => !empty($quali->Approved_Amount)?$quali->Approved_Amount:'',
-                    'Trainer' => !empty($quali->Trainer)?$quali->Trainer:'',                     
+                    'Target_Group' => !empty($quali->Target_Group)?$quali->Target_Group:'',
+                    'Total_No_of_Traininees' => !empty($quali->Total_No_of_Traininees)?$quali->Total_No_of_Traininees:'',
+                    'Trainer' => !empty($quali->Trainer)?$quali->Trainer:'',
                     'Nature_of_training' => !empty($quali->Nature_of_training)?$quali->Nature_of_training:'',                     
-                    'Training_Category' => !empty($quali->Training_Category)?$quali->Training_Category:'',                     
+                    'Training_Type' => !empty($quali->Training_Type)?$quali->Training_Type:'',                     
+                    'Training_Need' => !empty($quali->Training_Need)?$quali->Training_Need:'',                     
                     'Training_Need_Description' => !empty($quali->Training_Need_Description)?$quali->Training_Need_Description:'',                     
-                    'Institution' => !empty($quali->Institution)?$quali->Institution:'',                     
-                    'Venue' => !empty($quali->Venue)?$quali->Venue:'',                     
-                    'Expected_Start_Date' => !empty($quali->Expected_Start_Date)?$quali->Expected_Start_Date:'',                     
-                    'Expected_End_Date' => !empty($quali->Expected_End_Date)?$quali->Expected_End_Date:'',                     
+                    'Requester_Name' => !empty($quali->Requester_Name)?$quali->Requester_Name:'',                     
                     'Status' => !empty($quali->Status)?$quali->Status:'',                     
-                    'Action' => $ApplyLink                    
+                                      
+                    'Action' => $viewLink.$ApplyLink                    
                 ];
             
         }

@@ -8,12 +8,24 @@
 
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
+use yii\bootstrap4\Html as Bootstrap4Html;
 
 $this->title = 'Training - '.$model->Application_No;
 $this->params['breadcrumbs'][] = ['label' => 'Training Applications List', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => 'Training Card', 'url' => ['view','Key'=> $model->Key]];
 /** Status Sessions */
 $absoluteUrl = \yii\helpers\Url::home(true);
+$activeStatus = $HroActiveStatus = $lineManagerStatus = $HOHActiveStatus =  [];
+
+if($model->Status !== 'HRO'){
+    $HroActiveStatus = ['readonly' =>  true, 'disabled' => true];
+ }
+
+ if($model->Status !== 'Line_Manager'){ 
+    $lineManagerStatus = ['readonly' =>  true, 'disabled' => true];
+}
+
+
 ?>
 
 
@@ -82,7 +94,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
             ['
                     class' => 'mx-1 btn btn-app bg-danger rejectgoalsettingbyoverview',
                     'data-no' => $model->Application_No,
-                    'data-action' => $absoluteUrl.'training-approved/reject-hro',
+                    'data-action' => $absoluteUrl.'training-approved/rejection-linemanager',
                     'title' => 'Reject Training Application with Comments'
 
              ]);
@@ -165,15 +177,25 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                             <?= $form->field($model, 'Start_Date')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
                             <?= $form->field($model, 'End_Date')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
                             <?= $form->field($model, 'Period')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
-                            <?= $form->field($model, 'Recomended_Action')->dropdownList([
-                                '_blank_' => '_blank_',
-                                '_x0032__point_Increment' => 'Point Increment',
-                                'Promote_to_Higher_Position' => 'Promote to Higher Position',
-                                'Maintain_Current_Status' => 'Maintain Current Status',
-                            ],['prompt' => 'select ...']) ?>
 
-                            <?= $form->field($model, 'Line_Manager_Comments')->textarea(['rows'=> 2]) ?>
-                            <?= $form->field($model, 'Line_Manager_Rejection_Comment')->textarea(['rows'=> 2]) ?>
+                            
+
+
+
+
+                            <?= ($model->Status == 'Line_Manager')?
+                                                $form->field($model, 'Recomended_Action')->dropdownList([
+                                                    '_blank_' => '_blank_',
+                                                    '_x0032__point_Increment' => 'Point Increment',
+                                                    'Promote_to_Higher_Position' => 'Promote to Higher Position',
+                                                    'Maintain_Current_Status' => 'Maintain Current Status',
+                                                ],['prompt' => 'select ...']) :
+                                                $form->field($model, 'Recomended_Action')->textInput($lineManagerStatus)
+                            ?>
+
+
+                            <?= $form->field($model, 'Line_Manager_Comments')->textarea($lineManagerStatus) ?>
+                            <?= $form->field($model, 'Line_Manager_Rejection_Comment')->textarea(['rows'=> 2,'readonly' =>  true,'disabled' => true]) ?>
                             
                             
                             
@@ -187,23 +209,23 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                         
                     </div>
                     <div class="col-md-6">
-                        <?= $form->field($model, 'Key')->textInput(['readonly'=> true, 'disabled'=>true]) ?>        
+                               
                         <?= $form->field($model, 'Expected_Cost')->textInput(['readonly'=> true, 'disabled'=>true]) ?>        
                         <?= $form->field($model, 'Trainer')->textarea(['rows' => 2,'readonly'=> true, 'disabled'=>true]) ?>
-                        <?= $form->field($model, 'Exceeds_Expected_Trainees')->checkbox([$model->Exceeds_Expected_Trainees]) ?>        
+                        <?php $form->field($model, 'Exceeds_Expected_Trainees')->checkbox([$model->Exceeds_Expected_Trainees]) ?>        
                         <?= $form->field($model, 'Training_Start_Date')->textInput(['readonly'=> true, 'disabled'=>true]) ?>        
                         <?= $form->field($model, 'CPD_Approved_Cost')->textInput(['readonly'=> true]) ?>
                         <?= $form->field($model, 'Total_Cost')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
-                        <?= $form->field($model, 'HRO_No')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
+                        <?php $form->field($model, 'HRO_No')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
                         <?= $form->field($model, 'HRO_Name')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
-                        <?= $form->field($model, 'Line_Manager')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
+                        <?php $form->field($model, 'Line_Manager')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
                         <?= $form->field($model, 'Manager_Name')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
                         <?= $form->field($model, 'Approval_rejection_Comments')->textarea(['rows' => 1 ,'readonly'=> true, 'disabled'=>true]) ?> 
                         <?= $form->field($model, 'Nature_of_Training')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
                         <?= $form->field($model, 'Training_Type')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
                         <?= $form->field($model, 'Training_Category')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
                         
-                        <?= $form->field($model, 'HRO_Comments')->textarea(['rows'=> 2]) ?>
+                        <?= $form->field($model, 'HRO_Comments')->textarea($HroActiveStatus) ?>
                                
                             <p class="parent"><span>+</span>
 
@@ -217,7 +239,18 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                         </div>
                     </div>
 
+                    <?php if($model->Status == 'Approved' && $model->Employee_No == Yii::$app->user->identity->{'Employee No_'}): ?>
+                        <div class="card">
+                            <div class="card-header">
+                                <p class="card-title">Attachments</p>
+                            </div>
+                            <div class="card-body">
+                               <?= $form->field($model, 'attachment_one')->fileInput() ?>
 
+                               <?php $form->field($model, 'attachment_two')->fileInput() ?>
+                            </div>
+                        </div>
+                    <?php endif; ?>
 
 
                     <?php ActiveForm::end(); ?>
@@ -228,6 +261,40 @@ $absoluteUrl = \yii\helpers\Url::home(true);
             </div><!--end header card-->
 
 
+
+
+            
+             <!-- Attachments -->
+        <?php if(is_array($attachments) && count($attachments)):  //Yii::$app->recruitment->printrr($attachments); ?>
+            <div class="card card-info">
+                <div class="card-header">
+                    <h3 class="card-title">Files Attachments</h3>
+                </div>
+                <div class="card-body">
+                    <?php $i = 0; foreach($attachments as $file): ++$i; ?>
+                        
+
+                        <div class="my-2 file border border-info d-flex justify-content-around align-items-center rounded p-3">
+                            <p class="my-auto border rounded border-info bg-info p-2">Attachment <?= $i ?></p>
+                            <?= Bootstrap4Html::a('<i class="fas fa-file"></i> Open',['read'],[
+                                'class' => 'btn btn-info',
+                                'data' => [
+                                    'params' => [
+                                        'path' => $file->File_path,
+                                        'No' => $model->Application_No
+                                    ],
+                                    'method' => 'POST'
+                                ]
+                            ]) ?>
+                        </div>
+
+
+                    <?php endforeach; ?>
+                </div>
+                                
+            </div>
+        <?php endif; ?>
+            <!-- / Attachments -->
            
             <!-- Card Lines -->
 
@@ -353,6 +420,21 @@ $absoluteUrl = \yii\helpers\Url::home(true);
 $script = <<<JS
 
     $(function(){
+
+        $('#employeetraining-attachment_one').change(function(e){
+          globalUpload('DisciplinaryAttachments','EmployeeTraining','attachment_one','TrainingApplicationCard');
+          setTimeout(() => {
+                    //location.reload(true);
+                },1500);
+        });
+
+
+        $('#employeetraining-attachment_two').change(function(e){
+                globalUpload('DisciplinaryAttachments','EmployeeTraining','attachment_two','TrainingApplicationCard');
+                setTimeout(() => {
+                            //location.reload(true);
+                        },1500);
+        });
       
         
      /*Deleting Records*/

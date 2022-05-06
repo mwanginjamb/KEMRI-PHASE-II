@@ -164,7 +164,7 @@ class TrainingGroupController extends Controller
         $service = Yii::$app->params['ServiceName']['GroupTrainingLine'];
 
         $filter = [
-            //'Employee_No' => \Yii::$app->user->identity->{'Employee No_'},
+            'Employee_No' => \Yii::$app->user->identity->{'Employee No_'},
         ];
         $records = \Yii::$app->navhelper->getData($service,$filter);
 

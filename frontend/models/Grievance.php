@@ -24,19 +24,24 @@ public $Name;
 public $Date_of_grievance;
 public $Grievance_Type;
 public $Grievance_Description;
-public $Witness;
-public $Witness_Name;
+public $Witness_Type;
 public $Status;
 public $Rejection_Comments;
 public $HRO_Emp_No;
-public $isNewRecord;
-
 public $HRO_Findings;
 public $Complaint_Classification;
 public $Employee_Comments;
 public $Severity_of_grievance;
-public  $attachment;
-public $Witness_Type;
+public $HRM_Emp_No;
+public $HRM_Emp_Name;
+public $HRM_User_ID;
+public $HRM_Comment;
+public $HRM_Rejection_Comments;
+public $HRM_Findings;
+public $HOH_Findings;
+public $isNewRecord;
+public $attachment;
+
 
 
 
@@ -45,13 +50,15 @@ public $Witness_Type;
         return [
             [['attachment'],'file','mimeTypes' => Yii::$app->params['QualificationsMimeTypes']],
             [['attachment'],'file','maxSize' => '5120000'], //50mb
+
         ];
     }
 
     public function attributeLabels()
     {
         return [
-            'attachment' => 'Grievance Attachment (PDFs only)'
+            'attachment' => 'Grievance Attachment (PDFs only)',
+            'Name' => 'Offender Name'
         ];
     }
 
