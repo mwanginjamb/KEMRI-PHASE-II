@@ -142,7 +142,7 @@ use yii\bootstrap4\Html;
 ?>
 
 
-<?= ($model->Status == '') ? Html::a('<i class="fas fa-check"></i> Close ', ['close-grievance'], [
+<?= ($model->Status == 'HOH') ? Html::a('<i class="fas fa-check"></i> Close ', ['close-grievance'], [
     'class' => 'btn btn-app bg-warning mx-1',
     'data' => [
         'confirm' => 'Are you sure you want to close grievance?',
@@ -157,7 +157,7 @@ use yii\bootstrap4\Html;
 ?>
 
 
-<?= ($model->Status == 'HOH') ? Html::a('<i class="fas fa-backward"></i> Back to HRM ', ['back-to-hrm'], [
+<?= ($model->Status == '') ? Html::a('<i class="fas fa-backward"></i> Back to HRM ', ['back-to-hrm'], [
     'class' => 'btn btn-app bg-success mx-1',
     'data' => [
         'confirm' => 'Are you sure you want to send Document Back to HRM?',
