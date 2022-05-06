@@ -1,13 +1,8 @@
 <?php
 
 use yii\bootstrap4\Html;
-<<<<<<< HEAD
-?>
-=======
-
 ?>
 
->>>>>>> 80bc62c1689b6fd5d37839e66602088510c76b1d
 <?= ($model->Status == 'New' && $model->Employee_No == Yii::$app->user->identity->{'Employee No_'}) ? Html::a('<i class="fas fa-forward"></i>To HRO', ['send-to-hro'], [
     'class' => 'btn btn-app bg-success btn-success',
     'data' => [
@@ -19,15 +14,6 @@ use yii\bootstrap4\Html;
     ],
     'title' => 'Send Document to HRO for Acceptance'
 
-<<<<<<< HEAD
-]) : '' ?>
-
-
-<?= ($model->Status == 'HRO') ? Html::a('<i class="fas fa-forward"></i> To HoH.', ['send-to-hoh'], [
-    'class' => 'btn btn-app bg-success mx-1',
-    'data' => [
-        'confirm' => 'Are you sure you want to send this Document to HOH?',
-=======
 ]) : '';
 ?>
 
@@ -35,21 +21,14 @@ use yii\bootstrap4\Html;
     'class' => 'btn btn-app bg-success mx-1',
     'data' => [
         'confirm' => 'Are you sure you want to send this Document to HRM?',
->>>>>>> 80bc62c1689b6fd5d37839e66602088510c76b1d
         'params' => [
             'No' => $model->No,
         ],
         'method' => 'post',
     ],
-<<<<<<< HEAD
-    'title' => 'To HoH.'
-
-]) : ''
-=======
     'title' => 'To HRM.'
 
 ]) : '';
->>>>>>> 80bc62c1689b6fd5d37839e66602088510c76b1d
 
 
 ?>
@@ -66,11 +45,7 @@ use yii\bootstrap4\Html;
     ],
     'title' => 'Withdraw Grievance.'
 
-<<<<<<< HEAD
-]) : ''
-=======
 ]) : '';
->>>>>>> 80bc62c1689b6fd5d37839e66602088510c76b1d
 
 
 ?>
@@ -124,12 +99,6 @@ use yii\bootstrap4\Html;
 ?>
 
 
-<<<<<<< HEAD
-
-
-<?= ($model->Status == 'HOH') ? Html::a('<i class="fas fa-times"></i> Close ', ['close-grievance'], [
-    'class' => 'btn btn-app bg-success mx-1',
-=======
 <?= ($model->Status == 'HRM') ? Html::a('<i class="fas fa-forward"></i> To HoH ', ['send-to-hoh'], [
     'class' => 'btn btn-app bg-success mx-1',
     'data' => [
@@ -147,7 +116,6 @@ use yii\bootstrap4\Html;
 
 <?= ($model->Status == 'HOH') ? Html::a('<i class="fas fa-check"></i> Close ', ['close-grievance'], [
     'class' => 'btn btn-app bg-warning mx-1',
->>>>>>> 80bc62c1689b6fd5d37839e66602088510c76b1d
     'data' => [
         'confirm' => 'Are you sure you want to close grievance?',
         'params' => [
@@ -158,8 +126,6 @@ use yii\bootstrap4\Html;
     'title' => 'Close Grievance.'
 
 ]) : ''
-<<<<<<< HEAD
-=======
 ?>
 
 
@@ -175,5 +141,4 @@ use yii\bootstrap4\Html;
     'title' => 'Back to HRM.'
 
 ]) : ''
->>>>>>> 80bc62c1689b6fd5d37839e66602088510c76b1d
 ?>
