@@ -335,7 +335,7 @@ class TrainingApprovedController extends Controller
             //'Line_Manager' => \Yii::$app->user->identity->{'Employee No_'},
         ];
         $records = \Yii::$app->navhelper->getData($service, $filter);
-        return $records;
+        // return $records;
         $result = [];
         $count = 0;
 
