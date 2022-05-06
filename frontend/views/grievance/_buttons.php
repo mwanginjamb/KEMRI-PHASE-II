@@ -32,7 +32,7 @@ use yii\bootstrap4\Html;
 ]) : '';
 ?>
 
-<?= ($model->Status == 'New' || $model->Status == 'Awaiting_Consent' ||  $model->Status == 'Accepted') ? Html::a('<i class="fas fa-edit"></i>Update', ['update'], [
+<?= (Yii::$app->controller->action->id == 'view'  && ($model->Status == 'New' || $model->Status == 'Awaiting_Consent' ||  $model->Status == 'Accepted')) ? Html::a('<i class="fas fa-edit"></i>Edit', ['update'], [
     'class' => 'btn btn-app bg-info btn-success',
     'data' => [
         'params' => [
