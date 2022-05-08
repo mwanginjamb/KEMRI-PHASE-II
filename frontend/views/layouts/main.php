@@ -1121,7 +1121,7 @@ $employee = (!Yii::$app->user->isGuest && is_array(Yii::$app->user->identity->em
                                     <li class="nav-item">
                                         <a href="<?= $absoluteUrl ?>induction/individual-hod" class="nav-link <?= Yii::$app->recruitment->currentaction('induction', 'individual-hod') ? 'active' : '' ?>">
                                             <i class="fa fa-chart-line nav-icon"></i>
-                                            <p>Individual HOD List </p>
+                                            <p>Individual </p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
@@ -1287,6 +1287,13 @@ $employee = (!Yii::$app->user->isGuest && is_array(Yii::$app->user->identity->em
                                         <a href="<?= $absoluteUrl ?>grievance/hoh" class="nav-link <?= Yii::$app->recruitment->currentaction('grievance', 'hoh') ? 'active' : '' ?>">
                                             <i class="fa fa-chart-line nav-icon"></i>
                                             <p>HOH list </p>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a href="<?= $absoluteUrl ?>grievance/closed" class="nav-link <?= Yii::$app->recruitment->currentaction('grievance', 'closed') ? 'active' : '' ?>">
+                                            <i class="fa fa-chart-line nav-icon"></i>
+                                            <p>Closed list </p>
                                         </a>
                                     </li>
 

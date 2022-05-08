@@ -30,11 +30,14 @@ class Induction extends Model
     public $HOF_Comments;
     public $Action_Section;
     public $Action_ID;
-    public $isNewRecord;
-    public $Overall_Status;
-
     public $Hr_Overrall_Comments;
+    public $Overall_Status;
+    public $CEO_Emp_No;
+    public $HFO_Emp_No;
+    public $HOO_Emp_No;
     public $Employee_Overall_Comment;
+    public $isNewRecord;
+
 
     /*public function __construct(array $config = [])
     {

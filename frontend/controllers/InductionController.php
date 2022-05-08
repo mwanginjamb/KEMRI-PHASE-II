@@ -27,7 +27,7 @@ class InductionController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'signup', 'index', 'list', 'create', 'update', 'delete'],
+                'only' => ['logout', 'signup', 'index', 'list', 'create', 'update', 'delete', 'individual-hod'],
                 'rules' => [
                     [
                         'actions' => ['signup'],
@@ -35,7 +35,7 @@ class InductionController extends Controller
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['logout', 'index', 'list', 'create', 'update', 'delete'],
+                        'actions' => ['logout', 'index', 'list', 'create', 'update', 'delete', 'individual-hod'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -112,7 +112,7 @@ class InductionController extends Controller
         // Get Document
         if (!empty($No)) {
             $document = Yii::$app->navhelper->findOne($service, 'No', $No);
-        } elseif (!empty($Key)) {
+        } elseif ($Key) {
             $document = Yii::$app->navhelper->readByKey($service, $Key);
         } else {
             Yii::$app->session->setFlash('error', 'We are unable to fetch a document to update', true);
@@ -228,44 +228,46 @@ class InductionController extends Controller
         $service = Yii::$app->params['ServiceName']['IndividualHOD'];
 
         $filter = [
-            'Action_ID' => \Yii::$app->user->identity->{'Employee No_'},
+            // 'Action_ID' => \Yii::$app->user->identity->{'Employee No_'},
         ];
         $records = \Yii::$app->navhelper->getData($service, $filter);
-
+        //Yii::$app->recruitment->printrr($records);
         $result = [];
         $count = 0;
 
         foreach ($records as $quali) {
 
-            if (empty($quali->Key)) {
+            if (empty($quali->Key) || empty($quali->Action_ID)) {
                 continue;
             }
+            if ($quali->Action_ID == \Yii::$app->user->identity->{'Employee No_'} || $quali->Employee_No == \Yii::$app->user->identity->{'Employee No_'}) {
+                ++$count;
+                $Deletelink = $updateLink = $viewLink =  '';
+                $updateLink = ($quali->Overall_Status !== 'Closed') ? Html::a('<i class="fa fa-edit"></i>', ['update', 'Key' => $quali->Key], ['class' => 'update btn btn-outline-info btn-xs', 'title' => 'Update Record']) : '';
+                $viewLink = Html::a('<i class="fa fa-eye"></i>', ['view', 'Key' => $quali->Key], ['class' => 'btn btn-outline-info btn-xs mx-2', 'title' => 'View Document']);
 
-            ++$count;
-            $Deletelink = $updateLink = $viewLink =  '';
-            $updateLink = Html::a('<i class="fa fa-edit"></i>', ['update', 'Key' => $quali->Key], ['class' => 'update btn btn-outline-info btn-xs', 'title' => 'Update Record']);
-            $viewLink = Html::a('<i class="fa fa-eye"></i>', ['view', 'Key' => $quali->Key], ['class' => 'btn btn-outline-info btn-xs mx-2', 'title' => 'View Document']);
-
-            $Deletelink = Html::a('<i class="fa fa-trash"></i>', ['delete', 'Key' => $quali->Key], [
-                'class' => 'btn btn-outline-danger btn-xs text-danger',
-                'title' => 'Delete Record.',
-                'data' => [
-                    'confirm' => 'Are you sure you want to delete this record?',
-                    'method' => 'post',
-                ]
-            ]);
+                $Deletelink = Html::a('<i class="fa fa-trash"></i>', ['delete', 'Key' => $quali->Key], [
+                    'class' => 'btn btn-outline-danger btn-xs text-danger',
+                    'title' => 'Delete Record.',
+                    'data' => [
+                        'confirm' => 'Are you sure you want to delete this record?',
+                        'method' => 'post',
+                    ]
+                ]);
 
 
-            $result['data'][] = [
-                'index' => !empty($quali->No) ? $quali->No : '',
-                'Employee_No' => !empty($quali->Employee_No) ? $quali->Employee_No : '',
-                'Employee_Name' => !empty($quali->Employee_Name) ? $quali->Employee_Name : '',
-                'Global_Dimension_1_Code' => !empty($quali->Global_Dimension_1_Code) ? $quali->Global_Dimension_1_Code : '',
-                'Global_Dimension_2_Code' => !empty($quali->Global_Dimension_2_Code) ? $quali->Global_Dimension_2_Code : '',
-                'Status' => !empty($quali->Status) ? $quali->Status : '',
-                'Approval_Status' =>   !empty($quali->Approval_Status) ? $quali->Approval_Status : '',
-                'Action' => $updateLink . $viewLink . $Deletelink
-            ];
+                $result['data'][] = [
+                    'index' => !empty($quali->No) ? $quali->No : '',
+                    'Employee_No' => !empty($quali->Employee_No) ? $quali->Employee_No : '',
+                    'Employee_Name' => !empty($quali->Employee_Name) ? $quali->Employee_Name : '',
+                    'Global_Dimension_1_Code' => !empty($quali->Global_Dimension_1_Code) ? $quali->Global_Dimension_1_Code : '',
+                    'Global_Dimension_2_Code' => !empty($quali->Global_Dimension_2_Code) ? $quali->Global_Dimension_2_Code : '',
+                    'Overall_Status' => !empty($quali->Overall_Status) ? $quali->Overall_Status : '',
+                    'Approval_Status' =>   !empty($quali->Approval_Status) ? $quali->Approval_Status : '',
+                    'Action_Section' =>   !empty($quali->Action_Section) ? $quali->Action_Section : '',
+                    'Action' => $updateLink . $viewLink
+                ];
+            }
         }
         return $result;
     }
@@ -369,10 +371,10 @@ class InductionController extends Controller
 
         if (!is_string($result)) {
             Yii::$app->session->setFlash('success', 'Document Sent to Next Section Successfully.', true);
-            return $this->redirect(['update', 'Key' => $Key]);
+            return $this->redirect(['individual-hod']);
         } else {
             Yii::$app->session->setFlash('error', 'Error : ' . $result);
-            return $this->redirect(['index']);
+            return $this->redirect(['individual-hod']);
         }
     }
 
@@ -386,18 +388,18 @@ class InductionController extends Controller
 
         $data = [
             'inductionNo' => $No,
-            'approvalURL' => Yii::$app->urlManager->createAbsoluteUrl(['induction/view', 'Key' => $Key]),
+            'urLToSend' => Yii::$app->urlManager->createAbsoluteUrl(['induction/view', 'Key' => $Key]),
         ];
 
 
         $result = Yii::$app->navhelper->Codeunit($service, $data, 'IanSendInductionEmployee');
 
         if (!is_string($result)) {
-            Yii::$app->session->setFlash('success', 'Document Sent to Next Section Successfully.', true);
-            return $this->redirect(['update', 'Key' => $Key]);
+            Yii::$app->session->setFlash('success', 'Document Sent to Employee Successfully.', true);
+            return $this->redirect(['individual-hod']);
         } else {
             Yii::$app->session->setFlash('error', 'Error : ' . $result);
-            return $this->redirect(['index']);
+            return $this->redirect(['individual-hod']);
         }
     }
 
@@ -411,7 +413,7 @@ class InductionController extends Controller
 
         $data = [
             'inductionNo' => $No,
-            'approvalURL' => Yii::$app->urlManager->createAbsoluteUrl(['induction/view', 'Key' => $Key]),
+            'urLToSend' => Yii::$app->urlManager->createAbsoluteUrl(['induction/view', 'Key' => $Key]),
         ];
 
 
@@ -419,10 +421,10 @@ class InductionController extends Controller
 
         if (!is_string($result)) {
             Yii::$app->session->setFlash('success', 'Document Sent to Next Section Successfully.', true);
-            return $this->redirect(['update', 'Key' => $Key]);
+            return $this->redirect(['individual-hod']);
         } else {
             Yii::$app->session->setFlash('error', 'Error : ' . $result);
-            return $this->redirect(['index']);
+            return $this->redirect(['individual-hod']);
         }
     }
 
@@ -437,7 +439,7 @@ class InductionController extends Controller
 
         $data = [
             'inductionNo' => $No,
-            'approvalURL' => Yii::$app->urlManager->createAbsoluteUrl(['induction/view', 'Key' => $Key]),
+            'urLToSend' => Yii::$app->urlManager->createAbsoluteUrl(['induction/view', 'Key' => $Key]),
         ];
 
 
@@ -445,7 +447,7 @@ class InductionController extends Controller
 
         if (!is_string($result)) {
             Yii::$app->session->setFlash('success', 'Document Sent to Next Section Successfully.', true);
-            return $this->redirect(['update', 'Key' => $Key]);
+            return $this->redirect(['individual-hod']);
         } else {
             Yii::$app->session->setFlash('error', 'Error : ' . $result);
             return $this->redirect(['index']);
@@ -461,7 +463,7 @@ class InductionController extends Controller
 
         $data = [
             'inductionNo' => $No,
-            'approvalURL' => Yii::$app->urlManager->createAbsoluteUrl(['induction/view', 'Key' => $Key]),
+            'urLToSend' => Yii::$app->urlManager->createAbsoluteUrl(['induction/view', 'Key' => $Key]),
         ];
 
 
@@ -469,7 +471,7 @@ class InductionController extends Controller
 
         if (!is_string($result)) {
             Yii::$app->session->setFlash('success', 'Document Sent to Next Section Successfully.', true);
-            return $this->redirect(['update', 'Key' => $Key]);
+            return $this->redirect(['individual-hod']);
         } else {
             Yii::$app->session->setFlash('error', 'Error : ' . $result);
             return $this->redirect(['index']);
@@ -488,7 +490,7 @@ class InductionController extends Controller
 
         $data = [
             'inductionNo' => $No,
-            'approvalURL' => Yii::$app->urlManager->createAbsoluteUrl(['induction/view', 'Key' => $Key]),
+            'urLToSend' => Yii::$app->urlManager->createAbsoluteUrl(['induction/view', 'Key' => $Key]),
         ];
 
 
@@ -496,7 +498,7 @@ class InductionController extends Controller
 
         if (!is_string($result)) {
             Yii::$app->session->setFlash('success', 'Document Sent to Back to HR Successfully.', true);
-            return $this->redirect(['update', 'Key' => $Key]);
+            return $this->redirect(['individual-hod']);
         } else {
             Yii::$app->session->setFlash('error', 'Error : ' . $result);
             return $this->redirect(['index']);
@@ -513,7 +515,7 @@ class InductionController extends Controller
 
         $data = [
             'inductionNo' => $No,
-            'approvalURL' => Yii::$app->urlManager->createAbsoluteUrl(['induction/view', 'Key' => $Key]),
+            'urLToSend' => Yii::$app->urlManager->createAbsoluteUrl(['induction/view', 'Key' => $Key]),
         ];
 
 
@@ -521,14 +523,61 @@ class InductionController extends Controller
 
         if (!is_string($result)) {
             Yii::$app->session->setFlash('success', 'Quiz Answers Sent to HR Successfully.', true);
-            return $this->redirect(['update', 'Key' => $Key]);
+            return $this->redirect(['individual-hod']);
         } else {
             Yii::$app->session->setFlash('error', 'Error : ' . $result);
             return $this->redirect(['index']);
         }
     }
 
+    // Generate Quiz entries
 
+    public function actionGenerateQuiz()
+    {
+        $service = Yii::$app->params['ServiceName']['HRInductionMgt'];
+        $No = Yii::$app->request->post('No');
+        $employee_no = Yii::$app->request->post('Employee_No');
+
+        $data = [
+            'inductionNo' => $No,
+            'employeeNo' => $employee_no,
+        ];
+
+
+        $result = Yii::$app->navhelper->Codeunit($service, $data, 'IanGenerateInductionQuestions');
+
+        if (!is_string($result)) {
+            Yii::$app->session->setFlash('success', 'Quiz Answers Sent to HR Successfully.', true);
+            return $this->redirect(['individual-hod']);
+        } else {
+            Yii::$app->session->setFlash('error', 'Error : ' . $result);
+            return $this->redirect(['individual-hod']);
+        }
+    }
+
+    // Close induction
+
+    public function actionClose()
+    {
+        $service = Yii::$app->params['ServiceName']['HRInductionMgt'];
+        $No = Yii::$app->request->post('No');
+        $Key = Yii::$app->request->post('Key');
+
+        $data = [
+            'inductionNo' => $No
+        ];
+
+
+        $result = Yii::$app->navhelper->Codeunit($service, $data, 'IanCloseInduction');
+
+        if (!is_string($result)) {
+            Yii::$app->session->setFlash('success', 'Induction Closed Successfully.', true);
+            return $this->redirect(['individual-hod']);
+        } else {
+            Yii::$app->session->setFlash('error', 'Error : ' . $result);
+            return $this->redirect(['individual-hod']);
+        }
+    }
 
 
     /** Updates a single field */

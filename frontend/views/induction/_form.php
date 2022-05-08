@@ -12,7 +12,7 @@ use yii\bootstrap4\ActiveForm;
 
 $absoluteUrl = \yii\helpers\Url::home(true);
 //Yii::$app->recruitment->printrr($document);
-
+$hrStatus = $ceoStatus = $hooStatus = $hofStatus =  $employeeStatus = [];
 if ($model->Overall_Status !== 'HR') {
     $hrStatus = ['readonly' =>  true, 'disabled' => true];
 }
@@ -66,7 +66,9 @@ if ($model->Overall_Status !== 'Employee') {
             <div class="card-header">
                 <h3 class="card-title"><?= Html::encode($this->title) ?></h3>
                 <div class="card-tools">
-                    <p class="text"><span class="text-bold">Next Section >></span><b class="mx-1  text-primary"><?= $model->nextSection ?></b></p>
+                    <?php if ($model->IsThereNextSection() == true) : ?>
+                        <p class="text"><span class="text-bold">Next Section >></span><b class="mx-1  text-primary"><?= $model->nextSection ?></b></p>
+                    <?php endif; ?>
                 </div>
             </div>
 
@@ -145,16 +147,16 @@ if ($model->Overall_Status !== 'Employee') {
                                     <td></td>
                                     <!-- <td class="text-bold">Induction_No</td> -->
                                     <td class="text-bold">Section</td>
-                                    <td class="text-bold">Expected Start Date</td>
-                                    <td class="text-bold">Expected End Date</td>
-                                    <td class="text-bold">Expected Start Time</td>
-                                    <td class="text-bold">Expected End Time</td>
-                                    <td class="text-bold">Attended</td>
+                                    <td class="text-bold text-info">Expected Start Date</td>
+                                    <td class="text-bold text-info">Expected End Date</td>
+                                    <td class="text-bold text-info">Expected Start Time</td>
+                                    <td class="text-bold text-info">Expected End Time</td>
+                                    <td class="text-bold text-info">Attended</td>
 
-                                    <td class="text-bold">Reason for Failure</td>
+                                    <td class="text-bold text-info">Reason for Failure</td>
 
-                                    <td class="text-bold">Employee comments</td>
-                                    <td class="text-bold">Inductor Comments</td>
+                                    <!-- <td class="text-bold">Employee comments</td> -->
+                                    <td class="text-bold text-info">Inductor Comments</td>
 
                                     <!-- <td class="text-bold">Action</td> -->
 
@@ -182,7 +184,7 @@ if ($model->Overall_Status !== 'Employee') {
                                         <td data-key="<?= $obj->Key ?>" data-name="Expected_End_Time" data-service="InductionOverallIN" ondblclick="addInput(this,'time')"><?= !empty($obj->Expected_End_Time) ? Yii::$app->formatter->asTime($obj->Expected_End_Time) : '' ?></td>
                                         <td data-key="<?= $obj->Key ?>" data-name="Attended" data-service="InductionOverallIN" ondblclick="addDropDown(this,'attended')"><?= !empty($obj->Attended) ? $obj->Attended : '' ?></td>
                                         <td data-key="<?= $obj->Key ?>" data-name="Reason_for_Failure" data-service="InductionOverallIN" ondblclick="addInput(this)"><?= !empty($obj->Reason_for_Failure) ? $obj->Reason_for_Failure : '' ?></td>
-                                        <td data-key="<?= $obj->Key ?>" data-name="Employee_comments" data-service="InductionOverallIN" ondblclick="addInput(this)"><?= !empty($obj->Employee_comments) ? $obj->Employee_comments : '' ?></td>
+                                        <!-- <td data-key="<?= $obj->Key ?>" data-name="Employee_comments" data-service="InductionOverallIN" ondblclick="addInput(this)"><?= !empty($obj->Employee_comments) ? $obj->Employee_comments : '' ?></td> -->
                                         <td data-key="<?= $obj->Key ?>" data-name="Inductor_Comments" data-service="InductionOverallIN" ondblclick="addInput(this)"><?= !empty($obj->Inductor_Comments) ? $obj->Inductor_Comments : '' ?></td>
 
 
@@ -232,38 +234,38 @@ if ($model->Overall_Status !== 'Employee') {
 
 
         <!-- Induction Quiz -->
+        <?php if ($model->Overall_Status !== 'Induction' && $model->Overall_Status !== 'Employee') : ?>
+            <div class="card card-info">
+                <div class="card-header">
+                    <h3 class="card-title">Induction Quiz</h3>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <td>#</td>
+                                    <td class="text-bold">Question</td>
+                                    <td class="text-bold">Answer</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php if (property_exists($document->Employee_Induction_Questions, 'Employee_Induction_Questions')) : ?>
+                                    <?php foreach ($document->Employee_Induction_Questions->Employee_Induction_Questions as $obj) : ?>
+                                        <tr>
+                                            <td class="No"><?= !empty($obj->Question_Line_No) ? $obj->Question_Line_No : '' ?></td>
+                                            <td><?= !empty($obj->Question) ? $obj->Question : '' ?></td>
+                                            <td data-key="<?= $obj->Key ?>" data-name="Answer" data-service="EmployeeInductionQuestions" ondblclick="addDropDown(this,'choices',{'No':'No'})"><?= !empty($obj->Answer) ? $obj->Answer : '' ?></td>
 
-        <div class="card card-info">
-            <div class="card-header">
-                <h3 class="card-title">Induction Quiz</h3>
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <td>#</td>
-                                <td class="text-bold">Question</td>
-                                <td class="text-bold">Answer</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php if (property_exists($document->Employee_Induction_Questions, 'Employee_Induction_Questions')) : ?>
-                                <?php foreach ($document->Employee_Induction_Questions->Employee_Induction_Questions as $obj) : ?>
-                                    <tr>
-                                        <td class="No"><?= !empty($obj->Question_Line_No) ? $obj->Question_Line_No : '' ?></td>
-                                        <td><?= !empty($obj->Question) ? $obj->Question : '' ?></td>
-                                        <td data-key="<?= $obj->Key ?>" data-name="Answer" data-service="EmployeeInductionQuestions" ondblclick="addDropDown(this,'choices',{'No':'No'})"><?= !empty($obj->Answer) ? $obj->Answer : '' ?></td>
-
-                                    </tr>
-                                <?php endforeach; ?>
-                            <?php endif; ?>
-                        </tbody>
-                    </table>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-        </div>
-
+        <?php endif; ?>
         <!-- \ Induction Quiz -->
 
 
