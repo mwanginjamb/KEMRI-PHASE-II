@@ -1112,12 +1112,12 @@ $employee = (!Yii::$app->user->isGuest && is_array(Yii::$app->user->identity->em
                                 </a>
                                 <ul class="nav nav-treeview">
 
-                                    <li class="nav-item">
+                                    <!-- <li class="nav-item">
                                         <a href="<?= $absoluteUrl ?>induction" class="nav-link <?= Yii::$app->recruitment->currentaction('induction', 'index') ? 'active' : '' ?>">
                                             <i class="fa fa-chart-line nav-icon"></i>
                                             <p>Individual </p>
                                         </a>
-                                    </li>
+                                    </li> -->
                                     <li class="nav-item">
                                         <a href="<?= $absoluteUrl ?>induction/individual-hod" class="nav-link <?= Yii::$app->recruitment->currentaction('induction', 'individual-hod') ? 'active' : '' ?>">
                                             <i class="fa fa-chart-line nav-icon"></i>
