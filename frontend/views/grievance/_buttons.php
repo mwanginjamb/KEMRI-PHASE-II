@@ -17,7 +17,34 @@ use yii\bootstrap4\Html;
 ]) : '';
 ?>
 
-<?= ($model->Status == 'HRO') ? Html::a('<i class="fas fa-forward"></i> To HRM.', ['send-to-hrm'], [
+<?= ($model->Status == 'Awaiting_Consent') ? Html::a('<i class="fas fa-check"></i>Accept Withdrawal', ['accept-withdrawal'], [
+    'class' => 'btn btn-app bg-info btn-success',
+    'data' => [
+        'confirm' => 'Are you sure you want to Accept Grievance Withdrawal ?',
+        'params' => [
+            'No' => $model->No
+        ],
+        'method' => 'post',
+    ],
+    'title' => 'Accept Grievance withdrawal.'
+
+]) : '';
+?>
+
+<?= (Yii::$app->controller->action->id == 'view'  && ($model->Status == 'New' || $model->Status == 'Awaiting_Consent' ||  $model->Status == 'Accepted')) ? Html::a('<i class="fas fa-edit"></i>Edit', ['update'], [
+    'class' => 'btn btn-app bg-info btn-success',
+    'data' => [
+        'params' => [
+            'Key' => $model->Key
+        ],
+        'method' => 'get',
+    ],
+    'title' => 'Edit Document'
+
+]) : '';
+?>
+
+<?= ($model->Status == 'Accepted') ? Html::a('<i class="fas fa-forward"></i> To HRM.', ['send-to-hrm'], [
     'class' => 'btn btn-app bg-success mx-1',
     'data' => [
         'confirm' => 'Are you sure you want to send this Document to HRM?',
@@ -34,8 +61,8 @@ use yii\bootstrap4\Html;
 ?>
 
 
-<?= ($model->Status == 'HRO') ? Html::a('<i class="fas fa-times"></i> Withdraw.', ['withdraw'], [
-    'class' => 'btn btn-app bg-success mx-1',
+<?= ($model->Status == 'HRO' || $model->Status == 'HOH') ? Html::a('<i class="fas fa-times"></i> Withdraw.', ['withdraw'], [
+    'class' => 'btn btn-app bg-warning mx-1',
     'data' => [
         'confirm' => 'Are you sure you want to withdraw this grievance ?',
         'params' => [
@@ -66,7 +93,7 @@ use yii\bootstrap4\Html;
 ?>
 
 
-<?= ($model->Status == 'HRO') ? Html::a('<i class="fas fa-times"></i> Reject ', ['reject-grievance'], [
+<?= ($model->Status == '') ? Html::a('<i class="fas fa-times"></i> Reject ', ['reject-grievance'], [
     'class' => 'btn btn-app bg-success mx-1',
     'data' => [
         'confirm' => 'Are you sure you want to Accept this Grievance?',
@@ -84,7 +111,7 @@ use yii\bootstrap4\Html;
     
 
 
-<?= ($model->Status == 'Accepted') ? Html::a('<i class="fas fa-forward"></i> To Disciplinary ', ['convert-to-disciplinary'], [
+<?= ($model->Status == 'HOH') ? Html::a('<i class="fas fa-forward"></i> To Disciplinary ', ['convert-to-disciplinary'], [
     'class' => 'btn btn-app bg-success mx-1',
     'data' => [
         'confirm' => 'Are you sure you want to Convert this grievance to a disciplinary case?',
@@ -114,7 +141,7 @@ use yii\bootstrap4\Html;
 ?>
 
 
-<?= ($model->Status == 'HOH') ? Html::a('<i class="fas fa-check"></i> Close ', ['close-grievance'], [
+<?= ($model->Status == '') ? Html::a('<i class="fas fa-check"></i> Close ', ['close-grievance'], [
     'class' => 'btn btn-app bg-warning mx-1',
     'data' => [
         'confirm' => 'Are you sure you want to close grievance?',
@@ -129,7 +156,7 @@ use yii\bootstrap4\Html;
 ?>
 
 
-<?= ($model->Status == 'HOH') ? Html::a('<i class="fas fa-forward"></i> Back to HRM ', ['back-to-hrm'], [
+<?= ($model->Status == 'HOH') ? Html::a('<i class="fas fa-backward"></i> Back to HRM ', ['back-to-hrm'], [
     'class' => 'btn btn-app bg-success mx-1',
     'data' => [
         'confirm' => 'Are you sure you want to send Document Back to HRM?',

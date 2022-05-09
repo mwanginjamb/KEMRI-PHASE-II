@@ -1290,6 +1290,13 @@ $employee = (!Yii::$app->user->isGuest && is_array(Yii::$app->user->identity->em
                                         </a>
                                     </li>
 
+                                    <li class="nav-item">
+                                        <a href="<?= $absoluteUrl ?>grievance/closed" class="nav-link <?= Yii::$app->recruitment->currentaction('grievance', 'closed') ? 'active' : '' ?>">
+                                            <i class="fa fa-chart-line nav-icon"></i>
+                                            <p>Closed list </p>
+                                        </a>
+                                    </li>
+
 
                                 </ul>
                             </li>
