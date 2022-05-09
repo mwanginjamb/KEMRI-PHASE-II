@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: HP ELITEBOOK 840 G5
@@ -10,18 +11,18 @@ use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 use yii\bootstrap4\Html as Bootstrap4Html;
 
-$this->title = 'Training - '.$model->Application_No;
+$this->title = 'Training - ' . $model->Application_No;
 $this->params['breadcrumbs'][] = ['label' => 'Training Applications List', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => 'Training Card', 'url' => ['view','Key'=> $model->Key]];
+$this->params['breadcrumbs'][] = ['label' => 'Training Card', 'url' => ['view', 'Key' => $model->Key]];
 /** Status Sessions */
 $absoluteUrl = \yii\helpers\Url::home(true);
 $activeStatus = $HroActiveStatus = $lineManagerStatus = $HOHActiveStatus =  [];
 
-if($model->Status !== 'HRO'){
+if ($model->Status !== 'HRO') {
     $HroActiveStatus = ['readonly' =>  true, 'disabled' => true];
- }
+}
 
- if($model->Status !== 'Line_Manager'){ 
+if ($model->Status !== 'Line_Manager') {
     $lineManagerStatus = ['readonly' =>  true, 'disabled' => true];
 }
 
@@ -30,253 +31,266 @@ if($model->Status !== 'HRO'){
 
 
 <?php
-                    if(Yii::$app->session->hasFlash('success')){
-                        print ' <div class="alert alert-success alert-dismissable">
+if (Yii::$app->session->hasFlash('success')) {
+    print ' <div class="alert alert-success alert-dismissable">
                                  ';
-                        echo Yii::$app->session->getFlash('success');
-                        print '</div>';
-                    }else if(Yii::$app->session->hasFlash('error')){
-                        print ' <div class="alert alert-danger alert-dismissable">
+    echo Yii::$app->session->getFlash('success');
+    print '</div>';
+} else if (Yii::$app->session->hasFlash('error')) {
+    print ' <div class="alert alert-danger alert-dismissable">
                                  ';
-                        echo Yii::$app->session->getFlash('error');
-                        print '</div>';
-                    }
+    echo Yii::$app->session->getFlash('error');
+    print '</div>';
+}
 ?>
 
 <div class="row actions">
     <div class="col-md-4">
 
-        <?= ($model->Status == 'New')?Html::a('<i class="fas fa-paper-plane"></i> Send Approval Req',['send-for-approval'],['class' => 'btn btn-app submitforapproval',
+        <?= ($model->Status == 'New') ? Html::a('<i class="fas fa-paper-plane"></i> Send Approval Req', ['send-for-approval'], [
+            'class' => 'btn btn-app submitforapproval',
             'data' => [
                 'confirm' => 'Are you sure you want to send this request for approval?',
-                'params'=>[
-                    'No'=> $model->Application_No
+                'params' => [
+                    'No' => $model->Application_No
                 ],
                 'method' => 'post',
-        ],
+            ],
             'title' => 'Submit for Approval'
 
-        ]):'' ?>
+        ]) : '' ?>
 
 
     </div>
 
-    <?= ($model->Status == 'Approved')?Html::a('<i class="fas fa-forward"></i> To Ln Manager.',['send-to-lnmgr'],['class' => 'btn btn-app bg-success mx-1',
-                                'data' => [
-                                'confirm' => 'Are you sure want to send this document to line manager?',
-                                'params'=>[
-                                    'No'=> $model->Application_No,
-                                ],
-                                'method' => 'post',
-                            ],
-                                'title' => 'Send to Line Manager.'
-    
-                            ]):'' ?>
+    <?= ($model->Status == 'Approved') ? Html::a('<i class="fas fa-forward"></i> To Ln Manager.', ['send-to-lnmgr'], [
+        'class' => 'btn btn-app bg-success mx-1',
+        'data' => [
+            'confirm' => 'Are you sure want to send this document to line manager?',
+            'params' => [
+                'No' => $model->Application_No,
+            ],
+            'method' => 'post',
+        ],
+        'title' => 'Send to Line Manager.'
+
+    ]) : '' ?>
 
 
-    <?php 
-        if($model->Status == 'Line_Manager'){
+    <?php
+    if ($model->Status == 'Line_Manager') {
 
-            echo Html::a('<i class="fas fa-forward"></i> To HRO.',['send-to-hro'],['class' => 'btn btn-app bg-success mx-1',
-                                'data' => [
-                                'confirm' => 'Are you sure want to send this document to HRO?',
-                                'params'=>[
-                                    'No'=> $model->Application_No,
-                                ],
-                                'method' => 'post',
-                            ],
-                                'title' => 'Send to Line Manager.'
-    
-            ]);
+        echo Html::a('<i class="fas fa-forward"></i> To HRO.', ['send-to-hro'], [
+            'class' => 'btn btn-app bg-success mx-1',
+            'data' => [
+                'confirm' => 'Are you sure want to send this document to HRO?',
+                'params' => [
+                    'No' => $model->Application_No,
+                ],
+                'method' => 'post',
+            ],
+            'title' => 'Send to Line Manager.'
+
+        ]);
 
 
-            echo Html::a('<i class="fas fa-backward"></i>Send Back',['rejection-linemanager'],
-            ['
+        echo Html::a(
+            '<i class="fas fa-backward"></i>Send Back',
+            ['rejection-linemanager'],
+            [
+                '
                     class' => 'mx-1 btn btn-app bg-danger rejectgoalsettingbyoverview',
-                    'data-no' => $model->Application_No,
-                    'data-action' => $absoluteUrl.'training-approved/rejection-linemanager',
-                    'title' => 'Reject Training Application with Comments'
+                'data-no' => $model->Application_No,
+                'data-action' => $absoluteUrl . 'training-approved/rejection-linemanager',
+                'title' => 'Reject Training Application with Comments'
 
-             ]);
-
-        }
+            ]
+        );
+    }
     ?>
 
 
-<?php if($model->Status == 'HRO')
-    {
-        echo Html::a('<i class="fas fa-check"></i> Approve.',['approve-training-hro'],['class' => 'btn btn-app bg-success mx-1',
-                    'data' => [
-                    'confirm' => 'Are you sure want to approve this training attendance?',
-                    'params'=>[
-                        'No'=> $model->Application_No,
-                    ],
-                    'method' => 'post',
+    <?php if ($model->Status == 'HRO') {
+        echo Html::a('<i class="fas fa-check"></i> Approve.', ['approve-training-hro'], [
+            'class' => 'btn btn-app bg-success mx-1',
+            'data' => [
+                'confirm' => 'Are you sure want to approve this training attendance?',
+                'params' => [
+                    'No' => $model->Application_No,
                 ],
-                    'title' => 'Approve Training Attendance.'
+                'method' => 'post',
+            ],
+            'title' => 'Approve Training Attendance.'
         ]);
 
-        echo Html::a('<i class="fas fa-backward"></i>Send Back',['rejection-hro'],
-        ['
+        echo Html::a(
+            '<i class="fas fa-backward"></i>Send Back',
+            ['rejection-hro'],
+            [
+                '
                 class' => 'mx-1 btn btn-app bg-danger rejectgoalsettingbyoverview',
                 'data-no' => $model->Application_No,
-                'data-action' => $absoluteUrl.'training-approved/rejection-hro',
+                'data-action' => $absoluteUrl . 'training-approved/rejection-hro',
                 'title' => 'Reject and Send Training Application back to Line Manager with Comments'
 
-         ]);
+            ]
+        );
     }
     ?>
 </div>
 
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card-info">
-                <div class="card-header">
-                    <h3>Application Training Card </h3>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card-info">
+            <div class="card-header">
+                <h3>Application Training Card </h3>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+
+
+
+
+                <h3 class="card-title">Training No : <?= $model->Application_No ?></h3>
+
+
+
+            </div>
+            <div class="card-body">
+
+
+                <?php $form = ActiveForm::begin(); ?>
+
+
+                <div class="row">
+                    <div class=" row col-md-12">
+                        <div class="col-md-6">
+
+                            <?= $form->field($model, 'Application_No')->textInput(['readonly' => true]) ?>
+                            <?= $form->field($model, 'Key')->hiddenInput()->label(false) ?>
+                            <?= $form->field($model, 'Training_Need')->textInput(['readonly' => true]) ?>
+                            <?= $form->field($model, 'Date_of_Application')->textInput(['readonly' =>  true]) ?>
+                            <?= $form->field($model, 'Training_Calender')->textInput(['readonly' =>  true, 'disabled' => true]) ?>
+                            <?= $form->field($model, 'Training_Need_Description')->textInput(['readonly' => true, 'disabled' => true]) ?>
+                            <?= $form->field($model, 'Employee_Name')->textInput(['readonly' => true, 'disabled' => true]) ?>
+                            <?= $form->field($model, 'Job_Group')->textInput(['readonly' => true, 'disabled' => true]) ?>
+                            <?= $form->field($model, 'Job_Title')->textInput(['readonly' => true, 'disabled' => true]) ?>
+                            <?= $form->field($model, 'Status')->textInput(['readonly' => true, 'disabled' => true]) ?>
+                            <?= $form->field($model, 'Start_Date')->textInput(['readonly' => true, 'disabled' => true]) ?>
+                            <?= $form->field($model, 'End_Date')->textInput(['readonly' => true, 'disabled' => true]) ?>
+                            <?= $form->field($model, 'Period')->textInput(['readonly' => true, 'disabled' => true]) ?>
+
+
+
+
+
+
+                            <?= ($model->Status == 'Line_Manager') ?
+                                $form->field($model, 'Recomended_Action')->dropdownList([
+                                    '_blank_' => '_blank_',
+                                    '_x0032__point_Increment' => 'Point Increment',
+                                    'Promote_to_Higher_Position' => 'Promote to Higher Position',
+                                    'Maintain_Current_Status' => 'Maintain Current Status',
+                                ], ['prompt' => 'select ...']) :
+                                $form->field($model, 'Recomended_Action')->textInput($lineManagerStatus)
+                            ?>
+
+
+                            <?= $form->field($model, 'Line_Manager_Comments')->textarea($lineManagerStatus) ?>
+                            <?= $form->field($model, 'Line_Manager_Rejection_Comment')->textarea(['rows' => 2, 'readonly' =>  true, 'disabled' => true]) ?>
+
+
+
+                            <p class="parent"><span>+</span>
+
+
+
+
+                            </p>
+
+
+                        </div>
+                        <div class="col-md-6">
+
+                            <?= $form->field($model, 'Expected_Cost')->textInput(['readonly' => true, 'disabled' => true]) ?>
+                            <?= $form->field($model, 'Trainer')->textarea(['rows' => 2, 'readonly' => true, 'disabled' => true]) ?>
+                            <?php $form->field($model, 'Exceeds_Expected_Trainees')->checkbox([$model->Exceeds_Expected_Trainees]) ?>
+                            <?= $form->field($model, 'Training_Start_Date')->textInput(['readonly' => true, 'disabled' => true]) ?>
+                            <?= $form->field($model, 'CPD_Approved_Cost')->textInput(['readonly' => true]) ?>
+                            <?= $form->field($model, 'Total_Cost')->textInput(['readonly' => true, 'disabled' => true]) ?>
+                            <?php $form->field($model, 'HRO_No')->textInput(['readonly' => true, 'disabled' => true]) ?>
+                            <?= $form->field($model, 'HRO_Name')->textInput(['readonly' => true, 'disabled' => true]) ?>
+                            <?php $form->field($model, 'Line_Manager')->textInput(['readonly' => true, 'disabled' => true]) ?>
+                            <?= $form->field($model, 'Manager_Name')->textInput(['readonly' => true, 'disabled' => true]) ?>
+                            <?= $form->field($model, 'Approval_rejection_Comments')->textarea(['rows' => 1, 'readonly' => true, 'disabled' => true]) ?>
+                            <?= $form->field($model, 'Nature_of_Training')->textInput(['readonly' => true, 'disabled' => true]) ?>
+                            <?= $form->field($model, 'Training_Type')->textInput(['readonly' => true, 'disabled' => true]) ?>
+                            <?= $form->field($model, 'Training_Category')->textInput(['readonly' => true, 'disabled' => true]) ?>
+
+                            <?= $form->field($model, 'HRO_Comments')->textarea($HroActiveStatus) ?>
+
+                            <p class="parent"><span>+</span>
+
+
+
+                            </p>
+
+
+
+                        </div>
+                    </div>
                 </div>
+
+                <?php if ($model->Status == 'Approved' && $model->Employee_No == Yii::$app->user->identity->{'Employee No_'}) : ?>
+                    <div class="card">
+                        <div class="card-header">
+                            <p class="card-title">Attachments</p>
+                        </div>
+                        <div class="card-body">
+                            <?= $form->field($model, 'attachment_one')->fileInput() ?>
+
+                            <?php $form->field($model, 'attachment_two')->fileInput() ?>
+                        </div>
+                    </div>
+                <?php endif; ?>
+
+
+                <?php ActiveForm::end(); ?>
 
 
 
             </div>
         </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">
+        <!--end header card-->
 
 
 
 
-                    <h3 class="card-title">Training No : <?= $model->Application_No?></h3>
 
-
-
-                </div>
-                <div class="card-body">
-
-
-                    <?php $form = ActiveForm::begin(); ?>
-
-
-                    <div class="row">
-                        <div class=" row col-md-12">
-                            <div class="col-md-6">
-
-                            <?= $form->field($model, 'Application_No')->textInput(['readonly'=> true]) ?>
-                            <?= $form->field($model, 'Key')->hiddenInput()->label(false) ?>
-                            <?= $form->field($model, 'Training_Need')->textInput(['readonly'=> true]) ?>
-                            <?= $form->field($model, 'Date_of_Application')->textInput(['readonly' =>  true]) ?>
-                            <?= $form->field($model, 'Training_Calender')->textInput(['readonly' =>  true, 'disabled'=>true]) ?>
-                            <?= $form->field($model, 'Training_Need_Description')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
-                            <?= $form->field($model, 'Employee_Name')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
-                            <?= $form->field($model, 'Job_Group')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
-                            <?= $form->field($model, 'Job_Title')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
-                            <?= $form->field($model, 'Status')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
-                            <?= $form->field($model, 'Start_Date')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
-                            <?= $form->field($model, 'End_Date')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
-                            <?= $form->field($model, 'Period')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
-
-                            
-
-
-
-
-                            <?= ($model->Status == 'Line_Manager')?
-                                                $form->field($model, 'Recomended_Action')->dropdownList([
-                                                    '_blank_' => '_blank_',
-                                                    '_x0032__point_Increment' => 'Point Increment',
-                                                    'Promote_to_Higher_Position' => 'Promote to Higher Position',
-                                                    'Maintain_Current_Status' => 'Maintain Current Status',
-                                                ],['prompt' => 'select ...']) :
-                                                $form->field($model, 'Recomended_Action')->textInput($lineManagerStatus)
-                            ?>
-
-
-                            <?= $form->field($model, 'Line_Manager_Comments')->textarea($lineManagerStatus) ?>
-                            <?= $form->field($model, 'Line_Manager_Rejection_Comment')->textarea(['rows'=> 2,'readonly' =>  true,'disabled' => true]) ?>
-                            
-                            
-                            
-                            <p class="parent"><span>+</span>
-                            
-                            
-                            
-                            
-                        </p>
-                        
-                        
-                    </div>
-                    <div class="col-md-6">
-                               
-                        <?= $form->field($model, 'Expected_Cost')->textInput(['readonly'=> true, 'disabled'=>true]) ?>        
-                        <?= $form->field($model, 'Trainer')->textarea(['rows' => 2,'readonly'=> true, 'disabled'=>true]) ?>
-                        <?php $form->field($model, 'Exceeds_Expected_Trainees')->checkbox([$model->Exceeds_Expected_Trainees]) ?>        
-                        <?= $form->field($model, 'Training_Start_Date')->textInput(['readonly'=> true, 'disabled'=>true]) ?>        
-                        <?= $form->field($model, 'CPD_Approved_Cost')->textInput(['readonly'=> true]) ?>
-                        <?= $form->field($model, 'Total_Cost')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
-                        <?php $form->field($model, 'HRO_No')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
-                        <?= $form->field($model, 'HRO_Name')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
-                        <?php $form->field($model, 'Line_Manager')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
-                        <?= $form->field($model, 'Manager_Name')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
-                        <?= $form->field($model, 'Approval_rejection_Comments')->textarea(['rows' => 1 ,'readonly'=> true, 'disabled'=>true]) ?> 
-                        <?= $form->field($model, 'Nature_of_Training')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
-                        <?= $form->field($model, 'Training_Type')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
-                        <?= $form->field($model, 'Training_Category')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
-                        
-                        <?= $form->field($model, 'HRO_Comments')->textarea($HroActiveStatus) ?>
-                               
-                            <p class="parent"><span>+</span>
-
-
-
-                                </p>
-
-
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <?php if($model->Status == 'Approved' && $model->Employee_No == Yii::$app->user->identity->{'Employee No_'}): ?>
-                        <div class="card">
-                            <div class="card-header">
-                                <p class="card-title">Attachments</p>
-                            </div>
-                            <div class="card-body">
-                               <?= $form->field($model, 'attachment_one')->fileInput() ?>
-
-                               <?php $form->field($model, 'attachment_two')->fileInput() ?>
-                            </div>
-                        </div>
-                    <?php endif; ?>
-
-
-                    <?php ActiveForm::end(); ?>
-
-
-
-                </div>
-            </div><!--end header card-->
-
-
-
-
-            
-             <!-- Attachments -->
-        <?php if(is_array($attachments) && count($attachments)):  //Yii::$app->recruitment->printrr($attachments); ?>
+        <!-- Attachments -->
+        <?php if (is_array($attachments) && count($attachments)) :  //Yii::$app->recruitment->printrr($attachments); 
+        ?>
             <div class="card card-info">
                 <div class="card-header">
                     <h3 class="card-title">Files Attachments</h3>
                 </div>
                 <div class="card-body">
-                    <?php $i = 0; foreach($attachments as $file): ++$i; ?>
-                        
+                    <?php $i = 0;
+                    foreach ($attachments as $file) : ++$i; ?>
+
 
                         <div class="my-2 file border border-info d-flex justify-content-around align-items-center rounded p-3">
                             <p class="my-auto border rounded border-info bg-info p-2">Attachment <?= $i ?></p>
-                            <?= Bootstrap4Html::a('<i class="fas fa-file"></i> Open',['read'],[
+                            <?= Bootstrap4Html::a('<i class="fas fa-file"></i> Open', ['read'], [
                                 'class' => 'btn btn-info',
                                 'data' => [
                                     'params' => [
@@ -291,77 +305,78 @@ if($model->Status !== 'HRO'){
 
                     <?php endforeach; ?>
                 </div>
-                                
+
             </div>
         <?php endif; ?>
-            <!-- / Attachments -->
-           
-            <!-- Card Lines -->
+        <!-- / Attachments -->
 
-            <div class="card">
+        <!-- Card Lines -->
+
+        <div class="card">
             <div class="card-header">
                 <div class="card-title">
-                                    <h3>Training Cost Breakdown</h3>
+                    <h3>Training Cost Breakdown</h3>
                 </div>
-               
+
             </div>
 
             <div class="card-body">
-                <?php if(property_exists($document->Training_Cost_Breakdown,'Training_Cost_Breakdown')){ //show Lines ?>
+                <?php if (property_exists($document->Training_Cost_Breakdown, 'Training_Cost_Breakdown')) { //show Lines 
+                ?>
 
                     <div class="table-responsive">
                         <table class="table table-bordered">
                             <thead>
-                            <tr>
-                                <!-- <td></td> -->
-                               
-                                <td class="text-bold">Application_No</td>
-                                <td class="text-bold">Cost_Description</td>
-                                <td class="text-bold">Amount</td>
-                                                            
-                               
-                                
-                            </tr>
+                                <tr>
+                                    <!-- <td></td> -->
+
+                                    <td class="text-bold">Application_No</td>
+                                    <td class="text-bold">Cost_Description</td>
+                                    <td class="text-bold">Amount</td>
+
+
+
+                                </tr>
                             </thead>
                             <tbody>
-                            <?php
-                           
+                                <?php
 
-                            foreach($document->Training_Cost_Breakdown->Training_Cost_Breakdown as $obj):
-                                
-                                $deleteLink = Html::a('<i class="fa fa-trash"></i>',['delete-line' ],[
-                                    'class'=>'del btn btn-outline-danger btn-xs',
-                                    'data-key' => $obj->Key,
-                                    'data-service' => 'InductionOverallIN'
-                                ]);
+
+                                foreach ($document->Training_Cost_Breakdown->Training_Cost_Breakdown as $obj) :
+
+                                    $deleteLink = Html::a('<i class="fa fa-trash"></i>', ['delete-line'], [
+                                        'class' => 'del btn btn-outline-danger btn-xs',
+                                        'data-key' => $obj->Key,
+                                        'data-service' => 'InductionOverallIN'
+                                    ]);
                                 ?>
-                                <tr class="parent">
-                                    <!-- <td><span>+</span></td> -->
-                                    
-                                    <td data-key="<?= $obj->Key ?>" ><?= !empty($obj->Application_No)?$obj->Application_No:'' ?></td>
-                                    <td data-key="<?= $obj->Key ?>" ><?= !empty($obj->Cost_Description)?$obj->Cost_Description:'' ?></td>
-                                    <td data-key="<?= $obj->Key ?>" ><?= !empty($obj->Amount)? Yii::$app->formatter->asDecimal($obj->Amount):'' ?></td>
-                                    
-                                    
-                                    
-                                    <!-- <td><?= $deleteLink ?></td> -->
-                                </tr>
-                               
-                            <?php endforeach; ?>
+                                    <tr class="parent">
+                                        <!-- <td><span>+</span></td> -->
+
+                                        <td data-key="<?= $obj->Key ?>"><?= !empty($obj->Application_No) ? $obj->Application_No : '' ?></td>
+                                        <td data-key="<?= $obj->Key ?>"><?= !empty($obj->Cost_Description) ? $obj->Cost_Description : '' ?></td>
+                                        <td data-key="<?= $obj->Key ?>"><?= !empty($obj->Amount) ? Yii::$app->formatter->asDecimal($obj->Amount) : '' ?></td>
+
+
+
+                                        <!-- <td><?= $deleteLink ?></td> -->
+                                    </tr>
+
+                                <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>
-                   
+
                 <?php } ?>
             </div>
         </div>
 
-            <!-- End Lines Card -->
-          
+        <!-- End Lines Card -->
 
 
 
-            
+
+
 
 
 
@@ -400,32 +415,32 @@ if($model->Status !== 'HRO'){
 
     <div id="rejgoalsbyoverview" style="display: none">
 
-        <?= Html::beginForm(['training-approved/rejection-linemanager'],'post',['id'=>'reject-form']) ?>
+        <?= Html::beginForm(['training-approved/rejection-linemanager'], 'post', ['id' => 'reject-form']) ?>
 
-        <?= Html::textarea('comment','',['placeholder'=>'Rejection Comment','row'=> 4,'class'=>'form-control','required'=>true])?>
+        <?= Html::textarea('comment', '', ['placeholder' => 'Rejection Comment', 'row' => 4, 'class' => 'form-control', 'required' => true]) ?>
 
-        <?= Html::input('hidden','applicationNo','',['class'=> 'form-control']); ?>
-       
+        <?= Html::input('hidden', 'applicationNo', '', ['class' => 'form-control']); ?>
 
 
-        <?= Html::submitButton('submit',['class' => 'btn btn-warning','style'=>'margin-top: 10px']) ?>
+
+        <?= Html::submitButton('submit', ['class' => 'btn btn-warning', 'style' => 'margin-top: 10px']) ?>
 
         <?= Html::endForm() ?>
     </div>
 
     <!-- End Rejection Comment -->
     <input type="hidden" name="absolute" value="<?= $absoluteUrl ?>">
-<?php
+    <?php
 
-$script = <<<JS
+    $script = <<<JS
 
     $(function(){
 
         $('#employeetraining-attachment_one').change(function(e){
           globalUpload('DisciplinaryAttachments','EmployeeTraining','attachment_one','TrainingApplicationCard');
           setTimeout(() => {
-                    //location.reload(true);
-                },1500);
+                location.reload(true);
+                },200);
         });
 
 
@@ -555,9 +570,9 @@ $script = <<<JS
         
 JS;
 
-$this->registerJs($script);
+    $this->registerJs($script);
 
-$style = <<<CSS
+    $style = <<<CSS
     p span {
         margin-right: 50%;
         font-weight: bold;
@@ -595,4 +610,4 @@ $style = <<<CSS
     }
 CSS;
 
-$this->registerCss($style);
+    $this->registerCss($style);
