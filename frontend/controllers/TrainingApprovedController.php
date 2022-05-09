@@ -68,19 +68,11 @@ class TrainingApprovedController extends Controller
         ];
     }
 
-<<<<<<< HEAD
-    public function beforeAction($action) 
-    {         
-            $this->enableCsrfValidation = false; 
-            return parent::beforeAction($action);        
-        
-=======
     public function beforeAction($action)
     {
 
         $this->enableCsrfValidation = false;
         return parent::beforeAction($action);
->>>>>>> training
     }
 
     public function actionIndex()
