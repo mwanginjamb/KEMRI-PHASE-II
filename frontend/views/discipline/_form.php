@@ -85,6 +85,12 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                         </div>
 
                         <div class="col-md-6">
+                            <?= $form->field($model, 'attachment_multiple[]')->fileInput(['accept' => 'application/pdf', 'id' => 'select_multiple', 'multiple' => true]) ?>
+
+                            <div id="upload-note"></div>
+                            <div class="progress" id="progress_bar" style="display:none">
+                                <div class="progress-bar" id="progress_bar_process" role="progressbar" style="width:0%"></div>
+                            </div>
                             <?= $form->field($model, 'Offense_Description')->textInput(['readonly' => true, 'disabled' => true]) ?>
                             <?= $form->field($model, 'Witness')->textInput(['readonly' => true]) ?>
                             <?= $form->field($model, 'Witness_Name')->textInput(['readonly' =>  true]) ?>
@@ -140,6 +146,10 @@ $('#discipline-policy_violated').change((e) => {
 
 $('#discipline-disciplinary_findings').change((e) => {
         globalFieldUpdate('discipline',false,'Disciplinary_Findings', e);
+});
+
+$('#select_multiple').change(function(e){
+          globalUploadMultiple('DisciplinaryAttachments','discipline','discipline','DisciplinaryCard');
 });
 
 

@@ -256,7 +256,7 @@ $('#grievance-attachment').change(function(e){
           globalUpload('DisciplinaryAttachments','grievance','attachment');
           setTimeout(() => {
                     location.reload(true);
-                },1000);
+                },500);
 });
 
 $('#grievance-hro_findings').change((e) => {
