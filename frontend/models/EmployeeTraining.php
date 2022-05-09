@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: HP ELITEBOOK 840 G5
@@ -7,6 +8,7 @@
  */
 
 namespace frontend\models;
+
 use yii\base\Model;
 use Yii;
 
@@ -53,15 +55,16 @@ class EmployeeTraining extends Model
     public function rules()
     {
         return [
-            [['attachment_one','attachment_two'],'file','mimeTypes' => Yii::$app->params['QualificationsMimeTypes']],
-            [['attachment_one','attachment_two'],'file','maxSize' => '5120000'], //50mb
+            [['attachment_one', 'attachment_two'], 'file', 'mimeTypes' => Yii::$app->params['QualificationsMimeTypes']],
+            [['attachment_one', 'attachment_two'], 'file', 'maxSize' => '5120000'], //50mb
         ];
     }
 
     public function attributeLabels()
     {
         return [
-            'attachment_one' => 'Training Attachment (PDF)'
+            'attachment_one' => 'Training Attachment (PDF)',
+            'Total_Cost' => 'Extra Cost'
         ];
     }
 }
