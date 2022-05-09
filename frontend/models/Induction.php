@@ -56,13 +56,27 @@ public $isNewRecord;
 
     public function getnextSection()
     {
-        $service = Yii::$app->params['ServiceName']['HRAPPRAISALMGT'];
+        $service = Yii::$app->params['ServiceName']['HRInductionMgt'];
         $data = [
             'inductionNo' => $this->No
         ];
 
         $result = Yii::$app->navhelper->Codeunit($service,$data,'IanFindNextSection');
         return ucwords($result['return_value']);
+    }
+
+    // Get Overall Lines
+
+    public function getOverallLines($No)
+    {
+            $filter = [
+                'Section' => $this->Action_Section,
+                'Induction_No' => $this->No
+            ];
+            $service = Yii::$app->params['ServiceName']['InductionOverallIN'];
+            $lines = Yii::$app->navhelper->getData($service, $filter);
+
+            return $lines;
     }
 
     // Get Induction Items -  nested inside Overall Items

@@ -58,6 +58,13 @@ class InductionController extends Controller
         ];
     }
 
+    public function beforeAction($action) 
+    {         
+            $this->enableCsrfValidation = false; 
+            return parent::beforeAction($action);        
+        
+    }
+
     public function actionIndex(){
 
         return $this->render('index');
@@ -278,6 +285,20 @@ class InductionController extends Controller
         return $data;
     }
 
+    public function actionChoices()
+    {
+        $data = file_get_contents('php://input');
+        $params = json_decode($data);
+       
+        $filter = [
+            'Question_Line_No' => $params->No
+        ];
+        $data = Yii::$app->navhelper->dropdown('InductionChoices','Answer','Answer',$filter);
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        return $data;
+
+    }
+
 
     
 
@@ -336,7 +357,7 @@ class InductionController extends Controller
 
     public function actionNextSection()
     {
-        $service = Yii::$app->params['ServiceName']['HRAPPRAISALMGT'];
+        $service = Yii::$app->params['ServiceName']['HRInductionMgt'];
         $No = Yii::$app->request->post('No');
         $Key = Yii::$app->request->post('Key');
 

@@ -8,7 +8,7 @@
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 $absoluteUrl = \yii\helpers\Url::home(true);
- //Yii::$app->recruitment->printrr(Yii::$app->user->identity->{'Employee No_'});
+//Yii::$app->recruitment->printrr($document);
 
 ?>
 
@@ -173,7 +173,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                             <?php
                            
 
-                            foreach($document->Employee_Induction_Overall_In->Employee_Induction_Overall_In as $obj):
+                            foreach($model->getOverallLines($model->No) as $obj):
                                 
                                 $deleteLink = Html::a('<i class="fa fa-trash"></i>',['delete-line' ],[
                                     'class'=>'del btn btn-outline-danger btn-xs',
@@ -237,6 +237,43 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                 <?php } ?>
             </div>
         </div>
+        <!-- \ Induction Lines -->
+
+
+        <!-- Induction Quiz -->
+
+            <div class="card card-info">
+                <div class="card-header">
+                    <h3 class="card-title">Induction Quiz</h3>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <td>#</td>
+                                        <td class="text-bold">Question</td>
+                                        <td class="text-bold">Answer</td>
+                                    </tr>
+                                </thead> 
+                                <tbody>
+                                    <?php if(property_exists($document->Employee_Induction_Questions,'Employee_Induction_Questions')): ?>
+                                        <?php foreach($document->Employee_Induction_Questions->Employee_Induction_Questions as $obj): ?>
+                                            <tr>
+                                                <td class="No"><?= !empty($obj->Question_Line_No)?$obj->Question_Line_No:'' ?></td>
+                                                <td><?= !empty($obj->Question)?$obj->Question:'' ?></td>
+                                                <td data-key="<?= $obj->Key ?>" data-name="Answer" data-service="EmployeeInductionQuestions" ondblclick="addDropDown(this,'choices',{'No':'No'})"><?= !empty($obj->Answer)?$obj->Answer:'' ?></td>
+
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
+                                </tbody>                   
+                        </table>
+                    </div>
+                </div>
+            </div>                                
+
+        <!-- \ Induction Quiz -->
 
 
 

@@ -1,91 +1,69 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: HP ELITEBOOK 840 G5
  * Date: 2/24/2020
  * Time: 12:13 PM
  */
+
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
+
 $absoluteUrl = \yii\helpers\Url::home(true);
- //Yii::$app->recruitment->printrr(Yii::$app->user->identity->{'Employee No_'});
+//Yii::$app->recruitment->printrr(Yii::$app->user->identity->{'Employee No_'});
 
 ?>
 
 
-                       <?php if(Yii::$app->session->hasFlash('success')): ?>
-                            <div class="alert alert-success"><?= Yii::$app->session->getFlash('success')?></div>
-                        <?php endif; ?>
+<?php if (Yii::$app->session->hasFlash('success')) : ?>
+    <div class="alert alert-success"><?= Yii::$app->session->getFlash('success') ?></div>
+<?php endif; ?>
 
-                    <?php if(Yii::$app->session->hasFlash('error')): ?>
-                        <div class="alert alert-danger"><?= Yii::$app->session->getFlash('error')?></div>
-                    <?php endif; ?>
-                
+<?php if (Yii::$app->session->hasFlash('error')) : ?>
+    <div class="alert alert-danger"><?= Yii::$app->session->getFlash('error') ?></div>
+<?php endif; ?>
+
 
 <div class="card">
     <div class="actions card-body">
-                         <?= ($model->Status == 'Inductee' && $model->Employee_No == Yii::$app->user->identity->{'Employee No_'}  )?Html::a('<i class="fas fa-forward"></i>Next Section',['next-section','employeeNo' => Yii::$app->user->identity->employee[0]->No],['class' => 'btn btn-app bg-success btn-success submitforapproval',
-                                'data' => [
-                                    'confirm' => 'Are you sure you want to send induction to next section?',
-                                    'params'=>[
-                                        'No'=> $model->No,
-                                        'Key' => $model->Key,
-                                    ],
-                                    'method' => 'post',
-                            ],
-                                'title' => 'Send Induction To Next Section.'
-    
-                            ]):'' ?>
-    
-    
-                            <?= ($model->Status == 'Inductor' && $model->Employee_No == Yii::$app->user->identity->{'Employee No_'})?Html::a('<i class="fas fa-check"></i> Approve.',['approve-induction'],['class' => 'btn btn-app bg-success mx-1',
-                                'data' => [
-                                'confirm' => 'Are you sure you want to approve this document?',
-                                'params'=>[
-                                    'No'=> $model->No,
-                                ],
-                                'method' => 'get',
-                            ],
-                                'title' => 'Approve Document.'
-    
-                            ]):'' ?>
+        <?= ($model->Status == 'New') ? Html::a('<i class="fas fa-times"></i> Close Case', ['close-case'], [
+            'class' => 'btn btn-app bg-success mx-1',
+            'data' => [
+                'confirm' => 'Are you sure you want to close this case?',
+                'params' => [
+                    'No' => $model->No,
+                ],
+                'method' => 'get',
+            ],
+            'title' => 'Close Disciplinary Case.'
 
-                            <?= ($model->Status == 'Inductee' && $model->Employee_No == Yii::$app->user->identity->{'Employee No_'})?Html::a('<i class="fas fa-paper-plane"></i> Send Approval Req',['send-for-approval'],['class' => 'btn btn-app submitforapproval',
-                                'data' => [
-                                    'confirm' => 'Are you sure you want to send imprest request for approval?',
-                                    'params'=>[
-                                        'No'=> $model->No
-                                    ],
-                                    'method' => 'get',
-                            ],
-                                'title' => 'Submit for Approval'
+        ]) : '' ?>
 
-                            ]):'' ?>
-    
-    
-                            
+
+
     </div>
 
 </div>
 
-               
+
 
 <div class="row">
-    
+
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title"><?= Html::encode($this->title) ?></h3>
-               
-           </div>
+
+            </div>
 
             <div class="card-body">
 
 
 
-        <?php
+                <?php
 
-            $form = ActiveForm::begin(); ?>
+                $form = ActiveForm::begin(); ?>
                 <div class="row">
                     <div class="row col-md-12">
 
@@ -93,40 +71,40 @@ $absoluteUrl = \yii\helpers\Url::home(true);
 
                         <div class="col-md-6">
 
-                            <?= $form->field($model, 'No')->textInput(['readonly'=> true]) ?>
+                            <?= $form->field($model, 'No')->textInput(['readonly' => true]) ?>
                             <?= $form->field($model, 'Key')->hiddenInput()->label(false) ?>
-                            <?= $form->field($model, 'Employee_No')->textInput(['readonly'=> true]) ?>
+                            <?= $form->field($model, 'Employee_No')->textInput(['readonly' => true]) ?>
                             <?= $form->field($model, 'Employee_Name')->textInput(['readonly' =>  true]) ?>
-                            <?= $form->field($model, 'Global_Dimension_1_Code')->textInput(['readonly' =>  true, 'disabled'=>true]) ?>
-                            <?= $form->field($model, 'Global_Dimension_2_Code')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
-                            <?= $form->field($model, 'Offender')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
-                            <?= $form->field($model, 'Name_of_Offender')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
-                            <?= $form->field($model, 'Type_of_Offense')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
-                            
-                            
+                            <?= $form->field($model, 'Global_Dimension_1_Code')->textInput(['readonly' =>  true, 'disabled' => true]) ?>
+                            <?= $form->field($model, 'Global_Dimension_2_Code')->textInput(['readonly' => true, 'disabled' => true]) ?>
+                            <?= $form->field($model, 'Offender')->textInput(['readonly' => true, 'disabled' => true]) ?>
+                            <?= $form->field($model, 'Name_of_Offender')->textInput(['readonly' => true, 'disabled' => true]) ?>
+                            <?= $form->field($model, 'Type_of_Offense')->textInput(['readonly' => true, 'disabled' => true]) ?>
+
+
                         </div>
-                        
+
                         <div class="col-md-6">
-                            <?= $form->field($model, 'Offense_Description')->textInput(['readonly'=> true, 'disabled'=>true]) ?>        
+                            <?= $form->field($model, 'Offense_Description')->textInput(['readonly' => true, 'disabled' => true]) ?>
                             <?= $form->field($model, 'Witness')->textInput(['readonly' => true]) ?>
-                            <?= $form->field($model, 'Witness_Name')->textInput(['readonly' =>  true]) ?>        
-                            <?= $form->field($model, 'Policy_Violated')->textarea(['rows'=> 2]) ?>        
-                            <?= $form->field($model, 'Disciplinary_Findings')->textarea(['rows'=> 2]) ?>
-                            <?= $form->field($model, 'Verdict')->textarea(['rows'=> 2]) ?> 
-                            <?= $form->field($model, 'Surcharge_Employee')->checkbox([$model->Surcharge_Employee]) ?> 
-                            <?= $form->field($model, 'Amount')->textInput(['type'=> 'number']) ?> 
-                            <?= $form->field($model, 'Status')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
+                            <?= $form->field($model, 'Witness_Name')->textInput(['readonly' =>  true]) ?>
+                            <?= $form->field($model, 'Policy_Violated')->textarea(['rows' => 2]) ?>
+                            <?= $form->field($model, 'Disciplinary_Findings')->textarea(['rows' => 2]) ?>
+                            <?= $form->field($model, 'Verdict')->textarea(['rows' => 2]) ?>
+                            <?= $form->field($model, 'Surcharge_Employee')->checkbox([$model->Surcharge_Employee]) ?>
+                            <?= $form->field($model, 'Amount')->textInput(['type' => 'number']) ?>
+                            <?= $form->field($model, 'Status')->textInput(['readonly' => true, 'disabled' => true]) ?>
 
 
                         </div>
-                  
+
 
 
 
                     </div>
                 </div>
 
-               
+
 
                 <?php ActiveForm::end(); ?>
             </div>
