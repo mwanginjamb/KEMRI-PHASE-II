@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: HP ELITEBOOK 840 G5
@@ -9,261 +10,222 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-$this->title = 'Induction - '.$model->No;
-$this->params['breadcrumbs'][] = ['label' => 'Induction List', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => 'Period Induction Card', 'url' => ['view','No'=> $model->No]];
+$this->title = 'Induction - ' . $model->No;
+$this->params['breadcrumbs'][] = ['label' => 'Periodic Induction List', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Period Induction Card', 'url' => ['view', 'No' => $model->No]];
 /** Status Sessions */
 
 ?>
 
 
 <?php
-                    if(Yii::$app->session->hasFlash('success')){
-                        print ' <div class="alert alert-success alert-dismissable">
+if (Yii::$app->session->hasFlash('success')) {
+    print ' <div class="alert alert-success alert-dismissable">
                                  ';
-                        echo Yii::$app->session->getFlash('success');
-                        print '</div>';
-                    }else if(Yii::$app->session->hasFlash('error')){
-                        print ' <div class="alert alert-danger alert-dismissable">
+    echo Yii::$app->session->getFlash('success');
+    print '</div>';
+} else if (Yii::$app->session->hasFlash('error')) {
+    print ' <div class="alert alert-danger alert-dismissable">
                                  ';
-                        echo Yii::$app->session->getFlash('error');
-                        print '</div>';
-                    }
+    echo Yii::$app->session->getFlash('error');
+    print '</div>';
+}
 ?>
 
 <div class="row actions">
-    <div class="col-md-4">
-
-        <?= ($model->Status == 'Inductee')?Html::a('<i class="fas fa-paper-plane"></i> Send Approval Req',['send-for-approval'],['class' => 'btn btn-app submitforapproval',
-            'data' => [
-                'confirm' => 'Are you sure you want to send imprest request for approval?',
-                'params'=>[
-                    'No'=> $model->No
-                ],
-                'method' => 'get',
-        ],
-            'title' => 'Submit for Approval'
-
-        ]):'' ?>
-
-
-    </div>
-
-    <?= ($model->Status == 'Inductor' && $model->Action_ID == Yii::$app->user->identity->{'Employee No_'})?Html::a('<i class="fas fa-check"></i> Approve.',['approve-induction'],['class' => 'btn btn-app bg-success mx-1',
-                                'data' => [
-                                'confirm' => 'Are you sure you want to approve this document?',
-                                'params'=>[
-                                    'No'=> $model->No,
-                                ],
-                                'method' => 'get',
-                            ],
-                                'title' => 'Approve Document.'
-    
-                            ]):'' ?>
+    <?= $this->render('_buttons', ['model' => $model]); ?>
 </div>
 
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card-info">
-                <div class="card-header">
-                    <h3>Induction Card </h3>
-                </div>
-
-
-
+<div class="row">
+    <div class="col-md-12">
+        <div class="card-info">
+            <div class="card-header">
+                <h3>Periodic Induction Card </h3>
             </div>
         </div>
     </div>
+</div>
 
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Induction No : <?= $model->No ?></h3>
+            </div>
+            <div class="card-body">
+                <?php $form = ActiveForm::begin(); ?>
+                <div class="row">
+                    <div class=" row col-md-12">
+                        <div class="col-md-6">
 
-
-
-
-                    <h3 class="card-title">Induction No : <?= $model->No?></h3>
-
-
-
-                </div>
-                <div class="card-body">
-
-
-                    <?php $form = ActiveForm::begin(); ?>
-
-
-                    <div class="row">
-                        <div class=" row col-md-12">
-                            <div class="col-md-6">
-
-                            <?= $form->field($model, 'No')->textInput(['readonly'=> true]) ?>
+                            <?= $form->field($model, 'No')->textInput(['readonly' => true]) ?>
                             <?= $form->field($model, 'Key')->hiddenInput()->label(false) ?>
-                            <?= $form->field($model, 'Employee_No')->textInput(['readonly'=> true]) ?>
+                            <?= $form->field($model, 'Employee_No')->textInput(['readonly' => true]) ?>
                             <?= $form->field($model, 'Employee_Name')->textInput(['readonly' =>  true]) ?>
-                            <?= $form->field($model, 'Global_Dimension_1_Code')->textInput(['readonly' =>  true, 'disabled'=>true]) ?>
-                            <?= $form->field($model, 'Global_Dimension_2_Code')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
-                            <?= $form->field($model, 'Global_Dimension_3_Code')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
+                            <?= $form->field($model, 'Global_Dimension_1_Code')->textInput(['readonly' =>  true, 'disabled' => true]) ?>
+                            <?= $form->field($model, 'Global_Dimension_2_Code')->textInput(['readonly' => true, 'disabled' => true]) ?>
+                            <?= $form->field($model, 'Global_Dimension_3_Code')->textInput(['readonly' => true, 'disabled' => true]) ?>
 
 
-                                <p class="parent"><span>+</span>
-
-
-
-
-                                </p>
-
-
-                            </div>
-                            <div class="col-md-6">
-                            <?= $form->field($model, 'Status')->textInput(['readonly'=> true, 'disabled'=>true]) ?>        
-                            <?= $form->field($model, 'CEO_Comments')->textarea(['rows' => 2,'readonly'=> true, 'disabled'=>true]) ?>
-                            <?= $form->field($model, 'HOO_Comments')->textarea(['rows' => 2,'readonly'=> true, 'disabled'=>true]) ?>        
-                            <?= $form->field($model, 'HOF_Comments')->textarea(['rows'=> 2,'readonly'=> true, 'disabled'=>true]) ?>        
-                            <?= $form->field($model, 'Action_Section')->textInput(['readonly'=> true]) ?>
-                            <?= $form->field($model, 'Action_ID')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
-                               
                             <p class="parent"><span>+</span>
 
 
 
-                                </p>
+
+                            </p>
+
+
+                        </div>
+                        <div class="col-md-6">
+                            <?= $form->field($model, 'Overall_Status')->textInput(['readonly' => true, 'disabled' => true]) ?>
+                            <?= $form->field($model, 'CEO_Comments')->textarea(['rows' => 2, 'readonly' => true, 'disabled' => true]) ?>
+                            <?= $form->field($model, 'HOO_Comments')->textarea(['rows' => 2, 'readonly' => true, 'disabled' => true]) ?>
+                            <?= $form->field($model, 'HOF_Comments')->textarea(['rows' => 2, 'readonly' => true, 'disabled' => true]) ?>
+                            <?= $form->field($model, 'Action_Section')->textInput(['readonly' => true]) ?>
+                            <?= $form->field($model, 'Action_ID')->textInput(['readonly' => true, 'disabled' => true]) ?>
+
+                            <p class="parent"><span>+</span>
 
 
 
-                            </div>
+                            </p>
+
+
+
                         </div>
                     </div>
-
-
-
-
-                    <?php ActiveForm::end(); ?>
-
-
-
                 </div>
-            </div><!--end header card-->
 
 
-           
-            <!-- Card Lines -->
 
-            <div class="card">
+
+                <?php ActiveForm::end(); ?>
+
+
+
+            </div>
+        </div>
+        <!--end header card-->
+
+
+
+        <!-- Card Lines -->
+
+        <div class="card">
             <div class="card-header">
                 <div class="card-title">
-                                    <h3>Employee Induction Lines</h3>
+                    <h3>Employee Induction Lines</h3>
                 </div>
                 <div class="card-tools">
-                        <?php Html::a('<i class="fa fa-plus-square"></i> New Induction Line',['add-line'],[
-                            'class' => 'add btn btn-outline-info',
-                            'data-no' => $model->No,
-                            'data-service' => 'InductionOverallPE'
-                            ]) ?>
+                    <?php Html::a('<i class="fa fa-plus-square"></i> New Induction Line', ['add-line'], [
+                        'class' => 'add btn btn-outline-info',
+                        'data-no' => $model->No,
+                        'data-service' => 'Employee_Induction_Overall_In'
+                    ]) ?>
                 </div>
             </div>
 
             <div class="card-body">
-                <?php if(property_exists($document->Employee_Induction_Overall_Pe,'Employee_Induction_Overall_Pe')){ //show Lines ?>
+                <?php if (property_exists($document->Employee_Induction_Overall_Pe, 'Employee_Induction_Overall_Pe')) { //show Lines 
+                ?>
 
                     <div class="table-responsive">
                         <table class="table table-bordered">
                             <thead>
-                            <tr>
-                                <td></td>
-                                <!-- <td class="text-bold">Induction_No</td> -->
-                                <td class="text-bold">Section</td>
-                                <td class="text-bold">Expected Start Date</td>
-                                <td class="text-bold">Expected End Date</td>
-                                <td class="text-bold">Expected Start Time</td>
-                                <td class="text-bold">Expected End Time</td>
-                                <td class="text-bold">Attended</td>
-                                
-                                <td class="text-bold">Reason for Failure</td>
-                               
-                                <td class="text-bold">Employee comments</td>
-                                <td class="text-bold">Inductor Comments</td>
-                               
-                                <!-- <td class="text-bold">Action</td> -->
-                                
-                            </tr>
+                                <tr>
+                                    <td></td>
+                                    <!-- <td class="text-bold">Induction_No</td> -->
+                                    <td class="text-bold">Section</td>
+                                    <td class="text-bold">Expected Start Date</td>
+                                    <td class="text-bold">Expected End Date</td>
+                                    <td class="text-bold">Expected Start Time</td>
+                                    <td class="text-bold">Expected End Time</td>
+                                    <td class="text-bold">Attended</td>
+
+                                    <td class="text-bold">Reason for Failure</td>
+
+                                    <td class="text-bold">Employee comments</td>
+                                    <td class="text-bold">Inductor Comments</td>
+
+                                    <!-- <td class="text-bold">Action</td> -->
+
+                                </tr>
                             </thead>
                             <tbody>
-                            <?php
-                           
+                                <?php
 
-                            foreach($document->Employee_Induction_Overall_Pe->Employee_Induction_Overall_Pe as $obj):
-                                
-                                $deleteLink = Html::a('<i class="fa fa-trash"></i>',['delete-line' ],[
-                                    'class'=>'del btn btn-outline-danger btn-xs',
-                                    'data-key' => $obj->Key,
-                                    'data-service' => 'InductionOverallPE'
-                                ]);
+
+                                foreach ($document->Employee_Induction_Overall_Pe->Employee_Induction_Overall_Pe as $obj) :
+
+                                    $deleteLink = Html::a('<i class="fa fa-trash"></i>', ['delete-line'], [
+                                        'class' => 'del btn btn-outline-danger btn-xs',
+                                        'data-key' => $obj->Key,
+                                        'data-service' => 'InductionOverallIN'
+                                    ]);
                                 ?>
-                                <tr class="parent">
-                                    <td><span>+</span></td>
-                                    
-                                    <td data-key="<?= $obj->Key ?>" ><?= !empty($obj->Section)?$obj->Section:'' ?></td>
-                                    <td data-key="<?= $obj->Key ?>" ><?= !empty($obj->Expected_Start_Date)?$obj->Expected_Start_Date:'' ?></td>
-                                    <td data-key="<?= $obj->Key ?>" ><?= !empty($obj->Expected_End_Date)?$obj->Expected_End_Date:'' ?></td>
-                                    <td data-key="<?= $obj->Key ?>" ><?= !empty($obj->Expected_Start_Time)?Yii::$app->formatter->asTime($obj->Expected_Start_Time):'' ?></td>
-                                    <td data-key="<?= $obj->Key ?>" ><?= !empty($obj->Expected_End_Time)?Yii::$app->formatter->asTime($obj->Expected_End_Time):'' ?></td>
-                                    <td data-key="<?= $obj->Key ?>" ><?= !empty($obj->Attended)?$obj->Attended:'' ?></td>
-                                    <td data-key="<?= $obj->Key ?>" ><?= !empty($obj->Reason_for_Failure)?$obj->Reason_for_Failure:'' ?></td>
-                                    <td data-key="<?= $obj->Key ?>" ><?= !empty($obj->Employee_comments)?$obj->Employee_comments:'' ?></td>
-                                    <td data-key="<?= $obj->Key ?>" ><?= !empty($obj->Inductor_Comments)?$obj->Inductor_Comments:'' ?></td>
-                                    
-                                    
-                                    <!-- <td><?= $deleteLink ?></td> -->
-                                </tr>
-                                <tr class="child">
-                                    <td colspan="11" >
-                                        <div class="table-responsive">
-                                            <table class="table table-hover ">
-                                                <thead>
-                                                    <tr>
-                                                        <td>#</td>
-                                                        <td class="text-bold">Induction Item</td>   
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php 
-                                                    
-                                                    //print_r($model->getLines($obj->Line_No)); 
-                                                    $counter = 0;                                               
-                                                    if(is_array($model->getLines($obj->Line_No))): 
-                                                        foreach($model->getLines($obj->Line_No) as $ln):
-                                                            $counter++;
+                                    <tr class="parent">
+                                        <td><span>+</span></td>
+
+                                        <td data-key="<?= $obj->Key ?>"><?= !empty($obj->Section) ? $obj->Section : '' ?></td>
+                                        <td data-key="<?= $obj->Key ?>"><?= !empty($obj->Expected_Start_Date) ? $obj->Expected_Start_Date : '' ?></td>
+                                        <td data-key="<?= $obj->Key ?>"><?= !empty($obj->Expected_End_Date) ? $obj->Expected_End_Date : '' ?></td>
+                                        <td data-key="<?= $obj->Key ?>"><?= !empty($obj->Expected_Start_Time) ? Yii::$app->formatter->asTime($obj->Expected_Start_Time) : '' ?></td>
+                                        <td data-key="<?= $obj->Key ?>"><?= !empty($obj->Expected_End_Time) ? Yii::$app->formatter->asTime($obj->Expected_End_Time) : '' ?></td>
+                                        <td data-key="<?= $obj->Key ?>"><?= !empty($obj->Attended) ? $obj->Attended : '' ?></td>
+                                        <td data-key="<?= $obj->Key ?>"><?= !empty($obj->Reason_for_Failure) ? $obj->Reason_for_Failure : '' ?></td>
+                                        <td data-key="<?= $obj->Key ?>"><?= !empty($obj->Employee_comments) ? $obj->Employee_comments : '' ?></td>
+                                        <td data-key="<?= $obj->Key ?>"><?= !empty($obj->Inductor_Comments) ? $obj->Inductor_Comments : '' ?></td>
+
+
+                                        <!-- <td><?= $deleteLink ?></td> -->
+                                    </tr>
+                                    <tr class="child">
+                                        <td colspan="11">
+                                            <div class="table-responsive">
+                                                <table class="table table-hover ">
+                                                    <thead>
+                                                        <tr>
+                                                            <td>#</td>
+                                                            <td class="text-bold">Induction Item</td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php
+
+                                                        //print_r($model->getLines($obj->Line_No)); 
+                                                        $counter = 0;
+                                                        if (is_array($model->getLines($obj->Line_No))) :
+                                                            foreach ($model->getLines($obj->Line_No) as $ln) :
+                                                                $counter++;
                                                         ?>
 
-                                                        <tr>
-                                                            <td><?= $counter ?></td>
-                                                            <td><?= $ln->Induction_Item ?></td>
-                                                        </tr>
-                                                        
-                                                    <?php endforeach;
-                                                 endif; ?>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
+                                                                <tr>
+                                                                    <td><?= $counter ?></td>
+                                                                    <td><?= $ln->Induction_Item ?></td>
+                                                                </tr>
+
+                                                        <?php endforeach;
+                                                        endif; ?>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>
-                   
+
                 <?php } ?>
             </div>
         </div>
 
-            <!-- End Lines Card -->
-          
+        <!-- End Lines Card -->
 
 
 
-            
+
+
 
 
 
@@ -299,9 +261,9 @@ $this->params['breadcrumbs'][] = ['label' => 'Period Induction Card', 'url' => [
     </div>
 
 
-<?php
+    <?php
 
-$script = <<<JS
+    $script = <<<JS
 
     $(function(){
       
@@ -513,9 +475,9 @@ $script = <<<JS
         
 JS;
 
-$this->registerJs($script);
+    $this->registerJs($script);
 
-$style = <<<CSS
+    $style = <<<CSS
     p span {
         margin-right: 50%;
         font-weight: bold;
@@ -553,4 +515,4 @@ $style = <<<CSS
     }
 CSS;
 
-$this->registerCss($style);
+    $this->registerCss($style);
