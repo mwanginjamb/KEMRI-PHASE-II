@@ -1131,12 +1131,12 @@ $employee = (!Yii::$app->user->isGuest && is_array(Yii::$app->user->identity->em
                                         </a>
                                     </li>
 
-                                    <li class="nav-item">
+                                    <!-- <li class="nav-item">
                                         <a href="<?= $absoluteUrl ?>periodic-induction/periodic-hod" class="nav-link <?= Yii::$app->recruitment->currentaction('periodic-induction', 'periodic-hod') ? 'active' : '' ?>">
                                             <i class="fa fa-chart-line nav-icon"></i>
                                             <p>Periodic HOD List </p>
                                         </a>
-                                    </li>
+                                    </li> -->
 
                                 </ul>
                             </li>
