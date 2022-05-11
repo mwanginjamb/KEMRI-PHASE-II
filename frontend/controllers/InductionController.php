@@ -363,7 +363,7 @@ class InductionController extends Controller
 
         $data = [
             'inductionNo' => $No,
-            'approvalURL' => Yii::$app->urlManager->createAbsoluteUrl(['induction/view', 'Key' => $Key]),
+            'approvalURL' => Yii::$app->urlManager->createAbsoluteUrl(['induction/view', 'No' => $No]),
         ];
 
 
@@ -388,7 +388,7 @@ class InductionController extends Controller
 
         $data = [
             'inductionNo' => $No,
-            'urLToSend' => Yii::$app->urlManager->createAbsoluteUrl(['induction/view', 'Key' => $Key]),
+            'urLToSend' => Yii::$app->urlManager->createAbsoluteUrl(['induction/view', 'No' => $No]),
         ];
 
 
@@ -413,7 +413,7 @@ class InductionController extends Controller
 
         $data = [
             'inductionNo' => $No,
-            'urLToSend' => Yii::$app->urlManager->createAbsoluteUrl(['induction/view', 'Key' => $Key]),
+            'urLToSend' => Yii::$app->urlManager->createAbsoluteUrl(['induction/view', 'No' => $No]),
         ];
 
 
@@ -439,7 +439,7 @@ class InductionController extends Controller
 
         $data = [
             'inductionNo' => $No,
-            'urLToSend' => Yii::$app->urlManager->createAbsoluteUrl(['induction/view', 'Key' => $Key]),
+            'urLToSend' => Yii::$app->urlManager->createAbsoluteUrl(['induction/view', 'No' => $No]),
         ];
 
 
@@ -463,7 +463,7 @@ class InductionController extends Controller
 
         $data = [
             'inductionNo' => $No,
-            'urLToSend' => Yii::$app->urlManager->createAbsoluteUrl(['induction/view', 'Key' => $Key]),
+            'urLToSend' => Yii::$app->urlManager->createAbsoluteUrl(['induction/view', 'No' => $No]),
         ];
 
 
@@ -490,7 +490,7 @@ class InductionController extends Controller
 
         $data = [
             'inductionNo' => $No,
-            'urLToSend' => Yii::$app->urlManager->createAbsoluteUrl(['induction/view', 'Key' => $Key]),
+            'urLToSend' => Yii::$app->urlManager->createAbsoluteUrl(['induction/view', 'No' => $No]),
         ];
 
 
@@ -515,7 +515,7 @@ class InductionController extends Controller
 
         $data = [
             'inductionNo' => $No,
-            'urLToSend' => Yii::$app->urlManager->createAbsoluteUrl(['induction/view', 'Key' => $Key]),
+            'urLToSend' => Yii::$app->urlManager->createAbsoluteUrl(['induction/view', 'No' => $No]),
         ];
 
 
