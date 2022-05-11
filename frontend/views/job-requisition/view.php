@@ -113,7 +113,14 @@ $Attachmentmodel = new \frontend\models\Leaveattachment()
                                     'Low'=>'Low',
                                 ],['prompt' => '-- Select Criticality -- ','required'=> true]) ?>
 
-                                <?= $form->field($model, 'Global_Dimension_1_Code')->dropDownList($Programs,['prompt' => '-- Select Program --']) ?>
+                                <?= $form->field($model, 'Employment_Type')->dropDownList([
+                                    // 'Permanent'=>'Permanent',
+                                    'Contract'=>'Contract',
+                                    'Consultant'=>'Consultant',
+                                    'Intern'=>'Intern',
+                                    // 'Board'=>'Board',
+                                ],['prompt' => '-- Select Employment Type -- ','required'=> true]) ?>
+
                                 <?= $form->field($model, 'Type')->dropDownList([
                                     'New'=>'New Position',
                                     'Re_Advert'=>'Re Advertisement',
@@ -129,7 +136,8 @@ $Attachmentmodel = new \frontend\models\Leaveattachment()
 
                             <div class="col-md-4">
                             
-                                <?= $form->field($model, 'Occupied_Position')->textInput(['readonly' =>  true]) ?>
+                                <?= $form->field($model, 'No_Posts')->textInput() ?>
+
                                 <!-- <?= $form->field($model, 'Requisition_Period')->textInput(['required' => true]) ?> -->
 
                                 <?= $form->field($model, 'Requisition_Type')->dropDownList([
@@ -137,34 +145,23 @@ $Attachmentmodel = new \frontend\models\Leaveattachment()
                                     'External'=>'External',
                                     'Both'=>'Both',
                                 ],['prompt' => '-- Select Requisition Type -- ','required'=> true]) ?>
-                                <?= $form->field($model, 'Contract_Period')->textInput(['required' => true]) ?>
-                                <?= $form->field($model, 'Global_Dimension_2_Code')->dropDownList($Departments,['prompt' => '-- Select Department --']) ?>
-                               
+                                <?= $form->field($model, 'Contract_Period')->textInput(['readonly' =>  false]) ?>
+                                <?= $form->field($model, 'Contract_Type')->dropDownList($ContractTypes,['prompt' => '-- Select Job --']) ?>
+
+                                
+
 
                                 
                             </div>
 
                             <div class="col-md-4">
 
-                                <?= $form->field($model, 'No_Posts')->textInput() ?>
+                            <?= $form->field($model, 'Occupied_Position')->textInput(['readonly' =>  true]) ?>
+                            <?= $form->field($model, 'Global_Dimension_2_Code')->textInput(['readonly' =>  true]) ?>
+                            <?= $form->field($model, 'Global_Dimension_1_Code')->textInput(['readonly' =>  true]) ?>
+                            <?= $form->field($model, 'Location')->textInput(['readonly' =>  true]) ?>
 
-                                <!-- <?= $form->field($model, 'End_Date')->textInput(['readonly' => true]) ?> -->
-
-
-                                <?= $form->field($model, 'Employment_Type')->dropDownList([
-                                    // 'Permanent'=>'Permanent',
-                                    'Contract'=>'Contract',
-                                    'Consultant'=>'Consultant',
-                                    'Intern'=>'Intern',
-                                    // 'Board'=>'Board',
-                                ],['prompt' => '-- Select Employment Type -- ','required'=> true]) ?>
-
-
-
-
-
-                                <?= $form->field($model, 'Contract_Type')->dropDownList($ContractTypes,['prompt' => '-- Select Job --']) ?>
-                                <?= $form->field($model, 'Location')->dropDownList($Locations,['prompt' => '-- Select Location --']) ?>                                
+                              
                                 <!-- <?= $form->field($model, 'Reasons_For_Requisition')->textarea(['rows'=> 2,'maxlength' => 250]) ?> -->
 
                               
@@ -545,6 +542,11 @@ $script = <<<JS
                             }else{ // An object represents correct details
                                 $('#hrjobrequisitioncard-key').val(msg.Key);
                                 $('#hrjobrequisitioncard-occupied_position').val(msg.Occupied_Position);
+
+                                $('#hrjobrequisitioncard-global_dimension_1_code').val(msg.Program_Name);
+                                $('#hrjobrequisitioncard-contract_period').val(msg.Occupied_Position);
+                                $('#hrjobrequisitioncard-global_dimension_2_code').val(msg.Department_Name);
+                                $('#hrjobrequisitioncard-location').val(msg.Location);
                                 const parent = document.querySelector('.field-hrjobrequisitioncard-job_id');
                                 const helpbBlock = parent.children[2];
                                 helpbBlock.innerText = ''; 
@@ -558,26 +560,26 @@ $script = <<<JS
             });
 
             
-            $('#hrjobrequisitioncard-requisition_period').change(function(e){
-                const ContractPeriod = e.target.value;
+            $('#hrjobrequisitioncard-no_posts').change(function(e){
+                const No_Of_Posts = e.target.value;
                 const No = $('#hrjobrequisitioncard-requisition_no').val();
                 if(No.length){
                     
-                    const url = 'set-contract-period';
-                    $.post(url,{'ContractPeriod': ContractPeriod,'No': No}).done(function(msg){
+                    const url = 'set-posts';
+                    $.post(url,{'Posts': No_Of_Posts,'No': No}).done(function(msg){
                         //populate empty form fields with new data
                             console.log(typeof msg);
                             console.table(msg);
                             if((typeof msg) === 'string') { // A string is an error
-                                const parent = document.querySelector('.field-hrjobrequisitioncard-requisition_period');
+                                const parent = document.querySelector('.field-hrjobrequisitioncard-no_posts');
                                 const helpbBlock = parent.children[2];
                                 helpbBlock.innerText = msg;
                                 disableSubmit();
                                 
                             }else{ // An object represents correct details
                                 $('#hrjobrequisitioncard-key').val(msg.Key);
-                                $('#hrjobrequisitioncard-end_date').val(msg.End_Date);
-                                const parent = document.querySelector('.field-hrjobrequisitioncard-requisition_period');
+                                // $('#hrjobrequisitioncard-end_date').val(msg.End_Date);
+                                const parent = document.querySelector('.field-hrjobrequisitioncard-no_posts');
                                 const helpbBlock = parent.children[2];
                                 helpbBlock.innerText = ''; 
                                 enableSubmit();

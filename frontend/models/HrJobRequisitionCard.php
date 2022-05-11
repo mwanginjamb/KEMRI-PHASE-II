@@ -36,9 +36,35 @@ class HrJobRequisitionCard extends Model{
     public $Employee_Name;
     public $isNewRecord;
     public $Employee_No;
+    public $Department_Name;
+    public $Location_Name;
+    public $Program_Name;
 
     public function rules(){
         return [
+            [['Job_Id','No_Posts', 'Contract_Period'], 'required'],
+            [['Contract_Period'], 'number'],
+
+            [['Contract_Period',], 'number', 'min'=>12, 'max'=>12, 'when' => function ($model) {
+                return $model->Contract_Type == 'LT';
+            }, 'whenClient' => "function (attribute, value) {
+                return $('#hrjobrequisitioncard-contract_type').val() == 'LT';
+            }"],
+
+            [['Contract_Period',], 'number', 'min'=>6, 'max'=>6, 'when' => function ($model) {
+                return $model->Contract_Type == 'ST';
+            }, 'whenClient' => "function (attribute, value) {
+                return $('#hrjobrequisitioncard-contract_type').val() == 'LT';
+            }"],
+
+            [['Replaced_Employee'], 'required', 'when' => function ($model) {
+                return $model->Type == 'Replacement';
+            }, 'whenClient' => "function (attribute, value) {
+                return $('#hrjobrequisitioncard-type').val() == 'Replacement';
+            }"],
+
+            
+
         ];
     }
 
@@ -49,7 +75,9 @@ class HrJobRequisitionCard extends Model{
             'Global_Dimension_2_Code'=> 'Department',
             'Global_Dimension_1_Code'=>'Program',
             'End_Date'=>'Application End Date',
-            'No_Posts'=>'Required Posts'
+            'No_Posts'=>'Required Posts',
+            'Contract_Period'=> 'Contract Period in Months',
+            'Type'=>'Reason For Requisition'
         ];
     }
 

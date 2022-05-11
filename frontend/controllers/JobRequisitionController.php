@@ -813,7 +813,7 @@ class JobRequisitionController extends Controller
 
     }
 
-    public function actionSetContractPeriod(){
+    public function actionSetPosts(){
         $model = new HrJobRequisitionCard();
         $service = Yii::$app->params['ServiceName']['HrJobRequisitionCard'];
 
@@ -825,7 +825,7 @@ class JobRequisitionController extends Controller
         if(is_array($request)){
             Yii::$app->navhelper->loadmodel($request[0],$model);
             $model->Key = $request[0]->Key;
-            $model->Contract_Period = Yii::$app->request->post('ContractPeriod');
+            $model->No_Posts = (int)Yii::$app->request->post('Posts');
         }
 
         $result = Yii::$app->navhelper->updateData($service,$model);

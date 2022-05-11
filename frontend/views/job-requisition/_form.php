@@ -80,44 +80,10 @@ $absoluteUrl = \yii\helpers\Url::home(true);
 
                         </div>
 
-                        <div class="col-md-6">
-
-
-
-                            <div class="row">
-                                <div class="col-md-6 col-sm-12">
-
-                                
-                                </div>
-                                <div class="col-md-6 col-sm-12">
-
-
-                                </div>
-                            </div>
-
-
-
-
-                            <p class="parent"><span>+</span>
-                          
-
-                            </p>
-
-                        </div>
 
                     </div>
 
                 </div>
-
-
-
-
-
-
-
-
-
-
 
 
                 <div class="row">
