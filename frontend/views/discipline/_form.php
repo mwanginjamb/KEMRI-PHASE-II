@@ -97,7 +97,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                             <?= $form->field($model, 'Policy_Violated')->textarea(['rows' => 2]) ?>
                             <?= $form->field($model, 'Disciplinary_Findings')->textarea(['rows' => 2]) ?>
                             <?= $form->field($model, 'Verdict')->textarea(['rows' => 2]) ?>
-                            <?= $form->field($model, 'Surcharge_Employee')->checkbox([$model->Surcharge_Employee]) ?>
+                            <?= $form->field($model, 'Surcharge_Employee')->checkbox([$model->Surcharge_Employee, 'Surcharge_Employee']) ?>
                             <?= $form->field($model, 'Amount')->textInput(['type' => 'number']) ?>
                             <?= $form->field($model, 'Status')->textInput(['readonly' => true, 'disabled' => true]) ?>
 
@@ -126,6 +126,16 @@ $absoluteUrl = \yii\helpers\Url::home(true);
 <?php
 $script = <<<JS
 
+ // Check state of surcharge amount based on surcharge value
+     let amount = document.querySelector('.field-discipline-amount');
+     let surcharge = document.querySelector('#discipline-surcharge_employee');
+     $(amount).hide();
+
+     if(surcharge.checked){
+            $(amount).fadeIn();
+        }else{
+            $(amount).fadeOut()
+        }
 
 $('#discipline-verdict').change((e) => {
         globalFieldUpdate('discipline',false,'Verdict', e);
@@ -133,6 +143,13 @@ $('#discipline-verdict').change((e) => {
 
 $('#discipline-surcharge_employee').change((e) => {
         globalFieldUpdate('discipline',false,'Surcharge_Employee', e);
+
+
+        if(surcharge.checked){
+            $(amount).fadeIn();
+        }else{
+            $(amount).fadeOut()
+        }
 });
 
 $('#discipline-amount').change((e) => {
@@ -231,6 +248,14 @@ $('#select_multiple').change(function(e){
             $(this).find('span').text(function(_, value){return value=='-'?'+':'-'}); //to disregard an argument -event- on a function use an underscore in the parameter               
             $(this).nextUntil('p.parent').slideToggle(100, function(){});
      });
+
+    
+
+    
+    
+
+
+
     
      
 JS;
