@@ -43,19 +43,19 @@ class HrJobRequisitionCard extends Model{
     public function rules(){
         return [
             [['Job_Id','No_Posts', 'Contract_Period'], 'required'],
-            [['Contract_Period'], 'number'],
+            // [['Contract_Period'], 'number'],
 
-            [['Contract_Period',], 'number', 'min'=>12, 'max'=>12, 'when' => function ($model) {
-                return $model->Contract_Type == 'LT';
-            }, 'whenClient' => "function (attribute, value) {
-                return $('#hrjobrequisitioncard-contract_type').val() == 'LT';
-            }"],
+            // [['Contract_Period',], 'number', 'min'=>12, 'max'=>12, 'when' => function ($model) {
+            //     return $model->Contract_Type == 'LT';
+            // }, 'whenClient' => "function (attribute, value) {
+            //     return $('#hrjobrequisitioncard-contract_type').val() == 'LT';
+            // }"],
 
-            [['Contract_Period',], 'number', 'min'=>6, 'max'=>6, 'when' => function ($model) {
-                return $model->Contract_Type == 'ST';
-            }, 'whenClient' => "function (attribute, value) {
-                return $('#hrjobrequisitioncard-contract_type').val() == 'LT';
-            }"],
+            // [['Contract_Period',], 'number', 'min'=>6, 'max'=>6, 'when' => function ($model) {
+            //     return $model->Contract_Type == 'ST';
+            // }, 'whenClient' => "function (attribute, value) {
+            //     return $('#hrjobrequisitioncard-contract_type').val() == 'LT';
+            // }"],
 
             [['Replaced_Employee'], 'required', 'when' => function ($model) {
                 return $model->Type == 'Replacement';
@@ -73,7 +73,7 @@ class HrJobRequisitionCard extends Model{
         return [
             'Job_Id'=> 'Job Title',
             'Global_Dimension_2_Code'=> 'Department',
-            'Global_Dimension_1_Code'=>'Program',
+            'Global_Dimension_1_Code'=>'Division',
             'End_Date'=>'Application End Date',
             'No_Posts'=>'Required Posts',
             'Contract_Period'=> 'Contract Period in Months',

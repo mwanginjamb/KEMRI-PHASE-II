@@ -143,7 +143,6 @@ class RequisitiongrantsController extends Controller
             $filter = [
                  
                 'LineNo' => $model->LineNo,
-                
             ];
             $refresh = Yii::$app->navhelper->getData($service, $filter);
             $model->Key = $refresh[0]->Key;
