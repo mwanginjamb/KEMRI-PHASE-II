@@ -310,7 +310,7 @@ if (Yii::$app->session->hasFlash('success')) {
         <?php endif; ?>
         <!-- / Attachments -->
 
-        <!-- Card Lines -->
+        <!-- Cost Breakdown Lines -->
 
         <div class="card">
             <div class="card-header">
@@ -371,7 +371,69 @@ if (Yii::$app->session->hasFlash('success')) {
             </div>
         </div>
 
-        <!-- End Lines Card -->
+        <!--/ Cost break down -->
+
+
+        <!-- Training Grants -->
+
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">
+                    <h3>Training Grants List</h3>
+                </div>
+
+            </div>
+
+            <div class="card-body">
+                <?php if (property_exists($document->Training_Grants, 'Training_Grants')) { //show Lines 
+                ?>
+
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <!-- <td></td> -->
+
+                                    <td class="text-bold">Application_No</td>
+                                    <td class="text-bold">Donor_Code</td>
+                                    <td class="text-bold">Donor_Name</td>
+                                    <td class="text-bold">Percentage</td>
+
+
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+
+
+                                foreach ($document->Training_Grants->Training_Grants as $obj) :
+
+
+                                ?>
+                                    <tr class="parent">
+                                        <!-- <td><span>+</span></td> -->
+
+                                        <td data-key="<?= $obj->Key ?>"><?= !empty($obj->Application_No) ? $obj->Application_No : '' ?></td>
+                                        <td data-key="<?= $obj->Key ?>"><?= !empty($obj->Donor_Code) ? $obj->Donor_Code : '' ?></td>
+                                        <td data-key="<?= $obj->Key ?>"><?= !empty($obj->Donor_Name) ? $obj->Donor_Name : '' ?></td>
+                                        <td data-key="<?= $obj->Key ?>"><?= !empty($obj->Percentage) ? $obj->Percentage : '' ?></td>
+
+
+
+                                        <!-- <td><?= $deleteLink ?></td> -->
+                                    </tr>
+
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+
+                <?php } ?>
+            </div>
+        </div>
+
+        <!-- / Training Grants -->
 
 
 
@@ -385,7 +447,6 @@ if (Yii::$app->session->hasFlash('success')) {
 
 
 
-        </>
     </div>
 
     <!--My Bs Modal template  --->

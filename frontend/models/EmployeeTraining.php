@@ -52,6 +52,8 @@ class EmployeeTraining extends Model
     public $attachment_one;
     public $attachment_two;
 
+    public $Allowed_To_Exceed_Amount;
+
     public function rules()
     {
         return [
