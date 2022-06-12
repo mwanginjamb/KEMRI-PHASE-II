@@ -1,0 +1,12 @@
+stdClass Object
+(
+    [Key] => 32;guoAAAJ7/0IATQBHAC0AUwBWAEUAMAAx8;151875690;
+    [Donor_Code] => BMG-SVE01
+    [Donor_Name] => Sande Charles  BMGF Grant
+    [Status] => Active
+    [Grant_Type] => NWCT
+    [Grant_Start_Date] => 2021-10-20
+    [Grant_End_Date] => 2023-08-31
+    [Grant_Accountant] => KWTRP\MMNJAMA
+)
+null

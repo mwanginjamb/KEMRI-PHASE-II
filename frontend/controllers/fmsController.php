@@ -31,10 +31,10 @@ class FmsController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'signup', 'index', 'display-ess-grants', 'display-fms-grants'],
+                'only' => ['logout', 'signup', 'index', 'display-ess-grants', 'display-fms-grants', 'display-fms-activities', 'display-ess-activities'],
                 'rules' => [
                     [
-                        'actions' => ['signup', 'index', 'syncactivities', 'display-ess-grants', 'display-fms-grants'],
+                        'actions' => ['signup', 'index', 'syncactivities', 'display-ess-grants', 'display-fms-grants', 'display-fms-activities', 'display-ess-activities'],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
@@ -53,7 +53,7 @@ class FmsController extends Controller
             ],
             'contentNegotiator' => [
                 'class' => ContentNegotiator::class,
-                'only' => ['syncactivities', 'index', 'display-ess-grants', 'display-fms-grants'],
+                'only' => ['syncactivities', 'index', 'display-ess-grants', 'display-fms-grants', 'display-fms-activities', 'display-ess-activities'],
                 'formatParam' => '_format',
                 'formats' => [
                     'application/json' => Response::FORMAT_JSON,
@@ -65,15 +65,7 @@ class FmsController extends Controller
 
     public function actionIndex()
     {
-
         $fmsGrants = $this->getGrants();
-
-        // Yii::$app->recruitment->printrr($fmsGrants);  
-
-        //Yii::$app->recruitment->printrr($this->actionEssGrantCodes());
-
-
-
         if (is_array($fmsGrants)) {
             foreach ($fmsGrants as $grant) {
                 if (!in_array($grant->No, $this->actionEssGrantCodes())) {
@@ -85,24 +77,27 @@ class FmsController extends Controller
         }
     }
 
+    public function actionUnlinkGrants()
+    {
+        $grants = $this->actionDisplayEssGrants()['data'];
+        //Yii::$app->recruitment->printrr($grants);
+        foreach ($grants as $grant) {
+            $this->actionDeleteEssGrant($grant);
+        }
+    }
+
+    public function actionUnlinkActivities()
+    {
+        $activities = $this->actionDisplayEssActivities()['data'];
+        //Yii::$app->recruitment->printrr($activities);
+        foreach ($activities as $activity) {
+            $this->actionDeleteEssActivity($activity);
+        }
+    }
+
     public function actionTest()
     {
         return 'Hallo Francis, what are you doing? ';
-    }
-
-
-
-
-    public function actionDelete()
-    {
-        $service = Yii::$app->params['ServiceName']['EmployeeAppraisalKPI'];
-        $result = Yii::$app->navhelper->deleteData($service, Yii::$app->request->get('Key'));
-        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        if (!is_string($result)) {
-            return ['note' => '<div class="alert alert-success">Record Purged Successfully</div>'];
-        } else {
-            return ['note' => '<div class="alert alert-danger">Error Purging Record: ' . $result . '</div>'];
-        }
     }
 
 
@@ -114,16 +109,6 @@ class FmsController extends Controller
         $service = Yii::$app->params['FMS-ServiceName']['FMSGrants'];
         $data = Yii::$app->fms->getData($service, []);
         return $data;
-    }
-
-
-    public function actionEssGrants()
-    {
-        $service = Yii::$app->params['ServiceName']['GrantList'];
-        $data = Yii::$app->navhelper->getData($service, []);
-        // return $data;
-
-        Yii::$app->recruitment->printrr($data);
     }
 
     public function postToEss($grant)
@@ -150,49 +135,28 @@ class FmsController extends Controller
         print_r($result);
     }
 
-    public function updateGrant($grant)
+    public function actionDeleteEssGrant($grant)
     {
-        // Yii::$app->recruitment->printrr($grant->Name);
         $service = Yii::$app->params['ServiceName']['GrantList'];
-
-        $args = [
-            'Donor_Code' => $grant->No,
-        ];
-
-        $result = Yii::$app->navhelper->getData($service, $args);
-
-
-
-
-        if (is_array($result)) {
-            $data = [
-
-
-                'Key' => $result[0]->Key
-            ];
-
-
-            // Post to ESS
-
-            $res = Yii::$app->navhelper->updateData($service, $data);
-
-
-            print '<br>';
-            print_r($res);
-            exit(true);
-        }
+        $result = Yii::$app->navhelper->deleteData($service, $grant->Key);
+        return $result;
     }
+
+    public function actionDeleteEssActivity($activity)
+    {
+        $service = Yii::$app->params['ServiceName']['GrantActivities'];
+        $result = Yii::$app->navhelper->deleteData($service, $activity->Key);
+        return $result;
+    }
+
+
 
 
     public function actionEssGrantCodes()
     {
         $service = Yii::$app->params['ServiceName']['GrantList'];
         $data = Yii::$app->navhelper->getData($service, []);
-
-
-
         $codes = [];
-
         foreach ($data as $d) {
             if (isset($d->Donor_Code)) {
                 array_push($codes, $d->Donor_Code);
@@ -211,12 +175,14 @@ class FmsController extends Controller
         $this->layout = 'login';
         $service = Yii::$app->params['ServiceName']['GrantList'];
         $data = Yii::$app->navhelper->getData($service, []);
-        $total = count($data);
+        $total = is_array($data) ? count($data) : 0;
         $result = [
             'Total' => $total,
             'data' => $data
         ];
-        Yii::$app->recruitment->printrr($result);
+
+        return $result;
+        // Yii::$app->recruitment->printrr($result);
     }
 
     // Display FMS Grants
@@ -225,7 +191,7 @@ class FmsController extends Controller
     {
         $service = Yii::$app->params['FMS-ServiceName']['FMSGrants'];
         $data = Yii::$app->fms->getData($service, []);
-        $total = count($data);
+        $total = is_array($data) ? count($data) : 0;
         $result = [
             'Total' => $total,
             'data' => $data
@@ -236,35 +202,37 @@ class FmsController extends Controller
 
     /*Get FMS Grant Codes*/
 
-    public function actionFmsactivities()
+    public function actionDisplayFmsActivities()
     {
         $service = Yii::$app->params['FMS-ServiceName']['FMSActivities'];
         $data = Yii::$app->fms->getData($service, []);
 
-        //Yii::$app->recruitment->printrr($data);
-        return $data;
+        $total = is_array($data) ? count($data) : 0;
+        return ([
+            'Total' => $total,
+            'data' =>  $data
+        ]);
     }
 
 
 
     /*Get Integrated Grant Activities- Those in ESS*/
 
-    public function actionEssactivities()
+    public function actionDisplayEssActivities()
     {
         $service = Yii::$app->params['ServiceName']['GrantActivities'];
         $data = Yii::$app->navhelper->getData($service, []);
-
-        //Yii::$app->recruitment->printrr($data);
-        return $data;
+        $total = is_array($data) ? count($data) : 0;
+        return [
+            'Total' => $total,
+            'data' =>  $data
+        ];
     }
 
     public function actionEssactivitycodes()
     {
         $service = Yii::$app->params['ServiceName']['GrantActivities'];
         $data = Yii::$app->navhelper->getData($service, []);
-
-
-
         $codes = [];
 
         foreach ($data as $d) {
@@ -272,17 +240,14 @@ class FmsController extends Controller
                 array_push($codes, $d->Grant_Activity);
             }
         }
-        //Yii::$app->recruitment->printrr($codes);
         return $codes;
     }
 
 
     public function actionSyncactivities()
     {
-
         $service = Yii::$app->params['ServiceName']['GrantActivities'];
-        $fmsActivities = $this->ActionFmsactivities();
-        $essActivities = $this->ActionEssactivities();
+        $fmsActivities = $this->ActionDisplayFmsActivities()['data'];
         $essactivitycodes = $this->ActionEssactivitycodes();
 
         if (is_array($fmsActivities)) {
@@ -313,7 +278,7 @@ class FmsController extends Controller
         $fp = fopen($filename, 'a');
         fwrite($fp, $req_dump);
         fclose($fp);
-        exit;
+        //exit;
     }
 
     private function ActivityLogger($message)
@@ -323,6 +288,6 @@ class FmsController extends Controller
         $fp = fopen($filename, 'a');
         fwrite($fp, $req_dump);
         fclose($fp);
-        exit;
+        // exit;
     }
 }
