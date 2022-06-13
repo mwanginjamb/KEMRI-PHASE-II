@@ -46,6 +46,8 @@ public $EmployeeNo;
 public $Motivation;
 public $CommiteeID;
 public $ApplicationID;
+public $PortalId;
+public $Accepted_Data_Protec_Terms;
 
 
     public function rules()
