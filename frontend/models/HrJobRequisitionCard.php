@@ -39,7 +39,8 @@ class HrJobRequisitionCard extends Model{
     public $Department_Name;
     public $Location_Name;
     public $Program_Name;
-
+    public $Qualification_Description;
+    public $Requisition_Details;
     public function rules(){
         return [
             [['Job_Id','No_Posts', 'Contract_Period'], 'required'],

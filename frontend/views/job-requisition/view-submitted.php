@@ -23,11 +23,6 @@ $Attachmentmodel = new \frontend\models\Leaveattachment()
 
 <div class="row">
     <div class="col-md-4">
-<<<<<<< HEAD
-=======
-        
-              
->>>>>>> 50ef789a14ee3d6d68b6503760e9998d3af57aa0
     </div>
 </div>
 
@@ -85,7 +80,6 @@ $Attachmentmodel = new \frontend\models\Leaveattachment()
 
                                 <?= $form->field($model, 'Job_Id')->dropDownList($ApprovedHRJobs,['prompt' => '-- Select Job --', 'disabled'=>true]) ?>
 
-<<<<<<< HEAD
                                 <!-- <?= $form->field($model, 'Start_Date')->textInput(['type' => 'date','required' => true, 'readonly'=>true]) ?> -->
                                 <!-- <?= $form->field($model, 'Probation_Period')->textInput(['required' => true]) ?> -->
                                 <?= $form->field($model, 'Criticality')->dropDownList([
@@ -94,7 +88,6 @@ $Attachmentmodel = new \frontend\models\Leaveattachment()
                                 ],['prompt' => '-- Select Criticality -- ','disabled'=>true]) ?>
 
                                 <?= $form->field($model, 'Global_Dimension_1_Code')->dropDownList($Programs,['prompt' => '-- Select Program --']) ?>
-=======
                                 <!-- <?= $form->field($model, 'Start_Date')->textInput(['type' => 'date','readonly' => true]) ?> -->
                                 <!-- <?= $form->field($model, 'Probation_Period')->textInput(['readonly' => true]) ?> -->
                                 <?= $form->field($model, 'Criticality')->dropDownList([
@@ -103,20 +96,15 @@ $Attachmentmodel = new \frontend\models\Leaveattachment()
                                 ],['prompt' => '-- Select Criticality -- ','readonly'=> true]) ?>
 
                                 <?= $form->field($model, 'Global_Dimension_1_Code')->dropDownList($Programs,['prompt' => '-- Select Program --','disabled'=>true]) ?>
->>>>>>> 50ef789a14ee3d6d68b6503760e9998d3af57aa0
                                 <?= $form->field($model, 'Type')->dropDownList([
                                     'New'=>'New Position',
                                     'Re_Advert'=>'Re Advertisement',
                                     'Replacement'=>'Replacement'
-<<<<<<< HEAD
                                 ],['prompt' => '-- Select Type -- ','disabled'=>true]) ?>
                                
-                               <?= $form->field($model, 'Replaced_Employee')->dropDownList($Employees,['prompt' => '-- Select Employee Being Replaced --','disabled'=>true]) ?>
-=======
-                                ],['prompt' => '-- Select Type -- ','readonly'=> true]) ?>
+                            
                                
                                <?= $form->field($model, 'Replaced_Employee')->dropDownList($Employees,['prompt' => '-- Select Employee Being Replaced --', 'disabled'=>true]) ?>
->>>>>>> 50ef789a14ee3d6d68b6503760e9998d3af57aa0
 
 
 
@@ -125,27 +113,20 @@ $Attachmentmodel = new \frontend\models\Leaveattachment()
 
                             <div class="col-md-4">
                             
-<<<<<<< HEAD
                                 <?= $form->field($model, 'Occupied_Position')->textInput(['readonly' =>  true,'readonly' => true]) ?>
                                 <!-- <?= $form->field($model, 'Requisition_Period')->textInput(['required' => true,'readonly' => true]) ?> -->
-=======
                                 <?= $form->field($model, 'Occupied_Position')->textInput(['readonly' =>  true]) ?>
                                 <!-- <?= $form->field($model, 'Requisition_Period')->textInput(['readonly' => true]) ?> -->
->>>>>>> 50ef789a14ee3d6d68b6503760e9998d3af57aa0
 
                                 <?= $form->field($model, 'Requisition_Type')->dropDownList([
                                     'Internal'=>'Internal',
                                     'External'=>'External',
                                     'Both'=>'Both',
-<<<<<<< HEAD
                                 ],['prompt' => '-- Select Requisition Type -- ','disabled'=>true,'readonly' => true]) ?>
                                 <?= $form->field($model, 'Contract_Period')->textInput(['required' => true,'readonly' => true]) ?>
-                                <?= $form->field($model, 'Global_Dimension_2_Code')->dropDownList($Departments,['prompt' => '-- Select Department --','disabled'=>true]) ?>
-=======
-                                ],['prompt' => '-- Select Requisition Type -- ','required'=> true, 'disabled'=>true]) ?>
+                                
                                 <?= $form->field($model, 'Contract_Period')->textInput(['readonly' => true]) ?>
                                 <?= $form->field($model, 'Global_Dimension_2_Code')->dropDownList($Departments,['prompt' => '-- Select Department --', 'disabled'=>true]) ?>
->>>>>>> 50ef789a14ee3d6d68b6503760e9998d3af57aa0
                                
 
                                 
@@ -153,11 +134,7 @@ $Attachmentmodel = new \frontend\models\Leaveattachment()
 
                             <div class="col-md-4">
 
-<<<<<<< HEAD
                                 <?= $form->field($model, 'No_Posts')->textInput(['readonly' => true]) ?>
-=======
-                                <?= $form->field($model, 'No_Posts')->textInput(['readonly'=>true]) ?>
->>>>>>> 50ef789a14ee3d6d68b6503760e9998d3af57aa0
 
                                 <!-- <?= $form->field($model, 'End_Date')->textInput(['readonly' => true]) ?> -->
 
@@ -168,25 +145,15 @@ $Attachmentmodel = new \frontend\models\Leaveattachment()
                                     'Consultant'=>'Consultant',
                                     'Intern'=>'Intern',
                                     'Board'=>'Board',
-<<<<<<< HEAD
                                 ],['prompt' => '-- Select Employment Type -- ','disabled'=>true]) ?>
-=======
-                                ],['prompt' => '-- Select Employment Type -- ','required'=> true, 'disabled'=>true]) ?>
->>>>>>> 50ef789a14ee3d6d68b6503760e9998d3af57aa0
 
 
 
 
 
-<<<<<<< HEAD
                                 <?= $form->field($model, 'Contract_Type')->dropDownList($ContractTypes,['prompt' => '-- Select Job --','readonly' => true]) ?>
                                 <?= $form->field($model, 'Location')->dropDownList($Locations,['prompt' => '-- Select Department --','readonly' => true]) ?>                                
                                 <!-- <?= $form->field($model, 'Reasons_For_Requisition')->textarea(['rows'=> 2,'maxlength' => 250,'readonly' => true]) ?> -->
-=======
-                                <?= $form->field($model, 'Contract_Type')->dropDownList($ContractTypes,['prompt' => '-- Select Job --', 'disabled'=>true]) ?>
-                                <?= $form->field($model, 'Location')->dropDownList($Locations,['prompt' => '-- Select Department --', 'disabled'=>true]) ?>                                
-                                <!-- <?= $form->field($model, 'Reasons_For_Requisition')->textarea(['rows'=> 2,'maxlength' => 250, 'disabled'=>true]) ?> -->
->>>>>>> 50ef789a14ee3d6d68b6503760e9998d3af57aa0
 
                               
 
@@ -206,7 +173,6 @@ $Attachmentmodel = new \frontend\models\Leaveattachment()
 
                 </div>
 
-<<<<<<< HEAD
  
                     <?php ActiveForm::end(); ?>
 
@@ -217,12 +183,6 @@ $Attachmentmodel = new \frontend\models\Leaveattachment()
 
 
             <?php }  ?>
-=======
-                    <?php ActiveForm::end(); ?>
-
-
-            
->>>>>>> 50ef789a14ee3d6d68b6503760e9998d3af57aa0
 
                 </div>
             </div><!--end details card-->
@@ -272,27 +232,7 @@ $Attachmentmodel = new \frontend\models\Leaveattachment()
                                         $updateLink = Html::a('<i class="fa fa-edit"></i>', ['requisitiongrants/update', 'LineNo' => $Grant->LineNo], ['class' => 'update-objective btn btn-outline-info btn-xs']);
                                        $deleteLink = Html::a('<i class="fa fa-trash"></i>', ['requisitiongrants/delete', 'Key' => $Grant->Key], ['class' => 'delete btn btn-outline-danger btn-xs']);
 
-                                        $donorDetails = Html::a('<i class="fa fa-plus"></i>', ['donorline/create',
-
-                                                    // 'Contract_Code' => $obj->Contract_Code,
-                                                    // 'Contract_Line_No' => $obj->Line_No,
-                                                    // 'Employee_No' => $model->Employee_No,
-                                                    // 'Change_No' => $model->No,
-                                                    // 'Grant_Start_Date' => $obj->Contract_Start_Date,
-                                                    // 'Grant_End_Date' => $obj->Contract_End_Date
-                                        ],
-
-                                        [
-                                            'class' => 'update-objective btn btn-success btn-xs', 'title' => 'Add Donor Details',
-                                            'title' => 'Add Donor Line.',
-                                            
-                                            
-                                        ],
-                                         
-                                    );
-
-
-
+                                     
 
                                         ?>
                                         <tr class="parent">
@@ -370,12 +310,9 @@ $script = <<<JS
             $('.field-hrjobrequisitioncard-replaced_employee').hide();
         }); 
 
-<<<<<<< HEAD
 
         
 
-=======
->>>>>>> 50ef789a14ee3d6d68b6503760e9998d3af57aa0
      /*Deleting Records*/
      
      $('.delete, .delete-objective').on('click',function(e){
