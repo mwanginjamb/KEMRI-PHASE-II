@@ -40,7 +40,7 @@ use yii\widgets\ActiveForm;
                                 ],['prompt' => 'Select Status', 'disabled'=>true]) ?>
                             </div>
 
-                            <div class="col-md-4">
+                            <div class="col-md-6">
 
                                 <?= $form->field($model, 'Initials')->textInput(['readonly'=>true]) ?>
                                 <?= $form->field($model, 'Full_Name')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
@@ -55,12 +55,7 @@ use yii\widgets\ActiveForm;
 
                             </div>
 
-                            <div class="col-md-4">
-                                <?= $form->field($model, 'NHIF_Number')->textInput(['readonly'=>true]) ?>
-                                <?= $form->field($model, 'NSSF_Number')->textInput(['readonly'=>true]) ?>
-                                <?= $form->field($model, 'KRA_Number')->textInput(['readonly'=>true]) ?>
-                                <?= $form->field($model, 'National_ID')->textInput(['readonly'=>true]) ?>
-                            </div>
+                           
                         </div>
                     </div>
               </div> </div>
@@ -68,48 +63,6 @@ use yii\widgets\ActiveForm;
 
          
     
-
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Communication Details</h3>
-            </div>
-            <div class="card-body">
-
-                <div class="row">
-                    <div class=" row col-md-12">
-                        <div class="col-md-4">
-                            <?= $form->field($model, 'Address')->textInput(['placeholder' => 'Postal Address', 'readonly'=>true]) ?>
-                            <?= $form->field($model, 'Country_Region_Code')->dropDownList($countries, ['prompt' => 'Select Country of Origin..', 'readonly'=>true]) ?>
-                            <?= $form->field($model, 'City')->dropDownList($PostalCodes, ['prompt' => 'Select City..', 'readonly'=>true]) ?>
-
-                        </div>
-                        <div class="col-md-4">
-                             <?= $form->field($model, 'Post_Code')->dropDownList($PostalCodes, ['prompt' => 'Select Post Code..', 'readonly'=>true]) ?>
-                            <?= $form->field($model, 'County')->textInput(['placeholder'=> 'County', 'readonly'=>true]) ?>
-                            <?= $form->field($model, 'Phone_No')->textInput(['placeholder'=> 'Phone Number', 'readonly'=>true]) ?>
-                          
-
-                        </div>
-
-                        <div class="col-md-4">
-
-                            <?= $form->field($model, 'Mobile_Phone_No')->textInput(['placeholder '=> 'Cell Number', 'readonly'=>true]) ?>
-                            <?= $form->field($model, 'E_Mail')->textInput(['placeholder'=> 'E-mail Address', 'readonly'=>true, 'type' => 'email']) ?>
-
-
-                        </div>
-                    </div>
-                </div>
-
-
-
-
-
-
-
-            </div>
-        </div>
-
         <?php ActiveForm::end(); ?>
     </div>
 </div>

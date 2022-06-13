@@ -50,7 +50,8 @@ $this->params['breadcrumbs'][] = ['label' => 'Update Applicant Profile', 'url' =
         'model' => $model,
         'countries' => $countries,
         'PostalCodes' => $PostalCodes,
-        'Questions'=>$Questions
+        'Questions'=>$Questions,
+        'getInterviewRatings'=>$getInterviewRatings
     ]) ?>
 
 </div>

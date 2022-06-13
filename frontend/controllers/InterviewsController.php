@@ -651,12 +651,15 @@ class InterviewsController extends Controller
     
             $Countries = $this->getCountries();
             $PostalCodes = $this->getPostalCodes();
+            $getInterviewRatings = $this->getInterviewRatings();
+
             return $this->render('update',[
                 'model' => $model,
                 'countries' => ArrayHelper::map($Countries,'Code','Name'),
                 'PostalCodes' => ArrayHelper::map($PostalCodes,'Code','Name'),
+                'ScoreCategory' => ArrayHelper::map($PostalCodes,'Code','Name'),
                 'Questions'=>$model->getInterviewQuestions(urldecode($ComitteID), Yii::$app->user->identity->employee[0]->No),
-                // 'religion' => [],
+                'getInterviewRatings' => $getInterviewRatings,
     
             ]);
     }
@@ -952,6 +955,22 @@ class InterviewsController extends Controller
             $res[] = [
                 'Code' => $PostalCode->Code,
                 'Name' => $PostalCode->City
+            ];
+        }
+
+        return $res;
+    }
+
+    public function getInterviewRatings(){
+        $service = Yii::$app->params['ServiceName']['InterviewRatings'];
+
+        $res = [];
+        $PostalCodes = \Yii::$app->navhelper->getData($service);
+        foreach($PostalCodes as $PostalCode){
+            if(!empty($PostalCode->Rating))
+            $res[] = [
+                'Code' => $PostalCode->Rating,
+                'Name' => $PostalCode->Rating_Description
             ];
         }
 

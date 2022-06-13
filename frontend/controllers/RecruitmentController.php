@@ -857,11 +857,11 @@ class RecruitmentController extends Controller
 
        if(!is_string($result)){
            //Yii::$app->session->setFlash('success', 'Perfomance Appraisal Goals Rejected and Sent Back to Appraisee Successfully.', true);
-           return ['note' => '<div class="alert alert-success alert-dismissable">Perfomance Appraisal Goals Rejected and Sent Back to Appraisee Successfully.</div>'];
+           return ['note' => '<div class="alert alert-success alert-dismissable">Candidate Rejected Succesfully.</div>'];
        }else{
 
           // Yii::$app->session->setFlash('error', 'Error Rejecting Performance Appraisal Goals : '. $result);
-           return ['note' => '<div class="alert alert-danger alert-dismissable">Error Rejecting Performance Appraisal Goals </div>'];
+           return ['note' => '<div class="alert alert-danger alert-dismissable">'.$result];
 
 
        }

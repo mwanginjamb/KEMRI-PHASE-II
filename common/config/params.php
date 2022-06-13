@@ -525,6 +525,7 @@ return [
         'InterviewingCommitteeCard'=>'InterviewingCommitteeCard',//56039
         'InterviewMemberEntries'=>'InterviewMemberEntries',//56042
         'RequisitionGrants'=>'RequisitionGrants',//55130
+        'InterviewRatings'=>'InterviewRatings',//55088
 
 
         /********************Training SERVICES***************************************/

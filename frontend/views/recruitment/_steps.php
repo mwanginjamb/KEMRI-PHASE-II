@@ -180,14 +180,14 @@ $profileAction = (Yii::$app->recruitment->EmployeeUserHasProfile())?'update?No='
                 </div>
            <hr>
 
-            <!-- <?= Html::a('<i class="fas fa-backward"></i> Go Back To List',['backtoemp','appraisalNo'=> '','employeeNo' => ''],[
+            <?= Html::a('<i class="fas fa-backward"></i> Go Back To List',['applicants','ComiteeID'=> $model->CommiteeID],[
                 
                 'class' => 'mx-1 btn btn-app bg-primary ',
                 'rel' => '',
                 'rev' =>'',
-                'title' => 'Reject KRAs and Send them Back to Appraisee.',
+                'title' => 'Go Back to Applicants Lists',
               ]
-            ) ?> -->
+            ) ?>
             
 
             <?= Html::a('<i class="fas fa-check"></i> Short List Candidate',['shortlist','ProfileID'=> urlencode($model->ApplicationID), 'ComitteID'=>urlencode($model->CommiteeID)],
@@ -203,12 +203,13 @@ $profileAction = (Yii::$app->recruitment->EmployeeUserHasProfile())?'update?No='
 
              <?= Html::a('<i class="fas fa-times"></i> Reject',['reject-candidate', 'ProfileID'=> urlencode( $model->ApplicationID),'ComitteID'=>urlencode($model->CommiteeID)],[
                                 'class' => 'btn btn-app bg-warning rejectey',
-                                'title' => 'Reject Goals Set by Appraisee',
+                                'title' => 'Reject This Candidate',
                                 'rel' => $model->ApplicationID,
                                 'rev' => $model->CommiteeID,
-                                /*'data' => [
-                                'confirm' => 'Are you sure you want to Reject this Mid Year Appraisal?',
-                                'method' => 'post',]*/
+                                // 'data' => [
+                                // 'confirm' => 'Are you sure you want to Reject This Candidate?',
+                                // 'method' => 'post',
+                                // ]
             ]) ?>
 
 
