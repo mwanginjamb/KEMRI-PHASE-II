@@ -190,7 +190,6 @@ $this->params['breadcrumbs'][] = ['label' => 'Contract Renewal Card', 'url' => [
                                             '<i class="fa fa-plus"></i>',
                                             [
                                                 'donorline/create',
-
                                                 'Contract_Code' => $obj->Contract_Code,
                                                 'Contract_Line_No' => $obj->Line_No,
                                                 'Employee_No' => $model->Employee_No,
@@ -198,14 +197,12 @@ $this->params['breadcrumbs'][] = ['label' => 'Contract Renewal Card', 'url' => [
                                                 'Grant_Start_Date' => $obj->Contract_Start_Date,
                                                 'Grant_End_Date' => $obj->Contract_End_Date
                                             ],
-
                                             [
                                                 'class' => 'update-objective btn btn-success btn-xs', 'title' => 'Add Donor Details',
                                                 'title' => 'Add Donor Line.',
 
 
-                                            ],
-
+                                            ]
                                         );
 
 
