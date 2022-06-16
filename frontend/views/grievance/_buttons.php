@@ -1,7 +1,6 @@
 <?php
 
 use yii\bootstrap4\Html;
-
 ?>
 
 <?= ($model->Status == 'New' && $model->Employee_No == Yii::$app->user->identity->{'Employee No_'}) ? Html::a('<i class="fas fa-forward"></i>To HRO', ['send-to-hro'], [
