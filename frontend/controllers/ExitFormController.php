@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: HP ELITEBOOK 840 G5
@@ -7,6 +8,7 @@
  */
 
 namespace frontend\controllers;
+
 use frontend\models\Careerdevelopmentstrength;
 use frontend\models\Changerequest;
 use frontend\models\Dependant;
@@ -41,7 +43,7 @@ class ExitFormController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout','signup','index','list','create','update','delete','view'],
+                'only' => ['logout', 'signup', 'index', 'list', 'create', 'update', 'delete', 'view'],
                 'rules' => [
                     [
                         'actions' => ['signup'],
@@ -49,7 +51,7 @@ class ExitFormController extends Controller
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['logout','index','list','create','update','delete','view'],
+                        'actions' => ['logout', 'index', 'list', 'create', 'update', 'delete', 'view'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -61,9 +63,9 @@ class ExitFormController extends Controller
                     'logout' => ['post'],
                 ],
             ],
-            'contentNegotiator' =>[
+            'contentNegotiator' => [
                 'class' => ContentNegotiator::class,
-                'only' => ['list','setfield'],
+                'only' => ['list', 'setfield'],
                 'formatParam' => '_format',
                 'formats' => [
                     'application/json' => Response::FORMAT_JSON,
@@ -73,71 +75,68 @@ class ExitFormController extends Controller
         ];
     }
 
-    public function actionIndex(){
+    public function actionIndex()
+    {
 
         return $this->render('index');
-
     }
 
-    public function actionVehicleAvailability(){
+    public function actionVehicleAvailability()
+    {
 
         return $this->render('vehicle-availability');
-
     }
 
-    public function actionApprovedRequisitions(){
+    public function actionApprovedRequisitions()
+    {
 
         return $this->render('approved');
-
     }
 
 
-    public function actionCreate(){
+    public function actionCreate()
+    {
 
         $model = new Changerequest();
         $service = Yii::$app->params['ServiceName']['ChangeRequestCard'];
 
         /*Do initial request */
-        if(!isset(Yii::$app->request->post()['Changerequest'])){
+        if (!isset(Yii::$app->request->post()['Changerequest'])) {
             $model->Employee_No = Yii::$app->user->identity->{'Employee_No'};
             $request = Yii::$app->navhelper->postData($service, $model);
-            if(!is_string($request) )
-            {
-                Yii::$app->navhelper->loadmodel($request,$model);
-            }else{
-                Yii::$app->session->setFlash('error',$request);
-                return $this->render('create',[
+            if (!is_string($request)) {
+                Yii::$app->navhelper->loadmodel($request, $model);
+            } else {
+                Yii::$app->session->setFlash('error', $request);
+                return $this->render('create', [
                     'model' => $model,
                 ]);
             }
         }
 
-        if(Yii::$app->request->post() && Yii::$app->navhelper->loadpost(Yii::$app->request->post()['Vehiclerequisition'],$model) ){
+        if (Yii::$app->request->post() && Yii::$app->navhelper->loadpost(Yii::$app->request->post()['Vehiclerequisition'], $model)) {
 
             $filter = [
                 'Booking_Requisition_No' => $model->Booking_Requisition_No,
             ];
             /*Read the card again to refresh Key in case it changed*/
-            $refresh = Yii::$app->navhelper->getData($service,$filter);
-            $model = Yii::$app->navhelper->loadmodel($refresh[0],$model);
-            $result = Yii::$app->navhelper->updateData($service,$model);
-            if(!is_string($result)){
+            $refresh = Yii::$app->navhelper->getData($service, $filter);
+            $model = Yii::$app->navhelper->loadmodel($refresh[0], $model);
+            $result = Yii::$app->navhelper->updateData($service, $model);
+            if (!is_string($result)) {
 
-                Yii::$app->session->setFlash('success','Request Created Successfully.' );
-                return $this->redirect(['view','No' => $result->Booking_Requisition_No]);
-
-            }else{
-                Yii::$app->session->setFlash('error','Error Creating Request '.$result );
+                Yii::$app->session->setFlash('success', 'Request Created Successfully.');
+                return $this->redirect(['view', 'No' => $result->Booking_Requisition_No]);
+            } else {
+                Yii::$app->session->setFlash('error', 'Error Creating Request ' . $result);
                 return $this->redirect(['index']);
-
             }
-
         }
 
 
         //Yii::$app->recruitment->printrr($model);
 
-        return $this->render('create',[
+        return $this->render('create', [
             'model' => $model,
         ]);
     }
@@ -145,7 +144,8 @@ class ExitFormController extends Controller
 
 
 
-    public function actionUpdate($No){
+    public function actionUpdate($No)
+    {
         $model = new Changerequest();
         $service = Yii::$app->params['ServiceName']['ChangeRequestCard'];
         $model->isNewRecord = false;
@@ -153,45 +153,42 @@ class ExitFormController extends Controller
         $filter = [
             'Booking_Requisition_No' => $No,
         ];
-        $result = Yii::$app->navhelper->getData($service,$filter);
+        $result = Yii::$app->navhelper->getData($service, $filter);
 
-        if(is_array($result)){
+        if (is_array($result)) {
             //load nav result to model
-            $model = Yii::$app->navhelper->loadmodel($result[0],$model) ;//$this->loadtomodeEmployee_Plan_Nol($result[0],$Expmodel);
-        }else{
+            $model = Yii::$app->navhelper->loadmodel($result[0], $model); //$this->loadtomodeEmployee_Plan_Nol($result[0],$Expmodel);
+        } else {
             Yii::$app->recruitment->printrr($result);
         }
 
 
-        if(Yii::$app->request->post() && Yii::$app->navhelper->loadpost(Yii::$app->request->post()['Salaryadvance'],$model) ){
+        if (Yii::$app->request->post() && Yii::$app->navhelper->loadpost(Yii::$app->request->post()['Salaryadvance'], $model)) {
             $filter = [
                 'Plan_No' => $model->Plan_No,
             ];
             /*Read the card again to refresh Key in case it changed*/
-            $refresh = Yii::$app->navhelper->getData($service,$filter);
-            Yii::$app->navhelper->loadmodel($refresh[0],$model);
+            $refresh = Yii::$app->navhelper->getData($service, $filter);
+            Yii::$app->navhelper->loadmodel($refresh[0], $model);
 
-            $result = Yii::$app->navhelper->updateData($service,$model);
+            $result = Yii::$app->navhelper->updateData($service, $model);
 
-            if(!is_string($result)){
+            if (!is_string($result)) {
 
-                Yii::$app->session->setFlash('success','Leave Plan Header Updated Successfully.' );
+                Yii::$app->session->setFlash('success', 'Leave Plan Header Updated Successfully.');
 
-                return $this->redirect(['view','Plan_No' => $result->Plan_No]);
-
-            }else{
-                Yii::$app->session->setFlash('success','Error Updating Leave Plan Header '.$result );
-                return $this->render('update',[
+                return $this->redirect(['view', 'Plan_No' => $result->Plan_No]);
+            } else {
+                Yii::$app->session->setFlash('success', 'Error Updating Leave Plan Header ' . $result);
+                return $this->render('update', [
                     'model' => $model,
                 ]);
-
             }
-
         }
 
 
         // Yii::$app->recruitment->printrr($model);
-        if(Yii::$app->request->isAjax){
+        if (Yii::$app->request->isAjax) {
             return $this->renderAjax('update', [
                 'model' => $model,
 
@@ -199,21 +196,22 @@ class ExitFormController extends Controller
             ]);
         }
 
-        return $this->render('update',[
+        return $this->render('update', [
             'model' => $model,
 
         ]);
     }
 
-    public function actionDelete(){
+    public function actionDelete()
+    {
         $service = Yii::$app->params['ServiceName']['CareerDevStrengths'];
-        $result = Yii::$app->navhelper->deleteData($service,Yii::$app->request->get('Key'));
+        $result = Yii::$app->navhelper->deleteData($service, Yii::$app->request->get('Key'));
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        if(!is_string($result)){
+        if (!is_string($result)) {
 
             return ['note' => '<div class="alert alert-success">Record Purged Successfully</div>'];
-        }else{
-            return ['note' => '<div class="alert alert-danger">Error Purging Record: '.$result.'</div>' ];
+        } else {
+            return ['note' => '<div class="alert alert-danger">Error Purging Record: ' . $result . '</div>'];
         }
     }
 
@@ -221,13 +219,13 @@ class ExitFormController extends Controller
     {
 
         $changes = [
-            ['Code' => '_blank_','Desc' => '_blank_'],
-            ['Code' => 'Male' ,'Desc' =>'Male'],
-            ['Code' => 'Female' ,'Desc' => 'Female'],
-            ['Code' =>'Unknown' ,'Desc' => 'Unknown'],
+            ['Code' => '_blank_', 'Desc' => '_blank_'],
+            ['Code' => 'Male', 'Desc' => 'Male'],
+            ['Code' => 'Female', 'Desc' => 'Female'],
+            ['Code' => 'Unknown', 'Desc' => 'Unknown'],
         ];
 
-        $data =  ArrayHelper::map($changes,'Code','Desc');
+        $data =  ArrayHelper::map($changes, 'Code', 'Desc');
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         return $data;
     }
@@ -237,15 +235,15 @@ class ExitFormController extends Controller
     {
 
         $changes = [
-            ['Code' => 'Retain','Desc' => 'Retain'],
-            ['Code' => 'Remove' ,'Desc' =>'Remove'],
-            ['Code' => 'New_Addition' ,'Desc' =>'New_Addition'],
-            ['Code' => 'Existing' ,'Desc' =>'Existing'],
-            ['Code' => 'Modify_Allocation' ,'Desc' =>'Modify_Allocation'],
+            ['Code' => 'Retain', 'Desc' => 'Retain'],
+            ['Code' => 'Remove', 'Desc' => 'Remove'],
+            ['Code' => 'New_Addition', 'Desc' => 'New_Addition'],
+            ['Code' => 'Existing', 'Desc' => 'Existing'],
+            ['Code' => 'Modify_Allocation', 'Desc' => 'Modify_Allocation'],
 
         ];
 
-        $data =  ArrayHelper::map($changes,'Code','Desc');
+        $data =  ArrayHelper::map($changes, 'Code', 'Desc');
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         return $data;
     }
@@ -255,7 +253,7 @@ class ExitFormController extends Controller
         $service = Yii::$app->params['ServiceName']['Relatives'];
         $relatives = Yii::$app->navhelper->getData($service, []);
 
-        $data = Yii::$app->navhelper->refactorArray($relatives,'Code','Description');
+        $data = Yii::$app->navhelper->refactorArray($relatives, 'Code', 'Description');
 
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         return $data;
@@ -266,7 +264,7 @@ class ExitFormController extends Controller
         $service = Yii::$app->params['ServiceName']['MiscArticles'];
         $relatives = Yii::$app->navhelper->getData($service, []);
 
-        $data = Yii::$app->navhelper->refactorArray($relatives,'Code','Description');
+        $data = Yii::$app->navhelper->refactorArray($relatives, 'Code', 'Description');
 
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         return $data;
@@ -277,7 +275,7 @@ class ExitFormController extends Controller
         $service = Yii::$app->params['ServiceName']['Professional'];
         $relatives = Yii::$app->navhelper->getData($service, []);
 
-        $data = Yii::$app->navhelper->refactorArray($relatives,'Code','Name');
+        $data = Yii::$app->navhelper->refactorArray($relatives, 'Code', 'Name');
 
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         return $data;
@@ -288,7 +286,7 @@ class ExitFormController extends Controller
         $service = Yii::$app->params['ServiceName']['Qualifications'];
         $relatives = Yii::$app->navhelper->getData($service, []);
 
-        $data = Yii::$app->navhelper->refactorArray($relatives,'Code', 'Description');
+        $data = Yii::$app->navhelper->refactorArray($relatives, 'Code', 'Description');
 
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         return $data;
@@ -298,12 +296,12 @@ class ExitFormController extends Controller
     {
 
         $changes = [
-            ['Code' => 'Adult','Desc' => 'Adult'],
-            ['Code' => 'Minor' ,'Desc' =>'Minor'],
+            ['Code' => 'Adult', 'Desc' => 'Adult'],
+            ['Code' => 'Minor', 'Desc' => 'Minor'],
 
         ];
 
-        $data =  ArrayHelper::map($changes,'Code','Desc');
+        $data =  ArrayHelper::map($changes, 'Code', 'Desc');
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         return $data;
     }
@@ -313,14 +311,14 @@ class ExitFormController extends Controller
     {
 
         $changes = [
-            ['Code' => '_blank_','Desc' => '_blank_'],
-            ['Code' => 'Yes' ,'Desc' =>'Yes'],
-            ['Code' => 'No' ,'Desc' =>'No'],
-            ['Code' => 'N_A' ,'Desc' =>'N_A'],
+            ['Code' => '_blank_', 'Desc' => '_blank_'],
+            ['Code' => 'Yes', 'Desc' => 'Yes'],
+            ['Code' => 'No', 'Desc' => 'No'],
+            ['Code' => 'N_A', 'Desc' => 'N_A'],
 
         ];
 
-        $data =  ArrayHelper::map($changes,'Code','Desc');
+        $data =  ArrayHelper::map($changes, 'Code', 'Desc');
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         return $data;
     }
@@ -329,12 +327,12 @@ class ExitFormController extends Controller
     {
 
         $changes = [
-            ['Code' => 'Good','Desc' => 'Good'],
-            ['Code' => 'Bad' ,'Desc' =>'Bad'],
+            ['Code' => 'Good', 'Desc' => 'Good'],
+            ['Code' => 'Bad', 'Desc' => 'Bad'],
 
         ];
 
-        $data =  ArrayHelper::map($changes,'Code','Desc');
+        $data =  ArrayHelper::map($changes, 'Code', 'Desc');
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         return $data;
     }
@@ -342,7 +340,8 @@ class ExitFormController extends Controller
 
 
 
-    public function actionView($No){
+    public function actionView($No)
+    {
         $model = new ExitForm();
         $service = Yii::$app->params['ServiceName']['ClearanceFormCard'];
 
@@ -365,7 +364,7 @@ class ExitFormController extends Controller
         $model->Personal_Account_Uncleared = number_format($model->Personal_Account_Uncleared);
         $model->Archives_Uncleared_Items = number_format($model->Archives_Uncleared_Items);
 
-        return $this->render('view',[
+        return $this->render('view', [
             'model' => $model,
         ]);
     }
@@ -373,7 +372,8 @@ class ExitFormController extends Controller
 
 
 
-    public function actionSetfield($field){
+    public function actionSetfield($field)
+    {
         $model = new ExitForm();
         $service = Yii::$app->params['ServiceName']['ClearanceFormCard'];
 
@@ -381,18 +381,16 @@ class ExitFormController extends Controller
             'Form_No' => Yii::$app->request->post('No'),
         ];
         $result = Yii::$app->navhelper->getData($service, $filter);
-      
-        if(is_array($result)){
-            Yii::$app->navhelper->loadmodel($result[0],$model);
+
+        if (is_array($result)) {
+            Yii::$app->navhelper->loadmodel($result[0], $model);
             $model->Key = $result[0]->Key;
             $model->$field = Yii::$app->request->post($field);
-
         }
 
 
-        $result = Yii::$app->navhelper->updateData($service,$model);
+        $result = Yii::$app->navhelper->updateData($service, $model);
         return $result;
-
     }
 
 
@@ -400,100 +398,69 @@ class ExitFormController extends Controller
 
     public function actionClear($exitNo, $formNo, $stage)
     {
-         $service = Yii::$app->params['ServiceName']['EmployeeExitManagement'];
-         $data = [
+        $service = Yii::$app->params['ServiceName']['EmployeeExitManagement'];
+        $data = [
             'exitNo' => $exitNo,
             'formNo' => $formNo,
             'sendEmail' => 1,
             'approvalURL' => Html::encode(Yii::$app->urlManager->createAbsoluteUrl(['exit-form/view', 'No' => $formNo]))
         ];
 
-        if($stage == 'Library')
-        {
+        if ($stage == 'Library') {
             $result = Yii::$app->navhelper->CodeUnit($service, $data, 'IanSendToLibraryForClearance');
-        }
-        elseif($stage == 'Store')
-        {
+        } elseif ($stage == 'Store') {
             $result = Yii::$app->navhelper->CodeUnit($service, $data, 'IanSendToStoreForClearance');
-        }
-        elseif($stage == 'Archives')
-        {
+        } elseif ($stage == 'Archives') {
             $result = Yii::$app->navhelper->CodeUnit($service, $data, 'IanSendToArchiveForClearance');
-        }
-        elseif($stage == 'Lab')
-        {
-             $result = Yii::$app->navhelper->CodeUnit($service, $data, 'IanSendToLabForClearance');
-        }
-        elseif($stage == 'Assets')
-        {
-             $result = Yii::$app->navhelper->CodeUnit($service, $data, 'IanSendToAssetForClearance');
-        }
-         elseif($stage == 'ICT')
-        {
-             $result = Yii::$app->navhelper->CodeUnit($service, $data, 'IanSendToICTForClearance');
-        }
-        elseif($stage == 'Security')
-        {
-             $result = Yii::$app->navhelper->CodeUnit($service, $data, 'IanSendToSecurityForClearance');
-        }
-        elseif($stage == 'Payroll')
-        {
-             $result = Yii::$app->navhelper->CodeUnit($service, $data, 'IanSendToPayrollForClearance');
-        }
-        elseif($stage == 'Training')
-        {
-             $result = Yii::$app->navhelper->CodeUnit($service, $data, 'IanSendToTrainingForClearance');
-        }
-        elseif($stage == 'Personal_Account')
-        {
-             $result = Yii::$app->navhelper->CodeUnit($service, $data, 'IanSendToPersonalAccountForClearance');
-        }
-        elseif($stage == 'HOD')
-        {
-             $result = Yii::$app->navhelper->CodeUnit($service, $data, 'IanSendToHODForClearance');
-        }
-        elseif($stage == 'Human_Resources')
-        {
-             $result = Yii::$app->navhelper->CodeUnit($service, $data, 'IanSendToHRForClearance');
-        }
-        elseif($stage == 'Executive_Director')
-        {
-             $result = Yii::$app->navhelper->CodeUnit($service, $data, 'IanSendToEDForClearance');
+        } elseif ($stage == 'Lab') {
+            $result = Yii::$app->navhelper->CodeUnit($service, $data, 'IanSendToLabForClearance');
+        } elseif ($stage == 'Assets') {
+            $result = Yii::$app->navhelper->CodeUnit($service, $data, 'IanSendToAssetForClearance');
+        } elseif ($stage == 'ICT') {
+            $result = Yii::$app->navhelper->CodeUnit($service, $data, 'IanSendToICTForClearance');
+        } elseif ($stage == 'Security') {
+            $result = Yii::$app->navhelper->CodeUnit($service, $data, 'IanSendToSecurityForClearance');
+        } elseif ($stage == 'Payroll') {
+            $result = Yii::$app->navhelper->CodeUnit($service, $data, 'IanSendToPayrollForClearance');
+        } elseif ($stage == 'Training') {
+            $result = Yii::$app->navhelper->CodeUnit($service, $data, 'IanSendToTrainingForClearance');
+        } elseif ($stage == 'Personal_Account') {
+            $result = Yii::$app->navhelper->CodeUnit($service, $data, 'IanSendToPersonalAccountForClearance');
+        } elseif ($stage == 'HOD') {
+            $result = Yii::$app->navhelper->CodeUnit($service, $data, 'IanSendToHODForClearance');
+        } elseif ($stage == 'Human_Resources') {
+            $result = Yii::$app->navhelper->CodeUnit($service, $data, 'IanSendToHRForClearance');
+        } elseif ($stage == 'Executive_Director') {
+            $result = Yii::$app->navhelper->CodeUnit($service, $data, 'IanSendToEDForClearance');
         }
 
 
-        if(is_string($result))
-        {
-            Yii::$app->session->setFlash('error', 'Error: '. $result);
-            
-        }else{
-            
+        if (is_string($result)) {
+            Yii::$app->session->setFlash('error', 'Error: ' . $result);
+        } else {
+
             Yii::$app->session->setFlash('success', 'Clearance Successfully Sent For Approval.');
         }
 
-        return $this->redirect(['view','No' => $formNo]);
-
-
+        return $this->redirect(['view', 'No' => $formNo]);
     }
 
-    public function actionClearSection($exitNo,$FormNo)
+    public function actionClearSection($exitNo, $FormNo)
     {
-         $service = Yii::$app->params['ServiceName']['EmployeeExitManagement'];
+        $service = Yii::$app->params['ServiceName']['EmployeeExitManagement'];
         $data = [
             'exitNo' =>  $exitNo,
-            'formNo' => $FormNo ,
-            'sendEmail' => true ,
+            'formNo' => $FormNo,
+            'sendEmail' => true,
             'approvalURL' => Html::encode(Yii::$app->urlManager->createAbsoluteUrl(['exit-form/view', 'No' => $exitNo]))
         ];
 
-        $result = Yii::$app->navhelper->CodeUnit($service,$data,'IanClearSection');
+        $result = Yii::$app->navhelper->CodeUnit($service, $data, 'IanClearSection');
 
-        if(!is_string($result))
-        {
+        if (!is_string($result)) {
             Yii::$app->session->setFlash('success', 'Section Cleared Successfully.');
-        }else
-        {
-            Yii::$app->session->setFlash('error', 'Error: '.$result);
+        } else {
+            Yii::$app->session->setFlash('error', 'Error: ' . $result);
         }
 
         return $this->redirect(['index']);
@@ -501,7 +468,8 @@ class ExitFormController extends Controller
 
     // Get clearance status
 
-    public function actionClearanceStatus($form_no){
+    public function actionClearanceStatus($form_no)
+    {
         $model = new ExitForm();
         $service = Yii::$app->params['ServiceName']['ClearanceStatus'];
 
@@ -511,48 +479,49 @@ class ExitFormController extends Controller
 
         $result = Yii::$app->navhelper->getData($service, $filter);
 
-        usort($result, function ($a, $b) {return $a->Sequence > $b->Sequence;});
+        usort($result, function ($a, $b) {
+            return $a->Sequence > $b->Sequence;
+        });
         /*print '<pre>';
         print_r( $result ); exit;*/
 
-        return $this->render('clearance_status',[
+        return $this->render('clearance_status', [
             'model' => $result,
         ]);
     }
 
 
-   // Get Vehicle Requisition list
+    // Get Vehicle Requisition list
 
-    public function actionList(){
+    public function actionList()
+    {
         $service = Yii::$app->params['ServiceName']['ClearanceFormList'];
-        $filter = [
-           
-        ];
-         // 'Employee_No' => Yii::$app->user->identity->Employee[0]->No,
+        $filter = [];
+        // 'Employee_No' => Yii::$app->user->identity->Employee[0]->No,
 
-        $results = \Yii::$app->navhelper->getData($service,$filter);
+        $results = \Yii::$app->navhelper->getData($service, $filter);
         $result = [];
-        foreach($results as $item){
+        foreach ($results as $item) {
 
-            if(!empty($item->Form_No) && ($item->Employee_No == Yii::$app->user->identity->{'Employee No_'} || ( !empty($item->Responsible_Employee) && $item->Responsible_Employee == Yii::$app->user->identity->{'Employee No_'}))  )
-            {
+            if (!empty($item->Form_No) && ($item->Employee_No == Yii::$app->user->identity->{'Employee No_'} || (!empty($item->Responsible_Employee) && $item->Responsible_Employee == Yii::$app->user->identity->{'Employee No_'}))) {
                 $link = $updateLink = $deleteLink =  '';
-                $Viewlink = Html::a('<i class="fas fa-eye"></i>',['view','No'=> $item->Form_No ],['class'=>'btn btn-outline-primary btn-xs','title' => 'View Request.' ]);
-                $Statuslink = Html::a('<i class="fas fa-envelope-open"></i>',['clearance-status','form_no'=> $item->Form_No ],['class'=>'btn btn-outline-success btn-xs','title' => 'View Clearance Status.' ]);
+                $Viewlink = Html::a('<i class="fas fa-eye"></i>', ['view', 'No' => $item->Form_No], ['class' => 'btn btn-outline-primary btn-xs', 'title' => 'View Request.']);
+                $Statuslink = Html::a('<i class="fas fa-envelope-open"></i>', ['clearance-status', 'form_no' => $item->Form_No], ['class' => 'btn btn-outline-success btn-xs', 'title' => 'View Clearance Status.']);
 
 
                 $result['data'][] = [
                     'Key' => $item->Key,
                     'No' => $item->Form_No,
-                    'Exit_No' => !empty($item->Exit_No)?$item->Exit_No:'',
-                    'Employee_No' => !empty($item->Employee_No)?$item->Employee_No:'',
-                    'Employee_Name' => !empty($item->Employee_Name)?$item->Employee_Name:'',
-                
-                    'Action' => $link.' '. $updateLink.' '.$Viewlink.' '.$Statuslink ,
+                    'Exit_No' => !empty($item->Exit_No) ? $item->Exit_No : '',
+                    'Employee_No' => !empty($item->Employee_No) ? $item->Employee_No : '',
+                    'Employee_Name' => !empty($item->Employee_Name) ? $item->Employee_Name : '',
+                    'Date_of_Exit' => !empty($item->Date_of_Exit) ? $item->Date_of_Exit : '',
+                    'Contract_End_Date' => !empty($item->Contract_End_Date) ? $item->Contract_End_Date : '',
+
+                    'Action' => $link . ' ' . $updateLink . ' ' . $Viewlink . ' ' . $Statuslink,
 
                 ];
             }
-
         }
 
         return $result;
@@ -566,7 +535,8 @@ class ExitFormController extends Controller
 
 
 
-    public function actionSetloantype(){
+    public function actionSetloantype()
+    {
         $model = new Salaryadvance();
         $service = Yii::$app->params['ServiceName']['SalaryAdvanceCard'];
 
@@ -575,22 +545,22 @@ class ExitFormController extends Controller
         ];
         $request = Yii::$app->navhelper->getData($service, $filter);
 
-        if(is_array($request)){
-            Yii::$app->navhelper->loadmodel($request[0],$model);
+        if (is_array($request)) {
+            Yii::$app->navhelper->loadmodel($request[0], $model);
             $model->Key = $request[0]->Key;
             $model->Loan_Type = Yii::$app->request->post('loan');
         }
 
 
-        $result = Yii::$app->navhelper->updateData($service,$model);
+        $result = Yii::$app->navhelper->updateData($service, $model);
 
         Yii::$app->response->format = \yii\web\response::FORMAT_JSON;
 
         return $result;
-
     }
 
-    public function actionCommit(){
+    public function actionCommit()
+    {
         $commitModel = trim(Yii::$app->request->post('model'));
         $commitService = Yii::$app->request->post('service');
         $key = Yii::$app->request->post('key');
@@ -602,13 +572,11 @@ class ExitFormController extends Controller
 
         $service = Yii::$app->params['ServiceName'][$commitService];
 
-        if(!empty($filterKey))
-        {
+        if (!empty($filterKey)) {
             $filter = [
                 $filterKey => Yii::$app->request->post('no')
             ];
-        }
-        else{
+        } else {
             $filter = [
                 'Line_No' => Yii::$app->request->post('no')
             ];
@@ -618,29 +586,29 @@ class ExitFormController extends Controller
 
 
         $data = [];
-        if(is_array($request)){
+        if (is_array($request)) {
             $data = [
                 'Key' => $request[0]->Key,
                 $name => $value
             ];
-        }else{
+        } else {
             Yii::$app->response->format = \yii\web\response::FORMAT_JSON;
             return ['error' => $request];
         }
 
 
 
-        $result = Yii::$app->navhelper->updateData($service,$data);
+        $result = Yii::$app->navhelper->updateData($service, $data);
 
         Yii::$app->response->format = \yii\web\response::FORMAT_JSON;
 
         return $result;
-
     }
 
     /* Set Imprest Type */
 
-    public function actionSetimpresttype(){
+    public function actionSetimpresttype()
+    {
         $model = new Imprestcard();
         $service = Yii::$app->params['ServiceName']['ImprestRequestCardPortal'];
 
@@ -649,24 +617,24 @@ class ExitFormController extends Controller
         ];
         $request = Yii::$app->navhelper->getData($service, $filter);
 
-        if(is_array($request)){
-            Yii::$app->navhelper->loadmodel($request[0],$model);
+        if (is_array($request)) {
+            Yii::$app->navhelper->loadmodel($request[0], $model);
             $model->Key = $request[0]->Key;
             $model->Imprest_Type = Yii::$app->request->post('Imprest_Type');
         }
 
 
-        $result = Yii::$app->navhelper->updateData($service,$model,['Amount_LCY']);
+        $result = Yii::$app->navhelper->updateData($service, $model, ['Amount_LCY']);
 
         Yii::$app->response->format = \yii\web\response::FORMAT_JSON;
 
         return $result;
-
     }
 
-        /*Set Imprest to Surrend*/
+    /*Set Imprest to Surrend*/
 
-    public function actionSetimpresttosurrender(){
+    public function actionSetimpresttosurrender()
+    {
         $model = new Imprestsurrendercard();
         $service = Yii::$app->params['ServiceName']['ImprestSurrenderCardPortal'];
 
@@ -675,29 +643,29 @@ class ExitFormController extends Controller
         ];
         $request = Yii::$app->navhelper->getData($service, $filter);
 
-        if(is_array($request)){
-            Yii::$app->navhelper->loadmodel($request[0],$model);
+        if (is_array($request)) {
+            Yii::$app->navhelper->loadmodel($request[0], $model);
             $model->Key = $request[0]->Key;
             $model->Imprest_Plan_No = Yii::$app->request->post('Imprest_Plan_No');
         }
 
 
-        $result = Yii::$app->navhelper->updateData($service,$model);
+        $result = Yii::$app->navhelper->updateData($service, $model);
 
         Yii::$app->response->format = \yii\web\response::FORMAT_JSON;
 
         return $result;
-
     }
 
-    public function loadtomodel($obj,$model){
+    public function loadtomodel($obj, $model)
+    {
 
-        if(!is_object($obj)){
+        if (!is_object($obj)) {
             return false;
         }
-        $modeldata = (get_object_vars($obj)) ;
-        foreach($modeldata as $key => $val){
-            if(is_object($val)) continue;
+        $modeldata = (get_object_vars($obj));
+        foreach ($modeldata as $key => $val) {
+            if (is_object($val)) continue;
             $model->$key = $val;
         }
 
@@ -717,16 +685,15 @@ class ExitFormController extends Controller
         ];
 
 
-        $result = Yii::$app->navhelper->PortalWorkFlows($service,$data,'IanSendVehicleBookingRequisitionForApproval');
+        $result = Yii::$app->navhelper->PortalWorkFlows($service, $data, 'IanSendVehicleBookingRequisitionForApproval');
 
-        if(!is_string($result)){
+        if (!is_string($result)) {
             Yii::$app->session->setFlash('success', 'Request Sent to Supervisor Successfully.', true);
-            return $this->redirect(['view','No' => $DocNo]);
-        }else{
+            return $this->redirect(['view', 'No' => $DocNo]);
+        } else {
 
-            Yii::$app->session->setFlash('error', 'Error Sending  Request for Approval  : '. $result);
-            return $this->redirect(['view','No' => $DocNo]);
-
+            Yii::$app->session->setFlash('error', 'Error Sending  Request for Approval  : ' . $result);
+            return $this->redirect(['view', 'No' => $DocNo]);
         }
     }
 
@@ -741,19 +708,15 @@ class ExitFormController extends Controller
         ];
 
 
-        $result = Yii::$app->navhelper->PortalWorkFlows($service,$data,'IanCancelVehicleBookingRequisitionApprovalRequest');
+        $result = Yii::$app->navhelper->PortalWorkFlows($service, $data, 'IanCancelVehicleBookingRequisitionApprovalRequest');
 
-        if(!is_string($result)){
+        if (!is_string($result)) {
             Yii::$app->session->setFlash('success', 'Request Cancelled Successfully.', true);
-            return $this->redirect(['view','No' => $No]);
-        }else{
+            return $this->redirect(['view', 'No' => $No]);
+        } else {
 
-            Yii::$app->session->setFlash('error', 'Error Cancelling Approval Request.  : '. $result);
-            return $this->redirect(['view','No' => $Plan_No]);
-
+            Yii::$app->session->setFlash('error', 'Error Cancelling Approval Request.  : ' . $result);
+            return $this->redirect(['index']);
         }
     }
-
-
-
 }
