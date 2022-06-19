@@ -110,3 +110,157 @@ stdClass Object
     [Activity_Name] => Other - Motorcycle travel for field study
     [Blocked] => 
 )
+stdClass Object
+(
+    [Key] => 36;q+IAAAJ7/08AWABGADAAMgAtAFQAMQA5ADM=8;153031090;
+    [Grant_Activity] => OXF02-T193
+    [Activity_Name] => Transport - Nrb
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 36;q+IAAAJ7/08AWABGADAAMgAtAFQAMQA5ADQ=8;153031430;
+    [Grant_Activity] => OXF02-T194
+    [Activity_Name] => Facilities - Nrb
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 36;q+IAAAJ7/08AWABGADAAMgAtAFQAMQA5ADU=8;153031750;
+    [Grant_Activity] => OXF02-T195
+    [Activity_Name] => Human Resource - Nrb
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 36;q+IAAAJ7/08AWABGADAAMgAtAFQAMQA5ADY=8;153032010;
+    [Grant_Activity] => OXF02-T196
+    [Activity_Name] => General Admin - Nrb
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 36;q+IAAAJ7/08AWABGADAAMgAtAFQAMQA5ADc=8;153032230;
+    [Grant_Activity] => OXF02-T197
+    [Activity_Name] => Recoveries - Nrb
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 36;q+IAAAJ7/08AWABGADAAMgAtAFQAMgAwADA=8;153032450;
+    [Grant_Activity] => OXF02-T200
+    [Activity_Name] => Scientific Support
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 36;q+IAAAJ7/08AWABGADAAMgAtAFQAMgAxADA=8;153032670;
+    [Grant_Activity] => OXF02-T210
+    [Activity_Name] => B900.9 ICT
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 36;q+IAAAJ7/08AWABGADAAMgAtAFQAMgAxADE=8;153032890;
+    [Grant_Activity] => OXF02-T211
+    [Activity_Name] => ICT infrastructure
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 36;q+IAAAJ7/08AWABGADAAMgAtAFQAMgAxADI=8;153033190;
+    [Grant_Activity] => OXF02-T212
+    [Activity_Name] => Development
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 36;q+IAAAJ7/08AWABGADAAMgAtAFQAMgAxADM=8;153033450;
+    [Grant_Activity] => OXF02-T213
+    [Activity_Name] => Data Governance
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 36;q+IAAAJ7/08AWABGADAAMgAtAFQAMgAxADQ=8;153033670;
+    [Grant_Activity] => OXF02-T214
+    [Activity_Name] => Information Service
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 36;q+IAAAJ7/08AWABGADAAMgAtAFQAMgAxADU=8;153033970;
+    [Grant_Activity] => OXF02-T215
+    [Activity_Name] => Overseas Allowances
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 36;q+IAAAJ7/08AWABGADAAMgAtAFQAMgAyADA=8;153034400;
+    [Grant_Activity] => OXF02-T220
+    [Activity_Name] => B900.10 Clinical Services
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 36;q+IAAAJ7/08AWABGADAAMgAtAFQAMgAyADE=8;153034660;
+    [Grant_Activity] => OXF02-T221
+    [Activity_Name] => HDU
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 36;q+IAAAJ7/08AWABGADAAMgAtAFQAMgAyADI=8;153034920;
+    [Grant_Activity] => OXF02-T222
+    [Activity_Name] => Ward 1
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 36;q+IAAAJ7/08AWABGADAAMgAtAFQAMgAyADM=8;153035140;
+    [Grant_Activity] => OXF02-T223
+    [Activity_Name] => POPC
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 36;q+IAAAJ7/08AWABGADAAMgAtAFQAMgAyADQ=8;153035440;
+    [Grant_Activity] => OXF02-T224
+    [Activity_Name] => KOPD
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 36;q+IAAAJ7/08AWABGADAAMgAtAFQAMgAyADU=8;153036990;
+    [Grant_Activity] => OXF02-T225
+    [Activity_Name] => Clinical Overhead
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 36;q+IAAAJ7/08AWABGADAAMgAtAFQAMgAyADY=8;153037580;
+    [Grant_Activity] => OXF02-T226
+    [Activity_Name] => Overseas Allowances
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 36;q+IAAAJ7/08AWABGADAAMgAtAFQAMgAzADA=8;153038010;
+    [Grant_Activity] => OXF02-T230
+    [Activity_Name] => B900.11 Epi DSS
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 36;q+IAAAJ7/08AWABGADAAMgAtAFQAMgAzADE=8;153038740;
+    [Grant_Activity] => OXF02-T231
+    [Activity_Name] => Surveillance
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 36;q+IAAAJ7/08AWABGADAAMgAtAFQAMgAzADI=8;153039200;
+    [Grant_Activity] => OXF02-T232
+    [Activity_Name] => Overseas Allowances
+    [Blocked] => 1
+)

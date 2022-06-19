@@ -51,14 +51,18 @@ class EmployeeTraining extends Model
     public $Line_Manager_Rejection_Comment;
     public $attachment_one;
     public $attachment_two;
+    public  $attachment;
 
     public $Allowed_To_Exceed_Amount;
+    public $isNewRecord;
 
     public function rules()
     {
         return [
             [['attachment_one', 'attachment_two'], 'file', 'mimeTypes' => Yii::$app->params['QualificationsMimeTypes']],
             [['attachment_one', 'attachment_two'], 'file', 'maxSize' => '5120000'], //50mb
+            [['attachment'], 'file', 'mimeTypes' => ['application/pdf']],
+            [['attachment'], 'file', 'maxSize' => '15728640'], //15mb
         ];
     }
 
@@ -66,7 +70,8 @@ class EmployeeTraining extends Model
     {
         return [
             'attachment_one' => 'Training Attachment (PDF)',
-            'Total_Cost' => 'Extra Cost'
+            'Total_Cost' => 'Extra Cost',
+            'attachment' => 'Cost Structure / Related Training Facilitation Attachment.'
         ];
     }
 }

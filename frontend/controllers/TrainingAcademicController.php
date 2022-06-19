@@ -262,9 +262,12 @@ class TrainingAcademicController extends Controller
         ];
 
         $result = Yii::$app->navhelper->Codeunit($service, $data, 'IanMakeTrainingApplicationFromAcademic');
-        if (!is_string($result)) {
+        if (is_array($result)) {
             Yii::$app->session->setFlash('success', 'Application Made Successfully.', true);
-            return $this->redirect(['index']);
+
+            // Application No. Returned --> Redirect to the damn application
+            $applicationNo = $result['return_value']; //ApplicationNo
+            return $this->redirect(['training-applications/view', 'No' => $applicationNo]);
         } else {
 
             Yii::$app->session->setFlash('error', 'Error  : ' . $result);
