@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: HP ELITEBOOK 840 G5
@@ -18,14 +19,14 @@ $url = \yii\helpers\Url::home(true);
 
 
 <?php
-if(Yii::$app->session->hasFlash('success')){
+if (Yii::$app->session->hasFlash('success')) {
     print ' <div class="alert alert-success alert-dismissable">
                              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                                     <h5><i class="icon fas fa-check"></i> Success!</h5>
  ';
     echo Yii::$app->session->getFlash('success');
     print '</div>';
-}else if(Yii::$app->session->hasFlash('error')){
+} else if (Yii::$app->session->hasFlash('error')) {
     print ' <div class="alert alert-danger alert-dismissable">
                                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                                     <h5><i class="icon fas fa-check"></i> Error!</h5>
@@ -38,7 +39,7 @@ if(Yii::$app->session->hasFlash('success')){
     <div class="col-md-12">
         <div class="card card-info">
             <div class="card-header">
-                <h3 class="card-title">HoD Induction List</h3>
+                <h3 class="card-title">Induction List</h3>
             </div>
             <div class="card-body">
                 <table class="table table-bordered dt-responsive table-hover" id="table">
@@ -48,7 +49,7 @@ if(Yii::$app->session->hasFlash('success')){
     </div>
 </div>
 
-    <input type="hidden" value="<?= $url ?>" id="url" />
+<input type="hidden" value="<?= $url ?>" id="url" />
 <?php
 
 $script = <<<JS
@@ -71,8 +72,9 @@ $script = <<<JS
                 { title: 'Program' ,data: 'Global_Dimension_1_Code'},
                 { title: 'Department' ,data: 'Global_Dimension_2_Code'},
                 
-                { title: 'Induction Status' ,data: 'Status'},
+                { title: 'Overall Status' ,data: 'Overall_Status'},
                 { title: 'Approval Status' ,data: 'Approval_Status'},
+                { title: 'Action Section' ,data: 'Action_Section'},
                 { title: 'Action', data: 'Action' }
                
             ] ,                              
@@ -87,7 +89,7 @@ $script = <<<JS
         
        //Hidding some 
        var table = $('#table').DataTable();
-      // table.columns([0,6]).visible(false);
+      table.columns([6]).visible(false);
     
     /*End Data tables*/
         $('#table').on('click','tr', function(){
@@ -106,10 +108,3 @@ $style = <<<CSS
 CSS;
 
 $this->registerCss($style);
-
-
-
-
-
-
-

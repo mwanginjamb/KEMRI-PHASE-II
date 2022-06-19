@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: HP ELITEBOOK 840 G5
@@ -7,6 +8,7 @@
  */
 
 namespace frontend\controllers;
+
 use frontend\models\Employeeappraisalkra;
 use frontend\models\Experience;
 use frontend\models\Misc;
@@ -29,15 +31,15 @@ class FmsController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'signup','index'],
+                'only' => ['logout', 'signup', 'index', 'display-ess-grants', 'display-fms-grants', 'display-fms-activities', 'display-ess-activities'],
                 'rules' => [
                     [
-                        'actions' => ['signup','index','syncactivities'],
+                        'actions' => ['signup', 'index', 'syncactivities', 'display-ess-grants', 'display-fms-grants', 'display-fms-activities', 'display-ess-activities'],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['logout','create','update','delete'],
+                        'actions' => ['logout', 'create', 'update', 'delete'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -49,9 +51,9 @@ class FmsController extends Controller
                     'logout' => ['post'],
                 ],
             ],
-            'contentNegotiator' =>[
+            'contentNegotiator' => [
                 'class' => ContentNegotiator::class,
-                'only' => ['syncactivities','index'],
+                'only' => ['syncactivities', 'index', 'display-ess-grants', 'display-fms-grants', 'display-fms-activities', 'display-ess-activities'],
                 'formatParam' => '_format',
                 'formats' => [
                     'application/json' => Response::FORMAT_JSON,
@@ -61,32 +63,36 @@ class FmsController extends Controller
         ];
     }
 
-    public function actionIndex(){
+    public function actionIndex()
+    {
+        $fmsGrants = $this->getGrants();
+        if (is_array($fmsGrants)) {
+            foreach ($fmsGrants as $grant) {
+                if (!in_array($grant->No, $this->actionEssGrantCodes())) {
+                    $result = $this->postToEss($grant);
+                    $this->GrantLogger($result);
+                    return $result;
+                }
+            }
+        }
+    }
 
-         $fmsGrants = $this->getGrants();
+    public function actionUnlinkGrants()
+    {
+        $grants = $this->actionDisplayEssGrants()['data'];
+        //Yii::$app->recruitment->printrr($grants);
+        foreach ($grants as $grant) {
+            $this->actionDeleteEssGrant($grant);
+        }
+    }
 
-         // Yii::$app->recruitment->printrr($fmsGrants);  
-
-         //Yii::$app->recruitment->printrr($this->actionEssGrantCodes());
-
-         
-        
-        if(is_array($fmsGrants))
-		{
-			foreach($fmsGrants as $grant)
-			 {
-				if(!in_array($grant->No,$this->actionEssGrantCodes()))
-				{
-					$result = $this->postToEss($grant);
-					$this->GrantLogger($result);					
-					return $result;
- 
-				}
-	  
-			 }
-		}
-         
-
+    public function actionUnlinkActivities()
+    {
+        $activities = $this->actionDisplayEssActivities()['data'];
+        //Yii::$app->recruitment->printrr($activities);
+        foreach ($activities as $activity) {
+            $this->actionDeleteEssActivity($activity);
+        }
     }
 
     public function actionTest()
@@ -94,152 +100,15 @@ class FmsController extends Controller
         return 'Hallo Francis, what are you doing? ';
     }
 
-    public function actionCreate($Change_No){
-
-        $model = new Misc();
-        $service = Yii::$app->params['ServiceName']['Miscinformation'];
-        $model->Action = 'New_Addition';
-        $model->Change_No = $Change_No;
-        $model->Employee_No = Yii::$app->user->identity->{'Employee No_'};
-       
-        $model->isNewRecord = true;
-
-        if(Yii::$app->request->post() && $model->load(Yii::$app->request->post()['Misc'],'')  && $model->validate() ){
-
-           
-            $result = Yii::$app->navhelper->postData($service,$model);
-            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-            if(is_object($result)){
-
-                return ['note' => '<div class="alert alert-success">Record Added Successfully. </div>'];
-
-            }else{
-
-                return ['note' => '<div class="alert alert-danger">Error Adding Record : '.$result.'</div>' ];
-
-            }
-
-        }//End Saving experience
-
-        if(Yii::$app->request->isAjax){
-            return $this->renderAjax('create', [
-                'model' => $model,
-                'articles' => $this->getMiscArticles(),
-                
-            ]);
-        }
-
-        return $this->render('create',[
-            'model' => $model,
-            'articles' => $this->getMiscArticles(),
-           
-        ]);
-    }
 
 
-    public function actionUpdate(){
-        $model = new Employeeappraisalkpi() ;
-        $model->isNewRecord = false;
-        $service = Yii::$app->params['ServiceName']['EmployeeAppraisalKPI'];
-        $filter = [
-            'KRA_Line_No' => Yii::$app->request->get('KRA_Line_No'),
-            'Employee_No' => Yii::$app->request->get('Employee_No'),
-            'Appraisal_No' => Yii::$app->request->get('Appraisal_No'),
-            'Line_No' => Yii::$app->request->get('Line_No'),
-        ];
-        $result = Yii::$app->navhelper->getData($service,$filter);
-
-        if(is_array($result)){
-            //load nav result to model
-            $model = Yii::$app->navhelper->loadmodel($result[0],$model) ;
-        }else{
-            Yii::$app->recruitment->printrr($result);
-        }
-
-
-        if(Yii::$app->request->post() && Yii::$app->navhelper->loadpost(Yii::$app->request->post()['Employeeappraisalkpi'],$model) && $model->validate() ){
-            $result = Yii::$app->navhelper->updateData($service,$model);
-
-            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-            if(!is_string($result)){
-
-                return ['note' => '<div class="alert alert-success">Employee Objective/ KPI Updated Successfully. </div>' ];
-            }else{
-
-                return ['note' => '<div class="alert alert-danger">Error Updating Employee Objective/ KPI: '.$result.'</div>'];
-            }
-
-        }
-
-        if(Yii::$app->request->isAjax){
-            return $this->renderAjax('update', [
-                'model' => $model,
-                'ratings' => $this->getRatings(),
-                'assessments' => $this->getPerformancelevels(),
-            ]);
-        }
-
-        return $this->render('update',[
-            'model' => $model,
-            'ratings' => $this->getRatings(),
-            'assessments' => $this->getPerformancelevels() ,
-        ]);
-    }
-
-
-
-    public function actionDelete(){
-        $service = Yii::$app->params['ServiceName']['EmployeeAppraisalKPI'];
-        $result = Yii::$app->navhelper->deleteData($service,Yii::$app->request->get('Key'));
-        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        if(!is_string($result)){
-            return ['note' => '<div class="alert alert-success">Record Purged Successfully</div>'];
-        }else{
-            return ['note' => '<div class="alert alert-danger">Error Purging Record: '.$result.'</div>' ];
-        }
-    }
-
-    public function actionView($ApplicationNo){
-        $service = Yii::$app->params['ServiceName']['leaveApplicationCard'];
-        $leaveTypes = $this->getLeaveTypes();
-        $employees = $this->getEmployees();
-
-        $filter = [
-            'Application_No' => $ApplicationNo
-        ];
-
-        $leave = Yii::$app->navhelper->getData($service, $filter);
-
-        //load nav result to model
-        $leaveModel = new Leave();
-        $model = $this->loadtomodel($leave[0],$leaveModel);
-
-
-        return $this->render('view',[
-            'model' => $model,
-            'leaveTypes' => ArrayHelper::map($leaveTypes,'Code','Description'),
-            'relievers' => ArrayHelper::map($employees,'No','Full_Name'),
-        ]);
-    }
-
-
-
+    // Get FMS Grants
 
     public function getGrants()
     {
-          $service = Yii::$app->params['FMS-ServiceName']['FMSGrants'];
-          $data = Yii::$app->fms->getData($service, []);
-          return $data;
-    }
-
-
-     public function actionEssGrants()
-    {
-          $service = Yii::$app->params['ServiceName']['GrantList'];
-          $data = Yii::$app->navhelper->getData($service, []);
-          // return $data;
-
-          Yii::$app->recruitment->printrr($data);
+        $service = Yii::$app->params['FMS-ServiceName']['FMSGrants'];
+        $data = Yii::$app->fms->getData($service, []);
+        return $data;
     }
 
     public function postToEss($grant)
@@ -248,14 +117,14 @@ class FmsController extends Controller
         $service = Yii::$app->params['ServiceName']['GrantList'];
 
         $args = [
-            'Donor_Code' => !empty($grant->No)?$grant->No:'',
-            'Donor_Name' => !empty($grant->Name)?$grant->Name:'',
-            'Status' => ($grant->Blocked == '_blank_')?'Active':'Inactive',
+            'Donor_Code' => !empty($grant->No) ? $grant->No : '',
+            'Donor_Name' => !empty($grant->Name) ? $grant->Name : '',
+            'Status' => ($grant->Blocked == '_blank_') ? 'Active' : 'Inactive',
             'Grant_Activity' => '',
-            'Grant_Type' => !empty($grant->Class)?$grant->Class:'' ,
-            'Grant_Start_Date' => !empty($grant->Start_Date)?$grant->Start_Date: date('Y-m-d'),
-            'Grant_End_Date' => !empty($grant->End_Date)?$grant->End_Date: date('Y-m-d'),
-            'Grant_Accountant' => !empty($grant->Grant_Accountant)?$grant->Grant_Accountant: date('Y-m-d'),
+            'Grant_Type' => !empty($grant->Class) ? $grant->Class : '',
+            'Grant_Start_Date' => !empty($grant->Start_Date) ? $grant->Start_Date : date('Y-m-d'),
+            'Grant_End_Date' => !empty($grant->End_Date) ? $grant->End_Date : date('Y-m-d'),
+            'Grant_Accountant' => !empty($grant->Grant_Accountant) ? $grant->Grant_Accountant : date('Y-m-d'),
         ];
 
         // Post to ESS
@@ -264,171 +133,161 @@ class FmsController extends Controller
         $result = Yii::$app->navhelper->postData($service, $args);
 
         print_r($result);
-
-       
-        
     }
 
-    public function updateGrant($grant)
+    public function actionDeleteEssGrant($grant)
     {
-        // Yii::$app->recruitment->printrr($grant->Name);
         $service = Yii::$app->params['ServiceName']['GrantList'];
-
-        $args = [
-            'Donor_Code' => $grant->No ,
-        ];
-
-        $result = Yii::$app->navhelper->getData($service, $args);
-
-       
-
-
-        if(is_array($result))
-        {
-             $data = [
-                    
-                    
-                    'Key' => $result[0]->Key
-                ];
-
-
-                // Post to ESS
-
-                $res = Yii::$app->navhelper->updateData($service, $data);
-
-
-                print '<br>';
-                print_r($res);
-                exit(true);
-        }
-        
-
-       
+        $result = Yii::$app->navhelper->deleteData($service, $grant->Key);
+        return $result;
     }
+
+    public function actionDeleteEssActivity($activity)
+    {
+        $service = Yii::$app->params['ServiceName']['GrantActivities'];
+        $result = Yii::$app->navhelper->deleteData($service, $activity->Key);
+        return $result;
+    }
+
+
 
 
     public function actionEssGrantCodes()
     {
-          $service = Yii::$app->params['ServiceName']['GrantList'];
-          $data = Yii::$app->navhelper->getData($service, []);
-
-           
-
-          $codes = [];
-
-          foreach($data as $d)
-          {
-            if(isset($d->Donor_Code)){
-                 array_push($codes, $d->Donor_Code);
+        $service = Yii::$app->params['ServiceName']['GrantList'];
+        $data = Yii::$app->navhelper->getData($service, []);
+        $codes = [];
+        foreach ($data as $d) {
+            if (isset($d->Donor_Code)) {
+                array_push($codes, $d->Donor_Code);
             }
-           
-          }
+        }
 
-          return $codes;
+        return $codes;
 
-         // Yii::$app->recruitment->printrr($codes);
+        // Yii::$app->recruitment->printrr($codes);
+    }
+
+    // Display Ess Grants
+
+    public function actionDisplayEssGrants()
+    {
+        $this->layout = 'login';
+        $service = Yii::$app->params['ServiceName']['GrantList'];
+        $data = Yii::$app->navhelper->getData($service, []);
+        $total = is_array($data) ? count($data) : 0;
+        $result = [
+            'Total' => $total,
+            'data' => $data
+        ];
+
+        return $result;
+        // Yii::$app->recruitment->printrr($result);
+    }
+
+    // Display FMS Grants
+
+    public function actionDisplayFmsGrants()
+    {
+        $service = Yii::$app->params['FMS-ServiceName']['FMSGrants'];
+        $data = Yii::$app->fms->getData($service, []);
+        $total = is_array($data) ? count($data) : 0;
+        $result = [
+            'Total' => $total,
+            'data' => $data
+        ];
+        Yii::$app->recruitment->printrr($result);
     }
 
 
     /*Get FMS Grant Codes*/
 
-     public function actionFmsactivities()
+    public function actionDisplayFmsActivities()
     {
-          $service = Yii::$app->params['FMS-ServiceName']['FMSActivities'];
-          $data = Yii::$app->fms->getData($service, []);
+        $service = Yii::$app->params['FMS-ServiceName']['FMSActivities'];
+        $data = Yii::$app->fms->getData($service, []);
 
-          //Yii::$app->recruitment->printrr($data);
-          return $data;
+        $total = is_array($data) ? count($data) : 0;
+        return ([
+            'Total' => $total,
+            'data' =>  $data
+        ]);
     }
 
 
 
     /*Get Integrated Grant Activities- Those in ESS*/
 
-    public function actionEssactivities()
+    public function actionDisplayEssActivities()
     {
-          $service = Yii::$app->params['ServiceName']['GrantActivities'];
-          $data = Yii::$app->navhelper->getData($service, []);
-
-          //Yii::$app->recruitment->printrr($data);
-          return $data;
+        $service = Yii::$app->params['ServiceName']['GrantActivities'];
+        $data = Yii::$app->navhelper->getData($service, []);
+        $total = is_array($data) ? count($data) : 0;
+        return [
+            'Total' => $total,
+            'data' =>  $data
+        ];
     }
 
-     public function actionEssactivitycodes()
+    public function actionEssactivitycodes()
     {
-          $service = Yii::$app->params['ServiceName']['GrantActivities'];
-          $data = Yii::$app->navhelper->getData($service, []);
+        $service = Yii::$app->params['ServiceName']['GrantActivities'];
+        $data = Yii::$app->navhelper->getData($service, []);
+        $codes = [];
 
-           
-
-          $codes = [];
-
-          foreach($data as $d)
-          {
-            if(isset($d->Grant_Activity)){
-                 array_push($codes, $d->Grant_Activity);
+        foreach ($data as $d) {
+            if (isset($d->Grant_Activity)) {
+                array_push($codes, $d->Grant_Activity);
             }
-           
-          }
-           //Yii::$app->recruitment->printrr($codes);
-          return $codes;
-
-         
+        }
+        return $codes;
     }
 
 
     public function actionSyncactivities()
     {
-
         $service = Yii::$app->params['ServiceName']['GrantActivities'];
-        $fmsActivities = $this->ActionFmsactivities();
-        $essActivities = $this->ActionEssactivities();
+        $fmsActivities = $this->ActionDisplayFmsActivities()['data'];
         $essactivitycodes = $this->ActionEssactivitycodes();
 
-        if(is_array($fmsActivities))
-        {
-            foreach($fmsActivities as $ac)
-            {
-                if(!in_array($ac->Code, $essactivitycodes)):
+        if (is_array($fmsActivities)) {
+            foreach ($fmsActivities as $ac) {
+                if (!in_array($ac->Code, $essactivitycodes)) :
                     $data = [
-                        'Grant_Activity' => $ac->Code ,
-                        'Activity_Name' => $ac->Name ,
-                        'Blocked' => $ac->Blocked ,
+                        'Grant_Activity' => $ac->Code,
+                        'Activity_Name' => $ac->Name,
+                        'Blocked' => $ac->Blocked,
                     ];
 
                     $result = Yii::$app->navhelper->postData($service, $data);
-					$this->ActivityLogger($result);
+                    $this->ActivityLogger($result);
                     return $result;
                 endif;
-            //exit;
+                //exit;
             }
-        }else{
+        } else {
             return ['Message' => 'No Grant Activities To Synchronize.'];
         }
-
     }
-	
-	
-	private function GrantLogger($message)
-	{
-		$filename = 'log/grant.txt';
-		$req_dump = print_r($message, TRUE);
-		$fp = fopen($filename, 'a');
-		fwrite($fp, $req_dump);
-		fclose($fp);
-		exit;
-	}
-	
-	private function ActivityLogger($message)
-	{
-		$filename = 'log/activity.txt';
-		$req_dump = print_r($message, TRUE);
-		$fp = fopen($filename, 'a');
-		fwrite($fp, $req_dump);
-		fclose($fp);
-		exit;
-	}
 
 
+    private function GrantLogger($message)
+    {
+        $filename = 'log/grant.txt';
+        $req_dump = print_r($message, TRUE);
+        $fp = fopen($filename, 'a');
+        fwrite($fp, $req_dump);
+        fclose($fp);
+        //exit;
+    }
 
+    private function ActivityLogger($message)
+    {
+        $filename = 'log/activity.txt';
+        $req_dump = print_r($message, TRUE);
+        $fp = fopen($filename, 'a');
+        fwrite($fp, $req_dump);
+        fclose($fp);
+        // exit;
+    }
 }
