@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: HP ELITEBOOK 840 G5
@@ -12,18 +13,19 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model frontend\models\AgendaDocument */
 
-$this->title = 'Employee Induction Document.';
-$this->params['breadcrumbs'][] = ['label' => 'induction', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => 'induction card', 'url' => ['update','No' => $model->No]];
+$this->title = 'Update Document.';
+$this->params['breadcrumbs'][] = ['label' => 'Training Applications', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Update', 'url' => ['update', 'No' => $model->Application_No]];
 
 ?>
 <div class="agenda-document-update">
 
     <!--<h1><?= Html::encode($this->title) ?></h1>-->
 
-    <?= $this->render('_form',[
+    <?= $this->render('_form', [
         'model' => $model,
-        'document' => $document
+        'document' => $document,
+        'attachments' => $attachments
     ]) ?>
 
 </div>

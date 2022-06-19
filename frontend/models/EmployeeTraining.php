@@ -71,7 +71,7 @@ class EmployeeTraining extends Model
         return [
             'attachment_one' => 'Training Attachment (PDF)',
             'Total_Cost' => 'Extra Cost',
-            'attachment' => 'Cost Structure / Related Training Facilitation Attachment.'
+            'attachment' => 'Add an Attachment (PDF)'
         ];
     }
 }

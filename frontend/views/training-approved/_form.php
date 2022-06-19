@@ -1,242 +1,460 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: HP ELITEBOOK 840 G5
  * Date: 2/24/2020
- * Time: 12:13 PM
+ * Time: 6:09 PM
  */
+
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
+use yii\bootstrap4\Html as Bootstrap4Html;
+
+$this->title = 'Training - ' . $model->Application_No;
+//$this->params['breadcrumbs'][] = ['label' => 'Training Applications List', 'url' => ['index']];
+//$this->params['breadcrumbs'][] = ['label' => 'Training Card', 'url' => ['view', 'Key' => $model->Key]];
+/** Status Sessions */
 $absoluteUrl = \yii\helpers\Url::home(true);
- //Yii::$app->recruitment->printrr(Yii::$app->user->identity->{'Employee No_'});
+$activeStatus = $HroActiveStatus = $lineManagerStatus = $HOHActiveStatus =  [];
+
+if ($model->Status !== 'HRO') {
+    $HroActiveStatus = ['readonly' =>  true, 'disabled' => true];
+}
+
+if ($model->Status !== 'Line_Manager') {
+    $lineManagerStatus = ['readonly' =>  true, 'disabled' => true];
+}
+
 
 ?>
 
 
-                       <?php if(Yii::$app->session->hasFlash('success')): ?>
-                            <div class="alert alert-success"><?= Yii::$app->session->getFlash('success')?></div>
-                        <?php endif; ?>
+<?php
+if (Yii::$app->session->hasFlash('success')) {
+    print ' <div class="alert alert-success alert-dismissable">
+                                 ';
+    echo Yii::$app->session->getFlash('success');
+    print '</div>';
+} else if (Yii::$app->session->hasFlash('error')) {
+    print ' <div class="alert alert-danger alert-dismissable">
+                                 ';
+    echo Yii::$app->session->getFlash('error');
+    print '</div>';
+}
+?>
 
-                    <?php if(Yii::$app->session->hasFlash('error')): ?>
-                        <div class="alert alert-danger"><?= Yii::$app->session->getFlash('error')?></div>
-                    <?php endif; ?>
-                
+<div class="row actions">
+    <div class="col-md-4">
 
-<div class="card">
-    <div class="actions card-body">
-                         <?= ($model->Status == 'Inductee' && $model->Employee_No == Yii::$app->user->identity->{'Employee No_'}  )?Html::a('<i class="fas fa-forward"></i>Next Section',['next-section','employeeNo' => Yii::$app->user->identity->employee[0]->No],['class' => 'btn btn-app bg-success btn-success submitforapproval',
-                                'data' => [
-                                    'confirm' => 'Are you sure you want to send induction to next section?',
-                                    'params'=>[
-                                        'No'=> $model->No,
-                                        'Key' => $model->Key,
-                                    ],
-                                    'method' => 'post',
-                            ],
-                                'title' => 'Send Induction To Next Section.'
-    
-                            ]):'' ?>
-    
-    
-                            <?= ($model->Status == 'Inductor' && $model->Action_ID == Yii::$app->user->identity->{'Employee No_'})?Html::a('<i class="fas fa-check"></i> Approve.',['approve-induction'],['class' => 'btn btn-app bg-success mx-1',
-                                'data' => [
-                                'confirm' => 'Are you sure you want to approve this document?',
-                                'params'=>[
-                                    'No'=> $model->No,
-                                ],
-                                'method' => 'get',
-                            ],
-                                'title' => 'Approve Document.'
-    
-                            ]):'' ?>
+        <?= ($model->Status == 'New') ? Html::a('<i class="fas fa-paper-plane"></i> Send Approval Req', ['send-for-approval'], [
+            'class' => 'btn btn-app submitforapproval',
+            'data' => [
+                'confirm' => 'Are you sure you want to send this request for approval?',
+                'params' => [
+                    'No' => $model->Application_No
+                ],
+                'method' => 'post',
+            ],
+            'title' => 'Submit for Approval'
 
-                            <?= ($model->Status == 'Inductee' && $model->Employee_No == Yii::$app->user->identity->{'Employee No_'})?Html::a('<i class="fas fa-paper-plane"></i> Send Approval Req',['send-for-approval'],['class' => 'btn btn-app submitforapproval',
-                                'data' => [
-                                    'confirm' => 'Are you sure you want to send imprest request for approval?',
-                                    'params'=>[
-                                        'No'=> $model->No
-                                    ],
-                                    'method' => 'get',
-                            ],
-                                'title' => 'Submit for Approval'
+        ]) : '' ?>
 
-                            ]):'' ?>
-    
-    
-                            
+
     </div>
 
+    <?= ($model->Status == 'Approved') ? Html::a('<i class="fas fa-forward"></i> To Ln Manager.', ['send-to-lnmgr'], [
+        'class' => 'btn btn-app bg-success mx-1',
+        'data' => [
+            'confirm' => 'Are you sure want to send this document to line manager?',
+            'params' => [
+                'No' => $model->Application_No,
+            ],
+            'method' => 'post',
+        ],
+        'title' => 'Send to Line Manager.'
+
+    ]) : '' ?>
+
+
+    <?php
+    if ($model->Status == 'Line_Manager') {
+
+        echo Html::a('<i class="fas fa-forward"></i> To HRO.', ['send-to-hro'], [
+            'class' => 'btn btn-app bg-success mx-1',
+            'data' => [
+                'confirm' => 'Are you sure want to send this document to HRO?',
+                'params' => [
+                    'No' => $model->Application_No,
+                ],
+                'method' => 'post',
+            ],
+            'title' => 'Send to Line Manager.'
+
+        ]);
+
+
+        echo Html::a(
+            '<i class="fas fa-backward"></i>Send Back',
+            ['rejection-linemanager'],
+            [
+                '
+                    class' => 'mx-1 btn btn-app bg-danger rejectgoalsettingbyoverview',
+                'data-no' => $model->Application_No,
+                'data-action' => $absoluteUrl . 'training-approved/rejection-linemanager',
+                'title' => 'Reject Training Application with Comments'
+
+            ]
+        );
+    }
+    ?>
+
+
+    <?php if ($model->Status == 'HRO') {
+        echo Html::a('<i class="fas fa-check"></i> Approve.', ['approve-training-hro'], [
+            'class' => 'btn btn-app bg-success mx-1',
+            'data' => [
+                'confirm' => 'Are you sure want to approve this training attendance?',
+                'params' => [
+                    'No' => $model->Application_No,
+                ],
+                'method' => 'post',
+            ],
+            'title' => 'Approve Training Attendance.'
+        ]);
+
+        echo Html::a(
+            '<i class="fas fa-backward"></i>Send Back',
+            ['rejection-hro'],
+            [
+                '
+                class' => 'mx-1 btn btn-app bg-danger rejectgoalsettingbyoverview',
+                'data-no' => $model->Application_No,
+                'data-action' => $absoluteUrl . 'training-approved/rejection-hro',
+                'title' => 'Reject and Send Training Application back to Line Manager with Comments'
+
+            ]
+        );
+    }
+    ?>
 </div>
 
-               
+<div class="row">
+    <div class="col-md-12">
+        <div class="card-info">
+            <div class="card-header">
+                <h3>Application Training Card </h3>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
 
 <div class="row">
-    
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title"><?= Html::encode($this->title) ?></h3>
-                <div class="card-tools">
-                    <p class="text"><span class="text-bold">Next Section >></span><b class="mx-1  text-primary"><?= $model->nextSection ?></b></p>
-                </div>
-           </div>
 
+
+
+
+                <h3 class="card-title">Training No : <?= $model->Application_No ?></h3>
+
+
+
+            </div>
             <div class="card-body">
 
 
+                <?php $form = ActiveForm::begin(); ?>
 
-        <?php
 
-            $form = ActiveForm::begin(); ?>
                 <div class="row">
-                    <div class="row col-md-12">
-
-
-
+                    <div class=" row col-md-12">
                         <div class="col-md-6">
 
-                            <?= $form->field($model, 'No')->textInput(['readonly'=> true]) ?>
+                            <?= $form->field($model, 'Application_No')->textInput(['readonly' => true]) ?>
                             <?= $form->field($model, 'Key')->hiddenInput()->label(false) ?>
-                            <?= $form->field($model, 'Employee_No')->textInput(['readonly'=> true]) ?>
-                            <?= $form->field($model, 'Employee_Name')->textInput(['readonly' =>  true]) ?>
-                            <?= $form->field($model, 'Global_Dimension_1_Code')->textInput(['readonly' =>  true, 'disabled'=>true]) ?>
-                            <?= $form->field($model, 'Global_Dimension_2_Code')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
-                            <?= $form->field($model, 'Global_Dimension_3_Code')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
-                            
-                            
+                            <?= $form->field($model, 'Training_Need')->textInput(['readonly' => true]) ?>
+                            <?= $form->field($model, 'Date_of_Application')->textInput(['readonly' =>  true]) ?>
+                            <?= $form->field($model, 'Training_Calender')->textInput(['readonly' =>  true, 'disabled' => true]) ?>
+                            <?= $form->field($model, 'Training_Need_Description')->textInput(['readonly' => true, 'disabled' => true]) ?>
+                            <?= $form->field($model, 'Employee_Name')->textInput(['readonly' => true, 'disabled' => true]) ?>
+                            <?= $form->field($model, 'Job_Group')->textInput(['readonly' => true, 'disabled' => true]) ?>
+                            <?= $form->field($model, 'Job_Title')->textInput(['readonly' => true, 'disabled' => true]) ?>
+                            <?= $form->field($model, 'Status')->textInput(['readonly' => true, 'disabled' => true]) ?>
+                            <?= $form->field($model, 'Start_Date')->textInput(['readonly' => true, 'disabled' => true]) ?>
+                            <?= $form->field($model, 'End_Date')->textInput(['readonly' => true, 'disabled' => true]) ?>
+                            <?= $form->field($model, 'Period')->textInput(['readonly' => true, 'disabled' => true]) ?>
+
+
+
+
+
+
+                            <?= ($model->Status == 'Line_Manager') ?
+                                $form->field($model, 'Recomended_Action')->dropdownList([
+                                    '_blank_' => '_blank_',
+                                    '_x0032__point_Increment' => 'Point Increment',
+                                    'Promote_to_Higher_Position' => 'Promote to Higher Position',
+                                    'Maintain_Current_Status' => 'Maintain Current Status',
+                                ], ['prompt' => 'select ...']) :
+                                $form->field($model, 'Recomended_Action')->textInput($lineManagerStatus)
+                            ?>
+
+
+                            <?= $form->field($model, 'Line_Manager_Comments')->textarea($lineManagerStatus) ?>
+                            <?= $form->field($model, 'Line_Manager_Rejection_Comment')->textarea(['rows' => 2, 'readonly' =>  true, 'disabled' => true]) ?>
+
+
+
+                            <p class="parent"><span>+</span>
+
+
+
+
+                            </p>
+
+
                         </div>
-                        
                         <div class="col-md-6">
-                            <?= $form->field($model, 'Status')->textInput(['readonly'=> true, 'disabled'=>true]) ?>        
-                            <?= $form->field($model, 'CEO_Comments')->textarea(['rows' => 2]) ?>
-                            <?= $form->field($model, 'HOO_Comments')->textarea(['rows' => 2]) ?>        
-                            <?= $form->field($model, 'HOF_Comments')->textarea(['rows'=> 2]) ?>        
-                            <?= $form->field($model, 'Action_Section')->textInput(['readonly'=> true]) ?>
-                            <?= $form->field($model, 'Action_ID')->textInput(['readonly'=> true, 'disabled'=>true]) ?> 
+
+                            <?= $form->field($model, 'Expected_Cost')->textInput(['readonly' => true, 'disabled' => true]) ?>
+                            <?= $form->field($model, 'Trainer')->textarea(['rows' => 2, 'readonly' => true, 'disabled' => true]) ?>
+                            <?php $form->field($model, 'Exceeds_Expected_Trainees')->checkbox([$model->Exceeds_Expected_Trainees]) ?>
+                            <?= $form->field($model, 'Training_Start_Date')->textInput(['readonly' => true, 'disabled' => true]) ?>
+                            <?= $form->field($model, 'CPD_Approved_Cost')->textInput(['readonly' => true]) ?>
+                            <?= $form->field($model, 'Total_Cost')->textInput(['readonly' => true, 'disabled' => true]) ?>
+                            <?php $form->field($model, 'HRO_No')->textInput(['readonly' => true, 'disabled' => true]) ?>
+                            <?= $form->field($model, 'HRO_Name')->textInput(['readonly' => true, 'disabled' => true]) ?>
+                            <?php $form->field($model, 'Line_Manager')->textInput(['readonly' => true, 'disabled' => true]) ?>
+                            <?= $form->field($model, 'Manager_Name')->textInput(['readonly' => true, 'disabled' => true]) ?>
+                            <?= $form->field($model, 'Approval_rejection_Comments')->textarea(['rows' => 1, 'readonly' => true, 'disabled' => true]) ?>
+                            <?= $form->field($model, 'Nature_of_Training')->textInput(['readonly' => true, 'disabled' => true]) ?>
+                            <?= $form->field($model, 'Training_Type')->textInput(['readonly' => true, 'disabled' => true]) ?>
+                            <?= $form->field($model, 'Training_Category')->textInput(['readonly' => true, 'disabled' => true]) ?>
+
+                            <?= $form->field($model, 'HRO_Comments')->textarea($HroActiveStatus) ?>
+
+                            <p class="parent"><span>+</span>
+
+
+
+                            </p>
+
 
 
                         </div>
-                  
-
-
-
                     </div>
                 </div>
 
-               
+                <?php if ($model->Status == 'Approved' && $model->Employee_No == Yii::$app->user->identity->{'Employee No_'}) : ?>
+                    <div class="card">
+                        <div class="card-header">
+                            <p class="card-title">Attach Training Report</p>
+                        </div>
+                        <div class="card-body">
+                            <?= $form->field($model, 'attachment')->fileInput(['data-name' => 'Training Report']) ?>
+                        </div>
+                    </div>
+                <?php endif; ?>
+
 
                 <?php ActiveForm::end(); ?>
+
+
+
             </div>
         </div>
+        <!--end header card-->
 
+
+
+
+
+        <!-- Attachments -->
+        <?php if (is_array($attachments) && count($attachments)) :  //Yii::$app->recruitment->printrr($attachments); 
+        ?>
+            <div class="card card-info">
+                <div class="card-header">
+                    <h3 class="card-title">Files Attachments</h3>
+                </div>
+                <div class="card-body">
+                    <?php $i = 0;
+                    foreach ($attachments as $file) : ++$i; ?>
+
+
+                        <div class="my-2 file border border-info d-flex justify-content-around align-items-center rounded p-3">
+                            <p class="my-auto border rounded border-info bg-info p-2"> <?= $file->Name ?></p>
+                            <?= Bootstrap4Html::a('<i class="fas fa-file"></i> Open', ['read'], [
+                                'class' => 'btn btn-info',
+                                'data' => [
+                                    'params' => [
+                                        'path' => $file->File_path,
+                                        'No' => $model->Application_No
+                                    ],
+                                    'method' => 'POST'
+                                ]
+                            ]) ?>
+
+
+                            <?= Html::a(
+                                '<i class="fa fa-trash"></i> ',
+                                ['delete-line'],
+                                [
+                                    'class' => 'delete btn btn-outline-danger',
+                                    'title' => 'Delete this record.',
+                                    'data-key' => $file->Key,
+                                    'data-service' => 'DisciplinaryAttachments',
+
+                                ]
+                            )
+                            ?>
+
+
+                        </div>
+
+
+                    <?php endforeach; ?>
+                </div>
+
+            </div>
+        <?php endif; ?>
+        <!-- / Attachments -->
+
+        <!-- Cost Breakdown Lines -->
 
         <div class="card">
             <div class="card-header">
                 <div class="card-title">
-                                    <h3>Employee Induction Lines</h3>
+                    <h3>Training Cost Breakdown</h3>
                 </div>
-                <div class="card-tools">
-                        <?php Html::a('<i class="fa fa-plus-square"></i> New Induction Line',['add-line'],[
-                            'class' => 'add btn btn-outline-info',
-                            'data-no' => $model->No,
-                            'data-service' => 'Employee_Induction_Overall_In'
-                            ]) ?>
-                </div>
+
             </div>
 
             <div class="card-body">
-                <?php if(property_exists($document->Employee_Induction_Overall_In,'Employee_Induction_Overall_In')){ //show Lines ?>
+                <?php if (property_exists($document->Training_Cost_Breakdown, 'Training_Cost_Breakdown')) { //show Lines 
+                ?>
 
                     <div class="table-responsive">
                         <table class="table table-bordered">
                             <thead>
-                            <tr>
-                                <td></td>
-                                <!-- <td class="text-bold">Induction_No</td> -->
-                                <td class="text-bold">Section</td>
-                                <td class="text-bold">Expected Start Date</td>
-                                <td class="text-bold">Expected End Date</td>
-                                <td class="text-bold">Expected Start Time</td>
-                                <td class="text-bold">Expected End Time</td>
-                                <td class="text-bold">Attended</td>
-                                
-                                <td class="text-bold">Reason for Failure</td>
-                               
-                                <td class="text-bold">Employee comments</td>
-                                <td class="text-bold">Inductor Comments</td>
-                               
-                                <!-- <td class="text-bold">Action</td> -->
-                                
-                            </tr>
+                                <tr>
+                                    <!-- <td></td> -->
+
+                                    <td class="text-bold">Application_No</td>
+                                    <td class="text-bold">Cost_Description</td>
+                                    <td class="text-bold">Amount</td>
+
+
+
+                                </tr>
                             </thead>
                             <tbody>
-                            <?php
-                           
+                                <?php
 
-                            foreach($document->Employee_Induction_Overall_In->Employee_Induction_Overall_In as $obj):
-                                
-                                $deleteLink = Html::a('<i class="fa fa-trash"></i>',['delete-line' ],[
-                                    'class'=>'del btn btn-outline-danger btn-xs',
-                                    'data-key' => $obj->Key,
-                                    'data-service' => 'InductionOverallIN'
-                                ]);
+
+                                foreach ($document->Training_Cost_Breakdown->Training_Cost_Breakdown as $obj) :
+
+                                    $deleteLink = Html::a('<i class="fa fa-trash"></i>', ['delete-line'], [
+                                        'class' => 'del btn btn-outline-danger btn-xs',
+                                        'data-key' => $obj->Key,
+                                        'data-service' => 'InductionOverallIN'
+                                    ]);
                                 ?>
-                                <tr class="parent">
-                                    <td><span>+</span></td>
-                                    
-                                    <td data-key="<?= $obj->Key ?>" data-name="Section" data-service="InductionOverallIN"><?= !empty($obj->Section)?$obj->Section:'' ?></td>
-                                    <td data-key="<?= $obj->Key ?>" data-name="Expected_Start_Date" data-service="InductionOverallIN" ondblclick="addInput(this,'date')"><?= !empty($obj->Expected_Start_Date)?$obj->Expected_Start_Date:'' ?></td>
-                                    <td data-key="<?= $obj->Key ?>" data-name="Expected_End_Date" data-service="InductionOverallIN" ondblclick="addInput(this,'date')"><?= !empty($obj->Expected_End_Date)?$obj->Expected_End_Date:'' ?></td>
-                                    <td data-key="<?= $obj->Key ?>" data-name="Expected_Start_Time" data-service="InductionOverallIN" ondblclick="addInput(this,'time')"><?= !empty($obj->Expected_Start_Time)?Yii::$app->formatter->asTime($obj->Expected_Start_Time):'' ?></td>
-                                    <td data-key="<?= $obj->Key ?>" data-name="Expected_End_Time" data-service="InductionOverallIN" ondblclick="addInput(this,'time')"><?= !empty($obj->Expected_End_Time)?Yii::$app->formatter->asTime($obj->Expected_End_Time):'' ?></td>
-                                    <td data-key="<?= $obj->Key ?>" data-name="Attended" data-service="InductionOverallIN" ondblclick="addDropDown(this,'attended')"><?= !empty($obj->Attended)?$obj->Attended:'' ?></td>
-                                    <td data-key="<?= $obj->Key ?>" data-name="Reason_for_Failure" data-service="InductionOverallIN" ondblclick="addInput(this)"><?= !empty($obj->Reason_for_Failure)?$obj->Reason_for_Failure:'' ?></td>
-                                    <td data-key="<?= $obj->Key ?>" data-name="Employee_comments" data-service="InductionOverallIN" ondblclick="addInput(this)"><?= !empty($obj->Employee_comments)?$obj->Employee_comments:'' ?></td>
-                                    <td data-key="<?= $obj->Key ?>" data-name="Inductor_Comments" data-service="InductionOverallIN" ondblclick="addInput(this)"><?= !empty($obj->Inductor_Comments)?$obj->Inductor_Comments:'' ?></td>
-                                    
-                                    
-                                    <!-- <td><?= $deleteLink ?></td> -->
-                                </tr>
-                                <tr class="child">
-                                    <td colspan="11" >
-                                        <div class="table-responsive">
-                                            <table class="table table-hover ">
-                                                <thead>
-                                                    <tr>
-                                                        <td>#</td>
-                                                        <td class="text-bold">Induction Item</td>   
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php 
-                                                    
-                                                    //print_r($model->getLines($obj->Line_No)); 
-                                                    $counter = 0;                                               
-                                                    if(is_array($model->getLines($obj->Line_No))): 
-                                                        foreach($model->getLines($obj->Line_No) as $ln):
-                                                            $counter++;
-                                                        ?>
+                                    <tr class="parent">
+                                        <!-- <td><span>+</span></td> -->
 
-                                                        <tr>
-                                                            <td><?= $counter ?></td>
-                                                            <td><?= $ln->Induction_Item ?></td>
-                                                        </tr>
-                                                        
-                                                    <?php endforeach;
-                                                 endif; ?>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
+                                        <td data-key="<?= $obj->Key ?>"><?= !empty($obj->Application_No) ? $obj->Application_No : '' ?></td>
+                                        <td data-key="<?= $obj->Key ?>"><?= !empty($obj->Cost_Description) ? $obj->Cost_Description : '' ?></td>
+                                        <td data-key="<?= $obj->Key ?>"><?= !empty($obj->Amount) ? Yii::$app->formatter->asDecimal($obj->Amount) : '' ?></td>
+
+
+
+                                        <!-- <td><?= $deleteLink ?></td> -->
+                                    </tr>
+
+                                <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>
-                   
+
                 <?php } ?>
             </div>
         </div>
+
+        <!--/ Cost break down -->
+
+
+        <!-- Training Grants -->
+
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">
+                    <h3>Training Grants List</h3>
+                </div>
+
+            </div>
+
+            <div class="card-body">
+                <?php if (property_exists($document->Training_Grants, 'Training_Grants')) { //show Lines 
+                ?>
+
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <!-- <td></td> -->
+
+                                    <td class="text-bold">Application_No</td>
+                                    <td class="text-bold">Donor_Code</td>
+                                    <td class="text-bold">Donor_Name</td>
+                                    <td class="text-bold">Percentage</td>
+
+
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+
+
+                                foreach ($document->Training_Grants->Training_Grants as $obj) :
+
+
+                                ?>
+                                    <tr class="parent">
+                                        <!-- <td><span>+</span></td> -->
+
+                                        <td data-key="<?= $obj->Key ?>"><?= !empty($obj->Application_No) ? $obj->Application_No : '' ?></td>
+                                        <td data-key="<?= $obj->Key ?>"><?= !empty($obj->Donor_Code) ? $obj->Donor_Code : '' ?></td>
+                                        <td data-key="<?= $obj->Key ?>"><?= !empty($obj->Donor_Name) ? $obj->Donor_Name : '' ?></td>
+                                        <td data-key="<?= $obj->Key ?>"><?= !empty($obj->Percentage) ? $obj->Percentage : '' ?></td>
+
+
+
+                                        <!-- <td><?= $deleteLink ?></td> -->
+                                    </tr>
+
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+
+                <?php } ?>
+            </div>
+        </div>
+
+        <!-- / Training Grants -->
+
+
+
+
+
+
+
 
 
 
@@ -244,81 +462,109 @@ $absoluteUrl = \yii\helpers\Url::home(true);
 
 
     </div>
-</div>
+
+    <!--My Bs Modal template  --->
+
+    <div class="modal fade bs-example-modal-lg bs-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel" style="position: absolute">Training Management</h4>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Training Application Rejection comment form -->
+
+    <div id="rejgoalsbyoverview" style="display: none">
+
+        <?= Html::beginForm(['training-approved/rejection-linemanager'], 'post', ['id' => 'reject-form']) ?>
+
+        <?= Html::textarea('comment', '', ['placeholder' => 'Rejection Comment', 'row' => 4, 'class' => 'form-control', 'required' => true]) ?>
+
+        <?= Html::input('hidden', 'applicationNo', '', ['class' => 'form-control']); ?>
 
 
 
-<input type="hidden" name="url" value="<?= $absoluteUrl ?>">
-<input type="hidden" name="absolute" value="<?= $absoluteUrl ?>">
-<?php
-$script = <<<JS
-    // Trigger Creation of a line
-    $('.add').on('click',function(e){
-            e.preventDefault();
-            let url = $(this).attr('href');
-           
-            let data = $(this).data();
-            const payload = {
-                'Document_No': data.no,
-                'Service': data.service
-            };
-            //console.log(payload);
-            //return;
-            $('a.add').text('Inserting...');
-            $('a.add').attr('disabled', true);
-            $.get(url, payload).done((msg) => {
-                console.log(msg);
-                setTimeout(() => {
-                    location.reload(true);
-                },1500);
-            });
+        <?= Html::submitButton('submit', ['class' => 'btn btn-warning', 'style' => 'margin-top: 10px']) ?>
+
+        <?= Html::endForm() ?>
+    </div>
+
+    <!-- End Rejection Comment -->
+    <input type="hidden" name="absolute" value="<?= $absoluteUrl ?>">
+    <?php
+
+    $script = <<<JS
+
+    $(function(){
+
+        
+        $('#employeetraining-attachment').change(function(e){
+          globalUpload('DisciplinaryAttachments','EmployeeTraining','attachment','TrainingApplicationCard');
         });
+
+        $('#employeetraining-attachment_one').change(function(e){
+          globalUpload('DisciplinaryAttachments','EmployeeTraining','attachment_one','TrainingApplicationCard');
+         
+        });
+
+
+        $('#employeetraining-attachment_two').change(function(e){
+                globalUpload('DisciplinaryAttachments','EmployeeTraining','attachment_two','TrainingApplicationCard');
+                setTimeout(() => {
+                            //location.reload(true);
+                        },1500);
+        });
+      
+        
+     /*Deleting Records*/
+     
+     $('.delete, .delete-objective').on('click',function(e){
+         e.preventDefault();
+           var secondThought = confirm("Are you sure you want to delete this record ?");
+           if(!secondThought){//if user says no, kill code execution
+                return;
+           }
+           
+         var url = $(this).attr('href');
+         $.get(url).done(function(msg){
+             $('.modal').modal('show')
+                    .find('.modal-body')
+                    .html(msg.note);
+         },'json');
+     });
+       
+      
     
-     
-    
-  
-    $('.del').on('click',function(e){
-            e.preventDefault();
-            if(confirm('Are you sure about deleting this record?'))
-            {
-                let data = $(this).data();
-                let url = $(this).attr('href');
-                let Key = data.key;
-                let Service = data.service;
-                const payload = {
-                    'Key': Key,
-                    'Service': Service
-                };
-                $(this).text('Deleting...');
-                $(this).attr('disabled', true);
-                $.get(url, payload).done((msg) => {
-                    console.log(msg);
-                    setTimeout(() => {
-                        location.reload(true);
-                    },3000);
-                });
-            }
-            
-    });
-     
-     
-     /*Handle modal dismissal event  */
+    /*Handle modal dismissal event  */
     $('.modal').on('hidden.bs.modal',function(){
         var reld = location.reload(true);
         setTimeout(reld,1000);
     }); 
-
-
-     /*Parent-Children accordion*/ 
+        
+    /*Parent-Children accordion*/ 
     
-     $('tr.parent').find('span').text('+');
+    $('tr.parent').find('span').text('+');
     $('tr.parent').find('span').css({"color":"red", "font-weight":"bolder"});    
     $('tr.parent').nextUntil('tr.parent').slideUp(1, function(){});    
     $('tr.parent').click(function(){
             $(this).find('span').text(function(_, value){return value=='-'?'+':'-'}); //to disregard an argument -event- on a function use an underscore in the parameter               
             $(this).nextUntil('tr.parent').slideToggle(100, function(){});
      });
-
+    
     /*Divs parenting*/
     
     $('p.parent').find('span').text('+');
@@ -329,7 +575,117 @@ $script = <<<JS
             $(this).nextUntil('p.parent').slideToggle(100, function(){});
      });
     
-     
+       
+         
+    // Reject Action
+
+    $('.rejectgoalsettingbyoverview').on('click', function(e){
+        e.preventDefault();
+        const form = $('#rejgoalsbyoverview').html(); 
+        const applicationNo = $(this).data().no;
+        const action = $(this).data().action;
+        
+        console.log('Application No: '+applicationNo);
+        console.table($(this).data());
+        
+        //Display the rejection comment form
+        $('.modal').modal('show')
+                        .find('.modal-body')
+                        .append(form);
+        
+        //populate relevant input field with code unit required params
+                
+        $('input[name=applicationNo]').val(applicationNo);
+       
+        
+        //Submit Rejection form and get results in json    
+        $('form#reject-form').on('submit', function(e){
+            e.preventDefault()
+            const data = $(this).serialize();
+            const url = action;
+
+           
+            $('form#reject-form').html('<p class="alert alert-info">Processing ....</p>');
+            $.post(url,data).done(function(msg){
+                    $('.modal').modal('show')
+                    .find('.modal-body')
+                    .html(msg.note);
+        
+                },'json');
+        });
+        
+        
+    });
+    
+    // End Reject Action
+         
+         
+    // Commit Approval Comments fields
+         
+    $('#employeetraining-recomended_action').change((e) => {
+        globalFieldUpdate('employeetraining','training-approved','Recomended_Action', e);
+    });
+
+    $('#employeetraining-line_manager_comments').change((e) => {
+        globalFieldUpdate('employeetraining','training-approved','Line_Manager_Comments', e);
+    });
+
+    $('#employeetraining-line_manager_rejection_comment').change((e) => {
+        globalFieldUpdate('employeetraining','training-approved','Line_Manager_Comments', e);
+    });
+
+    $('#employeetraining-hro_comments').change((e) => {
+        globalFieldUpdate('employeetraining','training-approved','HRO_Comments', e);
+    });
+
+  
+    
+        
+    });//end jquery
+
+    
+
+        
 JS;
 
-$this->registerJs($script);
+    $this->registerJs($script);
+
+    $style = <<<CSS
+    p span {
+        margin-right: 50%;
+        font-weight: bold;
+    }
+
+    table td:nth-child(11), td:nth-child(12) {
+                text-align: center;
+    }
+    
+    /* Table Media Queries */
+    
+     @media (max-width: 500px) {
+          table td:nth-child(2),td:nth-child(3),td:nth-child(6),td:nth-child(7),td:nth-child(8),td:nth-child(9),td:nth-child(10), td:nth-child(11) {
+                display: none;
+        }
+    }
+    
+     @media (max-width: 550px) {
+          table td:nth-child(2),td:nth-child(6),td:nth-child(7),td:nth-child(8),td:nth-child(9),td:nth-child(10), td:nth-child(11) {
+                display: none;
+        }
+    }
+    
+    @media (max-width: 650px) {
+          table td:nth-child(2),td:nth-child(6),td:nth-child(7),td:nth-child(8),td:nth-child(9),td:nth-child(10), td:nth-child(11) {
+                display: none;
+        }
+    }
+
+
+    @media (max-width: 1500px) {
+          table td:nth-child(2),td:nth-child(7),td:nth-child(8),td:nth-child(9),td:nth-child(10), td:nth-child(11) {
+                display: none;
+        }
+    }
+CSS;
+
+    $this->registerCss($style);

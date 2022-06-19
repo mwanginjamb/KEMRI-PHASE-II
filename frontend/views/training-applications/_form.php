@@ -135,7 +135,7 @@ if (Yii::$app->session->hasFlash('success')) {
                             <?= $form->field($model, 'CPD_Approved_Cost')->textInput(['readonly' => true]) ?>
                             <?= $form->field($model, 'Total_Cost')->textInput(['readonly' => true, 'disabled' => true]) ?>
 
-                            <?= ($model->Status == 'New') ? $form->field($model, 'attachment')->fileInput(['data-name' => 'Cost Structure']) : '' ?>
+
 
 
                             <p class="parent"><span>+</span>
@@ -159,7 +159,16 @@ if (Yii::$app->session->hasFlash('success')) {
                 </div>
 
 
-
+                <?php if ($model->Status == 'New') : ?>
+                    <div class="card">
+                        <div class="card-header">
+                            <p class="card-title">Cost Structure / Related Training Facilitation Attachment.</p>
+                        </div>
+                        <div class="card-body">
+                            <?= $form->field($model, 'attachment')->fileInput(['data-name' => 'Cost Structure']) ?>
+                        </div>
+                    </div>
+                <?php endif; ?>
 
 
                 <?php ActiveForm::end(); ?>

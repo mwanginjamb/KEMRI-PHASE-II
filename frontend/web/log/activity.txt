@@ -264,3 +264,80 @@ stdClass Object
     [Activity_Name] => Overseas Allowances
     [Blocked] => 1
 )
+stdClass Object
+(
+    [Key] => 36;q+IAAAJ7/08AWABGADAAMgAtAFQAMgA0ADA=8;153039620;
+    [Grant_Activity] => OXF02-T240
+    [Activity_Name] => B900.12 Labs
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 36;q+IAAAJ7/08AWABGADAAMgAtAFQAMgA0ADE=8;153039840;
+    [Grant_Activity] => OXF02-T241
+    [Activity_Name] => Labs-CTL-Haemaology
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 36;q+IAAAJ7/08AWABGADAAMgAtAFQAMgA0ADI=8;153040180;
+    [Grant_Activity] => OXF02-T242
+    [Activity_Name] => Labs-CTL-Chemistry Vipingo
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 36;q+IAAAJ7/08AWABGADAAMgAtAFQAMgA0ADM=8;153040400;
+    [Grant_Activity] => OXF02-T243
+    [Activity_Name] => Labs-Microbiology
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 36;q+IAAAJ7/08AWABGADAAMgAtAFQAMgA0ADQ=8;153040620;
+    [Grant_Activity] => OXF02-T244
+    [Activity_Name] => Labs-High Dependancy Lab (HDL)
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 36;q+IAAAJ7/08AWABGADAAMgAtAFQAMgA0ADU=8;153040840;
+    [Grant_Activity] => OXF02-T245
+    [Activity_Name] => Labs-General
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 36;q+IAAAJ7/08AWABGADAAMgAtAFQAMgA0ADY=8;153041510;
+    [Grant_Activity] => OXF02-T246
+    [Activity_Name] => Labs-CTL Chemistry
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 36;q+IAAAJ7/08AWABGADAAMgAtAFQAMgA0ADc=8;153041940;
+    [Grant_Activity] => OXF02-T247
+    [Activity_Name] => IMM-Parasite Culture
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 36;q+IAAAJ7/08AWABGADAAMgAtAFQAMgA0ADg=8;153042560;
+    [Grant_Activity] => OXF02-T248
+    [Activity_Name] => IMM-Main Lab
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 36;q+IAAAJ7/08AWABGADAAMgAtAFQAMgA0ADk=8;153043230;
+    [Grant_Activity] => OXF02-T249
+    [Activity_Name] => IMM-Field
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 36;q+IAAAJ7/08AWABGADAAMgAtAFQAMgA1ADA=8;153043640;
+    [Grant_Activity] => OXF02-T250
+    [Activity_Name] => IMM-Cell Culture
+    [Blocked] => 1
+)

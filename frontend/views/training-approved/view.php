@@ -250,18 +250,7 @@ if (Yii::$app->session->hasFlash('success')) {
                     </div>
                 </div>
 
-                <?php if ($model->Status == 'Approved' && $model->Employee_No == Yii::$app->user->identity->{'Employee No_'}) : ?>
-                    <div class="card">
-                        <div class="card-header">
-                            <p class="card-title">Attachments</p>
-                        </div>
-                        <div class="card-body">
-                            <?= $form->field($model, 'attachment_one')->fileInput() ?>
 
-                            <?php $form->field($model, 'attachment_two')->fileInput() ?>
-                        </div>
-                    </div>
-                <?php endif; ?>
 
 
                 <?php ActiveForm::end(); ?>
@@ -289,7 +278,7 @@ if (Yii::$app->session->hasFlash('success')) {
 
 
                         <div class="my-2 file border border-info d-flex justify-content-around align-items-center rounded p-3">
-                            <p class="my-auto border rounded border-info bg-info p-2">Attachment <?= $i ?></p>
+                            <p class="my-auto border rounded border-info bg-info p-2"><?= $file->Name ?></p>
                             <?= Bootstrap4Html::a('<i class="fas fa-file"></i> Open', ['read'], [
                                 'class' => 'btn btn-info',
                                 'data' => [

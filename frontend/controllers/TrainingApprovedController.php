@@ -127,13 +127,13 @@ class TrainingApprovedController extends Controller
 
     public function actionUpdate($No = '', $Key = '')
     {
-        $model = new Induction();
-        $service = Yii::$app->params['ServiceName']['InductionCard'];
+        $model = new EmployeeTraining();
+        $service = Yii::$app->params['ServiceName']['TrainingApplicationCard'];
         $model->isNewRecord = false;
 
         // Get Document
         if (!empty($No)) {
-            $document = Yii::$app->navhelper->findOne($service, 'No', $No);
+            $document = Yii::$app->navhelper->findOne($service, ['Application_No' => $No]);
         } elseif (!empty($Key)) {
             $document = Yii::$app->navhelper->readByKey($service, $Key);
         } else {
@@ -153,7 +153,8 @@ class TrainingApprovedController extends Controller
 
         return $this->render('update', [
             'model' => $model,
-            'document' => $document
+            'document' => $document,
+            'attachments' => Yii::$app->navhelper->getData(Yii::$app->params['ServiceName']['DisciplinaryAttachments'], ['Document_No' => $model->Application_No])
         ]);
     }
 
@@ -200,11 +201,14 @@ class TrainingApprovedController extends Controller
 
     public function actionUpload()
     {
+
         $targetPath = '';
         if ($_FILES) {
-            list($name, $ext) = explode('.', $_FILES['attachment']['name']);
-            $targetPath = './uploads/' . Yii::$app->security->generateRandomString(5) . '.' . $ext; // Upload file
+            $uploadedFile = $_FILES['attachment']['name'];
+            list($pref, $ext) = explode('.', $uploadedFile);
+            $targetPath = './uploads/' . Yii::$app->security->generateRandomString(5) . '.' . $ext; // Create unique target upload path
 
+            // Create upload directory if it dnt exist.
             if (!is_dir(dirname($targetPath))) {
                 FileHelper::createDirectory(dirname($targetPath));
                 chmod(dirname($targetPath), 0755);
@@ -213,22 +217,41 @@ class TrainingApprovedController extends Controller
 
         // Upload
         if (Yii::$app->request->isPost) {
+            $DocumentService = Yii::$app->params['ServiceName'][Yii::$app->request->post('DocumentService')];
+            $parentDocument = Yii::$app->navhelper->readByKey($DocumentService, Yii::$app->request->post('Key'));
+
+            $metadata = [];
+            if (is_object($parentDocument) && isset($parentDocument->Key)) {
+                /* $metadata = [
+                    'Application' => $parentDocument->Application_No,
+                    'Employee' => $parentDocument->Employee_No,
+                    'Leavetype' => 'Imprest - ' . !empty($parentDocument->Purpose) ?? '',
+                ];*/
+            }
+            Yii::$app->session->set('metadata', $metadata);
+
+
             $file = $_FILES['attachment']['tmp_name'];
             //Return JSON
             Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
             if (move_uploaded_file($file, $targetPath)) {
+                // Upload to sharepoint
+                //$spResult = Yii::$app->recruitment->sharepoint_attach($targetPath);
                 return [
                     'status' => 'success',
                     'message' => 'File Uploaded Successfully',
                     'filePath' => $targetPath
                 ];
             } else {
-                return 'error';
+                return [
+                    'status' => 'error',
+                    'message' => 'Could not upload file at the moment.'
+                ];
             }
         }
 
 
-        // Update Nav
+        // Update Nav -  Get Request
         if (Yii::$app->request->isGet) {
             $fileName = basename(Yii::$app->request->get('filePath'));
 
@@ -236,12 +259,11 @@ class TrainingApprovedController extends Controller
             $AttachmentService = Yii::$app->params['ServiceName'][Yii::$app->request->get('Service')];
             $Document = Yii::$app->navhelper->readByKey($DocumentService, Yii::$app->request->get('Key'));
 
-
             $data = [];
-            if (is_object($Document) && isset($Document->Key)) {
+            if (is_object($Document) && isset($Document->Application_No)) {
                 $data = [
                     'Document_No' => $Document->Application_No,
-                    'Name' => $fileName,
+                    'Name' => Yii::$app->request->get('Name') ?? $fileName,
                     'File_path' => \yii\helpers\Url::home(true) . 'uploads/' . $fileName,
                 ];
             }
@@ -319,7 +341,7 @@ class TrainingApprovedController extends Controller
                 'Period' => !empty($quali->Period) ? $quali->Period : '',
                 'Trainer' => !empty($quali->Trainer) ? $quali->Trainer : '',
                 'Status' => !empty($quali->Status) ? $quali->Status : '',
-                'Action' => $viewLink . $cancelApproval
+                'Action' => $viewLink . $updateLink . $cancelApproval
             ];
         }
         return $result;
