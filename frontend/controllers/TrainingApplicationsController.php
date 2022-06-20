@@ -30,7 +30,7 @@ class TrainingApplicationsController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'signup', 'index', 'list', 'create', 'update', 'delete'],
+                'only' => ['logout', 'signup', 'index', 'list', 'create', 'update', 'delete', 'view'],
                 'rules' => [
                     [
                         'actions' => ['signup'],
@@ -38,7 +38,7 @@ class TrainingApplicationsController extends Controller
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['logout', 'index', 'list', 'create', 'update', 'delete'],
+                        'actions' => ['logout', 'index', 'list', 'create', 'update', 'delete', 'view'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -109,7 +109,7 @@ class TrainingApplicationsController extends Controller
         if (!empty($No)) {
             $document = Yii::$app->navhelper->findOne($service, ['Application_No' => $No]);
         } elseif (!empty($Key)) {
-            $document = Yii::$app->navhelper->readByKey($service, $Key);
+            $document = Yii::$app->navhelper->readByKfey($service, $Key);
         } else {
             Yii::$app->session->setFlash('error', 'We are unable to fetch a document to update', true);
             return Yii::$app->redirect(['index']);

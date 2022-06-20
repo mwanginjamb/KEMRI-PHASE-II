@@ -1041,3 +1041,500 @@ stdClass Object
     [Activity_Name] => Capacity Building DAR
     [Blocked] => 1
 )
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1MAQQBDADAAMgAtAFQAMAAz8;153068740;
+    [Grant_Activity] => SAC02-T03
+    [Activity_Name] => Capacity Building E.A
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1MAQQBDADAAMgAtAFQAMAA08;153069000;
+    [Grant_Activity] => SAC02-T04
+    [Activity_Name] => IDeAL
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1MAQQBOADAAMQAtAFQAMAAx8;153069220;
+    [Grant_Activity] => SAN01-T01
+    [Activity_Name] => Master's Fellowships
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1MAQQBOADAAMQAtAFQAMAAy8;153069440;
+    [Grant_Activity] => SAN01-T02
+    [Activity_Name] => PhD Fellowships
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1MAQQBOADAAMQAtAFQAMAAz8;153069660;
+    [Grant_Activity] => SAN01-T03
+    [Activity_Name] => Post-Doctoral Fellowships
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1MAQQBOADAAMQAtAFQAMAA08;153069880;
+    [Grant_Activity] => SAN01-T04
+    [Activity_Name] => Admin Costs
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1MAQQBOADAAMQAtAFQAMAA18;153070110;
+    [Grant_Activity] => SAN01-T05
+    [Activity_Name] => IAVI Costs
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1MAQQBPADAAMQAtAFQAMAAx8;153070330;
+    [Grant_Activity] => SAO01-T01
+    [Activity_Name] => Overseas Allowances
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1MAQQBPADAAMQAtAFQAMAAy8;153070550;
+    [Grant_Activity] => SAO01-T02
+    [Activity_Name] => Running Cost
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1MAQwBWADAAMQAtAFQAMAAx8;153070770;
+    [Grant_Activity] => SCV01-T01
+    [Activity_Name] => Serosurveillance in ANC clinics
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1MAQwBWADAAMQAtAFQAMAAy8;153070990;
+    [Grant_Activity] => SCV01-T02
+    [Activity_Name] => Serosurveillance among Health Care Workers
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1MAQwBWADAAMQAtAFQAMAAz8;153071400;
+    [Grant_Activity] => SCV01-T03
+    [Activity_Name] => Serosurveillance among frontline staff 
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1MAQwBWADAAMQAtAFQAMAA08;153071620;
+    [Grant_Activity] => SCV01-T04
+    [Activity_Name] => Serosurveillance Demographic Surveillance 
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1MAQwBWADAAMgAtAFQAMAAx8;153071840;
+    [Grant_Activity] => SCV02-T01
+    [Activity_Name] => Serosurveillance- Blood donors
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1MAQwBWADAAMgAtAFQAMAAy8;153072060;
+    [Grant_Activity] => SCV02-T02
+    [Activity_Name] => Serosurveillance-Asymptomatic and Pre-symptomatic 
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1MAQwBWADAAMgAtAFQAMAAz8;153072280;
+    [Grant_Activity] => SCV02-T03
+    [Activity_Name] => Seroepidemiology of PCR
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1MATQBGADAAMQAtAFQAMAAx8;153072650;
+    [Grant_Activity] => SMF01-T01
+    [Activity_Name] => Research Costs
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1MATQBGADAAMQAtAFQAMAA08;153072870;
+    [Grant_Activity] => SMF01-T04
+    [Activity_Name] => Overseas Allowances
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1MAVABGADAAMQAtAFQAMAAx8;153073090;
+    [Grant_Activity] => STF01-T01
+    [Activity_Name] => SANTHE - Eduard Sanders
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1MAVABGADAAMQAtAFQAMAAy8;153073310;
+    [Grant_Activity] => STF01-T02
+    [Activity_Name] => SANTHE - Isabella Oyier
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1MAVABGADAAMQAtAFQAMAAz8;153073530;
+    [Grant_Activity] => STF01-T03
+    [Activity_Name] => BIOIRON CV19 Relief Grant - Kevin Mokaya-$6227
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1QAQgBBADAAMQAtAFQAMAAx8;153073750;
+    [Grant_Activity] => TBA01-T01
+    [Activity_Name] => B900.03 -Ken Mwai Phd Costs (75,000)
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1QAQgBBADAAMQAtAFQAMAAy8;153073970;
+    [Grant_Activity] => TBA01-T02
+    [Activity_Name] => B900.02 -Rapid Impact Projects (100,001)
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1QAQgBBADAAMQAtAFQAMAAz8;153074190;
+    [Grant_Activity] => TBA01-T03
+    [Activity_Name] => B900.04 -Out of Africa Fellowship (125,000)
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1QAQgBBADAAMQAtAFQAMAA08;153074410;
+    [Grant_Activity] => TBA01-T04
+    [Activity_Name] => B900.05-Making a Difference Fellowship (320,400)
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1QAQgBBADAAMQAtAFQAMAA18;153074630;
+    [Grant_Activity] => TBA01-T05
+    [Activity_Name] => B900.01- George Warimwe TIBA (89,650)
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1QAQgBBADAAMQAtAFQAMAA28;153074850;
+    [Grant_Activity] => TBA01-T06
+    [Activity_Name] => B900.06- Financial Assurance Fund (17,500)
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1QAQgBBADAAMQAtAFQAMAA38;153075070;
+    [Grant_Activity] => TBA01-T07
+    [Activity_Name] => B900.08 COVID-19 Genome Sequencing
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1QAQgBBADAAMQAtAFQAMAA48;153075300;
+    [Grant_Activity] => TBA01-T08
+    [Activity_Name] => B900.07  Arboviruses -George Warimwe
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1QAQgBBADAAMQAtAFQAMAA58;153075520;
+    [Grant_Activity] => TBA01-T09
+    [Activity_Name] => B900.09 Missing data in Health research 
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1QATgBGADAAMQAtAFQAMAAx8;153075740;
+    [Grant_Activity] => TNF01-T01
+    [Activity_Name] => Hospital Liason F
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1QATgBGADAAMQAtAFQAMAAy8;153075960;
+    [Grant_Activity] => TNF01-T02
+    [Activity_Name] => School Support
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1QATgBGADAAMQAtAFQAMAAz8;153076180;
+    [Grant_Activity] => TNF01-T03
+    [Activity_Name] => Corporate Social Responsibility
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1QATgBGADAAMQAtAFQAMAA08;153076400;
+    [Grant_Activity] => TNF01-T04
+    [Activity_Name] => Programme Events and Branding
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1QATgBGADAAMQAtAFQAMAA18;153076620;
+    [Grant_Activity] => TNF01-T05
+    [Activity_Name] => Travel
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1QATgBGADAAMQAtAFQAMAA28;153076840;
+    [Grant_Activity] => TNF01-T06
+    [Activity_Name] => Scientific Platform
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1QATgBGADAAMQAtAFQAMAA38;153077060;
+    [Grant_Activity] => TNF01-T07
+    [Activity_Name] => Buffer
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1QATgBGADAAMQAtAFQAMAA48;153077280;
+    [Grant_Activity] => TNF01-T08
+    [Activity_Name] => RBM-DFID (B.Snow Nrb)
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1QATgBGADAAMQAtAFQAMAA58;153077500;
+    [Grant_Activity] => TNF01-T09
+    [Activity_Name] => M. Mackinnon Costs
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1QATgBGADAAMQAtAFQAMQAw8;153077770;
+    [Grant_Activity] => TNF01-T10
+    [Activity_Name] => Jay Berkly F'ship Costs
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1QATgBGADAAMQAtAFQAMQAx8;153077990;
+    [Grant_Activity] => TNF01-T11
+    [Activity_Name] => Sarah Atkinson's Costs (Max GBP 4K)
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1QATgBGADAAMQAtAFQAMQAy8;153078210;
+    [Grant_Activity] => TNF01-T12
+    [Activity_Name] => KIPMAT
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1QATgBGADAAMQAtAFQAMQAz8;153078430;
+    [Grant_Activity] => TNF01-T13
+    [Activity_Name] => 25th Anniversary Celebrations
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1QATgBGADAAMQAtAFQAMQA08;153078650;
+    [Grant_Activity] => TNF01-T14
+    [Activity_Name] => Kevin Marsh Direct Costs
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1QATgBGADAAMQAtAFQAMQA18;153078870;
+    [Grant_Activity] => TNF01-T15
+    [Activity_Name] => Kirigia Staff Costs
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1QATgBGADAAMQAtAFQAMQA28;153079090;
+    [Grant_Activity] => TNF01-T16
+    [Activity_Name] => Cordinated Clinical Trials of VSV Ebola Virus Vacc
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1QATgBGADAAMQAtAFQAMQA38;153079310;
+    [Grant_Activity] => TNF01-T17
+    [Activity_Name] => Sophie Tunstall Costs
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1QATgBGADAAMQAtAFQAMQA48;153079530;
+    [Grant_Activity] => TNF01-T18
+    [Activity_Name] => Site Review 2016
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1QATgBGADAAMQAtAFQAMQA58;153079750;
+    [Grant_Activity] => TNF01-T19
+    [Activity_Name] => Bondo Support - Dejan Zurovac
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1QATgBGADAAMQAtAFQAMgAw8;153079970;
+    [Grant_Activity] => TNF01-T20
+    [Activity_Name] => George Warimwe Oak Fellowship supplement
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1QATgBGADAAMQAtAFQAMgAx8;153080190;
+    [Grant_Activity] => TNF01-T21
+    [Activity_Name] => IAVI Costs
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1QATgBGADAAMQAtAFQAMgAy8;153080420;
+    [Grant_Activity] => TNF01-T22
+    [Activity_Name] => SONIA Trial
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1QATgBGADAAMQAtAFQAMgAz8;153080640;
+    [Grant_Activity] => TNF01-T23
+    [Activity_Name] => Ambrose PI Fund - HDSS COVID-19 serosurveillance
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1QAVwBGADAAMQAtAFQAMAAx8;153080860;
+    [Grant_Activity] => TWF01-T01
+    [Activity_Name] => Research Costs
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1QAVwBGADAAMQAtAFQAMAAy8;153081080;
+    [Grant_Activity] => TWF01-T02
+    [Activity_Name] => Overseas Allowances
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1QAVwBGADAAMQAtAFQAMAAz8;153081340;
+    [Grant_Activity] => TWF01-T03
+    [Activity_Name] => Caroline Ndila sub-award
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1QAVwBGADAAMgAtAFQAMAAx8;153081780;
+    [Grant_Activity] => TWF02-T01
+    [Activity_Name] => Research Costs
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1QAVwBGADAAMgAtAFQAMAAy8;153082220;
+    [Grant_Activity] => TWF02-T02
+    [Activity_Name] => Overseas Allowances
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1QAVwBGADAAMgAtAFQAMAAz8;153082600;
+    [Grant_Activity] => TWF02-T03
+    [Activity_Name] => SCD Study
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1QAVwBGADAAMwAtAFQAMAAx8;153082970;
+    [Grant_Activity] => TWF03-T01
+    [Activity_Name] => Alex Macharia PHD
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1YAQQBDADAAMgAtAFQAMAAx8;153083190;
+    [Grant_Activity] => VAC02-T01
+    [Activity_Name] => Objective 1,Activity 1: Project Management
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1YAQQBDADAAMgAtAFQAMAAy8;153083590;
+    [Grant_Activity] => VAC02-T02
+    [Activity_Name] => Objective 1,Activity 2: Validation and LytA PCR
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1YAQQBDADAAMgAtAFQAMAAz8;153084210;
+    [Grant_Activity] => VAC02-T03
+    [Activity_Name] => Objective 2,Activity 1: Triplex and alu PCR
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1YAQQBDADAAMgAtAFQAMAA08;153084550;
+    [Grant_Activity] => VAC02-T04
+    [Activity_Name] => Objective 3,Activity 1: Microarry DNA....
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1YAQQBFADAAMQAtAFQAMAAx8;153085370;
+    [Grant_Activity] => VAE01-T01
+    [Activity_Name] => Kenyan Salaries
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1YAQQBFADAAMQAtAFQAMAAy8;153085900;
+    [Grant_Activity] => VAE01-T02
+    [Activity_Name] => Equipment & Supplies
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1YAQQBFADAAMQAtAFQAMAAz8;153087350;
+    [Grant_Activity] => VAE01-T03
+    [Activity_Name] => Running Costs
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1YAQQBFADAAMQAtAFQAMAA08;153087810;
+    [Grant_Activity] => VAE01-T04
+    [Activity_Name] => Travel & Accomodation
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1YAQQBFADAAMQAtAFQAMAA18;153088040;
+    [Grant_Activity] => VAE01-T05
+    [Activity_Name] => Kemri Indirect Costs
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1YAQQBFADAAMQAtAFQAMAA28;153088340;
+    [Grant_Activity] => VAE01-T06
+    [Activity_Name] => PCVIS Costs
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1YAQQBFADAAMQAtAFQAMAA38;153088800;
+    [Grant_Activity] => VAE01-T07
+    [Activity_Name] => ASSRF Costs
+    [Blocked] => 
+)
