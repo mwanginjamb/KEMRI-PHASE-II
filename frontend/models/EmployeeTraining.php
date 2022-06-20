@@ -54,6 +54,8 @@ class EmployeeTraining extends Model
     public  $attachment;
 
     public $Allowed_To_Exceed_Amount;
+    public $Venue;
+    public $Reason_For_Training;
     public $isNewRecord;
 
     public function rules()

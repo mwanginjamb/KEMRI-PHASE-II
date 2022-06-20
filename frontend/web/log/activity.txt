@@ -341,3 +341,703 @@ stdClass Object
     [Activity_Name] => IMM-Cell Culture
     [Blocked] => 1
 )
+stdClass Object
+(
+    [Key] => 36;q+IAAAJ7/08AWABGADAAMgAtAFQAMgA1ADE=8;153043940;
+    [Grant_Activity] => OXF02-T251
+    [Activity_Name] => IMM-Cyan ADP
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 36;q+IAAAJ7/08AWABGADAAMgAtAFQAMgA1ADI=8;153044160;
+    [Grant_Activity] => OXF02-T252
+    [Activity_Name] => IMM-FC500
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 36;q+IAAAJ7/08AWABGADAAMgAtAFQAMgA1ADM=8;153044350;
+    [Grant_Activity] => OXF02-T253
+    [Activity_Name] => IMM-Sequencer
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 36;q+IAAAJ7/08AWABGADAAMgAtAFQAMgA1ADQ=8;153044600;
+    [Grant_Activity] => OXF02-T254
+    [Activity_Name] => Overseas Allowances
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 36;q+IAAAJ7/08AWABGADAAMgAtAFQAMgA1ADU=8;153044820;
+    [Grant_Activity] => OXF02-T255
+    [Activity_Name] => IMM-PCR
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 36;q+IAAAJ7/08AWABGADAAMgAtAFQAMgA1ADY=8;153045040;
+    [Grant_Activity] => OXF02-T256
+    [Activity_Name] => IMM- Fortessa ADP
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 36;q+IAAAJ7/08AWABGADAAMgAtAFQAMgA2ADA=8;153045260;
+    [Grant_Activity] => OXF02-T260
+    [Activity_Name] => B900.13 Community Engagement & Ethics
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 36;q+IAAAJ7/08AWABGADAAMgAtAFQAMgA2ADE=8;153045480;
+    [Grant_Activity] => OXF02-T261
+    [Activity_Name] => Schools Engagement
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 36;q+IAAAJ7/08AWABGADAAMgAtAFQAMgA2ADI=8;153045700;
+    [Grant_Activity] => OXF02-T262
+    [Activity_Name] => Training
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 36;q+IAAAJ7/08AWABGADAAMgAtAFQAMgA2ADM=8;153045920;
+    [Grant_Activity] => OXF02-T263
+    [Activity_Name] => Community Engagement
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 36;q+IAAAJ7/08AWABGADAAMgAtAFQAMgA2ADQ=8;153046140;
+    [Grant_Activity] => OXF02-T264
+    [Activity_Name] => Ethics
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 36;q+IAAAJ7/08AWABGADAAMgAtAFQAMgA2ADU=8;153046360;
+    [Grant_Activity] => OXF02-T265
+    [Activity_Name] => Operational Research Sassy M.
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 36;q+IAAAJ7/08AWABGADAAMgAtAFQAMgA2ADY=8;153046580;
+    [Grant_Activity] => OXF02-T266
+    [Activity_Name] => Operational Research Dorcas K.
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 36;q+IAAAJ7/08AWABGADAAMgAtAFQAMgA2ADc=8;153046800;
+    [Grant_Activity] => OXF02-T267
+    [Activity_Name] => 25th Anniversary Events
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 36;q+IAAAJ7/08AWABGADAAMgAtAFQAMgA3ADA=8;153047020;
+    [Grant_Activity] => OXF02-T270
+    [Activity_Name] => B900.14 Training
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 36;q+IAAAJ7/08AWABGADAAMgAtAFQAMgA3ADE=8;153047250;
+    [Grant_Activity] => OXF02-T271
+    [Activity_Name] => Training Admin
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 36;q+IAAAJ7/08AWABGADAAMgAtAFQAMgA3ADI=8;153047470;
+    [Grant_Activity] => OXF02-T272
+    [Activity_Name] => Research Support CPD
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 36;q+IAAAJ7/08AWABGADAAMgAtAFQAMgA4ADA=8;153047690;
+    [Grant_Activity] => OXF02-T280
+    [Activity_Name] => Governance
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 36;q+IAAAJ7/08AWABGADAAMgAtAFQAMgA4ADE=8;153047910;
+    [Grant_Activity] => OXF02-T281
+    [Activity_Name] => B900.15 Yellow Fever
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 36;q+IAAAJ7/08AWABGADAAMgAtAFQAMgA4ADI=8;153048130;
+    [Grant_Activity] => OXF02-T282
+    [Activity_Name] => B900.16 Zika Virus
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 36;q+IAAAJ7/08AWABGADAAMgAtAFQAMgA5ADA=8;153048350;
+    [Grant_Activity] => OXF02-T290
+    [Activity_Name] => Publications
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 36;q+IAAAJ7/08AWABGADAAMgAtAFQAMgA5ADE=8;153048570;
+    [Grant_Activity] => OXF02-T291
+    [Activity_Name] => Publication costs
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 36;q+IAAAJ7/08AWABGADAAMgAtAFQAOQA5ADk=8;153048790;
+    [Grant_Activity] => OXF02-T999
+    [Activity_Name] => OXF-COR02 
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1AAQgBGADAAMQAtAFQAMAAx8;153049010;
+    [Grant_Activity] => PBF01-T01
+    [Activity_Name] => Research Costs
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1AAQgBGADAAMQAtAFQAMAAy8;153049230;
+    [Grant_Activity] => PBF01-T02
+    [Activity_Name] => Overseas Allowances
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1AAQwBIADAAMQAtAFQAMAAx8;153049450;
+    [Grant_Activity] => PCH01-T01
+    [Activity_Name] => Consultancy
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1AAQwBIADAAMQAtAFQAMAAy8;153049680;
+    [Grant_Activity] => PCH01-T02
+    [Activity_Name] => Consumables
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1AAQwBIADAAMQAtAFQAMAAz8;153049900;
+    [Grant_Activity] => PCH01-T03
+    [Activity_Name] => Equipment
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1AAQwBIADAAMQAtAFQAMAA08;153050120;
+    [Grant_Activity] => PCH01-T04
+    [Activity_Name] => Staff Costs
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1AAQwBIADAAMQAtAFQAMAA18;153050340;
+    [Grant_Activity] => PCH01-T05
+    [Activity_Name] => Travel,Training,Communication
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1AAQwBIADAAMQAtAFQAMAA28;153050560;
+    [Grant_Activity] => PCH01-T06
+    [Activity_Name] => Oxford Overheads
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1AAQwBIADAAMQAtAFQAMAA38;153050780;
+    [Grant_Activity] => PCH01-T07
+    [Activity_Name] => Cat 3 Lab
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1AAQwBWADAAMQAtAFQAMAAx8;153051000;
+    [Grant_Activity] => PCV01-T01
+    [Activity_Name] => Project Co-ordination
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1AAQwBWADAAMQAtAFQAMAAy8;153051220;
+    [Grant_Activity] => PCV01-T02
+    [Activity_Name] => Vaccine Delivery
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1AAQwBWADAAMQAtAFQAMAAz8;153051440;
+    [Grant_Activity] => PCV01-T03
+    [Activity_Name] => Vaccine Monitoring
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1AAQwBWADAAMQAtAFQAMAA08;153051660;
+    [Grant_Activity] => PCV01-T04
+    [Activity_Name] => Adult clinical surveilance
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1AAQwBWADAAMQAtAFQAMAA18;153051880;
+    [Grant_Activity] => PCV01-T05
+    [Activity_Name] => Paediatric clinical surveilance
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1AAQwBWADAAMQAtAFQAMAA28;153052100;
+    [Grant_Activity] => PCV01-T06
+    [Activity_Name] => Microbiological surveilance
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1AAQwBWADAAMQAtAFQAMAA38;153052330;
+    [Grant_Activity] => PCV01-T07
+    [Activity_Name] => Nasopharyngeal Prevalence Team
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1AAQwBWADAAMQAtAFQAMAA48;153052550;
+    [Grant_Activity] => PCV01-T08
+    [Activity_Name] => Nasopharyngeal carriage Prevalence
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1AAQwBWADAAMQAtAFQAMAA58;153052770;
+    [Grant_Activity] => PCV01-T09
+    [Activity_Name] => Clinical & epidemiological
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1AAQwBWADAAMQAtAFQAMQAw8;153052990;
+    [Grant_Activity] => PCV01-T10
+    [Activity_Name] => Cost effectiveness analysis
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1AAQwBWADAAMQAtAFQAMQAx8;153053210;
+    [Grant_Activity] => PCV01-T11
+    [Activity_Name] => Expanded Prg on Immunization(KEPI)
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1AAQwBWADAAMQAtAFQAMQAy8;153053470;
+    [Grant_Activity] => PCV01-T12
+    [Activity_Name] => Kemri Overhead, Oxford Salaries & Support, Forex
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1AAQwBWADAAMgAtAFQAMAAx8;153053690;
+    [Grant_Activity] => PCV02-T01
+    [Activity_Name] => Project Co-ordination
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1AAQwBWADAAMgAtAFQAMAAy8;153053910;
+    [Grant_Activity] => PCV02-T02
+    [Activity_Name] => Vaccine Monitoring
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1AAQwBWADAAMgAtAFQAMAAz8;153054130;
+    [Grant_Activity] => PCV02-T03
+    [Activity_Name] => Adult Clinical Surveilance
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1AAQwBWADAAMgAtAFQAMAA08;153054350;
+    [Grant_Activity] => PCV02-T04
+    [Activity_Name] => Paediatric Clinical Surveilance
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1AAQwBWADAAMgAtAFQAMAA18;153054570;
+    [Grant_Activity] => PCV02-T05
+    [Activity_Name] => Microbiological Surveillance
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1AAQwBWADAAMgAtAFQAMAA28;153054800;
+    [Grant_Activity] => PCV02-T06
+    [Activity_Name] => Kilifi NP Surveillance
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1AAQwBWADAAMgAtAFQAMAA38;153055020;
+    [Grant_Activity] => PCV02-T07
+    [Activity_Name] => Cost Effectiveness Analysis
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1AAQwBWADAAMgAtAFQAMAA48;153055240;
+    [Grant_Activity] => PCV02-T08
+    [Activity_Name] => Kemri Overhead, Overseas Support, Forex
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1AAQwBWADAAMgAtAFQAMAA58;153055460;
+    [Grant_Activity] => PCV02-T09
+    [Activity_Name] => JNF Costs
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1AAQwBWADAAMwAtAFQAMAAx8;153055720;
+    [Grant_Activity] => PCV03-T01
+    [Activity_Name] => Project Co-ordination
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1AAQwBWADAAMwAtAFQAMAAy8;153055940;
+    [Grant_Activity] => PCV03-T02
+    [Activity_Name] => Vaccine Monitoring
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1AAQwBWADAAMwAtAFQAMAAz8;153056160;
+    [Grant_Activity] => PCV03-T03
+    [Activity_Name] => Adult Clinical Surveilance
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1AAQwBWADAAMwAtAFQAMAA08;153056380;
+    [Grant_Activity] => PCV03-T04
+    [Activity_Name] => Paediatric Clinical Surveilance
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1AAQwBWADAAMwAtAFQAMAA18;153056600;
+    [Grant_Activity] => PCV03-T05
+    [Activity_Name] => Microbiological Surveillance
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1AAQwBWADAAMwAtAFQAMAA28;153056820;
+    [Grant_Activity] => PCV03-T06
+    [Activity_Name] => Kilifi NP Surveillance
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1AAQwBWADAAMwAtAFQAMAA38;153057040;
+    [Grant_Activity] => PCV03-T07
+    [Activity_Name] => Kilifi County Hospital (Locums)
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1AAQwBWADAAMwAtAFQAMAA48;153057260;
+    [Grant_Activity] => PCV03-T08
+    [Activity_Name] => Vaccine data Clerks
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1AAQwBWADAAMwAtAFQAMAA58;153057490;
+    [Grant_Activity] => PCV03-T09
+    [Activity_Name] => Kemri Overhead, Overseas Support, Forex
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1AAQwBWADAANAAtAFQAMAAx8;153057710;
+    [Grant_Activity] => PCV04-T01
+    [Activity_Name] => Project Co-ordination
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1AAQwBWADAANAAtAFQAMAAy8;153057930;
+    [Grant_Activity] => PCV04-T02
+    [Activity_Name] => Vaccine Monitoring
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1AAQwBWADAANAAtAFQAMAAz8;153058150;
+    [Grant_Activity] => PCV04-T03
+    [Activity_Name] => Adult clinical surveilance
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1AAQwBWADAANAAtAFQAMAA08;153058370;
+    [Grant_Activity] => PCV04-T04
+    [Activity_Name] => Paediatric clinical surveilance
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1AAQwBWADAANAAtAFQAMAA18;153058590;
+    [Grant_Activity] => PCV04-T05
+    [Activity_Name] => Microbiological surveillance
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1AAQwBWADAANAAtAFQAMAA28;153058850;
+    [Grant_Activity] => PCV04-T06
+    [Activity_Name] => Kilifi NP Surveillance
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1AAQwBWADAANAAtAFQAMAA38;153059070;
+    [Grant_Activity] => PCV04-T07
+    [Activity_Name] => Kilifi County Hospital (Locums)
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1AAQwBWADAANAAtAFQAMAA48;153059290;
+    [Grant_Activity] => PCV04-T08
+    [Activity_Name] => KEMRI Overhead, Overseas Support, Forex
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1AAQwBWADAANQAtAFQAMAA18;153059510;
+    [Grant_Activity] => PCV05-T05
+    [Activity_Name] => Microbiological surveilance
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1AASQBGADAAMQAtAFQAMAAx8;153059730;
+    [Grant_Activity] => PIF01-T01
+    [Activity_Name] => MPHEG - Malaria Public Health & Epidemiology
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1AASQBGADAAMQAtAFQAMAAy8;153059960;
+    [Grant_Activity] => PIF01-T02
+    [Activity_Name] => CNHG - Child & Newborn Health Group
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1AAUgBGADAAMQAtAFQAMAAx8;153060180;
+    [Grant_Activity] => PRF01-T01
+    [Activity_Name] => MPHEG Core
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1AAUgBGADAAMQAtAFQAMAAy8;153060400;
+    [Grant_Activity] => PRF01-T02
+    [Activity_Name] => MPHEG Policy Engagement
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1AAUgBGADAAMQAtAFQAMAAz8;153060620;
+    [Grant_Activity] => PRF01-T03
+    [Activity_Name] => Malindi Schools Survey
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1AAUgBGADAAMgAtAFQAMAAx8;153060840;
+    [Grant_Activity] => PRF02-T01
+    [Activity_Name] => IDeAL Studentships
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1AAUgBGADAAMgAtAFQAMAAy8;153061060;
+    [Grant_Activity] => PRF02-T02
+    [Activity_Name] => Other costs
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1AAUgBGADAAMgAtAFQAMAAz8;153061280;
+    [Grant_Activity] => PRF02-T03
+    [Activity_Name] => Alice Kamau Research Costs
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1IAQgBNADAAMQAtAFQAMAAx8;153061540;
+    [Grant_Activity] => RBM01-T01
+    [Activity_Name] => Snow Costs
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1IAQgBNADAAMQAtAFQAMAAy8;153061760;
+    [Grant_Activity] => RBM01-T02
+    [Activity_Name] => Noor Costs
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1IAQgBNADAAMQAtAFQAMAAz8;153061980;
+    [Grant_Activity] => RBM01-T03
+    [Activity_Name] => Okiro Costs
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1IAQgBNADAAMQAtAFQAMAA08;153062200;
+    [Grant_Activity] => RBM01-T04
+    [Activity_Name] => Mbogo Costs
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1IARQBTADAAMQAtAFQAMAAx8;153062430;
+    [Grant_Activity] => RES01-T01
+    [Activity_Name] => Core
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1IARQBTADAAMQAtAFQAMAAy8;153062650;
+    [Grant_Activity] => RES01-T02
+    [Activity_Name] => Research Governance
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1IARQBTADAAMQAtAFQAMAAz8;153062870;
+    [Grant_Activity] => RES01-T03
+    [Activity_Name] => Research Finance
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1IARQBTADAANgAtAFQAMAAx8;153063090;
+    [Grant_Activity] => RES06-T01
+    [Activity_Name] => B900- Core
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1IARQBTADAANgAtAFQAMAAy8;153063310;
+    [Grant_Activity] => RES06-T02
+    [Activity_Name] => B901- Learning Site
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1IARQBTADAANgAtAFQAMAAz8;153063530;
+    [Grant_Activity] => RES06-T03
+    [Activity_Name] => B902- Financing study research project
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1IARQBTADAANgAtAFQAMAA08;153063750;
+    [Grant_Activity] => RES06-T04
+    [Activity_Name] => B903.01 Consultancy fees
+    [Blocked] => 
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1MAQQBDADAAMQAtAFQAMAAx8;153063970;
+    [Grant_Activity] => SAC01-T01
+    [Activity_Name] => Post Doctoral Post
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1MAQQBDADAAMQAtAFQAMAAy8;153064190;
+    [Grant_Activity] => SAC01-T02
+    [Activity_Name] => Basic Phd Costs
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1MAQQBDADAAMQAtAFQAMAAz8;153064410;
+    [Grant_Activity] => SAC01-T03
+    [Activity_Name] => Clinical Phd Cost
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1MAQQBDADAAMQAtAFQAMAA08;153064630;
+    [Grant_Activity] => SAC01-T04
+    [Activity_Name] => Master - DL
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1MAQQBDADAAMQAtAFQAMAA18;153065030;
+    [Grant_Activity] => SAC01-T05
+    [Activity_Name] => MMED-Cost
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1MAQQBDADAAMQAtAFQAMAA28;153065610;
+    [Grant_Activity] => SAC01-T06
+    [Activity_Name] => Short Training Courses
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1MAQQBDADAAMQAtAFQAMAA38;153066610;
+    [Grant_Activity] => SAC01-T07
+    [Activity_Name] => Professional & Vocational courses
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1MAQQBDADAAMQAtAFQAMAA48;153067040;
+    [Grant_Activity] => SAC01-T08
+    [Activity_Name] => Administration Costs
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1MAQQBDADAAMQAtAFQAMAA58;153067770;
+    [Grant_Activity] => SAC01-T09
+    [Activity_Name] => SA - Misposts
+    [Blocked] => 1
+)
+stdClass Object
+(
+    [Key] => 32;q+IAAAJ7/1MAQQBDADAAMQAtAFQAMQAw8;153067990;
+    [Grant_Activity] => SAC01-T10
+    [Activity_Name] => Capacity Building DAR
+    [Blocked] => 1
+)

@@ -107,6 +107,7 @@ if (Yii::$app->session->hasFlash('success')) {
                             <?= $form->field($model, 'Training_Need')->textInput(['readonly' => true]) ?>
                             <?= $form->field($model, 'Date_of_Application')->textInput(['readonly' =>  true]) ?>
                             <?= $form->field($model, 'Training_Need_Description')->textInput(['readonly' => true, 'disabled' => true]) ?>
+                            <?= $form->field($model, 'Venue')->textInput(['readonly' => true, 'disabled' => true]) ?>
 
 
 
@@ -134,6 +135,7 @@ if (Yii::$app->session->hasFlash('success')) {
                             <?php $form->field($model, 'Training_Start_Date')->textInput(['readonly' => true, 'disabled' => true]) ?>
                             <?= $form->field($model, 'CPD_Approved_Cost')->textInput(['readonly' => true]) ?>
                             <?= $form->field($model, 'Total_Cost')->textInput(['readonly' => true, 'disabled' => true]) ?>
+                            <?= $form->field($model, 'Reason_For_Training')->textInput(['readonly' => true, 'disabled' => true]) ?>
 
 
                             <p class="parent"><span>+</span>
