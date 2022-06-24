@@ -21,6 +21,7 @@ AdminlteAsset::register($this);
 
 $webroot = Yii::getAlias(@$webroot);
 $absoluteUrl = \yii\helpers\Url::home(true);
+//Yii::$app->recruitment->printrr(Yii::$app->user->identity->employee);
 $employee = (!Yii::$app->user->isGuest && is_array(Yii::$app->user->identity->employee)) ? Yii::$app->user->identity->employee[0] : [];
 
 

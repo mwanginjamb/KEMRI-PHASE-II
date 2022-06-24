@@ -280,7 +280,7 @@ exit;*/
 
                     <?php
 
-                    if (Yii::$app->user->identity->{'Head of Division'} == Yii::$app->user->identity->Employee[0]->Global_Dimension_1_Code) : ?>
+                    if (property_exists(Yii::$app->user->identity, 'Head of Division ')  && Yii::$app->user->identity->{'Head of Division'} == Yii::$app->user->identity->Employee[0]->Global_Dimension_1_Code) : ?>
                         <div class="col-12 col-sm-6 col-md-3">
                             <a href="<?= Yii::$app->recruitment->absoluteUrl() . 'leave/activeleaveshod' ?>" target="_blank">
 
@@ -354,7 +354,7 @@ exit;*/
                     <?php endif; ?>
 
                     <!-- HoDs Leave Balances -->
-                    <?php if (Yii::$app->user->identity->{'Head of Division'} == Yii::$app->user->identity->Employee[0]->Global_Dimension_1_Code) : ?>
+                    <?php if (property_exists(Yii::$app->user->identity, 'Head of Division ') && Yii::$app->user->identity->{'Head of Division'} == Yii::$app->user->identity->Employee[0]->Global_Dimension_1_Code) : ?>
                         <!-- /.col -->
                         <div class="col-12 col-sm-6 col-md-3">
                             <a href="<?= Yii::$app->recruitment->absoluteUrl() . 'leave/balances-division' ?>" target="_blank">

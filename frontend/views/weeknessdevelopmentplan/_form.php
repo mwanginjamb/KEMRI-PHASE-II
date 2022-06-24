@@ -1,10 +1,12 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: HP ELITEBOOK 840 G5
  * Date: 2/24/2020
  * Time: 12:13 PM
  */
+
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 ?>
@@ -19,50 +21,50 @@ use yii\widgets\ActiveForm;
 
 
 
-                    <?php
+                <?php
 
 
 
 
-                    $form = ActiveForm::begin(); ?>
+                $form = ActiveForm::begin(); ?>
                 <div class="row">
                     <div class="col-md-12">
 
 
 
-                            <table class="table">
-                                <tbody>
+                        <table class="table">
+                            <tbody>
 
 
 
 
-                                    <?= $form->field($model, 'Appraisal_No')->hiddenInput(['readonly' => true])->label(false) ?>
+                                <?= $form->field($model, 'Appraisal_No')->hiddenInput(['readonly' => true])->label(false) ?>
 
-                                    <?= $form->field($model, 'Employee_No')->hiddenInput(['readonly' => true])->label(false) ?>
-                                    <?= $form->field($model, 'Wekaness_Line_No')->hiddenInput(['readonly' => true])->label(false) ?>
+                                <?= $form->field($model, 'Employee_No')->hiddenInput(['readonly' => true])->label(false) ?>
+                                <?= $form->field($model, 'Wekaness_Line_No')->hiddenInput(['readonly' => true])->label(false) ?>
 
-                                    <?= $form->field($model, 'Development_Plan')->dropDownlist($trainingneeds, ['prompt' => 'Select ...']) ?>
+                                <?= $form->field($model, 'Development_Plan')->textInput(['maxlength' => 200]) ?>
 
-                                    <?= $form->field($model, 'Training_Need_Description')->textarea(['rows' => 2]) ?>
+                                <?= $form->field($model, 'Training_Need_Description')->textarea(['rows' => 2]) ?>
 
-                                    <?= $form->field($model, 'Training_Category')->dropDownlist($categories,['prompt' =>  'Select ...']) ?>
-                                    <?= $form->field($model, 'Proposed_Trainer')->dropDownList($trainers,['prompt' =>  'Select ...']) ?>
-                                   
-
-                                    <?= $form->field($model, 'Key')->hiddenInput(['readonly'=> true])->label(false) ?>
+                                <?= $form->field($model, 'Training_Category')->dropDownlist($categories, ['prompt' =>  'Select ...']) ?>
+                                <?= $form->field($model, 'Proposed_Trainer')->dropDownList($trainers, ['prompt' =>  'Select ...']) ?>
 
 
-
-
-
+                                <?= $form->field($model, 'Key')->hiddenInput(['readonly' => true])->label(false) ?>
 
 
 
 
 
 
-                                </tbody>
-                            </table>
+
+
+
+
+
+                            </tbody>
+                        </table>
 
 
 
@@ -87,7 +89,7 @@ use yii\widgets\ActiveForm;
                 <div class="row">
 
                     <div class="form-group">
-                        <?= Html::submitButton(($model->isNewRecord)?'Save':'Update', ['class' => 'btn btn-success']) ?>
+                        <?= Html::submitButton(($model->isNewRecord) ? 'Save' : 'Update', ['class' => 'btn btn-success']) ?>
                     </div>
 
 
