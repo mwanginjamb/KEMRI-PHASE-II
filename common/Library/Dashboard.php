@@ -447,10 +447,10 @@ class Dashboard extends Component
 
     public function getLongtermsSuper()
     {
-        $service = Yii::$app->params['ServiceName']['LongTermAppraisal_Status'];
         $filter = [
             'Supervisor_No' => Yii::$app->user->identity->{'Employee No_'},
         ];
+        $service = Yii::$app->params['ServiceName']['LongTermAppraisal_Status'];
         $results = \Yii::$app->navhelper->getData($service, $filter);
         if (is_object($results) || is_string($results)) { //RETURNS AN EMPTY object if the filter result to false
             return 0;
@@ -462,7 +462,9 @@ class Dashboard extends Component
 
     public function getProbationHsCount()
     {
-
+        if (!property_exists(Yii::$app->user->identity->Employee[0], 'Global_Dimension_3_Code')) {
+            return 0;
+        }
         $service = Yii::$app->params['ServiceName']['ProbationStatusList'];
         $filter = [
             'Global_Dimension_3_Code' => Yii::$app->user->identity->Employee[0]->Global_Dimension_3_Code,
@@ -478,6 +480,9 @@ class Dashboard extends Component
     public function getShorttermHsCount()
     {
 
+        if (!property_exists(Yii::$app->user->identity->Employee[0], 'Global_Dimension_3_Code')) {
+            return 0;
+        }
         $service = Yii::$app->params['ServiceName']['ShortTermStatusList'];
         $filter = [
             'Global_Dimension_3_Code' => Yii::$app->user->identity->Employee[0]->Global_Dimension_3_Code,
@@ -493,6 +498,9 @@ class Dashboard extends Component
 
     public function getLongtermHsCount()
     {
+        if (!property_exists(Yii::$app->user->identity->Employee[0], 'Global_Dimension_3_Code')) {
+            return 0;
+        }
 
         $service = Yii::$app->params['ServiceName']['LongTermAppraisal_Status'];
         $filter = [
