@@ -30,6 +30,11 @@ class Dashboard extends Component
 
     public function getLeaveBalanceCount()
     {
+
+        if (!property_exists(Yii::$app->user->identity->Employee[0], 'Global_Dimension_2_Code')) {
+            return 0;
+        }
+
         $service = Yii::$app->params['ServiceName']['EmployeeLeaveBalances'];
         $filter = [
             'Global_Dimension_2_Code' => Yii::$app->user->identity->Employee[0]->Global_Dimension_2_Code
@@ -391,6 +396,9 @@ class Dashboard extends Component
 
     public function getHoDBalancesRecords()
     {
+        if (!property_exists(Yii::$app->user->identity->Employee[0], 'Global_Dimension_1_Code')) {
+            return 0;
+        }
         $service = Yii::$app->params['ServiceName']['HODLeaveBalances'];
         $filter = [
             'Global_Dimension_1_Code' => Yii::$app->user->identity->Employee[0]->Global_Dimension_1_Code,
@@ -406,6 +414,9 @@ class Dashboard extends Component
 
     public function getOnLeavehod()
     {
+        if (!property_exists(Yii::$app->user->identity->Employee[0], 'Global_Dimension_1_Code')) {
+            return 0;
+        }
         $service = Yii::$app->params['ServiceName']['StaffOnLeave'];
         $filter = [
             'Division' => Yii::$app->user->identity->Employee[0]->Global_Dimension_1_Code,
