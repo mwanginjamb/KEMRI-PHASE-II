@@ -78,6 +78,8 @@ class LoginForm extends Model
 
     function logintoAD($username,$password){
         
+            $me=['ye'=>'ds'];//replace this hack for go live, this hack is for dev env only
+            return $me;//replace this hack for go live
 
         $adServer = Yii::$app->params['adServer'];//
         $ldap = ldap_connect($adServer, 389);//connect

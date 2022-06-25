@@ -121,16 +121,14 @@ $Attachmentmodel = new \frontend\models\Leaveattachment()
                                     // 'Board'=>'Board',
                                 ],['prompt' => '-- Select Employment Type -- ','required'=> true]) ?>
 
-                                <?= $form->field($model, 'Type')->dropDownList([
-                                    'New'=>'New Position',
-                                    'Re_Advert'=>'Re Advertisement',
-                                    'Replacement'=>'Replacement'
-                                ],['prompt' => '-- Select Type -- ','required'=> true]) ?>
+                                
+                                <?= $form->field($model, 'Contract_Type')->dropDownList($ContractTypes,['prompt' => '-- Select Job --']) ?>
+
                                
-                               <?= $form->field($model, 'Replaced_Employee')->dropDownList($Employees,['prompt' => '-- Select Employee Being Replaced --']) ?>
 
+                               <?= $form->field($model, 'Location')->dropDownList($Locations,['prompt' => '-- Select Location --']) ?>
 
-
+                               
 
                             </div>
 
@@ -146,9 +144,12 @@ $Attachmentmodel = new \frontend\models\Leaveattachment()
                                     'Both'=>'Both',
                                 ],['prompt' => '-- Select Requisition Type -- ','required'=> true]) ?>
                                 <?= $form->field($model, 'Contract_Period')->textInput(['readonly' =>  false]) ?>
-                                <?= $form->field($model, 'Contract_Type')->dropDownList($ContractTypes,['prompt' => '-- Select Job --']) ?>
-
-                                
+                                <?= $form->field($model, 'Type')->dropDownList([
+                                    'New'=>'New Position',
+                                    'Re_Advert'=>'Re Advertisement',
+                                    'Replacement'=>'Replacement'
+                                ],['prompt' => '-- Select Type -- ','required'=> true]) ?>
+                                <?= $form->field($model, 'Start_Date')->textInput(['type' => 'date']) ?>
 
 
                                 
@@ -159,7 +160,9 @@ $Attachmentmodel = new \frontend\models\Leaveattachment()
                             <?= $form->field($model, 'Occupied_Position')->textInput(['readonly' =>  true]) ?>
                             <?= $form->field($model, 'Global_Dimension_2_Code')->textInput(['readonly' =>  true]) ?>
                             <?= $form->field($model, 'Global_Dimension_1_Code')->textInput(['readonly' =>  true]) ?>
-                            <?= $form->field($model, 'Location')->textInput(['readonly' =>  true]) ?>
+                            <?= $form->field($model, 'Replaced_Employee')->dropDownList($Employees,['prompt' => '-- Select Employee Being Replaced --']) ?>
+                            <?= $form->field($model, 'Requisition_Period')->textInput(['required' => true]) ?>
+
 
                               
                                 <!-- <?= $form->field($model, 'Reasons_For_Requisition')->textarea(['rows'=> 2,'maxlength' => 250]) ?> -->
