@@ -836,6 +836,29 @@ class JobRequisitionController extends Controller
 
     }
 
+    public function actionSetPeriod(){
+        $model = new HrJobRequisitionCard();
+        $service = Yii::$app->params['ServiceName']['HrJobRequisitionCard'];
+
+        $filter = [
+            'Requisition_No' => Yii::$app->request->post('No')
+        ];
+        $request = Yii::$app->navhelper->getData($service, $filter);
+
+        if(is_array($request)){
+            Yii::$app->navhelper->loadmodel($request[0],$model);
+            $model->Key = $request[0]->Key;
+            $model->Contract_Period = Yii::$app->request->post('Period');
+        }
+
+        $result = Yii::$app->navhelper->updateData($service,$model);
+
+        Yii::$app->response->format = \yii\web\response::FORMAT_JSON;
+
+        return $result;
+
+    }
+
     /*Set Start Date */
     public function actionSetstartdate(){
         $model = new Leave();

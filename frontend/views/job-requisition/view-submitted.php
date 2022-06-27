@@ -87,7 +87,7 @@ $Attachmentmodel = new \frontend\models\Leaveattachment()
                                     'Low'=>'Low',
                                 ],['prompt' => '-- Select Criticality -- ','disabled'=>true]) ?>
 
-                                <?= $form->field($model, 'Global_Dimension_1_Code')->dropDownList($Programs,['prompt' => '-- Select Program --']) ?>
+<?= $form->field($model, 'Occupied_Position')->textInput(['readonly' =>  true,'readonly' => true]) ?>
                                 <!-- <?= $form->field($model, 'Start_Date')->textInput(['type' => 'date','readonly' => true]) ?> -->
                                 <!-- <?= $form->field($model, 'Probation_Period')->textInput(['readonly' => true]) ?> -->
                                 <?= $form->field($model, 'Criticality')->dropDownList([
@@ -95,7 +95,8 @@ $Attachmentmodel = new \frontend\models\Leaveattachment()
                                     'Low'=>'Low',
                                 ],['prompt' => '-- Select Criticality -- ','readonly'=> true]) ?>
 
-                                <?= $form->field($model, 'Global_Dimension_1_Code')->dropDownList($Programs,['prompt' => '-- Select Program --','disabled'=>true]) ?>
+
+                                <?= $form->field($model, 'Global_Dimension_1_Code')->dropDownList($Programs,['prompt' => '-- Select Program --','disabled'=>true, 'readonly'=>true]) ?>
                                 <?= $form->field($model, 'Type')->dropDownList([
                                     'New'=>'New Position',
                                     'Re_Advert'=>'Re Advertisement',
@@ -154,6 +155,10 @@ $Attachmentmodel = new \frontend\models\Leaveattachment()
                                 <?= $form->field($model, 'Contract_Type')->dropDownList($ContractTypes,['prompt' => '-- Select Job --','readonly' => true]) ?>
                                 <?= $form->field($model, 'Location')->dropDownList($Locations,['prompt' => '-- Select Department --','readonly' => true]) ?>                                
                                 <!-- <?= $form->field($model, 'Reasons_For_Requisition')->textarea(['rows'=> 2,'maxlength' => 250,'readonly' => true]) ?> -->
+                                <?= $form->field($model, 'Start_Date')->textInput(['readonly' => 'true']) ?>
+                                <?= $form->field($model, 'Requisition_Period')->textInput(['readonly' => true]) ?>
+
+
 
                               
 

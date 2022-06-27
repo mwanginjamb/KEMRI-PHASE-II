@@ -21,42 +21,14 @@ Yii::$app->session->set('isSupervisor',false);*/
 $Attachmentmodel = new \frontend\models\Leaveattachment()
 ?>
 
-<div class="row">
-    <div class="col-md-4">
 
-        <?= ($model->Status == 'New')?Html::a('<i class="fas fa-paper-plane"></i> Send Approval Req',['send-for-approval', 'No'=>$model->Requisition_No],['class' => 'btn btn-app submitforapproval',
-            'data' => [
-                'confirm' => 'Are you sure you want to send this document for approval?',
-                'params'=>[
-                    'No'=> $_GET['No'],
-                    'employeeNo' => Yii::$app->user->identity->{'Employee No_'},
-                ],
-                'method' => 'get',
-        ],
-            'title' => 'Submit For Approval'
-
-        ]):'' ?>
-
-
-        <?php ($model->Status == 'Pending_Approval')?Html::a('<i class="fas fa-times"></i> Cancel Approval Req.',['cancel-request'],['class' => 'btn btn-app submitforapproval',
-            'data' => [
-            'confirm' => 'Are you sure you want to cancel imprest approval request?',
-            'params'=>[
-                'No'=> $_GET['No'],
-            ],
-            'method' => 'get',
-        ],
-            'title' => 'Cancel Approval Request'
-
-        ]):'' ?>
-    </div>
-</div>
 
     <div class="row">
         <div class="col-md-12">
             <div class="card-info">
                 <div class="card-header">
                     <h3>Job Reqisition Card </h3>
+                    
                 </div>
 
 
@@ -74,6 +46,37 @@ $Attachmentmodel = new \frontend\models\Leaveattachment()
 
 
                     <!-- <h3 class="card-title">Job Requisition : <?= $model->Requisition_No?></h3> -->
+
+                    <div class="row">
+    <div class="col-md-4">
+
+        <?= ($model->Status == 'New')?Html::a('<i class="fas fa-paper-plane"></i> Send For Approval',['send-for-approval', 'No'=>$model->Requisition_No],['class' => 'btn btn-success submitforapproval',
+            'data' => [
+                'confirm' => 'Are you sure you want to send this document for approval?',
+                'params'=>[
+                    'No'=> $_GET['No'],
+                    'employeeNo' => Yii::$app->user->identity->{'Employee No_'},
+                ],
+                'method' => 'get',
+        ],
+            'title' => 'Submit For Approval'
+
+        ]):'' ?>
+
+
+        <?php ($model->Status == 'Pending_Approval')?Html::a('<i class="fas fa-times"></i> Cancel Approval Req.',['cancel-request'],['class' => 'btn btn-danger submitforapproval',
+            'data' => [
+            'confirm' => 'Are you sure you want to cancel imprest approval request?',
+            'params'=>[
+                'No'=> $_GET['No'],
+            ],
+            'method' => 'get',
+        ],
+            'title' => 'Cancel Approval Request'
+
+        ]):'' ?>
+    </div>
+</div>
 
 
 
@@ -181,7 +184,7 @@ $Attachmentmodel = new \frontend\models\Leaveattachment()
                 <div class="row">
 
                     <div class="form-group">
-                        <?= Html::submitButton(($model->isNewRecord)?'Save':'Update', ['class' => 'btn btn-success',]) ?>
+                        <?= Html::submitButton(($model->isNewRecord)?'Save':'Save', ['class' => 'btn btn-success',]) ?>
                     </div>
 
 
@@ -562,6 +565,8 @@ $script = <<<JS
                 }     
             });
 
+
+
             
             $('#hrjobrequisitioncard-no_posts').change(function(e){
                 const No_Of_Posts = e.target.value;
@@ -583,6 +588,37 @@ $script = <<<JS
                                 $('#hrjobrequisitioncard-key').val(msg.Key);
                                 // $('#hrjobrequisitioncard-end_date').val(msg.End_Date);
                                 const parent = document.querySelector('.field-hrjobrequisitioncard-no_posts');
+                                const helpbBlock = parent.children[2];
+                                helpbBlock.innerText = ''; 
+                                enableSubmit();
+                                
+                            }
+                            
+                        },'json');
+                    
+                }     
+            });
+
+            $('#hrjobrequisitioncard-contract_period').change(function(e){
+                const Period = e.target.value;
+                const No = $('#hrjobrequisitioncard-requisition_no').val();
+                if(No.length){
+                    
+                    const url = 'set-period';
+                    $.post(url,{'Period': Period,'No': No}).done(function(msg){
+                        //populate empty form fields with new data
+                            console.log(typeof msg);
+                            console.table(msg);
+                            if((typeof msg) === 'string') { // A string is an error
+                                const parent = document.querySelector('.field-hrjobrequisitioncard-contract_period');
+                                const helpbBlock = parent.children[2];
+                                helpbBlock.innerText = msg;
+                                disableSubmit();
+                                
+                            }else{ // An object represents correct details
+                                $('#hrjobrequisitioncard-key').val(msg.Key);
+                                // $('#hrjobrequisitioncard-end_date').val(msg.End_Date);
+                                const parent = document.querySelector('.field-hrjobrequisitioncard-contract_period');
                                 const helpbBlock = parent.children[2];
                                 helpbBlock.innerText = ''; 
                                 enableSubmit();

@@ -567,8 +567,8 @@ class InterviewsController extends Controller
         if(!Yii::$app->user->isGuest){
 
             $filter = [
-                'Interview_No'=>urldecode($committeeId),
-                'Member_No'=> Yii::$app->user->identity->employee[0]->No,
+                // 'Interview_No'=>urldecode($committeeId),
+                // 'Member_No'=> Yii::$app->user->identity->employee[0]->No,
             ];
 
             $service = Yii::$app->params['ServiceName']['InterviewMemberEntries'];
@@ -606,14 +606,42 @@ class InterviewsController extends Controller
         if(Yii::$app->request->isPost){
             $service = Yii::$app->params['ServiceName']['InterviewMemberEntries'];
             $InterviewMemberEntry = Yii::$app->navhelper->readByKey($service,Yii::$app->request->post()['Key']); 
-            $Score = (int) Yii::$app->request->post()['Score'];
+            $Score = Yii::$app->request->post()['Score'];
             if($Score > 100){
                 return 'The Score Cannot Exceed 100';
             }
             if(is_object($InterviewMemberEntry)){
                 //update
                 $data =[
-                    'Score' => $Score ,
+                    'Rating' => $Score ,
+                    'Key'=>$InterviewMemberEntry->Key,
+                ];
+                $res = Yii::$app->navhelper->updateData($service,$data);
+                if(is_object($res)){//update is OK
+                    Yii::$app->response->format = \yii\web\response::FORMAT_JSON;
+                    return  $returnData =[
+                        'Scored' =>true,
+                        'Key'=>$res->Key,
+                    ];
+                }
+
+                return $res;
+
+            }
+            return $InterviewMemberEntry;
+        }
+    }
+
+    public function actionComments(){
+        if(Yii::$app->request->isPost){
+            $service = Yii::$app->params['ServiceName']['InterviewMemberEntries'];
+            $InterviewMemberEntry = Yii::$app->navhelper->readByKey($service,Yii::$app->request->post()['Key']); 
+            $OverallComments = Yii::$app->request->post()['OverallComments'];
+           
+            if(is_object($InterviewMemberEntry)){
+                //update
+                $data =[
+                    'Overall_Comments' => $OverallComments ,
                     'Key'=>$InterviewMemberEntry->Key,
                 ];
                 $res = Yii::$app->navhelper->updateData($service,$data);
@@ -1000,8 +1028,8 @@ class InterviewsController extends Controller
 
             if(!Yii::$app->user->isGuest){
                 $filter = [
-                    'Commitee_No' => Yii::$app->user->identity->employee[0]->No,
-                    'Status'=>'In_Progress'
+                    // 'Commitee_No' => Yii::$app->user->identity->employee[0]->No,
+                    // 'Status'=>'In_Progress'
                 ];
                 $CommitteeMembers = \Yii::$app->navhelper->getData($service,$filter);
             }

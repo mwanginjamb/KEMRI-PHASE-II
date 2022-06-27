@@ -12,9 +12,8 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 //$this->title = 'AAS - Employee Profile'
-// echo '<pre>';
-// print_r($Questions);
-// exit;
+
+
 ?>
              <?= $this->render('_steps', ['model'=>$model]) ?>
              <div class="row">
@@ -102,7 +101,37 @@ $script = <<<JS
                
                  
             });
-    
+
+            $('.ScoresTable').on('change', '.OverallComments', function(){ 
+                var currentrow = $(this).closest('tr');
+                var OverallComments = currentrow.find('.OverallComments').val();
+                var Key = currentrow.find('.Key').val(); 
+
+                if(Score){ //Ensure No Blanks
+                       //Submit Score
+                    var commurl = absolute+'interviews/comments';
+                    $.post(commurl,{'Key': Key,'OverallComments':OverallComments,},function(data){
+                        if(data.length){
+                            Swal.fire("Warning", data , "warning");;
+                            return false;
+                        }
+                            //Set Value of LineKey
+                            var j = data.key;
+                            $('.NewLineModal').find('#linekey').val(j);
+                            $('.NewLineModal').find('.amount_usd').val(data.Additional_Reporting_Currency);
+                            $('.NewLineModal').find('.gfbudget').val(data.Available_Amount);
+                            $('.NewLineModal').find('#linenumber').val(data.linenumber);
+                            $('.NewLineModal').find('.description').val(data.Description);
+                            $('.NewLineModal').find('.totalamount').val(data.Amount);
+                            $('.NewLineModal').find('.noOfNights').val(data.No_of_Days);
+                            // alert(lineKey);
+                    });
+                }
+               
+                 
+            });
+
+
   
     
      

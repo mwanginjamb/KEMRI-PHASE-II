@@ -43,7 +43,8 @@ class HrJobRequisitionCard extends Model{
     public $Requisition_Details;
     public function rules(){
         return [
-            [['Job_Id','No_Posts', 'Contract_Period'], 'required'],
+            [['Job_Id','No_Posts', 'Contract_Period', 'Criticality', 
+            'Start_Date', 'Contract_Type', 'Requisition_Type'], 'required'],
             // [['Contract_Period'], 'number'],
 
             // [['Contract_Period',], 'number', 'min'=>12, 'max'=>12, 'when' => function ($model) {
@@ -78,7 +79,8 @@ class HrJobRequisitionCard extends Model{
             'End_Date'=>'Application End Date',
             'No_Posts'=>'Required Posts',
             'Contract_Period'=> 'Contract Period in Months',
-            'Type'=>'Reason For Requisition'
+            'Type'=>'Reason For Requisition',
+            'Start_Date'=>'Requisition Start Date'
         ];
     }
 
