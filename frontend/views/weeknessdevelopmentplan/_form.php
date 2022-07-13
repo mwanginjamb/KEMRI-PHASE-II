@@ -48,7 +48,8 @@ use yii\widgets\ActiveForm;
                                 <?= $form->field($model, 'Training_Need_Description')->textarea(['rows' => 2]) ?>
 
                                 <?= $form->field($model, 'Training_Category')->dropDownlist($categories, ['prompt' =>  'Select ...']) ?>
-                                <?= $form->field($model, 'Proposed_Trainer')->dropDownList($trainers, ['prompt' =>  'Select ...']) ?>
+                                <?php $form->field($model, 'Proposed_Trainer')->dropDownList($trainers, ['prompt' =>  'Select ...']) ?>
+                                <?= $form->field($model, 'Proposed_Trainer')->textInput(['maxlength' => 250, 'placeholder' => 'Enter the proposed trainer ...']) ?>
 
 
                                 <?= $form->field($model, 'Key')->hiddenInput(['readonly' => true])->label(false) ?>
