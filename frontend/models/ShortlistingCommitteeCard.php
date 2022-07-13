@@ -10,6 +10,12 @@ class ShortlistingCommitteeCard extends Model
     public $Job_Code;
     public $Job_Description;
     public $Requisition_Purpose;
+    public $Status;
+    public $Pass_Mark;
+    public $Start_Date;
+    public $ShortList_Period;
+    public $End_Date;
+
     public $Key;
     public $isNewRecord;
 
