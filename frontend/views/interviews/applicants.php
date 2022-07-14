@@ -23,7 +23,7 @@ $this->title = $model->Job_Description . ' Applicants ';
                 'class' => 'mx-1 btn btn-app bg-success ',
                 'rel' => '',
                 'rev' =>'',
-                'title' => 'Reject KRAs and Send them Back to Appraisee.',
+                'title' => 'Submit Assesment',
               ]
             ) ?>
 

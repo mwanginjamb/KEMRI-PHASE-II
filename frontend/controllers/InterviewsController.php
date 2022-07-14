@@ -567,8 +567,8 @@ class InterviewsController extends Controller
         if(!Yii::$app->user->isGuest){
 
             $filter = [
-                // 'Interview_No'=>urldecode($committeeId),
-                // 'Member_No'=> Yii::$app->user->identity->employee[0]->No,
+                'Interview_No'=>urldecode($committeeId),
+                'Member_No'=> Yii::$app->user->identity->employee[0]->No,
             ];
 
             $service = Yii::$app->params['ServiceName']['InterviewMemberEntries'];
@@ -607,9 +607,9 @@ class InterviewsController extends Controller
             $service = Yii::$app->params['ServiceName']['InterviewMemberEntries'];
             $InterviewMemberEntry = Yii::$app->navhelper->readByKey($service,Yii::$app->request->post()['Key']); 
             $Score = Yii::$app->request->post()['Score'];
-            if($Score > 100){
-                return 'The Score Cannot Exceed 100';
-            }
+            // if($Score > 100){
+            //     return 'The Score Cannot Exceed 100';
+            // }
             if(is_object($InterviewMemberEntry)){
                 //update
                 $data =[
@@ -1028,8 +1028,8 @@ class InterviewsController extends Controller
 
             if(!Yii::$app->user->isGuest){
                 $filter = [
-                    // 'Commitee_No' => Yii::$app->user->identity->employee[0]->No,
-                    // 'Status'=>'In_Progress'
+                    'Commitee_No' => Yii::$app->user->identity->employee[0]->No,
+                    'Status'=>'In_Progress'
                 ];
                 $CommitteeMembers = \Yii::$app->navhelper->getData($service,$filter);
             }

@@ -17,7 +17,7 @@ use yii\widgets\ActiveForm;
 ?>
              <?= $this->render('_steps', ['model'=>$model]) ?>
              <div class="row">
-                    <div class="col-md-6"> 
+                    <div class="col-md-3"> 
 
                         <div class="card">
                             <div class="card-header">
@@ -52,7 +52,7 @@ use yii\widgets\ActiveForm;
                        
                     </div>
 
-                       <div class="col-md-6"> 
+                       <div class="col-md-9"> 
                             <?= $this->render('questions', ['Questions'=>$Questions, 'getInterviewRatings'=>$getInterviewRatings]) ?>
                         </div>
                         

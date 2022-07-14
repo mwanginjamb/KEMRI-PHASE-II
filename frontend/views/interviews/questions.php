@@ -1,4 +1,4 @@
-<!-- <?php if($Questions): ?> -->
+<?php if($Questions): ?>
     <form class="form-horizontal">
         <div class="table-responsive">
             <table class="table table-bordered  table-highlight ScoresTable">
@@ -22,7 +22,10 @@
                                 </select>
                                 
                                 <input type="hidden"  class="form-control Key"  value="<?= @$Question->Key ?>">
-                                <textarea rows="5" class="form-control OverallComments" ><?= $Question->Overall_Comments ?></textarea>
+                            </td>
+                            <td>
+                            <textarea rows="5" class="form-control OverallComments" ><?= @$Question->Overall_Comments ?></textarea>
+
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -30,4 +33,4 @@
             </table>
         </div>
     </form>
-    <!-- <?php endif; ?> -->
+    <?php endif; ?>

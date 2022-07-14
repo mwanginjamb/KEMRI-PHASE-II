@@ -180,7 +180,7 @@ use yii\helpers\Html;
                 'class' => 'mx-1 btn btn-app bg-primary ',
                 'rel' => '',
                 'rev' =>'',
-                'title' => 'Reject KRAs and Send them Back to Appraisee.',
+                'title' => 'Go Back To Applicants List',
               ]
             ) ?>
             
