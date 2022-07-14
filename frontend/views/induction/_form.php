@@ -174,7 +174,7 @@ if ($model->Overall_Status !== 'Employee') {
                                         'data-service' => 'InductionOverallIN'
                                     ]);
                                 ?>
-                                    <tr class="parent">
+                                    <tr class="parento">
                                         <td><span>+</span></td>
 
                                         <td data-key="<?= $obj->Key ?>" data-name="Section" data-service="InductionOverallIN"><?= !empty($obj->Section) ? $obj->Section : '' ?></td>
@@ -190,7 +190,7 @@ if ($model->Overall_Status !== 'Employee') {
 
                                         <!-- <td><?= $deleteLink ?></td> -->
                                     </tr>
-                                    <tr class="child">
+                                    <tr class="childo">
                                         <td colspan="11">
                                             <div class="table-responsive">
                                                 <table class="table table-hover ">
