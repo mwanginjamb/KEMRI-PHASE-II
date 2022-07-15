@@ -228,7 +228,8 @@ class InductionController extends Controller
         $service = Yii::$app->params['ServiceName']['IndividualHOD'];
 
         $filter = [
-            // 'Action_ID' => \Yii::$app->user->identity->{'Employee No_'},
+            'Employee_No' => \Yii::$app->user->identity->{'Employee No_'},
+            'Overall_Status' => 'Employee'
         ];
         $records = \Yii::$app->navhelper->getData($service, $filter);
         //Yii::$app->recruitment->printrr($records);
@@ -237,7 +238,7 @@ class InductionController extends Controller
 
         foreach ($records as $quali) {
 
-            if (empty($quali->Key) || empty($quali->Action_ID)) {
+            if (!empty($quali->Key)) {
                 continue;
             }
             if ($quali->Action_ID == \Yii::$app->user->identity->{'Employee No_'} || $quali->Employee_No == \Yii::$app->user->identity->{'Employee No_'}) {
