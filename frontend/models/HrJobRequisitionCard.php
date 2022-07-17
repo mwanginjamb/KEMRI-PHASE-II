@@ -1,12 +1,15 @@
 <?php
+
 namespace frontend\models;
+
 use common\models\User;
 use Yii;
 use yii\base\Model;
 use yii\helpers\ArrayHelper;
 
 
-class HrJobRequisitionCard extends Model{
+class HrJobRequisitionCard extends Model
+{
     public $Key;
     public $Requisition_No;
     public $Job_Id;
@@ -41,11 +44,17 @@ class HrJobRequisitionCard extends Model{
     public $Program_Name;
     public $Qualification_Description;
     public $Requisition_Details;
-    public function rules(){
+    public $Vacancies;
+    public $Sitting_Location;
+    public $Role_Description;
+    public function rules()
+    {
         return [
-            [['Job_Id','No_Posts', 'Contract_Period', 'Criticality', 
-            'Start_Date', 'Contract_Type', 'Requisition_Type'], 'required'],
-            // [['Contract_Period'], 'number'],
+            [[
+                'Job_Id', 'No_Posts', 'Contract_Period', 'Criticality', 'Type', 'Employment_Type', 'Location', 'Requisition_Details',
+                'Start_Date', 'Contract_Type', 'Requisition_Type', 'Requisition_Period', 'Sitting_Location', 'Role_Description', 'Qualification_Description'
+            ], 'required'],
+            [['No_Posts'], 'number', 'min' => 1],
 
             // [['Contract_Period',], 'number', 'min'=>12, 'max'=>12, 'when' => function ($model) {
             //     return $model->Contract_Type == 'LT';
@@ -65,7 +74,7 @@ class HrJobRequisitionCard extends Model{
                 return $('#hrjobrequisitioncard-type').val() == 'Replacement';
             }"],
 
-            
+
 
         ];
     }
@@ -73,18 +82,19 @@ class HrJobRequisitionCard extends Model{
     public function attributeLabels()
     {
         return [
-            'Job_Id'=> 'Job Title',
-            'Global_Dimension_2_Code'=> 'Department',
-            'Global_Dimension_1_Code'=>'Division',
-            'End_Date'=>'Application End Date',
-            'No_Posts'=>'Required Posts',
-            'Contract_Period'=> 'Contract Period in Months',
-            'Type'=>'Reason For Requisition',
-            'Start_Date'=>'Requisition Start Date'
+            'Job_Id' => 'Job Title',
+            'Global_Dimension_2_Code' => 'Department',
+            'Global_Dimension_1_Code' => 'Programme',
+            'End_Date' => 'Application End Date',
+            'No_Posts' => 'Required Posts',
+            // 'Contract_Period' => 'Contract Period in Months',
+            'Type' => 'Reason For Requisition',
+            'Start_Date' => 'Requisition Start Date'
         ];
     }
 
-    public function Questions(){
+    public function Questions()
+    {
         $service = Yii::$app->params['ServiceName']['RequisitionQuestions'];
         $filter = [
             'Requisition_No' => $this->Requisition_No,
@@ -92,10 +102,10 @@ class HrJobRequisitionCard extends Model{
 
         $RequisitionQuestions = Yii::$app->navhelper->getData($service, $filter);
         return $RequisitionQuestions;
-
     }
 
-    public function Grants(){
+    public function Grants()
+    {
         $service = Yii::$app->params['ServiceName']['RequisitionGrants'];
         $filter = [
             'Requisition_No' => $this->Requisition_No,
@@ -103,11 +113,5 @@ class HrJobRequisitionCard extends Model{
 
         $RequisitionGrants = Yii::$app->navhelper->getData($service, $filter);
         return $RequisitionGrants;
-
     }
-
-
-
-
-
 }

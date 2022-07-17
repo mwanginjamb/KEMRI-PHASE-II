@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: HP ELITEBOOK 840 G5
@@ -9,9 +10,9 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-$this->title = 'Job Requisition - '.$model->Requisition_No;
+$this->title = 'Job Requisition - ' . $model->Requisition_No;
 $this->params['breadcrumbs'][] = ['label' => 'Leave List', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => 'Job Requisition Card', 'url' => ['view','No'=> $model->Requisition_No]];
+$this->params['breadcrumbs'][] = ['label' => 'Job Requisition Card', 'url' => ['view', 'No' => $model->Requisition_No]];
 /** Status Sessions */
 
 
@@ -26,191 +27,171 @@ $Attachmentmodel = new \frontend\models\Leaveattachment()
     </div>
 </div>
 
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card-info">
-                <div class="card-header">
-                    <h3>Job Reqisition Card </h3>
-                </div>
-
-
-
+<div class="row">
+    <div class="col-md-12">
+        <div class="card-info">
+            <div class="card-header">
+                <h3>Job Reqisition Card </h3>
             </div>
+
+
+
         </div>
     </div>
+</div>
 
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">
-
-
-
-
-                    <!-- <h3 class="card-title">Job Requisition : <?= $model->Requisition_No?></h3> -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
 
 
 
-                    <?php
-                    if(Yii::$app->session->hasFlash('success')){
-                        print ' <div class="alert alert-success alert-dismissable">
+
+                <!-- <h3 class="card-title">Job Requisition : <?= $model->Requisition_No ?></h3> -->
+
+
+
+                <?php
+                if (Yii::$app->session->hasFlash('success')) {
+                    print ' <div class="alert alert-success alert-dismissable">
                                  ';
-                        echo Yii::$app->session->getFlash('success');
-                        print '</div>';
-                    }else if(Yii::$app->session->hasFlash('error')){
-                        print ' <div class="alert alert-danger alert-dismissable">
+                    echo Yii::$app->session->getFlash('success');
+                    print '</div>';
+                } else if (Yii::$app->session->hasFlash('error')) {
+                    print ' <div class="alert alert-danger alert-dismissable">
                                  ';
-                        echo Yii::$app->session->getFlash('error');
-                        print '</div>';
-                    }
-                    ?>
-                </div>
-                <div class="card-body">
+                    echo Yii::$app->session->getFlash('error');
+                    print '</div>';
+                }
+                ?>
+            </div>
+            <div class="card-body">
 
 
-                    <?php $form = ActiveForm::begin(); ?>
-                    <?= $form->field($model, 'Requisition_No')->hiddenInput()->label(false); ?>
-                    <?= $form->field($model, 'Key')->hiddenInput()->label(false); ?>
-
-
-
-                    <div class="row">
-                        <div class=" row col-md-12">
-                            <div class="col-md-4">
-
-                                <?= $form->field($model, 'Job_Id')->dropDownList($ApprovedHRJobs,['prompt' => '-- Select Job --', 'disabled'=>true]) ?>
-
-                                <!-- <?= $form->field($model, 'Start_Date')->textInput(['type' => 'date','required' => true, 'readonly'=>true]) ?> -->
-                                <!-- <?= $form->field($model, 'Probation_Period')->textInput(['required' => true]) ?> -->
-                                <?= $form->field($model, 'Criticality')->dropDownList([
-                                    'High'=>'High',
-                                    'Low'=>'Low',
-                                ],['prompt' => '-- Select Criticality -- ','disabled'=>true]) ?>
-
-<?= $form->field($model, 'Occupied_Position')->textInput(['readonly' =>  true,'readonly' => true]) ?>
-                                <!-- <?= $form->field($model, 'Start_Date')->textInput(['type' => 'date','readonly' => true]) ?> -->
-                                <!-- <?= $form->field($model, 'Probation_Period')->textInput(['readonly' => true]) ?> -->
-                                <?= $form->field($model, 'Criticality')->dropDownList([
-                                    'High'=>'High',
-                                    'Low'=>'Low',
-                                ],['prompt' => '-- Select Criticality -- ','readonly'=> true]) ?>
-
-
-                                <?= $form->field($model, 'Global_Dimension_1_Code')->dropDownList($Programs,['prompt' => '-- Select Program --','disabled'=>true, 'readonly'=>true]) ?>
-                                <?= $form->field($model, 'Type')->dropDownList([
-                                    'New'=>'New Position',
-                                    'Re_Advert'=>'Re Advertisement',
-                                    'Replacement'=>'Replacement'
-                                ],['prompt' => '-- Select Type -- ','disabled'=>true]) ?>
-                               
-                            
-                               
-                               <?= $form->field($model, 'Replaced_Employee')->dropDownList($Employees,['prompt' => '-- Select Employee Being Replaced --', 'disabled'=>true]) ?>
+                <?php $form = ActiveForm::begin(); ?>
+                <?= $form->field($model, 'Requisition_No')->hiddenInput()->label(false); ?>
+                <?= $form->field($model, 'Key')->hiddenInput()->label(false); ?>
 
 
 
+                <div class="row">
+                    <div class=" row col-md-12">
+                        <div class="col-md-4">
 
-                            </div>
+                            <?= $form->field($model, 'Job_Id')->dropDownList($ApprovedHRJobs, ['prompt' => '-- Select Job --', 'disabled' => true]) ?>
 
-                            <div class="col-md-4">
-                            
-                                <?= $form->field($model, 'Occupied_Position')->textInput(['readonly' =>  true,'readonly' => true]) ?>
-                                <!-- <?= $form->field($model, 'Requisition_Period')->textInput(['required' => true,'readonly' => true]) ?> -->
-                                <?= $form->field($model, 'Occupied_Position')->textInput(['readonly' =>  true]) ?>
-                                <!-- <?= $form->field($model, 'Requisition_Period')->textInput(['readonly' => true]) ?> -->
-
-                                <?= $form->field($model, 'Requisition_Type')->dropDownList([
-                                    'Internal'=>'Internal',
-                                    'External'=>'External',
-                                    'Both'=>'Both',
-                                ],['prompt' => '-- Select Requisition Type -- ','disabled'=>true,'readonly' => true]) ?>
-                                <?= $form->field($model, 'Contract_Period')->textInput(['required' => true,'readonly' => true]) ?>
-                                
-                                <?= $form->field($model, 'Contract_Period')->textInput(['readonly' => true]) ?>
-                                <?= $form->field($model, 'Global_Dimension_2_Code')->dropDownList($Departments,['prompt' => '-- Select Department --', 'disabled'=>true]) ?>
-                               
-
-                                
-                            </div>
-
-                            <div class="col-md-4">
-
-                                <?= $form->field($model, 'No_Posts')->textInput(['readonly' => true]) ?>
-
-                                <!-- <?= $form->field($model, 'End_Date')->textInput(['readonly' => true]) ?> -->
+                            <?= $form->field($model, 'Requisition_Period')->textInput(['readonly' => true]) ?>
 
 
-                                <?= $form->field($model, 'Employment_Type')->dropDownList([
-                                    'Permanent'=>'Permanent',
-                                    'Contract'=>'Contract',
-                                    'Consultant'=>'Consultant',
-                                    'Intern'=>'Intern',
-                                    'Board'=>'Board',
-                                ],['prompt' => '-- Select Employment Type -- ','disabled'=>true]) ?>
+
+                            <?= $form->field($model, 'Employment_Type')->dropDownList([
+                                // 'Permanent'=>'Permanent',
+                                'Contract' => 'Contract',
+                                'Consultant' => 'Consultant',
+                                'Intern' => 'Intern',
+                                // 'Board'=>'Board',
+                            ], ['prompt' => '-- Select Employment Type -- ', 'disabled' => true]) ?>
+
+
+                            <?= $form->field($model, 'Contract_Type')->dropDownList($ContractTypes, ['prompt' => '-- Select Job --', 'disabled' => true]) ?>
+
+
+
+                            <?= $form->field($model, 'Location')->dropDownList($Locations, ['prompt' => '-- Location Not Provided  --', 'disabled' => true]) ?>
+                            <?= $form->field($model, 'Requisition_Details')->textarea(['rows' => 2, 'readonly' => true, 'maxlength' => 250]) ?>
+
+
+
+                        </div>
+
+                        <div class="col-md-4">
+
+                            <?= $form->field($model, 'No_Posts')->textInput(['readonly' => true]) ?>
+
+                            <!-- <?= $form->field($model, 'Requisition_Period')->textInput(['readonly' => true]) ?> -->
+
+                            <?= $form->field($model, 'Requisition_Type')->dropDownList([
+                                'Internal' => 'Internal',
+                                'External' => 'External',
+                                'Both' => 'Both',
+                            ], ['prompt' => '-- Select Requisition Type -- ', 'disabled' => true]) ?>
+                            <?= $form->field($model, 'Contract_Period')->textInput(['readonly' =>  true]) ?>
+                            <?= $form->field($model, 'Type')->dropDownList([
+                                'New' => 'New Position',
+                                'Re_Advert' => 'Re Advertisement',
+                                'Replacement' => 'Replacement'
+                            ], ['prompt' => '-- Select Type -- ', 'disabled' => true]) ?>
+                            <?= $form->field($model, 'Start_Date')->textInput(['type' => 'date', 'readonly' => true]) ?>
+                            <?= $form->field($model, 'Role_Description')->textarea(['rows' => 2, 'maxlength' => 250, 'readonly' => true]) ?>
+
+
+
+                        </div>
+
+                        <div class="col-md-4">
+
+                            <?= $form->field($model, 'Occupied_Position')->textInput(['readonly' =>  true]) ?>
+                            <?= $form->field($model, 'Vacancies')->textInput(['readonly' =>  true]) ?>
+                            <?= $form->field($model, 'Department_Name')->textInput(['readonly' =>  true,]) ?>
+                            <?= $form->field($model, 'Replaced_Employee')->dropDownList($Employees, ['prompt' => '-- Select Employee Being Replaced --', 'disabled' => true]) ?>
+                            <?= $form->field($model, 'Program_Name')->textInput(['readonly' =>  true]) ?>
+                            <?= $form->field($model, 'Criticality')->textInput(['disabled' => true, 'readonly' => true]) ?>
+                            <?= $form->field($model, 'Sitting_Location')->textInput(['disabled' => true, 'readonly' => true]) ?>
 
 
 
 
-
-                                <?= $form->field($model, 'Contract_Type')->dropDownList($ContractTypes,['prompt' => '-- Select Job --','readonly' => true]) ?>
-                                <?= $form->field($model, 'Location')->dropDownList($Locations,['prompt' => '-- Select Department --','readonly' => true]) ?>                                
-                                <!-- <?= $form->field($model, 'Reasons_For_Requisition')->textarea(['rows'=> 2,'maxlength' => 250,'readonly' => true]) ?> -->
-                                <?= $form->field($model, 'Start_Date')->textInput(['readonly' => 'true']) ?>
-                                <?= $form->field($model, 'Requisition_Period')->textInput(['readonly' => true]) ?>
-
-
-
-                              
-
-
-                      
-                            </div>
                         </div>
                     </div>
+                </div>
 
 
 
 
                 <div class="row">
 
-                   
 
 
-                </div>
-
- 
-                    <?php ActiveForm::end(); ?>
-
-
-            <?php if($Attachmentmodel->getPath($model->Requisition_No)){   ?>
-
-                <iframe src="data:application/pdf;base64,<?= $Attachmentmodel->readAttachment($model->Requisition_No); ?>" height="950px" width="100%"></iframe>
-
-
-            <?php }  ?>
 
                 </div>
-            </div><!--end details card-->
 
 
-            <!--Objectives card -->
+                <?php ActiveForm::end(); ?>
 
-            <!--Lines -->
 
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title">
-                        <?= ($model->Status == 'New')?Html::a('<i class="fa fa-plus-square"></i> Add Grant',['requisitiongrants/create','No'=>$model->Requisition_No],['class' => 'add-line btn btn-outline-info',
-                        ]):'' ?>
-                    </div>
+                <?php if ($Attachmentmodel->getPath($model->Requisition_No)) {   ?>
+
+                    <iframe src="data:application/pdf;base64,<?= $Attachmentmodel->readAttachment($model->Requisition_No); ?>" height="950px" width="100%"></iframe>
+
+
+                <?php }  ?>
+
+            </div>
+        </div>
+        <!--end details card-->
+
+
+        <!--Objectives card -->
+
+        <!--Lines -->
+
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">
+                    <?= ($model->Status == 'New') ? Html::a('<i class="fa fa-plus-square"></i> Add Grant', ['requisitiongrants/create', 'No' => $model->Requisition_No], [
+                        'class' => 'add-line btn btn-outline-info',
+                    ]) : '' ?>
                 </div>
+            </div>
 
-                <div class="card-body">
-                     <?php if(is_array($model->Grants())){ //echo '<pre>'; print_r($model->Grants() ); exit; //show Lines ?>
+            <div class="card-body">
+                <?php if (is_array($model->Grants())) { //echo '<pre>'; print_r($model->Grants() ); exit; //show Lines 
+                ?>
 
-                        <div class="table-responsive">
-                            <table class="table table-bordered">
-                                <thead>
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
                                 <tr>
                                     <td><b>Donor Code</b></td>
                                     <td><b>Donor Name</b></td>
@@ -220,26 +201,26 @@ $Attachmentmodel = new \frontend\models\Leaveattachment()
                                     <td><b>Grant Activity</b></td>
                                     <td><b>Grant Type</b></td>
 
-                                    <?php if($model->Status == 'New'): ?>
-                                        <td><b>Actions</b></td> 
+                                    <?php if ($model->Status == 'New') : ?>
+                                        <td><b>Actions</b></td>
                                     <?php endif; ?>
 
 
                                 </tr>
-                                </thead>
-                                <tbody>
+                            </thead>
+                            <tbody>
                                 <?php
                                 // print '<pre>'; print_r($model->lines); exit;
 
-                                foreach($model->Grants() as $Grant):
+                                foreach ($model->Grants() as $Grant) :
 
-                                    if(!empty($Grant->Donor_Code)) {
+                                    if (!empty($Grant->Donor_Code)) {
                                         $updateLink = Html::a('<i class="fa fa-edit"></i>', ['requisitiongrants/update', 'LineNo' => $Grant->LineNo], ['class' => 'update-objective btn btn-outline-info btn-xs']);
-                                       $deleteLink = Html::a('<i class="fa fa-trash"></i>', ['requisitiongrants/delete', 'Key' => $Grant->Key], ['class' => 'delete btn btn-outline-danger btn-xs']);
+                                        $deleteLink = Html::a('<i class="fa fa-trash"></i>', ['requisitiongrants/delete', 'Key' => $Grant->Key], ['class' => 'delete btn btn-outline-danger btn-xs']);
 
-                                     
 
-                                        ?>
+
+                                ?>
                                         <tr class="parent">
 
                                             <td><?= !empty($Grant->Donor_Code) ? $Grant->Donor_Code : 'Not Set' ?></td>
@@ -249,24 +230,24 @@ $Attachmentmodel = new \frontend\models\Leaveattachment()
                                             <td><?= !empty($Grant->Grant_End_Date) ? $Grant->Grant_End_Date : 'Not Set' ?></td>
                                             <td><?= !empty($Grant->Grant_Activity) ? $Grant->Grant_Activity : 'Not Set' ?></td>
                                             <td><?= !empty($Grant->Grant_Type) ? $Grant->Grant_Type : 'Not Set' ?></td>
-                                            <?php if($model->Status == 'New'): ?>
-                                                <td><?= $updateLink. '| '. $deleteLink ?></td>
+                                            <?php if ($model->Status == 'New') : ?>
+                                                <td><?= $updateLink . '| ' . $deleteLink ?></td>
                                             <?php endif; ?>
 
                                         </tr>
-                                   
-                                        <?php
+
+                                <?php
                                     }
                                 endforeach; ?>
-                                </tbody>
-                            </table>
-                        </div>
+                            </tbody>
+                        </table>
+                    </div>
 
-                    <?php } ?>
-                </div>
+                <?php } ?>
             </div>
+        </div>
 
-            <!--End Lines -->
+        <!--End Lines -->
 
 
 
@@ -296,9 +277,9 @@ $Attachmentmodel = new \frontend\models\Leaveattachment()
     </div>
 
 
-<?php
+    <?php
 
-$script = <<<JS
+    $script = <<<JS
 
     $(function(){
         if($('#hrjobrequisitioncard-type').val() == 'Replacement'){
@@ -572,9 +553,9 @@ $script = <<<JS
         
 JS;
 
-$this->registerJs($script);
+    $this->registerJs($script);
 
-$style = <<<CSS
+    $style = <<<CSS
     p span {
         margin-right: 50%;
         font-weight: bold;
@@ -612,4 +593,4 @@ $style = <<<CSS
     } */
 CSS;
 
-$this->registerCss($style);
+    $this->registerCss($style);
