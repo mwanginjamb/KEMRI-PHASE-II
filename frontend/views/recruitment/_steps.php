@@ -280,7 +280,7 @@ $profileAction = (Yii::$app->recruitment->EmployeeUserHasProfile()) ? 'update?No
 
                 <div id="shorlistcandidate" style="display: none">
 
-                    <?= Html::beginForm(['recruitment/shortlist-candidate'], 'post', ['id' => 'ey-reject-form']) ?>
+                    <?= Html::beginForm(['recruitment/shortlist?ProfileID=' . urlencode($model->ApplicationID) . '&ComitteID=' . urlencode($model->CommiteeID)], 'post', ['id' => 'shorlistcandidate_form']) ?>
 
                     <?= Html::dropDownList('ShortListCriteria', [], $ShortListCriteria, ['prompt' => 'Select Criteria', 'required' => true, 'class' => 'form-control']) ?>
 

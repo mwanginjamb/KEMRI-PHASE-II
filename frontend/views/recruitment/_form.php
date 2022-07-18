@@ -92,7 +92,6 @@ console.log('clicked...')
     });
     
     $('.rejectey').on('click', function(e){
-            console.log('clicked...')
             e.preventDefault();
             const form = $('#eyrejform').html(); 
             const ProfileID = $(this).attr('rel');
@@ -139,15 +138,15 @@ console.log('clicked...')
             $('input[name=ComitteID]').val(ComitteID);
             
             //Submit Rejection form and get results in json    
-            $('form#shorlistcandidate').on('submit', function(e){
+            $('form#shorlistcandidate_form').on('submit', function(e){
                 e.preventDefault()
+                e.preventPropagation();
                 const data = $(this).serialize();
                 const url = $(this).attr('action');
                 $.post(url,data).done(function(msg){
                         $('.modal').modal('show')
                         .find('.modal-body')
                         .html(msg.note);
-            
                     },'json');
             });
                        
