@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: HP ELITEBOOK 840 G5
@@ -13,27 +14,27 @@
 $this->title = 'Recruitment - Job Experience';
 ?>
 
-    <!--THE STEPS THING--->
+<!--THE STEPS THING--->
 
-        <div class="row">
-            <div class="col-md-12">
-            <?= $this->render('_steps', ['model'=>$model]) ?>
-            </div>
-        </div>
+<div class="row">
+    <div class="col-md-12">
+        <?= $this->render('_steps', ['model' => $model]) ?>
+    </div>
+</div>
 
-    <!--END THE STEPS THING--->
+<!--END THE STEPS THING--->
 
 
 
 <?php
-if(Yii::$app->session->hasFlash('success')){
+if (Yii::$app->session->hasFlash('success')) {
     print ' <div class="alert alert-success alert-dismissable">
                          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                                     <h5><i class="icon fas fa-check"></i> Success!</h5>
  ';
     echo Yii::$app->session->getFlash('success');
     print '</div>';
-}else if(Yii::$app->session->hasFlash('error')){
+} else if (Yii::$app->session->hasFlash('error')) {
     print ' <div class="alert alert-danger alert-dismissable">
  
                                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -43,46 +44,46 @@ if(Yii::$app->session->hasFlash('success')){
     print '</div>';
 }
 ?>
-     <div class="row">
-        <div class=" row col-md-6"> 
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title"> Work Experince.</h3>
-                        </div>
-                        <div class="card-body">
-                            <table class="table table-bordered dt-responsive table-hover" id="leaves">
-                            </table>
-                        </div>
-                    </div>
+<div class="row">
+    <div class=" row col-md-6">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title"> Work Experince.</h3>
                 </div>
-        </div>
-        <div class=" row col-md-6 ml-1"> 
-            <?= $this->render('questions', ['Questions'=>$Questions]) ?>
-       </div>
-     </div>
-    <!--My Bs Modal template  --->
-
-    <div class="modal fade bs-example-modal-lg bs-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
-                    </button>
-                    <h4 class="modal-title" id="myModalLabel" style="position: absolute">Employment Record</h4>
+                <div class="card-body">
+                    <table class="table table-bordered dt-responsive table-hover" id="leaves">
+                    </table>
                 </div>
-                <div class="modal-body">
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <!--<button type="button" class="btn btn-primary">Save changes</button>-->
-                </div>
-
             </div>
         </div>
     </div>
+    <div class=" row col-md-6 ml-1">
+        <?= $this->render('questions', ['Questions' => $Questions]) ?>
+    </div>
+</div>
+<!--My Bs Modal template  --->
+
+<div class="modal fade bs-example-modal-lg bs-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel" style="position: absolute">Employment Record</h4>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+            </div>
+
+        </div>
+    </div>
+</div>
 <input type="hidden" name="absolute" value="<?= Yii::$app->recruitment->absoluteUrl() ?>">
 <input type="hidden" name="ProfileNo" value="<?= $model->No ?>">
 
@@ -159,7 +160,7 @@ $script = <<<JS
                 var OverallComments = currentrow.find('.OverallComments').val();
                 var Key = currentrow.find('.Key').val(); 
 
-                if(Score){ //Ensure No Blanks
+                if(OverallComments){ //Ensure No Blanks
                        //Submit Score
                     var commurl = absolute+'interviews/comments';
                     $.post(commurl,{'Key': Key,'OverallComments':OverallComments,},function(data){
@@ -197,6 +198,3 @@ $style = <<<CSS
 CSS;
 
 $this->registerCss($style);
-
-
-

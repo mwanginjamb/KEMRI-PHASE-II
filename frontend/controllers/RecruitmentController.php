@@ -892,15 +892,13 @@ class RecruitmentController extends Controller
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
         if (!is_string($result)) {
-            //Yii::$app->session->setFlash('success', 'Perfomance Appraisal Goals Rejected and Sent Back to Appraisee Successfully.', true);
-            return ['note' => '<div class="alert alert-success alert-dismissable">Candidate Rejected Succesfully.</div>'];
+            Yii::$app->session->setFlash('success', 'Rejected Successfully', true);
+            return $this->redirect(['applicants', 'ComiteeID' => urlencode($ComitteID)]);
         } else {
 
             // Yii::$app->session->setFlash('error', 'Error Rejecting Performance Appraisal Goals : '. $result);
             return ['note' => '<div class="alert alert-danger alert-dismissable">' . $result];
         }
-
-        return $this->redirect(['applicants', 'ComiteeID' => urlencode($ComitteID)]);
     }
 
 
