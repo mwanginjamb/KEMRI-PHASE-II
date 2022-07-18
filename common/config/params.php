@@ -527,6 +527,7 @@ return [
         'RequisitionGrants' => 'RequisitionGrants', //55130
         'InterviewRatings' => 'InterviewRatings', //55088
         'SttingLocations' => 'SttingLocations', //55157
+        'ShortlistPreference' => 'ShortlistPreference', //56049
 
 
         /********************Training SERVICES***************************************/

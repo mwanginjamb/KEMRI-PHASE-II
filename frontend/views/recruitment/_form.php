@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: HP ELITEBOOK 840 G5
@@ -8,63 +9,67 @@
 
 
 
+// echo '<pre>';
+// print_r($ShortListCriteria);
+// exit;
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 //$this->title = 'AAS - Employee Profile'
 ?>
-             <?= $this->render('_steps', ['model'=>$model]) ?>
-            
-             <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Personal Details</h3>
-                </div>
-                <div class="card-body">
-                    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
-                    <?= $form->field($model,'Key')->hiddenInput()->label(false) ?>
+<?= $this->render('_steps', ['model' => $model, 'ShortListCriteria' => $ShortListCriteria]) ?>
 
-                    <div class="row">
-                        <div class=" row col-md-12">
-
-                            <div class="col-md-4">
-                                <?= $form->field($model, 'First_Name')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
-                                <?= $form->field($model, 'Middle_Name')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
-                                <?= $form->field($model, 'Last_Name')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
-                                <?= $form->field($model, 'Marital_Status')->dropDownList([
-                                    'Single' => 'Single',
-                                    'Married' => 'Married',
-                                    'Separated' => 'Separated',
-                                    'Divorced' => 'Divorced',
-                                    'Widow_er' => 'Widow_er',
-                                    'Other' => 'Other'
-                                ],['prompt' => 'Select Status', 'disabled'=>true]) ?>
-                            </div>
-
-                            <div class="col-md-6">
-
-                                <?= $form->field($model, 'Initials')->textInput(['readonly'=>true]) ?>
-                                <?= $form->field($model, 'Full_Name')->textInput(['readonly'=> true, 'disabled'=>true]) ?>
-                                <?= $form->field($model, 'Gender')->dropDownList([
-                                    '_blank_' => '_blank_',
-                                    'Female' => 'Female',
-                                    'Male' => 'Male',
-                                ],['prompt' => 'Select Gender', 'readonly'=>true]) ?>
-
-                                <?= $form->field($model, 'Birth_Date')->textInput(['type' => 'date', 'readonly'=>true]) ?>
-
-
-                            </div>
-
-                           
-                        </div>
-                    </div>
-              </div> </div>
-            
-
-         
-    
-        <?php ActiveForm::end(); ?>
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Personal Details</h3>
     </div>
+    <div class="card-body">
+        <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
+        <?= $form->field($model, 'Key')->hiddenInput()->label(false) ?>
+
+        <div class="row">
+            <div class=" row col-md-12">
+
+                <div class="col-md-4">
+                    <?= $form->field($model, 'First_Name')->textInput(['readonly' => true, 'disabled' => true]) ?>
+                    <?= $form->field($model, 'Middle_Name')->textInput(['readonly' => true, 'disabled' => true]) ?>
+                    <?= $form->field($model, 'Last_Name')->textInput(['readonly' => true, 'disabled' => true]) ?>
+                    <?= $form->field($model, 'Marital_Status')->dropDownList([
+                        'Single' => 'Single',
+                        'Married' => 'Married',
+                        'Separated' => 'Separated',
+                        'Divorced' => 'Divorced',
+                        'Widow_er' => 'Widow_er',
+                        'Other' => 'Other'
+                    ], ['prompt' => 'Select Status', 'disabled' => true]) ?>
+                </div>
+
+                <div class="col-md-6">
+
+                    <?= $form->field($model, 'Initials')->textInput(['readonly' => true]) ?>
+                    <?= $form->field($model, 'Full_Name')->textInput(['readonly' => true, 'disabled' => true]) ?>
+                    <?= $form->field($model, 'Gender')->dropDownList([
+                        '_blank_' => '_blank_',
+                        'Female' => 'Female',
+                        'Male' => 'Male',
+                    ], ['prompt' => 'Select Gender', 'readonly' => true]) ?>
+
+                    <?= $form->field($model, 'Birth_Date')->textInput(['type' => 'date', 'readonly' => true]) ?>
+
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<?php ActiveForm::end(); ?>
+</div>
 </div>
 
 <?php
@@ -105,6 +110,36 @@ console.log('clicked...')
             
             //Submit Rejection form and get results in json    
             $('form#ey-reject-form').on('submit', function(e){
+                e.preventDefault()
+                const data = $(this).serialize();
+                const url = $(this).attr('action');
+                $.post(url,data).done(function(msg){
+                        $('.modal').modal('show')
+                        .find('.modal-body')
+                        .html(msg.note);
+            
+                    },'json');
+            });
+                       
+    });
+
+    $('.ShortListButton').on('click', function(e){
+            console.log('clicked...')
+            e.preventDefault();
+            const form = $('#shorlistcandidate').html(); 
+                       
+            //Display the rejection comment form
+            $('.modal').modal('show')
+                            .find('.modal-body')
+                            .append(form);
+            
+            //populate relevant input field with code unit required params
+                    
+            $('input[name=ProfileID]').val(ProfileID);
+            $('input[name=ComitteID]').val(ComitteID);
+            
+            //Submit Rejection form and get results in json    
+            $('form#shorlistcandidate').on('submit', function(e){
                 e.preventDefault()
                 const data = $(this).serialize();
                 const url = $(this).attr('action');
