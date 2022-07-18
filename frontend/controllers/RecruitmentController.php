@@ -388,6 +388,7 @@ class RecruitmentController extends Controller
             $data = [
                 'applicantNo' => urldecode($ProfileID),
                 'memberNo' => Yii::$app->user->identity->employee[0]->No,
+                'preference' => $_POST['ShortListCriteria'],
             ];
 
             $result = Yii::$app->navhelper->CodeUnit($service, $data, 'IanShortListEntry');

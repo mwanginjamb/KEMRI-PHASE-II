@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: HP ELITEBOOK 840 G5
@@ -13,27 +14,27 @@
 $this->title = 'Recruitment - Job Experience';
 ?>
 
-    <!--THE STEPS THING--->
+<!--THE STEPS THING--->
 
-        <div class="row">
-            <div class="col-md-12">
-            <?= $this->render('_steps', ['model'=>$model]) ?>
-            </div>
-        </div>
+<div class="row">
+    <div class="col-md-12">
+        <?= $this->render('_steps', ['model' => $model]) ?>
+    </div>
+</div>
 
-    <!--END THE STEPS THING--->
+<!--END THE STEPS THING--->
 
 
 
 <?php
-if(Yii::$app->session->hasFlash('success')){
+if (Yii::$app->session->hasFlash('success')) {
     print ' <div class="alert alert-success alert-dismissable">
                          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                                     <h5><i class="icon fas fa-check"></i> Success!</h5>
  ';
     echo Yii::$app->session->getFlash('success');
     print '</div>';
-}else if(Yii::$app->session->hasFlash('error')){
+} else if (Yii::$app->session->hasFlash('error')) {
     print ' <div class="alert alert-danger alert-dismissable">
  
                                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -62,7 +63,7 @@ if(Yii::$app->session->hasFlash('success')){
         </div>
     </div>
 </div>
- 
+
 <input type="hidden" name="absolute" value="<?= Yii::$app->recruitment->absoluteUrl() ?>">
 <input type="hidden" name="ProfileNo" value="<?= $model->No ?>">
 
@@ -174,7 +175,13 @@ $script = <<<JS
         setTimeout(reld,1000);
     }); 
         
-        
+    $('.ShortListButton').on('click', function(e){
+            e.stopPropagation();
+            e.preventDefault();
+            console.log($(this).attr('href'))
+            var url = $(this).attr('href');
+            $('.modal').modal('show').find('.modal-body').load(url);
+        });
         
     });//end jquery
 
@@ -191,6 +198,3 @@ $style = <<<CSS
 CSS;
 
 $this->registerCss($style);
-
-
-

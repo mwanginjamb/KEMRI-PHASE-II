@@ -123,7 +123,6 @@ console.log('clicked...')
     });
 
     $('.ShortListButton').on('click', function(e){
-            console.log('234 ikr...')
             e.stopPropagation();
             e.preventDefault();
             console.log($(this).attr('href'))
