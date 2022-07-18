@@ -379,6 +379,41 @@ class RecruitmentController extends Controller
 
     }
 
+    public function actionShortlistForm($ProfileID, $ComitteID)
+    {
+
+
+        if (Yii::$app->request->isPost) {
+            $service = Yii::$app->params['ServiceName']['JobApplication'];
+            $data = [
+                'applicantNo' => urldecode($ProfileID),
+                'memberNo' => Yii::$app->user->identity->employee[0]->No,
+            ];
+
+            $result = Yii::$app->navhelper->CodeUnit($service, $data, 'IanShortListEntry');
+
+            if (!is_string($result)) {
+                Yii::$app->session->setFlash('success', 'Candidate Shorlisted Successfuly');
+            } else {
+                Yii::$app->session->setFlash('error', $result);
+            }
+
+            return $this->redirect(['applicants', 'ComiteeID' => urlencode($ComitteID)]);
+        }
+        $ShortListCriteria = $this->getGetShortListCriteria();
+
+
+        //Render Ajax Modal
+        return $this->renderAjax('shortlistform', [
+            'ComitteID' => $ComitteID,
+            'ProfileID' => $ProfileID,
+            'ShortListCriteria' => ArrayHelper::map($ShortListCriteria, 'Code', 'Name'),
+        ]);
+
+        //Error Manenos
+
+    }
+
     public function actionCanApply($ProfileId, $JobId)
     {
         //Get Job Requirements

@@ -211,7 +211,7 @@ $profileAction = (Yii::$app->recruitment->EmployeeUserHasProfile()) ? 'update?No
 
                 <?= Html::a(
                     '<i class="fas fa-check"></i> Short List Candidate',
-                    ['shortlist', 'ProfileID' => urlencode($model->ApplicationID), 'ComitteID' => urlencode($model->CommiteeID)],
+                    ['shortlist-form', 'ProfileID' => urlencode($model->ApplicationID), 'ComitteID' => urlencode($model->CommiteeID)],
                     [
                         '
                     class' => 'mx-1 btn btn-app bg-success ShortListButton',
@@ -278,16 +278,7 @@ $profileAction = (Yii::$app->recruitment->EmployeeUserHasProfile()) ? 'update?No
 
 
 
-                <div id="shorlistcandidate" style="display: none">
 
-                    <?= Html::beginForm(['recruitment/shortlist?ProfileID=' . urlencode($model->ApplicationID) . '&ComitteID=' . urlencode($model->CommiteeID)], 'post', ['id' => 'shorlistcandidate_form']) ?>
-
-                    <?= Html::dropDownList('ShortListCriteria', [], $ShortListCriteria, ['prompt' => 'Select Criteria', 'required' => true, 'class' => 'form-control']) ?>
-
-                    <?= Html::submitButton('ShortList Candidate', ['class' => 'btn btn-warning', 'style' => 'margin-top: 10px']) ?>
-
-                    <?= Html::endForm() ?>
-                </div>
 
 
                 <?php

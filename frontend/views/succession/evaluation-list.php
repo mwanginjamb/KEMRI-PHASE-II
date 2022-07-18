@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: HP ELITEBOOK 840 G5
@@ -20,14 +21,14 @@ $this->params['breadcrumbs'][] = ['label' => 'Candidate Succession Evaluation', 
 
 
 <?php
-if(Yii::$app->session->hasFlash('success')){
+if (Yii::$app->session->hasFlash('success')) {
     print ' <div class="alert alert-success alert-dismissable">
                              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                                     <h5><i class="icon fas fa-check"></i> Success!</h5>
  ';
     echo Yii::$app->session->getFlash('success');
     print '</div>';
-}else if(Yii::$app->session->hasFlash('error')){
+} else if (Yii::$app->session->hasFlash('error')) {
     print ' <div class="alert alert-danger alert-dismissable">
  
                                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -44,18 +45,19 @@ if(Yii::$app->session->hasFlash('success')){
 <div class="row">
     <div class="container">
 
-            <?= Html::a('<i class="fas fa-forward"></i> submit',['submit-plan'],['class' => 'btn btn-app bg-success submitforapproval',
-                        'data' => [
-                                'confirm' => 'Are you sure you want to submit this succession plan ?',
-                                'params' => [
-                                    'successionNo' => is_array($model)?$model[0]->Succession_No:'',
-                                    'employeeNo' => is_array($model)?$model[0]->Employee_No:''
-                                ],
-                                'method' => 'post',
-                            ],
-                        'title' => 'Submit succession plan.'
+        <?= Html::a('<i class="fas fa-forward"></i> submit', ['submit-plan'], [
+            'class' => 'btn btn-app bg-success submitforapproval',
+            'data' => [
+                'confirm' => 'Are you sure you want to submit this succession plan ?',
+                'params' => [
+                    'successionNo' => is_array($model) ? $model[0]->Succession_No : '',
+                    'employeeNo' => is_array($model) ? $model[0]->Employee_No : ''
+                ],
+                'method' => 'post',
+            ],
+            'title' => 'Submit succession plan.'
 
-            ]) ?>
+        ]) ?>
 
 
     </div>
@@ -72,7 +74,7 @@ if(Yii::$app->session->hasFlash('success')){
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered table-hover" >
+                    <table class="table table-bordered table-hover">
 
 
                         <thead>
@@ -91,18 +93,18 @@ if(Yii::$app->session->hasFlash('success')){
                         </thead>
 
                         <tbody>
-                            <?php foreach($model as $record):
-                                if(empty($record->Succession_No)){
+                            <?php foreach ($model as $record) :
+                                if (empty($record->Succession_No)) {
                                     continue;
                                 }
-                                ?>
+                            ?>
 
                                 <tr>
-                                    <td><?= !empty($record->Evaluation_No)?$record->Evaluation_No:'' ?></td>
-                                    <td><?= !empty($record->Succession_No)?$record->Succession_No:'' ?></td>
-                                   
-                                    <td><?= !empty($record->Employee_Name)?$record->Employee_Name:'' ?></td>
-                                    <td><?= !empty($record->Question)?$record->Question:'' ?></td>
+                                    <td><?= !empty($record->Evaluation_No) ? $record->Evaluation_No : '' ?></td>
+                                    <td><?= !empty($record->Succession_No) ? $record->Succession_No : '' ?></td>
+
+                                    <td><?= !empty($record->Employee_Name) ? $record->Employee_Name : '' ?></td>
+                                    <td><?= !empty($record->Question) ? $record->Question : '' ?></td>
                                     <td data-key="<?= $record->Key ?>" data-name="Answer" data-service="SuccessionEvaluationList" ondblclick="addDropDown(this,'answers')"><?= $record->Answer ?></td>
                                     <!-- <td><?= $record->Preferred_Answer ?></td>
                                     <td><?= $record->Recomendation ?></td>
@@ -135,9 +137,3 @@ $script = <<<JS
 JS;
 
 $this->registerJs($script);
-
-
-
-
-
-

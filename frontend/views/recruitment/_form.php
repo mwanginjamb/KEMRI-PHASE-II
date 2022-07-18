@@ -123,34 +123,15 @@ console.log('clicked...')
     });
 
     $('.ShortListButton').on('click', function(e){
-            console.log('clicked...')
+            console.log('234 ikr...')
+            e.stopPropagation();
             e.preventDefault();
-            const form = $('#shorlistcandidate').html(); 
-                       
-            //Display the rejection comment form
-            $('.modal').modal('show')
-                            .find('.modal-body')
-                            .append(form);
-            
-            //populate relevant input field with code unit required params
-                    
-            $('input[name=ProfileID]').val(ProfileID);
-            $('input[name=ComitteID]').val(ComitteID);
-            
-            //Submit Rejection form and get results in json    
-            $('form#shorlistcandidate_form').on('submit', function(e){
-                e.preventDefault()
-                e.preventPropagation();
-                const data = $(this).serialize();
-                const url = $(this).attr('action');
-                $.post(url,data).done(function(msg){
-                        $('.modal').modal('show')
-                        .find('.modal-body')
-                        .html(msg.note);
-                    },'json');
-            });
-                       
+            console.log($(this).attr('href'))
+            var url = $(this).attr('href');
+            $('.modal').modal('show').find('.modal-body').load(url);
     });
+
+                 
 
       /*Handle modal dismissal event  */
     $('.modal').on('hidden.bs.modal',function(){

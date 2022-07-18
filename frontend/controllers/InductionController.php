@@ -238,10 +238,10 @@ class InductionController extends Controller
 
         foreach ($records as $quali) {
 
-            if (!empty($quali->Key)) {
+            if (empty($quali->Key)) {
                 continue;
             }
-            if ($quali->Action_ID == \Yii::$app->user->identity->{'Employee No_'} || $quali->Employee_No == \Yii::$app->user->identity->{'Employee No_'}) {
+            if (property_exists($quali, 'Action_ID') && $quali->Action_ID == \Yii::$app->user->identity->{'Employee No_'} || $quali->Employee_No == \Yii::$app->user->identity->{'Employee No_'}) {
                 ++$count;
                 $Deletelink = $updateLink = $viewLink =  '';
                 $updateLink = ($quali->Overall_Status !== 'Closed') ? Html::a('<i class="fa fa-edit"></i>', ['update', 'Key' => $quali->Key], ['class' => 'update btn btn-outline-info btn-xs', 'title' => 'Update Record']) : '';

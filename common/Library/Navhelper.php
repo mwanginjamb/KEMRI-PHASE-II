@@ -100,8 +100,8 @@ class Navhelper extends Component
 
         $url  =  new Services($service);
         $wsdl = $url->getUrl();
-        $username = (!Yii::$app->user->isGuest) ? Yii::$app->user->identity->{'User ID'} : Yii::$app->params['ldPrefix'] . '\\' . Yii::$app->params['NavisionUsername'];
-        $password = Yii::$app->session->has('IdentityPassword') ? Yii::$app->session->get('IdentityPassword') : Yii::$app->params['NavisionPassword'];
+        $username =  Yii::$app->params['ldPrefix'] . '\\' . Yii::$app->params['NavisionUsername'];
+        $password =  Yii::$app->params['NavisionPassword'];
 
         $creds = (object)[];
         $creds->UserName = $username;
@@ -109,7 +109,10 @@ class Navhelper extends Component
 
         if (!Yii::$app->navision->isUp($wsdl, $creds)) {
 
-            return ['error' => 'Service unavailable.'];
+            return [
+                'error' => 'Service unavailable.',
+                'service' => $wsdl
+            ];
         }
 
 

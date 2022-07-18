@@ -19,8 +19,6 @@ function closeInput(elm) {
   /** Handle Checkbox state */
   var child = td.children[0];
 
-
-
   if (child.type == 'checkbox') {
     value = (child.checked) ? true : false;
   }
@@ -31,40 +29,25 @@ function closeInput(elm) {
 
   const data = td.dataset;
 
-  console.log(`The Data Set.........................................................`);
+  console.log(`The Data Set`);
   console.table(data);
 
   // Post Changes
   field = document.querySelector(`#${data.validate}`);
   $.post('./commit', { 'key': data.key, 'name': data.name, 'no': data.no, 'filterKey': data.filterField, 'service': data.service, 'value': value }).done(function (msg) {
 
-    // Update all key dataset values for the row
-    if (msg.Key) {
-      let parent = td.parentNode;
-      parent.querySelectorAll('[data-key]').forEach(elem => elem.dataset.key = msg.Key);
-    }
-
-
-
-    console.log(`Committing Data.... Result`);
-    console.table(msg);
-
+    console.log(`Committing Data....`);
 
     if (data.validate) // Custom Grid Error Reporting
     {
-      let parent = td.parentNode;
-      console.log(`Parent to be validated ....`);
-      let ClassName = data.validate;
-      let validatedElement = parent.querySelector('.' + ClassName);
       const DataKey = data.validate;
-      validatedElement.innerText = typeof (msg) === 'string' ? msg : msg[DataKey];
+      field.innerText = typeof (msg) === 'string' ? msg : msg[data.name];
     }
 
 
     // Toasting The Outcome
     typemsg = typeof msg;
     console.log(typemsg);
-    console.log('');
     if (typeof (msg) === 'string') {
       console.log(msg);
       // Fire a sweet alert if you can
@@ -82,19 +65,12 @@ function closeInput(elm) {
     }
 
   });
-
-  // Check if the is a request to reload dom
-
-  if (data.reload) {
-    setTimeout(() => {
-      location.reload(true);
-    }, 500);
-  }
-
 }
 
 function addInput(elm, type = false, field = false) {
   if (elm.getElementsByTagName('input').length > 0) return;
+
+
 
   var value = elm.innerHTML;
   elm.innerHTML = '';
@@ -106,7 +82,7 @@ function addInput(elm, type = false, field = false) {
     input.setAttribute('type', 'text');
   }
 
-  input.setAttribute('value', value);// use placeholder instead of value attribute
+  input.setAttribute('value', value);
 
   if (type === 'checkbox') {
     input.checked = event.target.value;
@@ -121,57 +97,16 @@ function addInput(elm, type = false, field = false) {
   input.focus();
 }
 
-function addTextarea(elm) {
-  if (elm.getElementsByTagName('textarea').length > 0) return;
-
-  var value = elm.textContent;
-  elm.innerHTML = '';
-
-  var input = document.createElement('textarea');
-  input.setAttribute('rows', 2);
-  //input.setAttribute('value', value);// use placeholder instead of value attribute  
-  input.innerText = value;
-  input.setAttribute('class', 'form-control');
-  input.setAttribute('onBlur', 'closeInput(this)');
-  elm.appendChild(input);
-  input.focus();
-}
-
-// Get Drop Down Filters
-
-function extractFilters(elm, ClassName) {
-  let parent = elm.parentNode;
-  let filterValue = parent.querySelector('.' + ClassName).innerText;
-  console.log(`Subject Parent Value`);
-  console.log(filterValue);
-  return filterValue;
-}
-
-async function addDropDown(elm, resource, filters = {}) {
+async function addDropDown(elm, resource) {
   if (elm.getElementsByTagName('input').length > 0) return;
 
-  const ddContent = await getData(resource, processedFilters);
-  console.log(`DD Content:`);
-  console.log(ddContent);
+  var value = elm.innerHTML;
   elm.innerHTML = '';
 
-  let processedFilters = null;
-  if (Object.entries(filters).length) {
-    const content = Object.entries(filters);
-    processedFilters = Object.assign(...content.map(([key, val]) => ({ [key]: extractFilters(elm, val) })));
+  const ddContent = await getData(resource);
 
-    console.log('Extracted Filters.....................');
-    console.log(processedFilters);
-    console.log(typeof processedFilters);
-  }
+  //console.table(ddContent);
 
-
-  elm.innerHTML = 'Processing ......';
-
-  const ddContent = await getData(resource, processedFilters);
-  console.log(`DD Content:`);
-  console.log(ddContent);
-  elm.innerHTML = '';
 
   var select = document.createElement('select');
   const InitialOption = document.createElement('option');
@@ -197,18 +132,14 @@ async function addDropDown(elm, resource, filters = {}) {
 }
 
 
-async function getData(resource, filters) {
-  payload = JSON.stringify({ ...filters });
+async function getData(resource) {
   const res = await fetch(`./${resource}`, {
-    method: 'POST',
     headers: new Headers({
-      Origin: 'http://localhost:2026/',
-      "Content-Type": 'application/json',
-      //'Content-Type': 'application/x-www-form-urlencoded'
-    }),
-    body: payload
+      Origin: 'http://localhost:2026/'
+    })
   });
   const data = await res.json();
+
   return data;
 }
 
@@ -218,52 +149,19 @@ function JquerifyField(model, fieldName) {
   const selector = '#' + model + '-' + field;
   return selector;
 }
-function sanitizeTime(timeString) {
-  let timeParts = timeString.split(":");
-  let res = Number(timeParts[0]) + ":" + Number(timeParts[1]);
-  console.log('Converted times : ');
-  console.log(res);
-  return res;
-}
-
-function notifySuccess(parentClassField, message) {
-  let parent = document.querySelector(parentClassField);
-
-  console.log('Parent to report success to.....................');
-  console.dir(parent);
-  let span = document.createElement('span');
-  span.classList.add('text');
-  span.classList.add('text-success');
-  span.classList.add('small');
-  span.innerText = message;
-
-  parent.append(span);
-}
-
-function notifyError(parentClassField, message) {
-  let parent = document.querySelector(parentClassField);
-
-  let span = document.createElement('span');
-  span.classList.add('text');
-  span.classList.add('text-danger');
-  span.classList.add('small');
-  span.innerText = message;
-
-  parent.append(span);
-}
 
 // Function to do ajax field level updating
 
-function globalFieldUpdate(entity, controller = false, fieldName, ev, autoPopulateFields = [], service = false) {
+function globalFieldUpdate(entity, controller = false, fieldName, ev, autoPopulateFields = []) {
   console.log('Global Field Update was invoked');
   const model = entity.toLowerCase();
   const field = fieldName.toLowerCase();
   const formField = '.field-' + model + '-' + fieldName.toLowerCase();
   const keyField = '#' + model + '-key';
-  const targetField = '#' + model + '-' + field;
+  const targetField = '#' + model + '-'.field;
   const tget = '#' + model + '-' + field;
 
-  console.log(targetField);
+
   const fieldValue = ev.target.value;
   const Key = $(keyField).val();
   console.log(`My Model is ${model}`);
@@ -278,21 +176,16 @@ function globalFieldUpdate(entity, controller = false, fieldName, ev, autoPopula
   } else {
     route = controller;
   }
-  const url = $('input[name=absolute]').val() + route + '/setfield?field=' + fieldName;
-  console.log(`route to use is : ${url}`);
+
+  console.log(`route to use is : ${route}`);
 
 
   if (Key.length) {
-    $.post(url, { fieldValue: fieldValue, 'Key': Key, 'service': service }).done(function (msg) {
-
-      console.log('Original Result ..................');
-      console.log(msg);
-
-      if (msg.Start_Time || msg.End_Time) {
-        msg = { ...msg, Start_Time: sanitizeTime(msg.Start_Time), End_Time: sanitizeTime(msg.End_Time) };
-      }
+    const url = $('input[name=absolute]').val() + route + '/setfield?field=' + fieldName;
+    $.post(url, { fieldValue: fieldValue, 'Key': Key }).done(function (msg) {
 
       // Populate relevant Fields
+
       $(keyField).val(msg.Key);
       $(targetField).val(msg[fieldName]);
 
@@ -314,8 +207,9 @@ function globalFieldUpdate(entity, controller = false, fieldName, ev, autoPopula
         console.log(`Form Field is: ${formField}`);
         const parent = document.querySelector(formField);
 
-        //Inline status notifier
-        notifyError(formField, msg);
+        // Update Request Status from Server
+        requestStateUpdater(parent, 'error', msg);
+
         // Fire a sweet alert if you can
 
         Toast.fire({
@@ -324,10 +218,13 @@ function globalFieldUpdate(entity, controller = false, fieldName, ev, autoPopula
         })
 
       } else { // An object represents correct details
+
         const parent = document.querySelector(formField);
-        //Inline status notifier
-        notifySuccess(formField, `${field} Saved Successfully.`);
-        // If you can Fire a sweet alert                 
+
+        // Update Request Status from Server
+        requestStateUpdater(parent, 'success');
+
+        // If you can Fire a sweet alert                  
 
         Toast.fire({
           type: 'success',
@@ -381,54 +278,21 @@ function requestStateUpdater(fieldParentNode, notificationType, msg = '') {
 
 // Global Uploader
 
-async function globalUpload(attachmentService, entity, fieldName, documentService = false) {
-  const formField = '.field-' + entity.toLowerCase() + '-' + fieldName.toLowerCase();
+async function globalUpload(service, entity, fieldName) {
+
   const model = entity.toLowerCase();
   const key = document.querySelector(`#${model}-key`).value;
   const fileInput = document.querySelector(`#${model}-${fieldName}`);
   let endPoint = './upload/';
-  let error = false;
-
-  // Get Appended File Desc
-  let data = $('#employeetraining-attachment').data();
-  let FileName = data.name;
-
-  console.log(data);
-
   const navPayload = {
     "Key": key,
-    "Service": attachmentService,
-    "documentService": documentService,
-    "Name": FileName
+    "Service": service
   }
 
   const formData = new FormData();
   formData.append("attachment", fileInput.files[0]);
-  formData.append("Key", key);
-  formData.append("DocumentService", documentService);
-
 
   console.log(fileInput.files);
-  // Validate file you are uploading
-  let file = fileInput.files[0];
-  console.log(file);
-  if (!['application/pdf'].includes(file.type)) {
-    console.log(`We require only PDFs: ${file.name} is of type: ${file.type}`);
-    error = `<div class="text text-danger">We require only PDFs: ${file.name} is of type: ${file.type}</div>`;
-    msg = `We require only PDFs: ${file.name} is of type: ${file.type}`;
-  } else { // Create request payload and upload
-    formData.append('attachments[]', file);
-  }
-
-  if (error) {
-    notifyError(formField, msg);
-    _(`#{model}-${fieldName}`).value = '';
-    Toast.fire({
-      type: 'error',
-      title: error
-    })
-    return;
-  }
 
 
   try {
@@ -437,13 +301,11 @@ async function globalUpload(attachmentService, entity, fieldName, documentServic
         method: "POST",
         body: formData,
         headers: new Headers({
-          Origin: 'http://localhost:2026/'
+          Origin: 'http://localhost:80/'
         })
       });
 
     const Response = await Request.json();
-    // reset file input
-    fileInput.value = '';
     console.log(`File Upload Request`);
     console.log(Response);
 
@@ -452,11 +314,11 @@ async function globalUpload(attachmentService, entity, fieldName, documentServic
 
 
     // Do a Nav Request
-    endPoint = `${endPoint}?Key=${navPayload.Key}&Service=${navPayload.Service}&filePath=${filePath}&documentService=${navPayload.documentService}&Name=${navPayload.Name}`
+    endPoint = `${endPoint}?Key=${navPayload.Key}&Service=${navPayload.Service}&filePath=${filePath}`
     const navReq = await fetch(endPoint, {
       method: "GET",
       headers: new Headers({
-        Origin: 'http://localhost:8047/'
+        Origin: 'http://localhost:80/'
       })
     });
 
@@ -465,16 +327,10 @@ async function globalUpload(attachmentService, entity, fieldName, documentServic
     console.log(NavResp);
     console.info(navReq.ok);
     if (navReq.ok) {
-      notifySuccess(formField, 'Attachment Uploaded Successfully.');
       Toast.fire({
         type: 'success',
         title: 'Attachment uploaded Successfully.'
       });
-      // Reload
-      setTimeout(() => {
-        console.log(`Trying to reload.`);
-        location.reload(true)
-      }, 1000)
     } else {
       Toast.fire({
         type: 'error',
@@ -487,165 +343,6 @@ async function globalUpload(attachmentService, entity, fieldName, documentServic
     console.log(error);
   }
 }
-
-
-// Create an element selector helper function
-
-function _(element) {
-  return document.getElementById(element);
-}
-
-// Upload multiple Files
-async function globalUploadMultiple(attachmentService, entity, route, documentService = false) {
-  const formField = '.field-select_multiple';
-  const model = entity.toLowerCase();
-  const key = _(`${model}-key`).value;
-  let endPoint = _('absolute').value + `${route}/upload-multiple`;
-  //console.log(endPoint); return;
-  const navPayload = {
-    "Key": key,
-    "Service": attachmentService,
-    "documentService": documentService
-  }
-
-  const formData = new FormData();
-  // formData.append("attachment", fileInput.files[0]);
-  formData.append("Key", key);
-  formData.append("DocumentService", documentService);
-  formData.append("attachmentService", attachmentService);
-
-
-
-  let error = '';
-
-  try {
-    console.log(Array.from(_('select_multiple').files));
-    Array.from(_('select_multiple').files).forEach((file) => {
-      console.log(file);
-      if (!['application/pdf'].includes(file.type)) {
-        console.log(`We require only PDFs: ${file.name} is of type: ${file.type}`);
-        error = `<div class="text text-danger">We require only PDFs: ${file.name} is of type: ${file.type}</div>`;
-      } else { // Create request payload and upload
-        formData.append('attachments[]', file);
-      }
-    });
-
-    if (error) {
-      _('upload-note').innerHTML = error;
-      _('select_multiple').value = '';
-      Toast.fire({
-        type: 'error',
-        title: error
-      })
-      return;
-    }
-
-    _('progress_bar').style.display = 'block';
-    let ajax_request = new XMLHttpRequest();
-    ajax_request.open("post", endPoint); // Initiate request
-
-    // Set headers
-    ajax_request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    ajax_request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-
-
-    ajax_request.upload.addEventListener('progress', (e) => {
-      let percentCompleted = Math.round((e.loaded / e.total) * 100);
-      _('progress_bar_process').style.width = `${percentCompleted}%`;
-      _('progress_bar_process').innerHTML = `${percentCompleted}% completed`;
-      console.log('progress values-------------------');
-      console.log(_('progress_bar_process').innerHTML);
-    });
-
-    ajax_request.addEventListener('load', (e) => {
-      _('upload-note').innerHTML = `<div class="text text-success">Files uploaded successfully.</div>`;
-      _('select_multiple').value = '';
-    });
-
-    /** I did 2 requests since XMLHttpRequest would not send metadata and multipart data simultaneously,
-     * Reason for using fetch was to send attachment metadata like Key, Webservices etc.
-     * XMLHttpRequest has progress and load events while fetch didn't have (Used to measure progress)
-     * If these limitations are addressed in future, please update the code to only use one request.
-     * @francnjamb -  fnjambi@outlook.com
-     */
-    const request = ajax_request.send(formData);
-    const Requesto = await fetch(endPoint,
-      {
-        method: "POST",
-        body: formData,
-        headers: new Headers({
-          Origin: 'http://localhost:2026/'
-        })
-      });
-
-    const res = await Requesto.json();
-
-    console.log(`Data Request......................`);
-    console.log(res);
-
-    if (Requesto.ok) {
-      notifySuccess(formField, 'Attachments Uploaded Successfully.');
-      Toast.fire({
-        type: 'success',
-        title: 'Attachment uploaded Successfully.'
-      });
-      // Reload
-      setTimeout(() => {
-        console.log(`Trying to reload.`);
-        location.reload(true)
-      }, 1000)
-    } else {
-      Toast.fire({
-        type: 'error',
-        title: 'Attachment could not be uploaded.'
-      })
-    }
-
-
-    ajax_request.addEventListener('error', (e) => {
-      console.log(`Errors...........`);
-      console.log(e);
-    });
-
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-
-//Delete a document Line
-
-
-$('.delete').on('click', function (e) {
-  e.preventDefault();
-  if (confirm('Are you sure about deleting this record?')) {
-    let data = $(this).data();
-    let url = $(this).attr('href');
-    let Key = data.key;
-    let Service = data.service;
-    const payload = {
-      'Key': Key,
-      'Service': Service
-    };
-    $(this).text('Deleting...');
-    $(this).attr('disabled', true);
-    $.get(url, payload).done((msg) => {
-      console.log(typeof msg.result);
-      if (typeof msg.result === 'string') {
-        alert(msg['result']);
-      }
-      setTimeout(() => {
-        location.reload(true);
-      }, 100);
-    });
-  }
-
-});
-
-
-
-
-
 
 
 
