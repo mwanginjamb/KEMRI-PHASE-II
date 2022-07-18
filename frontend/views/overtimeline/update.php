@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: HP ELITEBOOK 840 G5
@@ -12,7 +13,8 @@ use yii\helpers\Html;
 /* @var $model frontend\models\AgendaDocument */
 
 $this->title = 'Update Line.';
-
+$model->Start_Time = date('H:s', strtotime($model->Start_Time));
+$model->End_Time = date('H:s', strtotime($model->End_Time));
 ?>
 <div class="card">
     <div class="card-header">
@@ -21,7 +23,7 @@ $this->title = 'Update Line.';
     <div class="card-body">
         <?= $this->render('_form', [
             'model' => $model,
-            
+
         ]) ?>
     </div>
 </div>

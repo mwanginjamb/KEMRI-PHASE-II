@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: HP ELITEBOOK 840 G5
@@ -7,7 +8,9 @@
  */
 
 namespace frontend\models;
+
 use yii\base\Model;
+use Yii;
 
 
 class EmployeeTraining extends Model
@@ -42,17 +45,35 @@ class EmployeeTraining extends Model
     public $Nature_of_Training;
     public $Training_Type;
     public $Training_Category;
+    public $Recomended_Action;
+    public $HRO_Comments;
+    public $Line_Manager_Comments;
+    public $Line_Manager_Rejection_Comment;
+    public $attachment_one;
+    public $attachment_two;
+    public  $attachment;
+
+    public $Allowed_To_Exceed_Amount;
+    public $Venue;
+    public $Reason_For_Training;
+    public $isNewRecord;
 
     public function rules()
     {
         return [
-            
+            [['attachment_one', 'attachment_two'], 'file', 'mimeTypes' => Yii::$app->params['QualificationsMimeTypes']],
+            [['attachment_one', 'attachment_two'], 'file', 'maxSize' => '5120000'], //50mb
+            [['attachment'], 'file', 'mimeTypes' => ['application/pdf']],
+            [['attachment'], 'file', 'maxSize' => '15728640'], //15mb
         ];
     }
 
     public function attributeLabels()
     {
         return [
+            'attachment_one' => 'Training Attachment (PDF)',
+            'Total_Cost' => 'Extra Cost',
+            'attachment' => 'Add an Attachment (PDF)'
         ];
     }
 }
