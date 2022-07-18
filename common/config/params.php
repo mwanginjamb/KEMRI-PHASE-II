@@ -72,6 +72,7 @@ return [
         'TRAININGMGT',
         'GRIEVANCEMGT',
         'HRInductionMgt',
+        'HRSUCCESSIONPLANNING'
 
     ],
     'ServiceName' => [
@@ -280,6 +281,8 @@ return [
         'StProbationKRAs' => 'StProbationKRAs', //60001
         'StProbationKPIs' => 'StProbationKPIs', //60002
         'StEmployeeAppraisalCompetence' => 'StEmployeeAppraisalCompetence', //60033
+        'StEmployeeAppraisalCompetence' => 'StEmployeeAppraisalCompetence', //60033
+        'CompetenceCategories' => 'CompetenceCategories', //60031
         'StAreasofFurtherDev' => 'StAreasofFurtherDev', // 60040
         'ESS_Files' => 'ESS_Files', // 50097
 
@@ -535,6 +538,20 @@ return [
         'TrainingHROList' => 'TrainingHROList', // 56044
         'TrainingClosedList' => 'TrainingClosedList', // 56045
 
+
+
+        /********************SUccession Planning*************************************/
+        'SuccessionEvaluationList' => 'SuccessionEvaluationList', // 55137
+        'SuccessionEvaluationListEvaluator' => 'SuccessionEvaluationListEvaluator', //55139
+        'SuccessionObjectiveSettingList' => 'SuccessionObjectiveSettingList', // 55141
+        'SuccessionAppraiseeList' => 'SuccessionAppraiseeList', //  55143
+        'SuccesssionSupervisorList' => 'SuccesssionSupervisorList', //55144
+        'SuccessionHRList' => 'SuccessionHRList', //55146
+        'SuccessionClosedList' => 'SuccessionClosedList', //55147
+
+        'SuccessionAppraisalCard' => 'SuccessionAppraisalCard', //55142
+        'SuccessionAcceptance' => 'SuccessionAcceptance', //55140
+        'HRSUCCESSIONPLANNING' => 'HRSUCCESSIONPLANNING', //50068
 
 
     ],

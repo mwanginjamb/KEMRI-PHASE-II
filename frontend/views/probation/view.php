@@ -56,7 +56,7 @@ if($model->Employee_No == Yii::$app->user->identity->{'Employee No_'})
             </div>
             
             <div class="card-body info-box">
-
+            <!-- Start Process Actions -->
                 <div class="row">
                     <?php if(($model->Goal_Setting_Status == 'New' && $model->isAppraisee()) || $model->Appraisal_Status == 'Agreement_Level'): ?>
 
@@ -276,8 +276,9 @@ if($model->Employee_No == Yii::$app->user->identity->{'Employee No_'})
 
                 </div>
 
+            <!-- End of Process Actions -->
             </div>
-           
+           <!-- \Card Body -->
         </div>
     </div>
 </div>
