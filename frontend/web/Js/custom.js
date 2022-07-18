@@ -150,6 +150,10 @@ function extractFilters(elm, ClassName) {
 async function addDropDown(elm, resource, filters = {}) {
   if (elm.getElementsByTagName('input').length > 0) return;
 
+  const ddContent = await getData(resource, processedFilters);
+  console.log(`DD Content:`);
+  console.log(ddContent);
+  elm.innerHTML = '';
 
   let processedFilters = null;
   if (Object.entries(filters).length) {
@@ -452,7 +456,7 @@ async function globalUpload(attachmentService, entity, fieldName, documentServic
     const navReq = await fetch(endPoint, {
       method: "GET",
       headers: new Headers({
-        Origin: 'http://localhost:80/'
+        Origin: 'http://localhost:8047/'
       })
     });
 

@@ -43,6 +43,7 @@ class AdminlteAsset extends AssetBundle
     ];
     public $js = [
 
+        //'plugins/jquery/jquery.min.js',
         'plugins/bootstrap/js/bootstrap.bundle.min.js',
         'plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js',
         'dist/js/adminlte.js',
@@ -62,7 +63,7 @@ class AdminlteAsset extends AssetBundle
         'plugins/daterangepicker/daterangepicker.js',
 
         'plugins/summernote/summernote-bs4.min.js',
-        'plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js',
+       // 'plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js',
         'plugins/jquery-mousewheel/jquery.mousewheel.js',
         'plugins/raphael/raphael.min.js',
         'plugins/jquery-mapael/jquery.mapael.min.js',

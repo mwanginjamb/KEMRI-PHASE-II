@@ -1365,7 +1365,83 @@ $employee = (!Yii::$app->user->isGuest && is_array(Yii::$app->user->identity->em
                                 </ul>
                             </li>
 
-                        <?php } // End module blocking 
+
+                            <!-- Succession -->
+
+                            <li class="nav-item has-treeview <?= Yii::$app->recruitment->currentCtrl(['succession']) ? 'menu-open' : '' ?>">
+                                <a href="#" class="nav-link <?= Yii::$app->recruitment->currentCtrl(['succession']) ? 'active' : '' ?>" title="Grievances and Disciplinary Management">
+                                    <i class="nav-icon fa fa-level-up-alt"></i>
+                                    <p class="text-truncate">
+                                        Succession Planning
+                                        <i class="fas fa-angle-left right"></i>
+                                        <!--<span class="badge badge-info right">6</span>-->
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+
+
+                                    <li class="nav-item">
+                                        <a href="<?= $absoluteUrl ?>succession/acceptance-list" class="nav-link <?= Yii::$app->recruitment->currentaction('succession', 'acceptance-list') ? 'active' : '' ?>">
+                                            <i class="fa fa-chart-line nav-icon"></i>
+                                            <p>Succession Acceptance List </p>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a href="<?= $absoluteUrl ?>succession/evaluation-list" class="nav-link <?= Yii::$app->recruitment->currentaction('succession', 'evaluation-list') ? 'active' : '' ?>">
+                                            <i class="fa fa-chart-line nav-icon"></i>
+                                            <p>Employee Eval. List </p>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a href="<?= $absoluteUrl ?>succession/evaluation-list-evaluator" class="nav-link <?= Yii::$app->recruitment->currentaction('succession', 'evaluation-list-evaluator') ? 'active' : '' ?>">
+                                            <i class="fa fa-chart-line nav-icon"></i>
+                                            <p>Evaluator Eval. List </p>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a href="<?= $absoluteUrl ?>succession/objective-setting" class="nav-link <?= Yii::$app->recruitment->currentaction('succession', 'objective-setting') ? 'active' : '' ?>">
+                                            <i class="fa fa-chart-line nav-icon"></i>
+                                            <p>Objective Setting </p>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a href="<?= $absoluteUrl ?>succession/appraisee-list" class="nav-link <?= Yii::$app->recruitment->currentaction('succession', 'appraisee-list') ? 'active' : '' ?>">
+                                            <i class="fa fa-chart-line nav-icon"></i>
+                                            <p>Appraisee List </p>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a href="<?= $absoluteUrl ?>succession/supervisor-list" class="nav-link <?= Yii::$app->recruitment->currentaction('succession', 'supervisor-list') ? 'active' : '' ?>">
+                                            <i class="fa fa-chart-line nav-icon"></i>
+                                            <p>Supervisor List </p>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a href="<?= $absoluteUrl ?>succession/hr-list" class="nav-link <?= Yii::$app->recruitment->currentaction('succession', 'hr-list') ? 'active' : '' ?>">
+                                            <i class="fa fa-chart-line nav-icon"></i>
+                                            <p>HR List </p>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a href="<?= $absoluteUrl ?>succession/closed-list" class="nav-link <?= Yii::$app->recruitment->currentaction('succession', 'closed-list') ? 'active' : '' ?>">
+                                            <i class="fa fa-chart-line nav-icon"></i>
+                                            <p>Closed List </p>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </li>
+
+                            <!-- End Succession -->
+
+                        <?php } // End Phase II module blocking 
                         ?>
 
                     </ul>

@@ -86,9 +86,9 @@ class CompetenceController extends Controller
             }else{
 
                 Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-                if(is_object($result)){
+                if(is_object($request)){
 
-                    return ['note' => '<div class="alert alert-danger">Error : '.$result.'</div>' ];
+                    return ['note' => '<div class="alert alert-danger">Error : '.$request.'</div>' ];
 
                 }
             }
@@ -115,56 +115,16 @@ class CompetenceController extends Controller
         if(Yii::$app->request->isAjax){
             return $this->renderAjax('create', [
                 'model' => $model,
+                'ratings' => $this->getRatings(),
+                'categories' =>  Yii::$app->navhelper->dropdown('CompetenceCategories','Category','Category'),
             ]);
         }
 
         return $this->render('create',[
             'model' => $model,
+            'ratings' => $this->getRatings(),
+            'categories' =>  Yii::$app->navhelper->dropdown('CompetenceCategories','Category','Category'),
         ]);
-    }
-
-
-    /*Set/commit Weight*/
-
-
-    public function actionSetweight(){
-        $model = new Probationkpi();
-        $service = Yii::$app->params['ServiceName']['ProbationKPIs'];
-
-        $filter = [
-            'Line_No' => Yii::$app->request->post('Line_No')
-        ];
-        $request = Yii::$app->navhelper->getData($service, $filter);
-
-        if(is_array($request)){
-            Yii::$app->navhelper->loadmodel($request[0],$model,['Line_No']);
-            $model->Key = $request[0]->Key;
-            $model->Weight = Yii::$app->request->post('Weight');
-        }
-
-
-        $result = Yii::$app->navhelper->updateData($service,$model);
-
-        Yii::$app->response->format = \yii\web\response::FORMAT_JSON;
-
-        return $result;
-
-    }
-
-
-    /*Commit KPI*/
-
-    public function actionSetkpi(){
-        $model = new Probationkpi();
-        $service = Yii::$app->params['ServiceName']['ProbationKPIs'];
-
-        /*Do initial request*/
-        
-        $model->Objective = Yii::$app->request->post('Objective');
-        $request = Yii::$app->navhelper->postData($service, $model);
-        Yii::$app->response->format = \yii\web\response::FORMAT_JSON;
-        return $request; 
-
     }
 
 
@@ -203,12 +163,14 @@ class CompetenceController extends Controller
             return $this->renderAjax('update', [
                 'model' => $model,
                 'ratings' => $this->getRatings(),
+                'categories' =>  Yii::$app->navhelper->dropdown('CompetenceCategories','Category','Category'),
             ]);
         }
 
         return $this->render('update',[
             'model' => $model,
             'ratings' => $this->getRatings(),
+            'categories' =>  Yii::$app->navhelper->dropdown('CompetenceCategories','Category','Category'),
         ]);
     }
 
@@ -231,39 +193,6 @@ class CompetenceController extends Controller
           return $result;
     }
 
-    public function actionView($ApplicationNo){
-        $service = Yii::$app->params['ServiceName']['leaveApplicationCard'];
-        $leaveTypes = $this->getLeaveTypes();
-        $employees = $this->getEmployees();
-
-        $filter = [
-            'Application_No' => $ApplicationNo
-        ];
-
-        $leave = Yii::$app->navhelper->getData($service, $filter);
-
-        //load nav result to model
-        $leaveModel = new Leave();
-        $model = $this->loadtomodel($leave[0],$leaveModel);
-
-
-        return $this->render('view',[
-            'model' => $model,
-            'leaveTypes' => ArrayHelper::map($leaveTypes,'Code','Description'),
-            'relievers' => ArrayHelper::map($employees,'No','Full_Name'),
-        ]);
-    }
-
-
-
-
-
-
-
-
-
-
-
 
     public function loadtomodel($obj,$model){
 
@@ -278,4 +207,10 @@ class CompetenceController extends Controller
 
         return $model;
     }
+
+
+
+
+
+
 }

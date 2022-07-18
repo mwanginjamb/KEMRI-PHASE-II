@@ -149,7 +149,7 @@ class ProbationKpiController extends Controller
     }
 
 
-    public function actionUpdate(){
+    public function actionUpdate($Key = ''){
         $model = new Probationkpi() ;
         $model->isNewRecord = false;
         $service = Yii::$app->params['ServiceName']['ProbationKPIs'];
@@ -159,13 +159,20 @@ class ProbationKpiController extends Controller
             'Appraisal_No' => Yii::$app->request->get('Appraisal_No'),
             'Line_No' => Yii::$app->request->get('Line_No'),
         ];
-        $result = Yii::$app->navhelper->getData($service,$filter);
+
+        if(!empty($Key))
+        {
+            $result = Yii::$app->navhelper->readByKey($service, $Key);
+        }else{
+            $result = Yii::$app->navhelper->getData($service,$filter)[0];
+        }
+       
 
        
 
-        if(is_array($result)){
+        if(is_object($result)){
             //load nav result to model
-            $model = Yii::$app->navhelper->loadmodel($result[0],$model) ;
+            $model = Yii::$app->navhelper->loadmodel($result,$model) ;
 
         }else{
             Yii::$app->recruitment->printrr($result);
