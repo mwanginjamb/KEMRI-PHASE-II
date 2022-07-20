@@ -547,6 +547,8 @@ return [
         'SttingLocations' => 'SttingLocations', //55157
         'ShortlistPreference' => 'ShortlistPreference', //56049
         'MemberEntriesOverall' => 'MemberEntriesOverall', //56048
+        'AdvertisedHrJobRequisition' => 'AdvertisedHrJobRequisition', //55126
+
 
 
         /********************Training SERVICES***************************************/

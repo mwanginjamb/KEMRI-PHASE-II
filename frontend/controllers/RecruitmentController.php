@@ -521,7 +521,7 @@ class RecruitmentController extends Controller
 
     public function actionGetinternalvacancies()
     {
-        $service = Yii::$app->params['ServiceName']['JobsList'];
+        $service = Yii::$app->params['ServiceName']['AdvertisedHrJobRequisition'];
         $filter = [];
         $requisitions = \Yii::$app->navhelper->getData($service, $filter);
         // echo '<pre>';
