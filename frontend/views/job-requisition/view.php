@@ -7,8 +7,8 @@
  * Time: 6:09 PM
  */
 
+use yii\bootstrap4\ActiveForm;
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
 
 $this->title = 'Job Requisition - ' . $model->Requisition_No;
 $this->params['breadcrumbs'][] = ['label' => 'Leave List', 'url' => ['index']];

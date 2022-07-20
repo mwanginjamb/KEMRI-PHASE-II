@@ -12,7 +12,7 @@ use yii\bootstrap4\ActiveForm;
 
 $absoluteUrl = \yii\helpers\Url::home(true);
 //Yii::$app->recruitment->printrr($document);
-$hrStatus = $ceoStatus = $hooStatus = $hofStatus =  $employeeStatus = [];
+$hrStatus = $ceoStatus = $hooStatus = $hofStatus =  $employeeStatus = $employeeQuizStatus = [];
 if ($model->Overall_Status !== 'HR') {
     $hrStatus = ['readonly' =>  true, 'disabled' => true];
 }
@@ -31,6 +31,10 @@ if ($model->Overall_Status !== 'HOF') {
 
 if ($model->Overall_Status !== 'Employee') {
     $employeeStatus = ['readonly' =>  true, 'disabled' => true];
+}
+
+if ($model->Overall_Status !== 'Questions') {
+    $employeeQuizStatus = ['readonly' =>  true, 'disabled' => true];
 }
 
 ?>
@@ -92,7 +96,7 @@ if ($model->Overall_Status !== 'Employee') {
                             <?= $form->field($model, 'Employee_Name')->textInput(['readonly' =>  true]) ?>
                             <?= $form->field($model, 'Global_Dimension_1_Code')->textInput(['readonly' =>  true, 'disabled' => true]) ?>
                             <?= $form->field($model, 'Global_Dimension_2_Code')->textInput(['readonly' => true, 'disabled' => true]) ?>
-                            <?= $form->field($model, 'Employee_Overall_Comment')->textarea($employeeStatus) ?>
+                            <?= $form->field($model, 'Employee_Overall_Comment')->textarea($employeeQuizStatus) ?>
                             <?= $form->field($model, 'Hr_Overrall_Comments')->textarea($hrStatus) ?>
 
 
@@ -246,7 +250,7 @@ if ($model->Overall_Status !== 'Employee') {
                                 <tr>
                                     <td>#</td>
                                     <td class="text-bold">Question</td>
-                                    <td class="text-bold">Answer</td>
+                                    <td class="text-bold text-info">Answer</td>
                                 </tr>
                             </thead>
                             <tbody>

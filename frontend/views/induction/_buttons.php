@@ -4,6 +4,18 @@ use yii\bootstrap4\Html;
 
 ?>
 
+
+<?= Html::a('<i class="fas fa-check"></i>Induction Status', ['clearance-status'], [
+    'class' => 'btn btn-app bg-success btn-success submitforapproval',
+    'data' => [
+        'params' => [
+            'No' => $model->No,
+        ],
+        'method' => 'GET',
+    ],
+    'title' => 'Track Clearance Status.'
+])  ?>
+
 <?= ($model->Overall_Status == 'Induction' && $model->IsThereNextSection() == true) ? Html::a('<i class="fas fa-forward"></i>Next Section', ['next-section', 'employeeNo' => Yii::$app->user->identity->employee[0]->No], [
     'class' => 'btn btn-app bg-success btn-success submitforapproval',
     'data' => [

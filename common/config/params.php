@@ -474,6 +474,7 @@ return [
         'InductionCard' => 'InductionCard', //55094
         'PeriodicInductionCard' => 'PeriodicInductionCard',
         'InductionLine' => 'InductionLine', // 55095
+        'InductionClearanceSection' => 'InductionClearanceSection', //55107
         'InductionOverallIN' => 'InductionOverallIN', //55108
         'PeriodicInductionList' => 'PeriodicInductionList', //55101
         'IndividualHOD' => 'IndividualHOD', // 55106

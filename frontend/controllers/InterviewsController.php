@@ -584,7 +584,7 @@ class InterviewsController extends Controller
 
                     if (property_exists($Applicant, 'Applicant_Name')) {
 
-                        $ViewApplicantProfile = Html::a('View Applicant Details', ['applicant-details', 'ProfileID' => $Applicant->Applicant_No, 'ComitteID' => urlencode($committeeId)], []);
+                        $ViewApplicantProfile = Html::a('View Applicant Details', ['applicant-details', 'ProfileID' => @$Applicant->Profile_No, 'ComitteID' => urlencode($committeeId)], []);
 
                         // Yii::$app->recruitment->printrr($ComiteeDetails);
                         $result['data'][] = [
@@ -668,6 +668,10 @@ class InterviewsController extends Controller
             'No' => urldecode($ProfileID),
         ];
         $result = Yii::$app->navhelper->getData($service, $filter);
+        if (is_object($result)) {
+            Yii::$app->session->setFlash('error', 'Unable to Load Profile. Make sure it exists');
+            return $this->redirect(Yii::$app->request->referrer);
+        }
         $model->CommiteeID = urldecode($ComitteID);
 
         $model = $this->loadtomodel($result[0], $model);

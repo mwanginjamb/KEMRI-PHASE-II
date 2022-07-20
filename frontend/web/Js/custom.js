@@ -97,16 +97,35 @@ function addInput(elm, type = false, field = false) {
   input.focus();
 }
 
-async function addDropDown(elm, resource) {
+// Get Drop Down Filters
+
+function extractFilters(elm, ClassName) {
+  let parent = elm.parentNode;
+  let filterValue = parent.querySelector('.' + ClassName).innerText;
+  console.log(`Subject Parent Value`);
+  console.log(filterValue);
+  return filterValue;
+}
+
+async function addDropDown(elm, resource, filters = {}) {
   if (elm.getElementsByTagName('input').length > 0) return;
 
-  var value = elm.innerHTML;
+  let processedFilters = null;
+  if (Object.entries(filters).length) {
+    const content = Object.entries(filters);
+    processedFilters = Object.assign(...content.map(([key, val]) => ({ [key]: extractFilters(elm, val) })));
+
+    console.log('Extracted Filters.....................');
+    console.log(processedFilters);
+    console.log(typeof processedFilters);
+  }
+
+  elm.innerHTML = 'Processing ......';
+
+  const ddContent = await getData(resource, processedFilters);
+  console.log(`DD Content:`);
+  console.log(ddContent);
   elm.innerHTML = '';
-
-  const ddContent = await getData(resource);
-
-  //console.table(ddContent);
-
 
   var select = document.createElement('select');
   const InitialOption = document.createElement('option');
@@ -131,15 +150,18 @@ async function addDropDown(elm, resource) {
   select.focus();
 }
 
-
-async function getData(resource) {
+async function getData(resource, filters) {
+  payload = JSON.stringify({ ...filters });
   const res = await fetch(`./${resource}`, {
+    method: 'POST',
     headers: new Headers({
-      Origin: 'http://localhost:2026/'
-    })
+      Origin: 'http://localhost:2026/',
+      "Content-Type": 'application/json',
+      //'Content-Type': 'application/x-www-form-urlencoded'
+    }),
+    body: payload
   });
   const data = await res.json();
-
   return data;
 }
 

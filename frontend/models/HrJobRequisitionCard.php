@@ -52,7 +52,7 @@ class HrJobRequisitionCard extends Model
         return [
             [[
                 'Job_Id', 'No_Posts', 'Contract_Period', 'Criticality', 'Type', 'Employment_Type', 'Location', 'Requisition_Details',
-                'Start_Date', 'Contract_Type', 'Requisition_Type', 'Requisition_Period', 'Sitting_Location', 'Role_Description', 'Qualification_Description'
+                'Start_Date',  'No_Posts', 'Contract_Type', 'Requisition_Type', 'Requisition_Period', 'Sitting_Location', 'Role_Description', 'Qualification_Description'
             ], 'required'],
             [['No_Posts'], 'number', 'min' => 1],
 
@@ -89,7 +89,7 @@ class HrJobRequisitionCard extends Model
             'No_Posts' => 'Required Posts',
             // 'Contract_Period' => 'Contract Period in Months',
             'Type' => 'Reason For Requisition',
-            'Start_Date' => 'Requisition Start Date'
+            'Start_Date' => 'Contract Start Date'
         ];
     }
 

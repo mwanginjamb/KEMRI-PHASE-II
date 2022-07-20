@@ -1,12 +1,15 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: HP ELITEBOOK 840 G5
  * Date: 2/24/2020
  * Time: 12:13 PM
  */
+
+use yii\bootstrap4\ActiveForm;
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+
 $absoluteUrl = \yii\helpers\Url::home(true);
 ?>
 
@@ -16,23 +19,23 @@ $absoluteUrl = \yii\helpers\Url::home(true);
             <div class="card-header">
                 <h3 class="card-title"><?= Html::encode($this->title) ?></h3>
 
-                <?php if(Yii::$app->session->hasFlash('success')): ?>
-                    <div class="alert alert-success"><?= Yii::$app->session->getFlash('success')?></div>
+                <?php if (Yii::$app->session->hasFlash('success')) : ?>
+                    <div class="alert alert-success"><?= Yii::$app->session->getFlash('success') ?></div>
                 <?php endif; ?>
 
-                <?php if(Yii::$app->session->hasFlash('error')): ?>
-                    <div class="alert alert-danger"><?= Yii::$app->session->getFlash('error')?></div>
+                <?php if (Yii::$app->session->hasFlash('error')) : ?>
+                    <div class="alert alert-danger"><?= Yii::$app->session->getFlash('error') ?></div>
                 <?php endif; ?>
             </div>
             <div class="card-body">
 
 
 
-        <?php
+                <?php
 
-            $form = ActiveForm::begin([
+                $form = ActiveForm::begin([
                     // 'id' => $model->formName()
-            ]); ?>
+                ]); ?>
 
 
 
@@ -46,35 +49,35 @@ $absoluteUrl = \yii\helpers\Url::home(true);
 
                             <?= $form->field($model, 'Requisition_No')->hiddenInput()->label(false); ?>
 
-                            <?= $form->field($model, 'Job_Id')->dropDownList($ApprovedHRJobs,['prompt' => '-- Select Job --']) ?>
+                            <?= $form->field($model, 'Job_Id')->dropDownList($ApprovedHRJobs, ['prompt' => '-- Select Job --']) ?>
 
-                            <?= $form->field($model, 'Start_Date')->textInput(['type' => 'date','required' => true]) ?>
-                            <?= $form->field($model, 'No_Posts')->textInput(['type' => 'number','required' =>  true,'min'=> 1]) ?>
+                            <?= $form->field($model, 'Start_Date')->textInput(['type' => 'date', 'required' => true]) ?>
+                            <?= $form->field($model, 'No_Posts')->textInput(['type' => 'number', 'required' =>  true, 'min' => 1]) ?>
                             <?= $form->field($model, 'Requisition_Type')->dropDownList([
-                                'Internal'=>'Internal',
-                                'External'=>'External',
-                                'Both'=>'Both',
-                            ],['prompt' => '-- Select Requisition Type -- ','required'=> true]) ?>
-                            <?= $form->field($model, 'Reasons_For_Requisition')->textarea(['rows'=> 2,'maxlength' => 250]) ?>
+                                'Internal' => 'Internal',
+                                'External' => 'External',
+                                'Both' => 'Both',
+                            ], ['prompt' => '-- Select Requisition Type -- ', 'required' => true]) ?>
+                            <?= $form->field($model, 'Reasons_For_Requisition')->textarea(['rows' => 2, 'maxlength' => 250]) ?>
 
                             <?= $form->field($model, 'Employment_Type')->dropDownList([
-                                'Permanent'=>'Permanent',
-                                'Contract'=>'Contract',
-                                'Consultant'=>'Consultant',
-                                'Intern'=>'Intern',
-                                'Board'=>'Board',
-                            ],['prompt' => '-- Select Employment Type -- ','required'=> true]) ?>
+                                'Permanent' => 'Permanent',
+                                'Contract' => 'Contract',
+                                'Consultant' => 'Consultant',
+                                'Intern' => 'Intern',
+                                'Board' => 'Board',
+                            ], ['prompt' => '-- Select Employment Type -- ', 'required' => true]) ?>
 
                             <?= $form->field($model, 'Type')->dropDownList([
-                                'New'=>'New',
-                                'Re_Advert'=>'Re_Advert',
-                                'Replacement'=>'Replacement'
-                            ],['prompt' => '-- Select Type -- ','required'=> true]) ?>
+                                'New' => 'New',
+                                'Re_Advert' => 'Re_Advert',
+                                'Replacement' => 'Replacement'
+                            ], ['prompt' => '-- Select Type -- ', 'required' => true]) ?>
 
-                             <?= $form->field($model, 'Criticality')->dropDownList([
-                                'High'=>'High',
-                                'Low'=>'Low',
-                            ],['prompt' => '-- Select Criticality -- ','required'=> true]) ?>
+                            <?= $form->field($model, 'Criticality')->dropDownList([
+                                'High' => 'High',
+                                'Low' => 'Low',
+                            ], ['prompt' => '-- Select Criticality -- ', 'required' => true]) ?>
 
 
 
@@ -89,7 +92,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                 <div class="row">
 
                     <div class="form-group">
-                        <?= Html::submitButton(($model->isNewRecord)?'Save':'Update', ['class' => 'btn btn-success','id' => 'submit']) ?>
+                        <?= Html::submitButton(($model->isNewRecord) ? 'Save' : 'Update', ['class' => 'btn btn-success', 'id' => 'submit']) ?>
                     </div>
 
 
@@ -100,20 +103,20 @@ $absoluteUrl = \yii\helpers\Url::home(true);
 
                 <!---Upload Leave Attachment File-->
 
-                <?php $atform = \yii\widgets\ActiveForm::begin(['id'=>'attachmentform'],['options' => ['enctype' => 'multipart/form-data']]); ?>
-                    <?= $atform->errorSummary($Attachmentmodel)?>
-                    <button class="btn btn-primary btn-file"><?= $Attachmentmodel->getPath($model->Application_No)?'<i class="fa fa-upload"></i>&nbsp;&nbsp;Update Leave Attachment':'<i class="fa fa-upload"></i>&nbsp;&nbsp;Upload Leave Attachment' ?>
-                        <?= $atform->field($Attachmentmodel,'attachmentfile')->fileInput(['id' => 'attachmentfile', 'name' => 'attachmentfile' ])->label(false);?>
-                    </button>
+                <?php $atform = \yii\widgets\ActiveForm::begin(['id' => 'attachmentform'], ['options' => ['enctype' => 'multipart/form-data']]); ?>
+                <?= $atform->errorSummary($Attachmentmodel) ?>
+                <button class="btn btn-primary btn-file"><?= $Attachmentmodel->getPath($model->Application_No) ? '<i class="fa fa-upload"></i>&nbsp;&nbsp;Update Leave Attachment' : '<i class="fa fa-upload"></i>&nbsp;&nbsp;Upload Leave Attachment' ?>
+                    <?= $atform->field($Attachmentmodel, 'attachmentfile')->fileInput(['id' => 'attachmentfile', 'name' => 'attachmentfile'])->label(false); ?>
+                </button>
 
-                    <?= $atform->field($Attachmentmodel,'Document_No')->hiddenInput(['value' => $model->Application_No])->label(false);?>
-                    <?= Html::submitButton(($model->isNewRecord)?'':'', ['class' => '']) ?>
+                <?= $atform->field($Attachmentmodel, 'Document_No')->hiddenInput(['value' => $model->Application_No])->label(false); ?>
+                <?= Html::submitButton(($model->isNewRecord) ? '' : '', ['class' => '']) ?>
 
                 <?php \yii\widgets\ActiveForm::end(); ?>
 
-                <?php if($Attachmentmodel->getPath($model->Application_No)){   ?>
+                <?php if ($Attachmentmodel->getPath($model->Application_No)) {   ?>
 
-                <iframe src="data:application/pdf;base64,<?= $Attachmentmodel->readAttachment($model->Application_No); ?>" height="950px" width="100%"></iframe>
+                    <iframe src="data:application/pdf;base64,<?= $Attachmentmodel->readAttachment($model->Application_No); ?>" height="950px" width="100%"></iframe>
                 <?php }  ?>
             </div>
         </div>
@@ -125,28 +128,28 @@ $absoluteUrl = \yii\helpers\Url::home(true);
 
 
 
-    <!--My Bs Modal template  --->
+<!--My Bs Modal template  --->
 
-    <div class="modal fade bs-example-modal-lg bs-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
+<div class="modal fade bs-example-modal-lg bs-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
 
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
-                    </button>
-                    <h4 class="modal-title" id="myModalLabel" style="position: absolute">Leave Management</h4>
-                </div>
-                <div class="modal-body">
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <!--<button type="button" class="btn btn-primary">Save changes</button>-->
-                </div>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel" style="position: absolute">Leave Management</h4>
+            </div>
+            <div class="modal-body">
 
             </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+            </div>
+
         </div>
     </div>
+</div>
 <input type="hidden" name="url" value="<?= $absoluteUrl ?>">
 <?php
 $script = <<<JS
@@ -399,5 +402,3 @@ $style = <<<CSS
 CSS;
 
 $this->registerCss($style);
-
-

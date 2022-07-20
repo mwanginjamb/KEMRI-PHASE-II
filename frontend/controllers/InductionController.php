@@ -151,6 +151,16 @@ class InductionController extends Controller
         }
     }
 
+    public function actionClearanceStatus($No)
+    {
+        $service = Yii::$app->params['ServiceName']['InductionClearanceSection'];
+        $filter = ['Induction_No' => $No];
+        $status = Yii::$app->navhelper->getData($service, $filter);
+        return $this->render('clearance-status', [
+            'model' => $status
+        ]);
+    }
+
     public function actionView($No = '', $Key = '')
     {
         $service = Yii::$app->params['ServiceName']['InductionCard'];
@@ -229,7 +239,7 @@ class InductionController extends Controller
 
         $filter = [
             'Employee_No' => \Yii::$app->user->identity->{'Employee No_'},
-            'Overall_Status' => 'Employee'
+            // 'Overall_Status' => 'Employee'
         ];
         $records = \Yii::$app->navhelper->getData($service, $filter);
         //Yii::$app->recruitment->printrr($records);
@@ -293,6 +303,8 @@ class InductionController extends Controller
     {
         $data = file_get_contents('php://input');
         $params = json_decode($data);
+
+        //Yii::$app->recruitment->printrr($params);
 
         $filter = [
             'Question_Line_No' => $params->No
@@ -548,7 +560,7 @@ class InductionController extends Controller
         $result = Yii::$app->navhelper->Codeunit($service, $data, 'IanGenerateInductionQuestions');
 
         if (!is_string($result)) {
-            Yii::$app->session->setFlash('success', 'Quiz Answers Sent to HR Successfully.', true);
+            Yii::$app->session->setFlash('success', 'Quiz Generated Successfully, See bottom of the document .', true);
             return $this->redirect(['individual-hod']);
         } else {
             Yii::$app->session->setFlash('error', 'Error : ' . $result);
