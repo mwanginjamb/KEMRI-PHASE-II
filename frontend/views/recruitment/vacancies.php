@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: HP ELITEBOOK 840 G5
@@ -23,11 +24,11 @@ $this->params['breadcrumbs'][] = ['label' => 'Vacancies', 'url' => ['index']];
 
 
                 <?php
-                if(Yii::$app->session->hasFlash('success')){
+                if (Yii::$app->session->hasFlash('success')) {
                     print ' <div class="alert alert-success alert-dismissable">';
                     echo Yii::$app->session->getFlash('success');
                     print '</div>';
-                }else if(Yii::$app->session->hasFlash('error')){
+                } else if (Yii::$app->session->hasFlash('error')) {
                     print ' <div class="alert alert-danger alert-dismissable">
                                 ';
                     echo Yii::$app->session->getFlash('error');
@@ -49,7 +50,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Vacancies', 'url' => ['index']];
 
 <?php
 $absoluteUrl = \yii\helpers\Url::home(true);
-print '<input type="hidden" id="ab" value="'.$absoluteUrl.'" />';
+print '<input type="hidden" id="ab" value="' . $absoluteUrl . '" />';
 $script = <<<JS
 
     $(function(){
@@ -69,7 +70,7 @@ $script = <<<JS
                 { title: 'Job_Description' ,data: 'Job_Description'},
                 { title: 'No_of_Posts' ,data: 'No_of_Posts'},
                 // { title: 'Date_Created' ,data: 'Date_Created'},                
-                { title: 'Requisition Type' ,data: 'ReqType'},                
+                { title: 'Employment Type' ,data: 'ReqType'},                
                 { title: 'Action', data: 'action' },
                
                 
@@ -97,9 +98,3 @@ $script = <<<JS
 JS;
 
 $this->registerJs($script);
-
-
-
-
-
-
