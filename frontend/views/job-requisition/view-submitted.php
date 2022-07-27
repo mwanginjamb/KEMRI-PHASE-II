@@ -100,7 +100,7 @@ $Attachmentmodel = new \frontend\models\Leaveattachment()
 
                             <?= $form->field($model, 'Location')->dropDownList($Locations, ['prompt' => '-- Location Not Provided  --', 'disabled' => true]) ?>
                             <?= $form->field($model, 'Requisition_Details')->textarea(['rows' => 2, 'readonly' => true, 'maxlength' => 250]) ?>
-
+                            <?= $form->field($model, 'Grade')->textInput(['readonly' => true]) ?>
 
 
                         </div>
@@ -124,6 +124,7 @@ $Attachmentmodel = new \frontend\models\Leaveattachment()
                             ], ['prompt' => '-- Select Type -- ', 'disabled' => true]) ?>
                             <?= $form->field($model, 'Start_Date')->textInput(['type' => 'date', 'readonly' => true]) ?>
                             <?= $form->field($model, 'Role_Description')->textarea(['rows' => 2, 'maxlength' => 250, 'readonly' => true]) ?>
+                            <?= $form->field($model, 'Pointer')->textInput(['readonly' => true]) ?>
 
 
 

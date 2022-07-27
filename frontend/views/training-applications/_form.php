@@ -209,7 +209,7 @@ if (Yii::$app->session->hasFlash('success')) {
                                 '<i class="fa fa-trash"></i> ',
                                 ['delete-line'],
                                 [
-                                    'class' => 'delete btn btn-outline-danger',
+                                    'class' => 'del delete btn btn-outline-danger',
                                     'title' => 'Delete this record.',
                                     'data-key' => $file->Key,
                                     'data-service' => 'DisciplinaryAttachments',

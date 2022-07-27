@@ -174,7 +174,27 @@ class JobRequisitionController extends Controller
             'Programs' => $this->getPrograms(),
             'Departments' => $this->getDepartments(),
             'Locations' => $this->getLocations(),
+            'Payrollscales' => $this->getPayrollscales(),
+            // 'Payrollscales' => $this->getPayrollscales(),
+
         ]);
+    }
+
+    public function getPayrollscales()
+    {
+        $service = Yii::$app->params['ServiceName']['PayrollScales'];
+        $result = Yii::$app->navhelper->getData($service, []);
+
+        return Yii::$app->navhelper->refactorArray($result, 'Scale', 'Sequence');
+    }
+
+    public function getPointers($scale)
+    {
+        $service = Yii::$app->params['ServiceName']['PayrollScalePointers'];
+        $filter = ['Scale' => $scale];
+        $result = Yii::$app->navhelper->getData($service, $filter);
+
+        return Yii::$app->navhelper->refactorArray($result, 'Pointer', 'Pointer');
     }
 
     public function getPrograms()
@@ -385,8 +405,28 @@ class JobRequisitionController extends Controller
             'Departments' => $this->getDepartments(),
             'Locations' => $this->getLocations(),
             'Employees' => $this->getEmployees(),
-            'SttingLocations' => $this->SttingLocations()
+            'SttingLocations' => $this->SttingLocations(),
+            'Payrollscales' => $this->getPayrollscales(),
+            'Pointers' => $this->getPointers($model->Grade)
+
         ]);
+    }
+
+    public function actionPointerDd($scale)
+    {
+        $service = Yii::$app->params['ServiceName']['PayrollScalePointers'];
+        $filter = ['Scale' => $scale];
+        $result = Yii::$app->navhelper->getData($service, $filter);
+
+        $data = Yii::$app->navhelper->refactorArray($result, 'Pointer', 'Pointer');
+
+        if (count($data)) {
+            foreach ($data  as $k => $v) {
+                echo "<option value='$k'>" . $v . "</option>";
+            }
+        } else {
+            echo "<option value=''>No data Available</option>";
+        }
     }
 
     public function getEmployees()

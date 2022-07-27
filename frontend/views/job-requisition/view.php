@@ -131,6 +131,8 @@ $Attachmentmodel = new \frontend\models\Leaveattachment()
 
                             <?= $form->field($model, 'Location')->dropDownList($Locations, ['prompt' => '-- Select Location --']) ?>
                             <?= $form->field($model, 'Requisition_Details')->textarea(['rows' => 2, 'maxlength' => 250]) ?>
+                            <?= $form->field($model, 'Grade')->textInput(['readonly' =>  true]) ?>
+
 
 
 
@@ -155,6 +157,8 @@ $Attachmentmodel = new \frontend\models\Leaveattachment()
                             ], ['prompt' => '-- Select Type -- ',]) ?>
                             <?= $form->field($model, 'Start_Date')->textInput(['type' => 'date']) ?>
                             <?= $form->field($model, 'Sitting_Location')->dropDownList($SttingLocations, ['prompt' => '-- Select Sitting Location --']) ?>
+                            <!-- <?= $form->field($model, 'Pointer')->dropDownList($Pointers, ['prompt' => '-- Select Pointer --']) ?> -->
+                            <!-- <?= $form->field($model, 'Pointer')->textInput(['readonly' =>  true]) ?> -->
 
 
 
@@ -169,7 +173,7 @@ $Attachmentmodel = new \frontend\models\Leaveattachment()
                             <?= $form->field($model, 'Program_Name')->textInput(['readonly' =>  true]) ?>
                             <?= $form->field($model, 'Criticality')->textInput(['disabled' => true, 'readonly' => true]) ?>
                             <?= $form->field($model, 'Role_Description')->textarea(['rows' => 2, 'maxlength' => 250, 'readonly' => true]) ?>
-                            <?= $form->field($model, 'Criticality')->textInput(['disabled' => true, 'readonly' => true]) ?>
+                            <!-- <?= $form->field($model, 'Criticality')->textInput(['disabled' => true, 'readonly' => true]) ?> -->
 
 
 
@@ -562,6 +566,10 @@ $Attachmentmodel = new \frontend\models\Leaveattachment()
                                 $('#hrjobrequisitioncard-criticality').val(msg.Criticality);
                                 $('#hrjobrequisitioncard-vacancies').val(msg.Vacancies);
                                 $('#hrjobrequisitioncard-role_description').val(msg.Role_Description);
+                                $('#hrjobrequisitioncard-pointer').val(msg.Pointer);
+                                $('#hrjobrequisitioncard-grade').val(msg.Grade);
+
+                                
                             
                                 const parent = document.querySelector('.field-hrjobrequisitioncard-job_id');
                                 const helpbBlock = parent.children[2];

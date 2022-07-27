@@ -47,12 +47,14 @@ class HrJobRequisitionCard extends Model
     public $Vacancies;
     public $Sitting_Location;
     public $Role_Description;
+    public $Grade;
+    public $Pointer;
     public function rules()
     {
         return [
             [[
                 'Job_Id', 'No_Posts', 'Contract_Period', 'Criticality', 'Type', 'Employment_Type', 'Location', 'Requisition_Details',
-                'Start_Date',  'No_Posts', 'Contract_Type', 'Requisition_Type', 'Requisition_Period', 'Sitting_Location', 'Role_Description', 'Qualification_Description'
+                'Start_Date',  'No_Posts', 'Contract_Type', 'Grade',  'Requisition_Type', 'Requisition_Period', 'Sitting_Location', 'Role_Description', 'Qualification_Description'
             ], 'required'],
             [['No_Posts'], 'number', 'min' => 1],
 

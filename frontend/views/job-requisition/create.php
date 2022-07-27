@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: HP ELITEBOOK 840 G5
@@ -27,10 +28,11 @@ $model->isNewRecord = true;
         'model' => $model,
         'ApprovedHRJobs' => $ApprovedHRJobs,
         'Attachmentmodel' => new \frontend\models\Leaveattachment(),
-        'ContractTypes'=>$ContractTypes,
-        'Programs'=>$Programs,
-        'Departments'=>$Departments,
-        'Locations'=>$Locations,
+        'ContractTypes' => $ContractTypes,
+        'Programs' => $Programs,
+        'Departments' => $Departments,
+        'Locations' => $Locations,
+        'Payrollscales' => $Payrollscales,
     ]) ?>
 
 </div>

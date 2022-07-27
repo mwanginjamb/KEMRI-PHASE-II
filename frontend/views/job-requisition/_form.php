@@ -79,6 +79,7 @@ $absoluteUrl = \yii\helpers\Url::home(true);
                                 'Low' => 'Low',
                             ], ['prompt' => '-- Select Criticality -- ', 'required' => true]) ?>
 
+                            <?= $form->field($model, 'Grade')->dropDownList($Payrollscales, ['prompt' => '-- Select Job --']) ?>
 
 
                         </div>

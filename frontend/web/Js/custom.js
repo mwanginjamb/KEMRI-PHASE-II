@@ -300,21 +300,48 @@ function requestStateUpdater(fieldParentNode, notificationType, msg = '') {
 
 // Global Uploader
 
-async function globalUpload(service, entity, fieldName) {
+// Global Uploader
 
+async function globalUpload(attachmentService, entity, fieldName, documentService = false) {
+  const formField = '.field-' + entity.toLowerCase() + '-' + fieldName.toLowerCase();
   const model = entity.toLowerCase();
   const key = document.querySelector(`#${model}-key`).value;
   const fileInput = document.querySelector(`#${model}-${fieldName}`);
   let endPoint = './upload/';
+  let error = false;
   const navPayload = {
     "Key": key,
-    "Service": service
+    "Service": attachmentService,
+    "documentService": documentService
   }
 
   const formData = new FormData();
   formData.append("attachment", fileInput.files[0]);
+  formData.append("Key", key);
+  formData.append("DocumentService", documentService);
+
 
   console.log(fileInput.files);
+  // Validate file you are uploading
+  let file = fileInput.files[0];
+  console.log(file);
+  if (!['application/pdf'].includes(file.type)) {
+    console.log(`We require only PDFs: ${file.name} is of type: ${file.type}`);
+    error = `<div class="text text-danger">We require only PDFs: ${file.name} is of type: ${file.type}</div>`;
+    msg = `We require only PDFs: ${file.name} is of type: ${file.type}`;
+  } else { // Create request payload and upload
+    formData.append('attachments[]', file);
+  }
+
+  if (error) {
+    notifyError(formField, msg);
+    _(`#{model}-${fieldName}`).value = '';
+    Toast.fire({
+      type: 'error',
+      title: error
+    })
+    return;
+  }
 
 
   try {
@@ -323,11 +350,13 @@ async function globalUpload(service, entity, fieldName) {
         method: "POST",
         body: formData,
         headers: new Headers({
-          Origin: 'http://localhost:80/'
+          Origin: 'http://localhost:2026/'
         })
       });
 
     const Response = await Request.json();
+    // reset file input
+    fileInput.value = '';
     console.log(`File Upload Request`);
     console.log(Response);
 
@@ -336,7 +365,7 @@ async function globalUpload(service, entity, fieldName) {
 
 
     // Do a Nav Request
-    endPoint = `${endPoint}?Key=${navPayload.Key}&Service=${navPayload.Service}&filePath=${filePath}`
+    endPoint = `${endPoint}?Key=${navPayload.Key}&Service=${navPayload.Service}&filePath=${filePath}&documentService=${navPayload.documentService}`
     const navReq = await fetch(endPoint, {
       method: "GET",
       headers: new Headers({
@@ -349,10 +378,16 @@ async function globalUpload(service, entity, fieldName) {
     console.log(NavResp);
     console.info(navReq.ok);
     if (navReq.ok) {
+      notifySuccess(formField, 'Attachment Uploaded Successfully.');
       Toast.fire({
         type: 'success',
         title: 'Attachment uploaded Successfully.'
       });
+      // Reload
+      setTimeout(() => {
+        console.log(`Trying to reload.`);
+        location.reload(true)
+      }, 1000)
     } else {
       Toast.fire({
         type: 'error',
@@ -365,6 +400,157 @@ async function globalUpload(service, entity, fieldName) {
     console.log(error);
   }
 }
+
+// Create an element selector helper function
+
+function _(element) {
+  return document.getElementById(element);
+}
+
+// Upload multiple Files
+async function globalUploadMultiple(attachmentService, entity, route, documentService = false) {
+  const formField = '.field-select_multiple';
+  const model = entity.toLowerCase();
+  const key = _(`${model}-key`).value;
+  let endPoint = _('absolute').value + `${route}/upload-multiple`;
+  //console.log(endPoint); return;
+  const navPayload = {
+    "Key": key,
+    "Service": attachmentService,
+    "documentService": documentService
+  }
+
+  const formData = new FormData();
+  // formData.append("attachment", fileInput.files[0]);
+  formData.append("Key", key);
+  formData.append("DocumentService", documentService);
+  formData.append("attachmentService", attachmentService);
+
+
+
+  let error = '';
+
+  try {
+    console.log(Array.from(_('select_multiple').files));
+    Array.from(_('select_multiple').files).forEach((file) => {
+      console.log(file);
+      if (!['application/pdf'].includes(file.type)) {
+        console.log(`We require only PDFs: ${file.name} is of type: ${file.type}`);
+        error = `<div class="text text-danger">We require only PDFs: ${file.name} is of type: ${file.type}</div>`;
+      } else { // Create request payload and upload
+        formData.append('attachments[]', file);
+      }
+    });
+
+    if (error) {
+      _('upload-note').innerHTML = error;
+      _('select_multiple').value = '';
+      Toast.fire({
+        type: 'error',
+        title: error
+      })
+      return;
+    }
+
+    _('progress_bar').style.display = 'block';
+    let ajax_request = new XMLHttpRequest();
+    ajax_request.open("post", endPoint); // Initiate request
+
+    // Set headers
+    ajax_request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    ajax_request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+
+    ajax_request.upload.addEventListener('progress', (e) => {
+      let percentCompleted = Math.round((e.loaded / e.total) * 100);
+      _('progress_bar_process').style.width = `${percentCompleted}%`;
+      _('progress_bar_process').innerHTML = `${percentCompleted}% completed`;
+      console.log('progress values-------------------');
+      console.log(_('progress_bar_process').innerHTML);
+    });
+
+    ajax_request.addEventListener('load', (e) => {
+      _('upload-note').innerHTML = `<div class="text text-success">Files uploaded successfully.</div>`;
+      _('select_multiple').value = '';
+    });
+
+    /** I did 2 requests since XMLHttpRequest would not send metadata and multipart data simultaneously,
+     * Reason for using fetch was to send attachment metadata like Key, Webservices etc.
+     * XMLHttpRequest has progress and load events while fetch didn't have (Used to measure progress)
+     * If these limitations are addressed in future, please update the code to only use one request.
+     * @francnjamb -  fnjambi@outlook.com
+     */
+    const request = ajax_request.send(formData);
+    const Requesto = await fetch(endPoint,
+      {
+        method: "POST",
+        body: formData,
+        headers: new Headers({
+          Origin: 'http://localhost:2026/'
+        })
+      });
+
+    const res = await Requesto.json();
+
+    console.log(`Data Request......................`);
+    console.log(res);
+
+    if (Requesto.ok) {
+      notifySuccess(formField, 'Attachments Uploaded Successfully.');
+      Toast.fire({
+        type: 'success',
+        title: 'Attachment uploaded Successfully.'
+      });
+      // Reload
+      setTimeout(() => {
+        console.log(`Trying to reload.`);
+        location.reload(true)
+      }, 1000)
+    } else {
+      Toast.fire({
+        type: 'error',
+        title: 'Attachment could not be uploaded.'
+      })
+    }
+
+
+    ajax_request.addEventListener('error', (e) => {
+      console.log(`Errors...........`);
+      console.log(e);
+    });
+
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+
+function notifySuccess(parentClassField, message) {
+  let parent = document.querySelector(parentClassField);
+
+  console.log('Parent to report success to.....................');
+  console.dir(parent);
+  let span = document.createElement('span');
+  span.classList.add('text');
+  span.classList.add('text-success');
+  span.classList.add('small');
+  span.innerText = message;
+
+  parent.appendChild(span);
+}
+
+function notifyError(parentClassField, message) {
+  let parent = document.querySelector(parentClassField);
+
+  let span = document.createElement('span');
+  span.classList.add('text');
+  span.classList.add('text-danger');
+  span.classList.add('small');
+  span.innerText = message;
+
+  parent.appendChild(span);
+}
+
 
 
 

@@ -109,7 +109,7 @@ class TrainingApplicationsController extends Controller
         if (!empty($No)) {
             $document = Yii::$app->navhelper->findOne($service, ['Application_No' => $No]);
         } elseif (!empty($Key)) {
-            $document = Yii::$app->navhelper->readByKfey($service, $Key);
+            $document = Yii::$app->navhelper->readByKey($service, $Key);
         } else {
             Yii::$app->session->setFlash('error', 'We are unable to fetch a document to update', true);
             return Yii::$app->redirect(['index']);
@@ -191,7 +191,7 @@ class TrainingApplicationsController extends Controller
 
         // Upload
         if (Yii::$app->request->isPost) {
-            $DocumentService = Yii::$app->params['ServiceName'][Yii::$app->request->post('DocumentService')];
+            $DocumentService = (Yii::$app->request->post('DocumentService')) ? Yii::$app->params['ServiceName'][Yii::$app->request->post('DocumentService')] : null;
             $parentDocument = Yii::$app->navhelper->readByKey($DocumentService, Yii::$app->request->post('Key'));
 
             $metadata = [];
@@ -229,7 +229,7 @@ class TrainingApplicationsController extends Controller
         if (Yii::$app->request->isGet) {
             $fileName = basename(Yii::$app->request->get('filePath'));
 
-            $DocumentService = Yii::$app->params['ServiceName'][Yii::$app->request->get('documentService')];
+            $DocumentService = (Yii::$app->request->get('documentService')) ? Yii::$app->params['ServiceName'][Yii::$app->request->get('documentService')] : null;
             $AttachmentService = Yii::$app->params['ServiceName'][Yii::$app->request->get('Service')];
             $Document = Yii::$app->navhelper->readByKey($DocumentService, Yii::$app->request->get('Key'));
 
