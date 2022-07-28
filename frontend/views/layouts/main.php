@@ -706,7 +706,8 @@ $employee = (!Yii::$app->user->isGuest && is_array(Yii::$app->user->identity->em
                                                     <p>E-Y Closed (Appraisee) </p>
                                                 </a>
                                             </li>
-                                            <?php if (!Yii::$app->user->isGuest && Yii::$app->user->identity->isSupervisor()) :  ?>
+                                            <?php if (1 == 0 && !Yii::$app->user->isGuest && Yii::$app->user->identity->isSupervisor()) : // Hide by adding illogical condition  
+                                            ?>
                                                 <li class="nav-item">
                                                     <a href="<?= $absoluteUrl ?>appraisal/eysupervisorclosedlist" class="nav-link <?= Yii::$app->recruitment->currentaction('appraisal', 'eysupervisorclosedlist') ? 'active' : '' ?>">
                                                         <i class="fa fa-check-square nav-icon"></i>
@@ -1248,35 +1249,35 @@ $employee = (!Yii::$app->user->isGuest && is_array(Yii::$app->user->identity->em
                                     </li>
 
                                     <!-- <li class="nav-item">
-                                        <a href="<?= $absoluteUrl ?>applicantprofile" class="nav-link <?= Yii::$app->recruitment->currentaction('recruitment','applicantprofile')?'active':'' ?>">
+                                        <a href="<?= $absoluteUrl ?>applicantprofile" class="nav-link <?= Yii::$app->recruitment->currentaction('recruitment', 'applicantprofile') ? 'active' : '' ?>">
                                             <i class="fa fa-check-square nav-icon"></i>
                                             <p>Recruitment Profile </p>
                                         </a>
                                     </li> -->
 
                                     <li class="nav-item">
-                                        <a href="<?= $absoluteUrl ?>recruitment/vacancies" class="nav-link <?= Yii::$app->recruitment->currentaction('recruitment','vacancies')?'active':'' ?>">
+                                        <a href="<?= $absoluteUrl ?>recruitment/vacancies" class="nav-link <?= Yii::$app->recruitment->currentaction('recruitment', 'vacancies') ? 'active' : '' ?>">
                                             <i class="fa fa-check-square nav-icon"></i>
                                             <p>Internal Job Vacancies </p>
                                         </a>
                                     </li>
 
                                     <li class="nav-item">
-                                        <a href="<?= $absoluteUrl ?>recruitment/applications" class="nav-link <?= Yii::$app->recruitment->currentaction('recruitment','applications')?'active':'' ?>">
+                                        <a href="<?= $absoluteUrl ?>recruitment/applications" class="nav-link <?= Yii::$app->recruitment->currentaction('recruitment', 'applications') ? 'active' : '' ?>">
                                             <i class="fa fa-check-square nav-icon"></i>
                                             <p>My Job Aplications </p>
                                         </a>
                                     </li>
 
                                     <li class="nav-item">
-                                        <a href="<?= $absoluteUrl ?>recruitment/my-short-lisitng-committees" class="nav-link <?= Yii::$app->recruitment->currentaction('recruitment','applications')?'active':'' ?>">
+                                        <a href="<?= $absoluteUrl ?>recruitment/my-short-lisitng-committees" class="nav-link <?= Yii::$app->recruitment->currentaction('recruitment', 'applications') ? 'active' : '' ?>">
                                             <i class="fa fa-check-square nav-icon"></i>
                                             <p> Applicant Shortlisting </p>
                                         </a>
                                     </li>
 
                                     <li class="nav-item">
-                                        <a href="<?= $absoluteUrl ?>interviews/my-interviwing-committees" class="nav-link <?= Yii::$app->recruitment->currentaction('recruitment','applications')?'active':'' ?>">
+                                        <a href="<?= $absoluteUrl ?>interviews/my-interviwing-committees" class="nav-link <?= Yii::$app->recruitment->currentaction('recruitment', 'applications') ? 'active' : '' ?>">
                                             <i class="fa fa-check-square nav-icon"></i>
                                             <p> Applicant Interviewing </p>
                                         </a>
